@@ -48,9 +48,6 @@ form.addEventListener("submit", (e) => {
             mensagem.innerHTML = "<div class='texto-aviso'>Esse email já está cadastrado!</div>";
             return;
         }
-
-        localStorage.setItem(email, senha);
-        mensagem.innerHTML = "<div class='texto-sucesso'>Cadastro realizado com sucesso!</div>";
     }
 
     else {
