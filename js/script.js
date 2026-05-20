@@ -59,7 +59,7 @@ form.addEventListener("submit", (e) => {
         if (senhaSalva === null) {
             mensagem.innerHTML = "<div class='texto-perigo'>Usuário não encontrado!</div>";
         } else if (senhaSalva === senha) {
-            mensagem.innerHTML = "<div class='texto-sucesso'>Login realizado com sucesso!</div>";
+            window.location.href = "/pages/menu.html";
         } else {
             mensagem.innerHTML = "<div class='texto-perigo'>Email ou senha incorreta!</div>";
         }
