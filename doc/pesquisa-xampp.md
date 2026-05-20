@@ -3,34 +3,47 @@
 CAPÍTULO 1 - CONCEITO 
 
 O XAMPP é um dos pacotes de softwares mais conhecidos quando o assunto é desenvolvimento local de aplicações web. Ele foi criado para simplificar a vida de programadores e estudantes que precisam de um servidor completo instalado no próprio computador, sem a necessidade de configurar manualmente cada serviço.  Com ele, é possível rodar projetos em PHP, MySQL/MariaDB, Apache e Perl de maneira rápida e prática, simulando as condições de um servidor real. O nome XAMPP é, na verdade, um acrônimo que representa seus principais componentes:
+
 X = Multiplataforma (compatível com Windows, Linux e macOS);
+
 A = Apache, o servidor web mais utilizado no mundo;
+
 M = MariaDB/MySQL, banco de dados relacional para armazenar e gerenciar dados;
+
 P = PHP, linguagem de programação essencial para desenvolvimento web dinâmico;
+
 P = Perl, linguagem versátil usada em automação e manipulação de dados.
 
 
 CAPÍTULO 2 - PRINCIPAIS COMPONENTES
 
 O XAMPP possui vários componentes responsáveis pelo funcionamento do ambiente de desenvolvimento local. Esses componentes trabalham juntos para permitir a criação, execução e teste de sites e sistemas diretamente no computador.
-Os principais componentes do XAMPP são:
-Apache;
-MySQL/MariaDB;
-PHP;
-phpMyAdmin.
+Os principais componentes do XAMPP são: Apache, MySQL/MariaDB, PHP e phpMyAdmin.
 Cada um possui uma função específica, como servidor web, banco de dados, linguagem de programação e gerenciamento das informações do sistema.
 
 
 CAPÍTULO 2.1 -  APACHE
 
+O Apache HTTP Server, conhecido apenas como Apache, é um servidor web gratuito e de código aberto muito usado para hospedar sites e aplicações na internet. Ele funciona como uma ponte entre o navegador do usuário e o servidor onde os arquivos do site estão armazenados, permitindo o acesso a páginas, imagens, vídeos e outros conteúdos. 
+Criado em 1995, o Apache teve grande importância no crescimento da internet, ajudando pessoas e empresas a criarem seus próprios sites. Atualmente, ele é administrado pela Apache Software Foundation, que mantém o sistema atualizado e seguro. Sua principal função é receber as solicitações dos usuários e entregar rapidamente o conteúdo das páginas web, como HTML e CSS, garantindo uma boa comunicação entre navegador e servidor.
+
 
 CAPÍTULO 2.2 -  MYSQL/MARIADB
+
+O MySQL é um sistema de gerenciamento de banco de dados gratuito e de código aberto muito utilizado no mundo. Ele serve para armazenar, organizar e gerenciar informações de aplicações e sites, como logins, pesquisas e transações.
+O MySQL funciona usando tabelas para separar e organizar os dados, facilitando o acesso, a atualização e a análise das informações. Esse modelo ajuda a evitar dados duplicados, inconsistentes ou desatualizados, deixando o sistema mais seguro e eficiente.
 
 
 CAPÍTULO 2.3  - PHP 
 
+O PHP é uma linguagem de programação gratuita e de código aberto muito usada no desenvolvimento de sites e aplicações web. Ele pode ser integrado ao HTML para criar páginas dinâmicas e interativas. Diferente do JavaScript, que funciona no navegador, o PHP é executado no servidor. Isso significa que o código é processado antes da página chegar ao navegador do usuário, enviando apenas o resultado final em HTML.
+O PHP é conhecido por ser fácil de aprender para iniciantes, mas também possui recursos avançados para programadores mais experientes. Com ele, é possível criar formulários, gerenciar cookies, gerar páginas dinâmicas e conectar sites a bancos de dados. Além de funcionar em servidores web, o PHP também pode ser executado pela linha de comando, permitindo criar scripts para automatizar tarefas e processar dados.
+
 
 CAPÍTULO 2.4 - PHPMYADMIN
+
+O phpMyAdmin é uma ferramenta gratuita e de código aberto desenvolvida em PHP para administrar bancos de dados MySQL e MariaDB pela internet. Ele possui uma interface simples e fácil de usar, permitindo gerenciar bancos de dados sem precisar utilizar apenas comandos SQL. Com o phpMyAdmin, é possível criar, alterar, copiar, excluir e organizar bancos de dados, tabelas, colunas e índices de forma prática. 
+A ferramenta também permite executar comandos SQL, gerenciar usuários e permissões, além de administrar vários servidores MySQL em um único lugar. Outro recurso importante é a importação e exportação de dados em diferentes formatos, como SQL, CSV, XML e PDF. Além disso, o phpMyAdmin oferece visualizações gráficas dos bancos de dados, pesquisas avançadas e recursos para facilitar a criação de consultas complexas. Por ser uma ferramenta completa e intuitiva, o phpMyAdmin é muito utilizado por desenvolvedores e administradores para facilitar o gerenciamento de bancos de dados.
 
 
 CAPÍTULO 3 - COMO REALIZAR A INSTALAÇÃO
@@ -43,7 +56,7 @@ Após finalizar, o XAMPP estará pronto para ser utilizado no computador.
 
 
 CAPÍTULO 3.1 - CONFIGURAÇÃO BÁSICA
-    A instalação do XAMPP é simples e rápida, sendo uma das maneiras mais fáceis de criar um ambiente de desenvolvimento local. Mesmo pessoas sem muita experiência conseguem realizar a instalação em poucos minutos. Antes de instalar, é importante verificar se o computador possui alguns requisitos básicos:
+A instalação do XAMPP é simples e rápida, sendo uma das maneiras mais fáceis de criar um ambiente de desenvolvimento local. Mesmo pessoas sem muita experiência conseguem realizar a instalação em poucos minutos. Antes de instalar, é importante verificar se o computador possui alguns requisitos básicos:
 
 processador dual-core ou superior;
 
