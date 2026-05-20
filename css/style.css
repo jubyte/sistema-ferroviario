@@ -73,8 +73,8 @@ body {
 }
 
 .login__input {
-  background:
-    linear-gradient(90deg, rgba(255,140,0,0.08), rgba(0,0,0,0.4));
+  background:linear-gradient(90deg, rgba(255,140,0,0.08), rgba(0,0,0,0.4));
+  
   border: 1px solid rgba(255,255,255,0.25);
   color: #fff;
   border-radius: 0;
@@ -88,7 +88,7 @@ body {
 .login__button {
   margin-top: 15px;
 
-  background: linear-gradient(90deg, #dddddd85, #ffffff7e, #dddddd86);
+  background: linear-gradient(90deg, #ddddddd8, #ffffffbe, #ddddddd8);
   border: 1px solid rgba(200,200,200,0.5);
 
   color: #00178d;
@@ -106,14 +106,6 @@ body {
   font-weight: normal;
 
   color: #002aff;
-  margin-bottom: 2%;
-}
-
-.texto-sucesso{
-  font-family: 'Science Gothic', sans-serif;
-  font-weight: normal;
-
-  color: #8a9dff;
   margin-bottom: 2%;
 }
 
