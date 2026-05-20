@@ -1,4 +1,4 @@
-// estado (login ou cadastro)
+// login ou cadastro
 let cadastro = false;
 
 // elementos
@@ -8,7 +8,7 @@ const form = document.getElementById("form-login");
 const mensagem = document.getElementById("mensagem");
 const botao = form.querySelector("button");
 
-// alternar entre login e cadastro
+// alternar
 toggle.addEventListener("click", (e) => {
     e.preventDefault();
 
@@ -33,7 +33,6 @@ form.addEventListener("submit", (e) => {
 
     mensagem.innerHTML = "";
 
-    // validações
     if (!email.includes("@") || !email.includes(".")) {
         mensagem.innerHTML = "<div class='texto-perigo'>Email inválido!</div>";
         return;
@@ -44,7 +43,6 @@ form.addEventListener("submit", (e) => {
         return;
     }
 
-    // CADASTRO
     if (cadastro) {
         if (localStorage.getItem(email)) {
             mensagem.innerHTML = "<div class='texto-aviso'>Esse email já está cadastrado!</div>";
@@ -55,7 +53,6 @@ form.addEventListener("submit", (e) => {
         mensagem.innerHTML = "<div class='texto-sucesso'>Cadastro realizado com sucesso!</div>";
     }
 
-    // LOGIN
     else {
         const senhaSalva = localStorage.getItem(email);
 
