@@ -90,3 +90,19 @@ executar códigos PHP;
 simular um servidor real.
 
 O ambiente também oferece mais segurança, pois o desenvolvedor pode testar e corrigir erros sem afetar usuários reais ou sistemas publicados na internet. Além disso, o XAMPP facilita o aprendizado e ajuda estudantes e desenvolvedores a criarem projetos de forma mais prática e organizada.
+
+Referências: 
+
+HOSTGATOR. O que é XAMPP e para que serve?. Disponível em: https://www.hostgator.com.br/blog/o-que-e-xampp/. Acesso em: 18 maio 2026.
+
+IBM. O que é Apache Server?. Disponível em: https://www.ibm.com/br-pt/think/topics/apache-server. Acesso em: 18 maio 2026.
+
+ORACLE. O que é MySQL?. Disponível em: https://www.oracle.com/br/mysql/what-is-mysql/. Acesso em: 18 maio 2026.
+
+PHPMYADMIN. phpMyAdmin. Disponível em: https://www.phpmyadmin.net/. Acesso em: 18 maio 2026.
+
+PHP. Introdução ao PHP. Disponível em: https://www.php.net/manual/pt_BR/introduction.php. Acesso em: 18 maio 2026.
+
+MERCADO ONLINE DIGITAL. XAMPP: o que é e como funciona. Disponível em: https://mercadoonlinedigital.com/blog/xampp/. Acesso em: 18 maio 2026. 
+
+

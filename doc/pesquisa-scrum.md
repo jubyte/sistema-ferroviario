@@ -86,3 +86,10 @@ CAPÍTULO 5 - BENEFÍCIOS
 O Scrum possui cinco valores principais que ajudam a equipe a trabalhar de forma mais organizada, eficiente e colaborativa. Esses valores melhoram a comunicação, aumentam a 
 produtividade e ajudam no sucesso do projeto. O compromisso faz com que cada integrante cumpra suas responsabilidades e ajude a equipe a alcançar os objetivos da Sprint. A coragem incentiva os membros a enfrentarem desafios, apresentarem ideias e falarem sobre problemas encontrados. O foco ajuda a equipe a se concentrar nas tarefas mais importantes, melhorando a organização e evitando atrasos. Já a abertura incentiva uma comunicação clara e transparente entre todos os participantes do projeto. 
 Por fim, o respeito fortalece o trabalho em equipe, valorizando as opiniões e funções de cada integrante.Com esses valores, o Scrum traz benefícios como melhor organização, maior produtividade, entregas mais rápidas e melhoria na qualidade do projeto final.
+
+Referências: 
+ATLASSIAN. Sprints Scrum. Disponível em: https://www.atlassian.com/en/agile/scrum/sprints. Acesso em: 20 maio 2026.
+
+ATLASSIAN. Papéis no Scrum. Disponível em: https://www.atlassian.com/br/agile/scrum/roles. Acesso em: 20 maio 2026.
+
+ATLASSIAN. O que é o Scrum?. Disponível em: https://www.atlassian.com/agile/scrum/. Acesso em: 20 maio 2026.
