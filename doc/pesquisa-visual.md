@@ -1,4 +1,4 @@
-![Banner](../assets/imgs/banner_visual)
+![Banner](../assets/imgs/banner_visual.png)
 
 # INTRODUÇÃO
 
@@ -26,7 +26,11 @@ Para desenvolver ideias de interfaces e layouts, é importante analisar projetos
 ## REFERÊNCIAS
 
 - COLOR MATTERS. A psicologia das cores no design e identidade visual. Disponível em: https://www.colormatters.com. Acesso em: 20 maio 2026.
+
 - ADOBE. Teoria das cores e harmonia visual para design digital. Disponível em: https://color.adobe.com/pt/create/color-wheel. Acesso em: 20 maio 2026.
+
 - NIELSEN NORMAN GROUP. Principles of Visual Design in UX. Disponível em: https://www.nngroup.com/articles/principles-visual-design/. Acesso em: 20 maio 2026.
+
 - GOOGLE FONTS. Typography Knowledge. Disponível em: https://fonts.google.com/knowledge. Acesso em: 20 maio 2026.
+
 - MATERIAL DESIGN. Disponível em: https://m2.material.io/design/foundation-overviewl. Acesso em: 20 maio 2026.
