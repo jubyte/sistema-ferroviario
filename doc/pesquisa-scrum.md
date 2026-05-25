@@ -88,6 +88,7 @@ produtividade e ajudam no sucesso do projeto. O compromisso faz com que cada int
 Por fim, o respeito fortalece o trabalho em equipe, valorizando as opiniões e funções de cada integrante.Com esses valores, o Scrum traz benefícios como melhor organização, maior produtividade, entregas mais rápidas e melhoria na qualidade do projeto final.
 
 Referências: 
+
 ATLASSIAN. Sprints Scrum. Disponível em: https://www.atlassian.com/en/agile/scrum/sprints. Acesso em: 20 maio 2026.
 
 ATLASSIAN. Papéis no Scrum. Disponível em: https://www.atlassian.com/br/agile/scrum/roles. Acesso em: 20 maio 2026.
