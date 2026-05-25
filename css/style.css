@@ -308,3 +308,30 @@ body{
         font-size:52px;
     }
 }
+
+.flex{
+  display: flex;
+}
+
+.conteudo{
+    margin-top: 2%;
+    margin-left: 1%;
+}
+
+.cabecalho{
+    font-family: 'Science Gothic', sans-serif;
+    color: #d7d7d8;
+    font-weight:bold;
+    letter-spacing:2px;
+}
+
+.quadrado{
+  background-color: #0c132f;
+  border: 1px outset;
+  border-color: #ffffff;
+  color: #e2e2e2;
+}
+
+.ativos{
+  margin-right: 50%;
+}
