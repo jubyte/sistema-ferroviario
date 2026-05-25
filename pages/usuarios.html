@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="shortcut icon" type="imagex/png" href="/assets/icons/logo_site.png">
     <link href="https://fonts.googleapis.com/css2?family=Science+Gothic:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -45,7 +45,7 @@
             <span>PAINEL</span>
             </a>
 
-            <a href="/pages/sensores.html" class="menu-item active">
+            <a href="/pages/sensores.html" class="menu-item">
             <i class="bi bi-cpu-fill"></i>
             <span>SENSORES</span>
             </a>
@@ -60,7 +60,7 @@
             <span>RELATÓRIOS</span>
             </a>
 
-            <a href="/pages/usuarios.html" class="menu-item">
+            <a href="/pages/usuarios.html" class="menu-item active">
             <i class="bi bi-people-fill"></i>
             <span>USUÁRIOS</span>
             </a>
@@ -72,5 +72,47 @@
         <span>SAIR</span> </a>
 
     </aside> 
-</body>
+    <div>
+    <h1 id="titulo" class="usuario__title">USUÁRIOS</h1></body>
+        <h2 id="titulo" class="login__subtitle">SISTEMA FERROVIÁRIO</h2></body>
+
+        <div class="container-fluid py-4 fundo">
+
+  <div class="cadastro-box">
+
+    <h2 id="titulo" class="usuario__title">CADASTRAR USUÁRIO</h2>
+
+    <div class="row g-4 align-items-end">
+      <div class="col-md-3">
+        <label class="label-custom">NOME</label>
+        <input type="text" class="form-control input-custom">
+      </div>
+      <div class="col-md-3">
+        <label class="label-custom">E-MAIL</label>
+        <input type="email" class="form-control input-custom">
+      </div>
+      <div class="col-md-3">
+        <label class="label-custom">TELEFONE</label>
+        <input type="text" class="form-control input-custom">
+      </div>
+      <div class="col-md-2">
+        <label class="label-custom">TIPO</label>
+        <select class="form-select input-custom select-custom">
+          <option selected disabled>SELECIONE</option>
+          <option>Administrador</option>
+          <option>Usuário</option>
+        </select>
+      </div>
+
+     <div class="col-md-2 d-flex align-items-end">
+    <button class="btn botao-custom w-100">+ADICIONAR</button>
+</div>
+
+    </div>
+  </div>
+
+</div>
+
+</div>
+
 </html>
