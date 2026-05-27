@@ -1,31 +1,39 @@
 ![Banner](../assets/imgs/banner_crud.png)
 
 
-CAPÍTULO 1 - CONCEITO 
+## 1. CONCEITO
 
-CRUD (Criar, Ler, Atualizar e Excluir) é um conjunto de quatro operações básicas usadas para manipular dados em sistemas de software. Esse conceito é fundamental porque define como as informações são armazenadas, acessadas e modificadas dentro de um banco de dados ou qualquer outro tipo de repositório de dados. Cada letra do acrônimo representa uma ação essencial:
+O CRUD (Create, Read, Update e Delete) é um conjunto de quatro operações básicas utilizadas para manipular dados em sistemas de software. Esse conceito é fundamental, pois define como as informações são armazenadas, acessadas e modificadas dentro de um banco de dados ou outro tipo de repositório de dados. Segundo a Mozilla (2025), o CRUD representa as principais funções utilizadas na manipulação de informações em sistemas digitais.
 
-Create (INSERT): inserir novos dados no sistema, como cadastrar um usuário.
- 
-Read (SELECT): consultar ou visualizar informações já armazenadas.
- 
-Update (UPDATE): modificar dados existentes, como editar um cadastro.
- 
-Delete (DELETE): remover dados, que pode ser feito de forma definitiva ou apenas lógica (quando o dado não é apagado, mas marcado como inativo).
+O acrônimo CRUD representa quatro operações fundamentais:
 
-CAPÍTULO 1.1 - OPERAÇÕES
+- **Create (INSERT):** responsável pela inserção de novos dados no sistema, como o cadastro de usuários;
+- **Read (SELECT):** utilizado para consultar ou visualizar informações armazenadas;
+- **Update (UPDATE):** permite modificar dados já existentes;
+- **Delete (DELETE):** realiza a remoção de dados do sistema, podendo ser feita de forma definitiva ou lógica, quando o dado apenas é marcado como inativo.
 
-Essas operações são a base de praticamente todos os sistemas digitais, desde aplicativos simples até plataformas mais complexas. Sempre que o usuário cadastra, visualiza edita ou exclui informações, ele está usando o CRUD. Além disso, o CRUD ajuda a organizar o sistema, pois define como o usuário se comunica com o banco de dados. Por isso, é considerado essencial no desenvolvimento, garantindo organização, facilidade de manutenção e crescimento do sistema. No fim, ele permite que o usuário gerencie os dados de forma completa e simples dentro da aplicação.
+### 1.1 OPERAÇÕES
 
-CAPÍTULO 2 - APLICAÇÃO NO PROJETO
+As operações CRUD são consideradas a base da maioria dos sistemas digitais, desde aplicações simples até plataformas mais complexas. Sempre que um usuário cadastra, visualiza, edita ou exclui informações, ele está utilizando alguma das operações do CRUD.
 
-No nosso projeto o CRUD é a base para organizar e controlar os dados que vêm dos sensores dos trens. Basicamente, cada informação coletada vira um dado dentro do sistema. Quando o trem enviar novos dados, o sistema usa o “Create” para salvar essas informações no banco de dados. Isso acontece o tempo todo, já que os sensores estão sempre coletando dados. Depois, com o “Read”, você consegue visualizar essas informações. Por exemplo, dá para ver onde o trem está, qual é a velocidade atual ou quanto de energia ele está consumindo.
-Se algum dado precisa ser corrigido ou atualizado, entra o “Update”. Isso pode acontecer se houver algum erro ou se você quiser mudar o status de um trem, como indicar que ele está em manutenção. Já o “Delete” serve para remover dados que não são mais úteis, como informações duplicadas ou muito antigas. Em alguns casos, ao invés de apagar de vez, você pode apenas marcar o dado como desativado.
+Além disso, o CRUD auxilia na organização do sistema, pois define a forma como os usuários interagem com o banco de dados. Dessa maneira, o conceito contribui para a manutenção, organização e crescimento do sistema, permitindo um gerenciamento mais eficiente das informações.
 
-Referências: 
+## 2. APLICAÇÃO NO PROJETO
 
-MOZILLA. CRUD. MDN Web Docs, 2025. Disponível em: https://developer.mozilla.org/pt-BR/docs/Glossary/CRUD. Acesso em: 4 maio 2026.
+No projeto desenvolvido, o CRUD é utilizado como base para organizar e controlar os dados recebidos pelos sensores dos trens. Cada informação coletada pelos sensores é armazenada no sistema como um dado no banco de dados.
 
-ESCOLA DNC. CRUD: o que é e como funciona. 2023. Disponível em: https://www.escoladnc.com.br/blog/crud-o-que-e-e-como-funciona. Acesso em: 4 maio 2026.
+Quando o trem envia novas informações, a operação Create é utilizada para registrar os dados no sistema. Esse processo ocorre continuamente, já que os sensores realizam coletas constantes de informações.
 
-PROGRAMADORES DEPRÊ. O que é CRUD? Explicado com exemplos em PHP e MySQL. 2022. Disponível em: https://programadoresdepre.com.br/o-que-e-crud/. Acesso em: 4 maio 2026.
+Por meio da operação Read, é possível visualizar os dados armazenados, como a localização do trem, a velocidade atual e o consumo de energia.
+
+Caso alguma informação precise ser corrigida ou atualizada, utiliza-se a operação Update. Isso pode ocorrer, por exemplo, na alteração do status de um trem para indicar manutenção ou correção de dados cadastrados incorretamente.
+
+Já a operação Delete é responsável pela remoção de informações que não são mais necessárias, como dados duplicados ou antigos. Em determinadas situações, a exclusão pode ocorrer apenas de forma lógica, mantendo os dados armazenados, porém marcados como inativos.
+
+## REFERÊNCIAS
+
+- MOZILLA. CRUD. MDN Web Docs, 2025. Disponível em: https://developer.mozilla.org/pt-BR/docs/Glossary/CRUD. Acesso em: 4 maio 2026.
+
+- ESCOLA DNC. CRUD: o que é e como funciona. 2023. Disponível em: https://www.escoladnc.com.br/blog/crud-o-que-e-e-como-funciona. Acesso em: 4 maio 2026.
+
+- PROGRAMADORES DEPRÊ. O que é CRUD? Explicado com exemplos em PHP e MySQL. 2022. Disponível em: https://programadoresdepre.com.br/o-que-e-crud/. Acesso em: 4 maio 2026.
