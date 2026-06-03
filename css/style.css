@@ -463,6 +463,7 @@ body{
     color: #d7d7d8;
     font-weight:bold;
     letter-spacing:2px;
+    margin-bottom: 7%;
 }
 
 .quadrado{
@@ -470,8 +471,30 @@ body{
   border: 1px outset;
   border-color: #ffffff;
   color: #e2e2e2;
+  width: 180%;
+  display: flex;
 }
 
-.ativos{
-  margin-right: 50%;
+.sem-quebra-linha{
+  margin-right: 100%;
+  white-space: nowrap;
+}
+
+.bi-broadcast-pin {
+    font-size: 4em;
+    margin-top: 1%;
+    margin-left: 3%;
+    margin-right: 7%;
+}
+
+h4{
+  margin: 0px;
+}
+
+.sensores{
+  margin-top: 2%;
+}
+
+.manutencao{
+  margin-left: 40%;
 }
