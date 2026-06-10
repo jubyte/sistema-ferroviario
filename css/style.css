@@ -456,6 +456,7 @@ body{
 .conteudo{
     margin-top: 2%;
     margin-left: 1%;
+    width: 70%;
 }
 
 .cabecalho{
@@ -463,16 +464,18 @@ body{
     color: #d7d7d8;
     font-weight:bold;
     letter-spacing:2px;
-    margin-bottom: 7%;
+    margin-bottom: 2%;
 }
 
-.quadrado{
+.quadrado-sensores{
   background-color: #0c132f;
   border: 1px outset;
   border-color: #ffffff;
   color: #e2e2e2;
-  width: 180%;
+  width: 70vh;
   display: flex;
+  margin-right: 2%;
+  height: 12vh;
 }
 
 .sem-quebra-linha{
@@ -482,8 +485,15 @@ body{
 
 .bi-broadcast-pin {
     font-size: 4em;
-    margin-top: 1%;
+    margin-top: 3%;
     margin-left: 3%;
+    margin-right: 7%;
+}
+
+.bi-exclamation-triangle {
+    font-size: 4em;
+    margin-top: 10%;
+    margin-left: 4%;
     margin-right: 7%;
 }
 
@@ -492,9 +502,48 @@ h4{
 }
 
 .sensores{
-  margin-top: 2%;
+  margin-top: 4%;
 }
 
 .manutencao{
   margin-left: 40%;
+}
+
+.quadrado-alertas{
+  background-color: #0c132f;
+  border: 1px outset;
+  border-color: #ffffff;
+  color: #e2e2e2;
+  width: 25vh;
+  display: flex;
+}
+
+.alertas{
+  margin-top: 13%;
+  margin-left: 9%;
+}
+
+.quadrado-monitoramento{
+  margin-top: 2%;
+  background-color: #0c132f;
+  border: 1px outset;
+  border-color: #ffffff;
+  color: #e2e2e2;
+  display: block;
+  height: 62vh;
+}
+
+.sensores-alertas{
+  display: flex;
+}
+
+.bi-bar-chart-line{
+  font-size: 2em;
+  margin-left: 2vh;
+  margin-top: 2vh;
+}
+
+.monitoramento{
+  margin-top: 2.8vh;
+  margin-left: 2vh;
 }
