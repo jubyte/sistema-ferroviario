@@ -547,3 +547,148 @@ h4{
   margin-top: 2.8vh;
   margin-left: 2vh;
 }
+
+.sensor_caixa{
+    width:95%;
+    padding:20px;
+    border:1px solid rgba(255,255,255,0.5);
+    background:#07102b;
+}
+
+.sensor_caixa h2{
+    font-family:'Science Gothic',sans-serif;
+    font-size:18px;
+    letter-spacing:2px;
+    color:white;
+    margin-bottom:20px;
+}
+
+.sensor_form{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+    align-items:end;
+}
+
+.sensor_input{
+    width:180px;
+    height:35px;
+    background:#d9d9d9;
+    border:none;
+    padding-left:10px;
+    font-size:12px;
+}
+
+.sensor_select{
+    width:180px;
+    height:35px;
+    background:#d9d9d9;
+    border:none;
+    padding-left:10px;
+}
+
+.sensor_botao{
+    height:35px;
+    width:150px;
+
+    border:1px solid rgba(255,255,255,0.4);
+    background:#0c132f;
+    color:white;
+
+    font-size:11px;
+    letter-spacing:2px;
+
+    transition:.3s;
+}
+
+.sensor_botao:hover{
+    border-color:#5d9afe;
+    color:#98c6fe;
+}
+
+.sensor_busca{
+    width:95%;
+    margin-top:15px;
+
+    background:#575d89;
+
+    display:flex;
+    align-items:center;
+
+    padding:8px 12px;
+}
+
+.sensor_busca i{
+    color:white;
+}
+
+.sensor_busca input{
+    width:100%;
+    margin-left:10px;
+
+    border:none;
+    outline:none;
+
+    background:transparent;
+    color:white;
+}
+
+.sensor_busca input::placeholder{
+    color:#d8d8d8;
+}
+
+.sensor_tabela{
+    width:95%;
+    margin-top:10px;
+    border-collapse:collapse;
+}
+
+.sensor_tabela th{
+    background:#0c132f;
+    color:white;
+    font-size:12px;
+    letter-spacing:1px;
+}
+
+.sensor_tabela th,
+.sensor_tabela td{
+    border:1px solid #3c4675;
+    padding:10px;
+    text-align:center;
+    color:white;
+}
+
+.sensor_acoes button{
+    background:none;
+    border:none;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.sensor_acoes button:hover{
+    color:#98c6fe;
+}
+.sensor-vazio{
+    width:95%;
+    height:250px;
+    margin-top:15px;
+    border:1px solid #5a6699;
+    background:#3c4d88;
+    text-align:center;
+    color:white;
+    padding-top:60px;
+}
+
+.sensor-vazio i{
+    font-size:60px;
+}
+
+.sensor-vazio h4{
+    margin-top:10px;
+}
+
+.sensor-vazio p{
+    color:#d5d5d5;
+    font-size:12px;
+}
