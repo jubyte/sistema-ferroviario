@@ -73,6 +73,80 @@
 
     </aside> 
 
+    <div class="conteudo">
+
+    <header class="cabecalho">
+        <h2>SENSORES</h2>
+        <h4>SISTEMA FERROVIÁRIO</h4>
+    </header>
+
+    <div class="sensor_caixa">
+
+        <h2>
+            <i class="bi bi-plus-circle"></i>
+            CADASTRAR SENSOR
+        </h2>
+
+        <div class="sensor_form">
+
+            <input type="text" class="sensor_input" id="nome" placeholder="Nome">
+
+            <input type="text" class="sensor_input" id="tipo" placeholder="Tipo">
+
+            <input type="text" class="sensor_input" id="local" placeholder="Local">
+
+            <select class="sensor_select" id="status">
+
+                <option>Ativo</option>
+                <option>Inativo</option>
+
+            </select>
+
+            <button class="sensor_botao" onclick="salvarSensor()">
+
+                <i class="bi bi-plus"></i>
+                ADICIONAR
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="sensor_busca">
+
+        <i class="bi bi-search"></i>
+        <input type="text" id="buscar" placeholder="Buscar por nome ou ID">
+
+    </div>
+
+    <div id="sensorVazio" class="sensor-vazio">
+
+        <i class="bi bi-broadcast"></i>
+
+        <h4>Nenhum sensor cadastrado ainda.</h4>
+        <p>Cadastre um novo sensor para começar.</p>
+
+    </div>
+
+    <table class="sensor_tabela">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NOME</th>
+                <th>TIPO</th>
+                <th>LOCAL</th>
+                <th>STATUS</th>
+                <th>AÇÕES</th>
+            </tr>
+        </thead>
+
+        <tbody id="tabelaSensores"></tbody>
+
+    </table>
+
+</div>
     
 </body>
 </html>
