@@ -692,3 +692,71 @@ h4{
     color:#d5d5d5;
     font-size:12px;
 }
+.card-custom{
+    background-color: #041763;
+    border: 1px solid #3f4d8d;
+    border-radius: 8px;
+}
+
+.form-control,
+.form-select{
+    background-color: #ffffff;
+}
+
+.table{
+    color: white;
+}
+
+.table th{
+    background-color: #081f7a;
+    color: white;
+}
+
+.table td{
+    background-color: #041763;
+    color: white;
+}
+
+.status-ativo{
+    color: #98c6fe;
+    font-weight: bold;
+}
+
+.btn-warning,
+.btn-danger{
+    margin-right: 5px;
+}
+.table-responsive{
+    max-height: 400px;
+    overflow-y: auto;
+
+    margin: 1%;
+    padding: 1%;
+}
+.sensor_busca{
+    width:95%;
+    
+    background:#575d89;
+
+    display:flex;
+    align-items:center;
+
+    padding:1%;
+    margin: 1%;
+
+}
+.icone-color{
+  color:#5c9aff;
+    font-size: 18px;
+    cursor: pointer;
+    background: transparent;
+
+}
+.btn-acao,
+.btn-acao:hover,
+.btn-acao:focus,
+.btn-acao:active{
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
