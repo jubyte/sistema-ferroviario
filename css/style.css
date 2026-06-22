@@ -5,6 +5,8 @@ body {
   background: #000;
   display: flex;
   flex-wrap: wrap;
+  color:white;
+    min-height:100vh;
 }
 
 #titulo {
@@ -467,83 +469,130 @@ body{
     margin-bottom: 2%;
 }
 
-.quadrado-sensores{
-  background-color: #0c132f;
-  border: 1px outset;
-  border-color: #ffffff;
-  color: #e2e2e2;
-  width: 70vh;
-  display: flex;
-  margin-right: 2%;
-  height: 12vh;
+.conteudo-principal {
+    padding: 20px;
+    color: white;
 }
 
-.sem-quebra-linha{
-  margin-right: 100%;
-  white-space: nowrap;
+.titulo-menu {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin: 0;
 }
 
-.bi-broadcast-pin {
-    font-size: 4em;
-    margin-top: 3%;
-    margin-left: 3%;
-    margin-right: 7%;
+.titulo-sistema {
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    margin: 0;
 }
 
-.bi-exclamation-triangle {
-    font-size: 4em;
-    margin-top: 10%;
-    margin-left: 4%;
-    margin-right: 7%;
+
+.resumo-superior {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
 }
 
-h4{
-  margin: 0px;
+.cartao-sensores,
+.cartao-alertas {
+    border: 1px solid rgba(255,255,255,0.3);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 15px 20px;
 }
 
-.sensores{
-  margin-top: 4%;
+.cartao-sensores {
+    width: 420px;
 }
 
-.manutencao{
-  margin-left: 40%;
+.cartao-alertas {
+    width: 200px;
 }
 
-.quadrado-alertas{
-  background-color: #0c132f;
-  border: 1px outset;
-  border-color: #ffffff;
-  color: #e2e2e2;
-  width: 25vh;
-  display: flex;
+.cartao-sensores i,
+.cartao-alertas i {
+    font-size: 3rem;
 }
 
-.alertas{
-  margin-top: 13%;
-  margin-left: 9%;
+.informacoes-sensores {
+    display: flex;
+    gap: 40px;
 }
 
-.quadrado-monitoramento{
-  margin-top: 2%;
-  background-color: #0c132f;
-  border: 1px outset;
-  border-color: #ffffff;
-  color: #e2e2e2;
-  display: block;
-  height: 62vh;
+
+.painel-monitoramento {
+    width: 900px;
+    border: 1px solid rgba(255,255,255,0.2);
+    margin-top: 20px;
+    padding: 15px;
 }
 
-.sensores-alertas{
-  display: flex;
+.titulo-secao {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
 }
 
-.bi-bar-chart-line{
-  font-size: 2em;
-  margin-left: 2vh;
-  margin-top: 2vh;
+.area-monitoramento {
+    height: 290px;
+    background: #434a70;
+    border-radius: 20px;
 }
 
-.monitoramento{
-  margin-top: 2.8vh;
-  margin-left: 2vh;
+
+.painel-trens {
+    width: 640px;
+    margin-top: 20px;
+}
+
+.painel-trens .titulo-secao {
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 10px;
+    margin-bottom: 0;
+}
+
+.lista-trens {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+}
+
+.item-trem {
+    height: 65px;
+
+    border-left: 1px solid rgba(255,255,255,0.2);
+    border-right: 1px solid rgba(255,255,255,0.2);
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.secao-hoje {
+    margin-top: 15px;
+}
+
+.secao-hoje h2 {
+    margin-bottom: 10px;
+}
+
+.indicadores {
+    display: flex;
+    gap: 10px;
+}
+
+.cartao-indicador {
+    width: 290px;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 10px 15px;
+}
+
+.cartao-indicador span {
+    font-size: 1.5rem;
+}
+
+.cartao-indicador h3 {
+    font-size: 2.8rem;
+    font-weight: 400;
+    margin: 0;
 }
