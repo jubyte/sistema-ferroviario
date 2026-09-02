@@ -34,33 +34,51 @@ form.addEventListener("submit", (e) => {
     mensagem.innerHTML = "";
 
     if (!email.includes("@") || !email.includes(".")) {
-        mensagem.innerHTML = "<div class='texto-perigo'>Email inválido!</div>";
+        mensagem.innerHTML =
+            "<div class='texto-perigo'>Email inválido!</div>";
         return;
     }
 
     if (senha.length < 4) {
-        mensagem.innerHTML = "<div class='texto-perigo'>A senha deve ter pelo menos 4 caracteres!</div>";
+        mensagem.innerHTML =
+            "<div class='texto-perigo'>A senha deve ter pelo menos 4 caracteres!</div>";
         return;
     }
 
     if (cadastro) {
+
         if (localStorage.getItem(email)) {
-            mensagem.innerHTML = "<div class='texto-aviso'>Esse email já está cadastrado!</div>";
+            mensagem.innerHTML =
+                "<div class='texto-aviso'>Esse email já está cadastrado!</div>";
             return;
         }
+
+        localStorage.setItem(email, senha);
+
+        mensagem.innerHTML =
+            "<div class='texto-sucesso'>Cadastro realizado com sucesso!</div>";
+
+        form.reset();
     }
 
     else {
         const senhaSalva = localStorage.getItem(email);
 
         if (senhaSalva === null) {
-            mensagem.innerHTML = "<div class='texto-perigo'>Usuário não encontrado!</div>";
-        } else if (senhaSalva === senha) {
-            window.location.href = "/pages/menu.html";
-        } else {
-            mensagem.innerHTML = "<div class='texto-perigo'>Email ou senha incorreta!</div>";
-        }
-    }
 
-    form.reset();
+            mensagem.innerHTML =
+                "<div class='texto-perigo'>Usuário não encontrado!</div>";
+
+        } else if (senhaSalva === senha) {
+
+            window.location.href = "/pages/menu.html";
+
+        } else {
+
+            mensagem.innerHTML =
+                "<div class='texto-perigo'>Email ou senha incorreta!</div>";
+        }
+
+        form.reset();
+    }
 });
