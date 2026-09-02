@@ -858,19 +858,25 @@ body{
 }
 
 .logonav{
-    height: 45px;
-    width: 45px;
+    height: 60px;
+    width: 60px;
 }
 
 .title_index{
+    font-family: 'Science Gothic', sans-serif;
+    background: linear-gradient(90deg, #9b9b9b, #ffffff, #9b9b9b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
 
     margin: 0;
     color: white;
-    font-size: 23px;
-    white-space: nowrap;
+    font-size: 25px;
+    font-weight: 400;
+    letter-spacing: 10px;
+    text-transform: uppercase;
 }
 
 .msg_index{
@@ -919,6 +925,28 @@ body{
     flex-shrink: 0;
 }
 
+.login_botao_index {
+    color: white;
+    text-decoration: none;
+
+    background-color: #17245c;
+
+    padding: 8px 12px;
+    border-radius: 6px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    transition: 0.25s ease;
+}
+
+.login_botao_index:hover {
+    background-color: #293b85;
+    transform: translateY(-2px);
+}
+
 h1{
     margin: 0;
 }
@@ -928,7 +956,17 @@ a{
     color: aliceblue;
 }
 
-.conteudo_index{
-    margin: 5% 10%;
+.titulo_texto{
+    margin: 0 auto;
     color: aliceblue;
+    padding: 60px 30px;
+    max-width: 1100px;
+}
+
+.conteudo_index{
+    margin: 0 auto;
+    color: aliceblue;
+    padding: 60px 30px;
+    max-width: 1100px;
+    font-weight: bold;
 }
