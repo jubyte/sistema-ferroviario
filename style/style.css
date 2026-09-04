@@ -6,7 +6,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   color:white;
-    min-height:100vh;
+  min-height:100vh;
 }
 
 #titulo {
@@ -966,7 +966,7 @@ a{
 .conteudo_index{
     margin: 0 auto;
     color: aliceblue;
-    padding: 60px 30px;
+    padding: 2% 0% 0% 0%;
     max-width: 1100px;
     font-weight: bold;
 }
@@ -976,4 +976,9 @@ a{
     line-height: 1.5;
 
     font-weight: normal;
+}
+
+.main_inicio{
+    background-color: #000625;
+    height: 100%;
 }
