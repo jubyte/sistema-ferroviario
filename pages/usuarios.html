@@ -1,4 +1,5 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,161 +12,115 @@
 </head>
 <body>
     <aside class="sidebar">
-    
         <div class="logo-box">
-
-            <h1 class="logo">
-            R<span>Λ</span>IL
-            </h1>
-
+            <h1 class="logo">R<span>Λ</span>IL</h1>
             <div class="logo-line"></div>
-
         </div>
 
         <div class="usuario-box">
-
             <i class="bi bi-person-fill"></i>
-
             <div class="usuario-info">
-            <span>Usuário</span>
-            <p>admin@mockingrail</p>
+                <span>Usuário</span>
+                <p>admin@mockingrail</p>
             </div>
-
         </div>
 
         <nav class="menu">
-
             <a href="/pages/menu.html" class="menu-item">
-            <i class="bi bi-house-door-fill"></i>
-            <span>MENU</span>
+                <i class="bi bi-house-door-fill"></i>
+                <span>MENU</span>
             </a>
-
             <a href="/pages/painel.html" class="menu-item">
-            <i class="bi bi-grid-1x2-fill"></i>
-            <span>PAINEL</span>
+                <i class="bi bi-grid-1x2-fill"></i>
+                <span>PAINEL</span>
             </a>
-
             <a href="/pages/sensores.html" class="menu-item">
-            <i class="bi bi-cpu-fill"></i>
-            <span>SENSORES</span>
+                <i class="bi bi-cpu-fill"></i>
+                <span>SENSORES</span>
             </a>
-
             <a href="/pages/monitoramento.html" class="menu-item">
-            <i class="bi bi-activity"></i>
-            <span>MONITORAMENTO</span>
+                <i class="bi bi-activity"></i>
+                <span>MONITORAMENTO</span>
             </a>
-
             <a href="/pages/relatorios.html" class="menu-item">
-            <i class="bi bi-file-earmark-bar-graph-fill"></i>
-            <span>RELATÓRIOS</span>
+                <i class="bi bi-file-earmark-bar-graph-fill"></i>
+                <span>RELATÓRIOS</span>
             </a>
-
             <a href="/pages/usuarios.html" class="menu-item active">
-            <i class="bi bi-people-fill"></i>
-            <span>USUÁRIOS</span>
+                <i class="bi bi-people-fill"></i>
+                <span>USUÁRIOS</span>
             </a>
-
         </nav>
 
         <a href="/pages/login.html" class="sair">
-        <i class="bi bi-box-arrow-left"></i>
-        <span>SAIR</span> </a>
-
+            <i class="bi bi-box-arrow-left"></i>
+            <span>SAIR</span>
+        </a>
     </aside> 
-    <div>
-    <h1 id="titulo" class="usuario__title">USUÁRIOS</h1></body>
-        <h2 id="titulo" class="login__subtitle">SISTEMA FERROVIÁRIO</h2></body>
+
+    <main class="conteudo-principal">
+        <h1 class="usuario__title">USUÁRIOS</h1>
+        <h2 class="login__subtitle">SISTEMA FERROVIÁRIO</h2>
 
         <div class="container-fluid py-4 fundo">
+            <div class="cadastro-box">
+                <h2 class="usuario__title">CADASTRAR USUÁRIO</h2>
 
-  <div class="cadastro-box">
+                <div class="row g-4 align-items-end">
+                    <div class="col-md-3">
+                        <label class="label-custom">NOME</label>
+                        <input type="text" id="nome" class="form-control input-custom">
+                    </div>
 
-    <h2 id="titulo" class="usuario__title">CADASTRAR USUÁRIO</h2>
+                    <div class="col-md-3">
+                        <label class="label-custom">E-MAIL</label>
+                        <input type="email" id="email" class="form-control input-custom">
+                    </div>
 
-    <div class="row g-4 align-items-end">
-      <div class="col-md-3">
-        <label class="label-custom">NOME</label>
-        <input type="text" class="form-control input-custom">
-      </div>
-      <div class="col-md-3">
-        <label class="label-custom">E-MAIL</label>
-        <input type="email" class="form-control input-custom">
-      </div>
-      <div class="col-md-3">
-        <label class="label-custom">TELEFONE</label>
-        <input type="text" class="form-control input-custom">
-      </div>
-      <div class="col-md-2">
-        <label class="label-custom">TIPO</label>
-        <select class="form-select input-custom select-custom">
-          <option selected disabled>SELECIONE</option>
-          <option>Administrador</option>
-          <option>Usuário</option>
-        </select>
-      </div>
+                    <div class="col-md-3">
+                        <label class="label-custom">TELEFONE</label>
+                        <input type="text" id="telefone" class="form-control input-custom">
+                    </div>
 
-     <div class="col-md-2 d-flex align-items-end">
-    <button class="btn botao-custom w-100">+ADICIONAR</button>
-</div>
+                    <div class="col-md-2">
+                        <label class="label-custom">TIPO</label>
+                        <select id="tipo" class="form-select input-custom select-custom">
+                            <option value="" selected disabled>SELECIONE</option>
+                            <option value="Administrador">Administrador</option>
+                            <option value="Usuário">Usuário</option>
+                        </select>
+                    </div>
 
-    </div>
-  </div>
-
-</div>
-     <div class="sensor_busca" >
-
-        <i class="bi bi-search"></i>
-        <input type="text" id="buscar" placeholder="Buscar por nome ou ID">
-
-    </div>
-    <div class="table-responsive">
-        <table class="table table-bordered align-middle">
-
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>NOME</th>
-                    <th>E-MAIL</th>
-                    <th>TELEFONE</th>
-                    <th>STATUS</th>
-                </tr>
-            </thead>
-
-            <tbody>
-
-                <tr>
-                    <td>01</td>
-                    <td>Guilherme Goll</td>
-                    <td>guilherme@email.com</td>
-                    <td>(47) 99999-9999</td>
-                    <td>
-    <div class="d-flex justify-content-between align-items-center">
-
-        <span class="status-ativo">
-            ● Ativo
-        </span>
-
-        <div>
-            <button class="btn-acao">
-                <i class="bi bi-trash3 icone-color"></i>
-            </button>
-
-            <button class="btn-acao">
-                <i class="bi bi-pencil-square icone-color"></i>
-            </button>
+                    <div class="col-md-1 d-flex align-items-end">
+                        <!-- Adicionado id="btnAdicionar" -->
+                        <button id="btnAdicionar" class="btn botao-custom w-100">+ADICIONAR</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
-    </div>
-</td>
-</tr>
+        <div class="sensor_busca">
+            <i class="bi bi-search"></i>
+            <input type="text" id="buscar" placeholder="Buscar por nome ou ID">
+        </div>
 
-            </tbody>
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NOME</th>
+                        <th>E-MAIL</th>
+                        <th>TELEFONE</th>
+                        <th>STATUS</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaUsuarios">
+                </tbody>
+            </table>
+        </div>
+    </main>
 
-        </table>
-    </div>
-
-</div>
-</div>
-    <script src="/js/usuarios.js"></script>
-
+    <script src="../js/usuarios.js"></script>
+</body>
 </html>
