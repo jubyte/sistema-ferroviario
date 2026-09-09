@@ -269,7 +269,7 @@ function removerUsuario(id) {
 // EDITAR USUÁRIO
 // ===============================
 
-function editarUsuarios(id) {
+function editarUsuario(id) {
 
     const usuario = usuarios.find(function(usuario) {
 
@@ -326,11 +326,6 @@ function editarUsuarios(id) {
     mostrarUsuarios(usuarios);
 
 }
-
-
-// ===============================
-// INICIAR TABELA
-// ===============================
 
 mostrarUsuarios(usuarios);
 
