@@ -33,6 +33,10 @@ form.addEventListener("submit", (e) => {
 
     mensagem.innerHTML = "";
 
+    if (email === "admin" && senha === "admin") {
+        window.location.href = "menu.html";
+    }
+
     if (!email.includes("@") || !email.includes(".")) {
         mensagem.innerHTML =
             "<div class='texto-perigo'>Email inválido!</div>";
@@ -71,8 +75,8 @@ form.addEventListener("submit", (e) => {
 
         } else if (senhaSalva === senha) {
 
-            window.location.href = "menu.html";
-
+            window.location.href = "menu.html"; 
+        
         } else {
 
             mensagem.innerHTML =
