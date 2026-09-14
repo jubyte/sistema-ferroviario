@@ -71,7 +71,7 @@ form.addEventListener("submit", (e) => {
 
         } else if (senhaSalva === senha) {
 
-            window.location.href = "/pages/menu.html";
+            window.location.href = "menu.html";
 
         } else {
 
