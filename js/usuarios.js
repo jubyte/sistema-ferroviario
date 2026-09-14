@@ -328,5 +328,3 @@ function editarUsuario(id) {
 }
 
 mostrarUsuarios(usuarios);
-
-alert("Bem-vindo(a) ao sistema de gerenciamento de usuários!");
