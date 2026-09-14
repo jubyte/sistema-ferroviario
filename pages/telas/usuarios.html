@@ -12,57 +12,73 @@
 </head>
 <body>
     <aside class="sidebar">
+    
         <div class="logo-box">
-            <h1 class="logo">R<span>Λ</span>IL</h1>
+        
+            <h1 class="logo">
+            R<span>Λ</span>IL
+            </h1>
+
             <div class="logo-line"></div>
+
         </div>
 
         <div class="usuario-box">
+
             <i class="bi bi-person-fill"></i>
+
             <div class="usuario-info">
                 <span>Usuário</span>
                 <p>admin@mockingrail</p>
             </div>
+
         </div>
 
         <nav class="menu">
+
             <a href="menu.html" class="menu-item">
-                <i class="bi bi-house-door-fill"></i>
-                <span>MENU</span>
+            <i class="bi bi-house-door-fill"></i>
+            <span>MENU</span>
             </a>
+
             <a href="painel.html" class="menu-item">
-                <i class="bi bi-grid-1x2-fill"></i>
-                <span>PAINEL</span>
+            <i class="bi bi-grid-1x2-fill"></i>
+            <span>PAINEL</span>
             </a>
+
             <a href="sensores.html" class="menu-item">
-                <i class="bi bi-cpu-fill"></i>
-                <span>SENSORES</span>
+            <i class="bi bi-cpu-fill"></i>
+            <span>SENSORES</span>
             </a>
+
             <a href="monitoramento.html" class="menu-item">
-                <i class="bi bi-activity"></i>
-                <span>MONITORAMENTO</span>
+            <i class="bi bi-activity"></i>
+            <span>MONITORAMENTO</span>
             </a>
+
             <a href="relatorios.html" class="menu-item">
-                <i class="bi bi-file-earmark-bar-graph-fill"></i>
-                <span>RELATÓRIOS</span>
+            <i class="bi bi-file-earmark-bar-graph-fill"></i>
+            <span>RELATÓRIOS</span>
             </a>
+
             <a href="usuarios.html" class="menu-item active">
-                <i class="bi bi-people-fill"></i>
-                <span>USUÁRIOS</span>
+            <i class="bi bi-people-fill"></i>
+            <span>USUÁRIOS</span>
             </a>
+
         </nav>
 
         <a href="login.html" class="sair">
-            <i class="bi bi-box-arrow-left"></i>
-            <span>SAIR</span>
-        </a>
+        <i class="bi bi-box-arrow-left"></i>
+        <span>SAIR</span> </a>
+
     </aside> 
 
     <main class="conteudo-principal">
-        <h1 class="usuario__title">USUÁRIOS</h1>
-        <h2 class="login__subtitle">SISTEMA FERROVIÁRIO</h2>
+        <h1 class="titulo-menu">USUÁRIOS</h1>
+        <h2 class="titulo-sistema">SISTEMA FERROVIÁRIO</h2>
 
-        <div class="container-fluid py-4 fundo">
+        <div class="cadastrar fundo">
             <div class="cadastro-box">
                 <h2 class="usuario__title">CADASTRAR USUÁRIO</h2>
 
@@ -92,7 +108,6 @@
                     </div>
 
                     <div class="col-md-1 d-flex align-items-end">
-                        <!-- Adicionado id="btnAdicionar" -->
                         <button id="btnAdicionar" class="btn botao-custom w-100">+ADICIONAR</button>
                     </div>
                 </div>
@@ -104,7 +119,7 @@
             <input type="text" id="buscar" placeholder="Buscar por nome ou ID">
         </div>
 
-        <div class="table-responsive">
+        <div class="tabela-usuarios">
             <table class="table table-bordered align-middle">
                 <thead>
                     <tr>
