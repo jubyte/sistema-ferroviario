@@ -218,6 +218,8 @@ body{
 
     display:flex;
     align-items:center;
+
+    height:10%;
 }
 
 .usuario-box i{
@@ -344,7 +346,6 @@ body{
         font-size:52px;
     }
 }
-/* CAIXA PRINCIPAL */
 
 .cadastro-box{
     border: 1px solid white;
@@ -352,7 +353,7 @@ body{
 
     padding: 22px;
 
-    width: 95%;
+    width: 98%;
 
     box-shadow:
     0 0 15px rgba(0,0,0,0.25);
@@ -489,6 +490,8 @@ body{
 .conteudo-principal {
     padding: 20px;
     color: white;
+
+    width: 79%;
 }
 
 .titulo-menu {
@@ -521,11 +524,11 @@ body{
 }
 
 .cartao-sensores {
-    width: 420px;
+    width: 45%;
 }
 
 .cartao-alertas {
-    width: 200px;
+    width: 23%;
 }
 
 .cartao-sensores i,
@@ -540,7 +543,7 @@ body{
 
 
 .painel-monitoramento {
-    width: 900px;
+    width: 100%;
     border: 1px solid rgba(255,255,255,0.2);
     margin-top: 20px;
     padding: 15px;
@@ -562,7 +565,7 @@ body{
 
 
 .painel-trens {
-    width: 640px;
+    width: 70%;
     margin-top: 20px;
 }
 
@@ -587,6 +590,7 @@ body{
 
 .secao-hoje {
     margin-top: 15px;
+    width: 100%;
 }
 
 .secao-hoje h2 {
@@ -599,7 +603,7 @@ body{
 }
 
 .cartao-indicador {
-    width: 290px;
+    width: 33.33%;
     border: 1px solid rgba(255,255,255,0.3);
     padding: 10px 15px;
 }
@@ -615,7 +619,7 @@ body{
 }
 
 .sensor_caixa{
-    width:95%;
+    width:109%;
     padding:20px;
     border:1px solid rgba(255,255,255,0.5);
     background:#07102b;
@@ -673,7 +677,7 @@ body{
 }
 
 .sensor_busca{
-    width:95%;
+    width: 109%;
     margin-top:15px;
 
     background:#575d89;
@@ -704,7 +708,7 @@ body{
 }
 
 .sensor_tabela{
-    width:95%;
+    width:109%;
     margin-top:10px;
     border-collapse:collapse;
 }
@@ -736,7 +740,7 @@ body{
     color:#98c6fe;
 }
 .sensor-vazio{
-    width:95%;
+    width: 109%;
     height:250px;
     margin-top:15px;
     border:1px solid #5a6699;
@@ -800,7 +804,7 @@ body{
     padding: 1%;
 }
 .sensor_busca{
-    width:95%;
+    width: 100%;
     
     background:#575d89;
 
@@ -981,4 +985,14 @@ a{
 .main_inicio{
     background-color: #000625;
     height: 100%;
+}
+
+.cadastrar{
+    margin-top: 2%;
+
+    width: 102%;
+}
+
+.tabela-usuarios{
+    margin-top: 2%;
 }
