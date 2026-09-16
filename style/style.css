@@ -6,7 +6,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   color:white;
-  min-height:100vh;
+    min-height:100vh;
 }
 
 #titulo {
@@ -218,8 +218,6 @@ body{
 
     display:flex;
     align-items:center;
-
-    height:10%;
 }
 
 .usuario-box i{
@@ -346,6 +344,7 @@ body{
         font-size:52px;
     }
 }
+/* CAIXA PRINCIPAL */
 
 .cadastro-box{
     border: 1px solid white;
@@ -353,7 +352,7 @@ body{
 
     padding: 22px;
 
-    width: 98%;
+    width: 95%;
 
     box-shadow:
     0 0 15px rgba(0,0,0,0.25);
@@ -490,8 +489,6 @@ body{
 .conteudo-principal {
     padding: 20px;
     color: white;
-
-    width: 79%;
 }
 
 .titulo-menu {
@@ -524,11 +521,11 @@ body{
 }
 
 .cartao-sensores {
-    width: 45%;
+    width: 420px;
 }
 
 .cartao-alertas {
-    width: 23%;
+    width: 200px;
 }
 
 .cartao-sensores i,
@@ -543,7 +540,7 @@ body{
 
 
 .painel-monitoramento {
-    width: 100%;
+    width: 900px;
     border: 1px solid rgba(255,255,255,0.2);
     margin-top: 20px;
     padding: 15px;
@@ -565,7 +562,7 @@ body{
 
 
 .painel-trens {
-    width: 70%;
+    width: 640px;
     margin-top: 20px;
 }
 
@@ -590,7 +587,6 @@ body{
 
 .secao-hoje {
     margin-top: 15px;
-    width: 100%;
 }
 
 .secao-hoje h2 {
@@ -603,7 +599,7 @@ body{
 }
 
 .cartao-indicador {
-    width: 33.33%;
+    width: 290px;
     border: 1px solid rgba(255,255,255,0.3);
     padding: 10px 15px;
 }
@@ -619,7 +615,7 @@ body{
 }
 
 .sensor_caixa{
-    width:109%;
+    width:95%;
     padding:20px;
     border:1px solid rgba(255,255,255,0.5);
     background:#07102b;
@@ -677,7 +673,7 @@ body{
 }
 
 .sensor_busca{
-    width: 109%;
+    width:95%;
     margin-top:15px;
 
     background:#575d89;
@@ -708,7 +704,7 @@ body{
 }
 
 .sensor_tabela{
-    width:109%;
+    width:95%;
     margin-top:10px;
     border-collapse:collapse;
 }
@@ -740,7 +736,7 @@ body{
     color:#98c6fe;
 }
 .sensor-vazio{
-    width: 109%;
+    width:95%;
     height:250px;
     margin-top:15px;
     border:1px solid #5a6699;
@@ -804,7 +800,7 @@ body{
     padding: 1%;
 }
 .sensor_busca{
-    width: 100%;
+    width:95%;
     
     background:#575d89;
 
@@ -888,7 +884,7 @@ body{
     background-repeat: no-repeat;
     background-position: 0%;
     width: 100%;
-    height: 50%;
+    height: 350px;
     background-image:  linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)),
     url(../assets/imgs/fundo_login.jpg);
     
@@ -901,7 +897,7 @@ body{
 }
 
 .main_inicio{
-    width: 100%;
+    width: 150%;
 }
 
 .linksnav {
@@ -970,29 +966,7 @@ a{
 .conteudo_index{
     margin: 0 auto;
     color: aliceblue;
-    padding: 2% 0% 0% 0%;
+    padding: 60px 30px;
     max-width: 1100px;
     font-weight: bold;
-}
-
-.conteudo_index p{
-    text-align: justify;
-    line-height: 1.5;
-
-    font-weight: normal;
-}
-
-.main_inicio{
-    background-color: #000625;
-    height: 100%;
-}
-
-.cadastrar{
-    margin-top: 2%;
-
-    width: 102%;
-}
-
-.tabela-usuarios{
-    margin-top: 2%;
 }

@@ -73,80 +73,107 @@
 
     </aside> 
 
-    <div class="conteudo">
+    <main class="conteudo">
 
-    <header class="cabecalho">
-        <h2>SENSORES</h2>
-        <h4>SISTEMA FERROVIÁRIO</h4>
-    </header>
+        <header class="cabecalho">
+            <h2>SENSORES</h2>
+            <h4>SISTEMA FERROVIÁRIO</h4>
+        </header>
 
-    <div class="sensor_caixa">
+        <div class="sensor_caixa">
+                <h2 class="usuario__title">
+                    <i class="bi bi-plus-circle"></i> CADASTRAR SENSOR
+                </h2>
 
-        <h2>
-            <i class="bi bi-plus-circle"></i>
-            CADASTRAR SENSOR
-        </h2>
 
-        <div class="sensor_form">
+                <div class="row g-4 align-items-end">
 
-            <input type="text" class="sensor_input" id="nome" placeholder="Nome">
 
-            <input type="text" class="sensor_input" id="tipo" placeholder="Tipo">
+                    <div class="col-md-3">
+                        <label class="label-custom"> NOME </label>
+                        <input type="text" id="nome" class="form-control input-custom" placeholder="Nome">
+                    </div>
 
-            <input type="text" class="sensor_input" id="local" placeholder="Local">
 
-            <select class="sensor_select" id="status">
+                    <div class="col-md-3">
+                        <label class="label-custom"> TIPO </label>
+                        <input type="text" id="tipo" class="form-control input-custom" placeholder="Tipo">
+                    </div>
 
-                <option>Ativo</option>
-                <option>Inativo</option>
 
-            </select>
+                    <div class="col-md-3">
+                        <label class="label-custom"> LOCAL </label>
+                        <input type="text" id="local" class="form-control input-custom" placeholder="Local">
+                    </div>
 
-            <button class="sensor_botao" onclick="salvarSensor()">
 
-                <i class="bi bi-plus"></i>
-                ADICIONAR
+                    <div class="col-md-2">
 
-            </button>
+                        <label class="label-custom"> STATUS </label>
+                        <select id="status" class="form-select input-custom select-custom">
+                            <option value="" selected disabled>SELECIONE</option>
+                            <option value="Ativo"> Ativo </option>
+                            <option value="Inativo"> Inativo </option>
+                        </select>
+
+                    </div>
+
+                    <!--botão-->
+
+                    <div class="col-md-1 d-flex align-items-end">
+                        <button id="btnAdicionar" class="btn botao-custom w-100">+ADICIONAR</button>
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 
-    </div>
+       
 
-    <div class="sensor_busca">
+        <div class="sensor_busca">
 
-        <i class="bi bi-search"></i>
-        <input type="text" id="buscar" placeholder="Buscar por nome ou ID">
+            <i class="bi bi-search"></i>
 
-    </div>
+            <input type="text" id="buscar" placeholder="Buscar por nome ou ID">
 
-    <div id="sensorVazio" class="sensor-vazio">
+        </div>
 
-        <i class="bi bi-broadcast"></i>
 
-        <h4>Nenhum sensor cadastrado ainda.</h4>
-        <p>Cadastre um novo sensor para começar.</p>
+        <div id="sensorVazio" class="sensor-vazio">
 
-    </div>
+            <i class="bi bi-broadcast"></i>
+            <h4> Nenhum sensor cadastrado ainda. </h4>
+            <p> Cadastre um novo sensor para começar. </p>
 
-    <table class="sensor_tabela">
+        </div>
 
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>NOME</th>
-                <th>TIPO</th>
-                <th>LOCAL</th>
-                <th>STATUS</th>
-                <th>AÇÕES</th>
-            </tr>
-        </thead>
 
-        <tbody id="tabelaSensores"></tbody>
+        <div class="sensor_tabela">
 
-    </table>
+            <table class="table table-bordered align-middle">
+                <thead>
+                    
+                    <tr>
+                        <th>ID</th>
+                        <th>NOME</th>
+                        <th>TIPO</th>
+                        <th>LOCAL</th>
+                        <th>STATUS</th>
+                    </tr>
+
+                </thead>
+                <tbody id="tabelaSensores"></tbody>
+            </table>
+
+        </div>
+
+    </main>
 
 </div>
-    
+
+<script src="../../js/sensores.js"></script>
+
 </body>
 </html>
