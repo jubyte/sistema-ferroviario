@@ -58,9 +58,11 @@
         </a>
     </aside> 
 
-    <main class="conteudo-principal">
-        <h1 class="usuario__title">USUÁRIOS</h1>
-        <h2 class="login__subtitle">SISTEMA FERROVIÁRIO</h2>
+    <main class="conteudo">
+        <header class="cabecalho">
+            <h2>USUÁRIOS</h2>
+            <h4>SISTEMA FERROVIÁRIO</h4>
+        </header>
 
         <div class="container-fluid py-4 fundo">
             <div class="cadastro-box">

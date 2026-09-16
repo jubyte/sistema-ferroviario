@@ -1,22 +1,9 @@
-// ===============================
-// LISTA DE USUÁRIOS
-// ===============================
+//lista
 
-let usuarios = [
-    {
-        id: 1,
-        nome: "Guilherme Goll",
-        email: "guilherme@email.com",
-        telefone: "(47) 99999-9999",
-        tipo: "Administrador",
-        status: "Ativo"
-    }
-];
+let usuarios = [];
 
 
-// ===============================
-// PEGAR ELEMENTOS DO HTML
-// ===============================
+//pegar elementos do HTML
 
 const nomeInput = document.getElementById("nome");
 const emailInput = document.getElementById("email");
@@ -30,9 +17,7 @@ const campoBusca = document.getElementById("buscar");
 const tabela = document.getElementById("tabelaUsuarios");
 
 
-// ===============================
-// MOSTRAR USUÁRIOS
-// ===============================
+//mostrar usuários
 
 function mostrarUsuarios(lista) {
 
@@ -99,9 +84,7 @@ function mostrarUsuarios(lista) {
 }
 
 
-// ===============================
-// ADICIONAR USUÁRIO
-// ===============================
+//adicionar usuário
 
 botaoAdicionar.addEventListener("click", function() {
 
@@ -111,7 +94,7 @@ botaoAdicionar.addEventListener("click", function() {
     const tipo = tipoInput.value;
 
 
-    // Verificar campos
+    //verificar campos
 
     if (nome === "") {
         alert("Digite o nome do usuário.");
@@ -141,7 +124,7 @@ botaoAdicionar.addEventListener("click", function() {
     }
 
 
-    // Criar novo ID
+    //criar novo ID
 
     let novoId = 1;
 
@@ -152,7 +135,7 @@ botaoAdicionar.addEventListener("click", function() {
     }
 
 
-    // Criar usuário
+    //criar usuário
 
     const novoUsuario = {
 
@@ -171,17 +154,17 @@ botaoAdicionar.addEventListener("click", function() {
     };
 
 
-    // Adicionar na lista
+    //adicionar na lista
 
     usuarios.push(novoUsuario);
 
 
-    // Atualizar tabela
+    //atualizar tabela
 
     mostrarUsuarios(usuarios);
 
 
-    // Limpar campos
+    //limpar campos
 
     nomeInput.value = "";
 
@@ -197,9 +180,7 @@ botaoAdicionar.addEventListener("click", function() {
 });
 
 
-// ===============================
-// PESQUISAR USUÁRIO
-// ===============================
+//pesquisar usuário
 
 campoBusca.addEventListener("input", function() {
 
@@ -226,9 +207,7 @@ campoBusca.addEventListener("input", function() {
 });
 
 
-// ===============================
-// REMOVER USUÁRIO
-// ===============================
+//remover usuário
 
 function removerUsuario(id) {
 
@@ -265,9 +244,7 @@ function removerUsuario(id) {
 }
 
 
-// ===============================
-// EDITAR USUÁRIO
-// ===============================
+//editar usuário
 
 function editarUsuario(id) {
 

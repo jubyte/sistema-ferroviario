@@ -74,15 +74,26 @@
 
     </aside> 
 
-    <main class="conteudo-principal">
-        <h1 class="titulo-menu">USUÁRIOS</h1>
-        <h2 class="titulo-sistema">SISTEMA FERROVIÁRIO</h2>
+    <!--Titulo-->
 
-        <div class="cadastrar fundo">
+    <main class="conteudo">
+        <header class="cabecalho">
+            <h2>USUÁRIOS</h2>
+            <h4>SISTEMA FERROVIÁRIO</h4>
+        </header>
+
+        <!--Cadastro-->
+
+        <div class="container-fluid py-4 fundo">
             <div class="cadastro-box">
-                <h2 class="usuario__title">CADASTRAR USUÁRIO</h2>
+                <h2 class="usuario__title">
+                    
+                    <i class="bi bi-plus-circle"></i>
+                    
+                    CADASTRAR USUÁRIO</h2>
 
                 <div class="row g-4 align-items-end">
+                    
                     <div class="col-md-3">
                         <label class="label-custom">NOME</label>
                         <input type="text" id="nome" class="form-control input-custom">
@@ -130,10 +141,13 @@
                         <th>STATUS</th>
                     </tr>
                 </thead>
-                <tbody id="tabelaUsuarios">
-                </tbody>
+
+                <tbody id="tabelaUsuarios"></tbody>
+
             </table>
+
         </div>
+
     </main>
 
     <script src="../../js/usuarios.js"></script>
