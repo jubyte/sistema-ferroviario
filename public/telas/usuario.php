@@ -123,6 +123,6 @@
         </div>
     </main>
 
-    <script src="../../js/usuarios.js"></script>
+    <script src="../../script/usuarios.js"></script>
 </body>
 </html>
