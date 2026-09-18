@@ -970,3 +970,54 @@ a{
     max-width: 1100px;
     font-weight: bold;
 }
+
+
+
+/* (atencao!!!!!)   pagina monitoramento sendo testada abaixo (adicionar qualquer coisa acima desta linha) */
+
+.cards-monitoramento{
+    display: flex;
+    gap: 2%;
+
+    height: 100%;
+}
+
+.infos-monitoramento{
+    border: 1px solid white;
+
+    width: 22.3%;
+    height: 13%;
+    padding: 1%;
+}
+
+.infos-monitoramento i{
+    color: orange;
+}
+
+.info{
+    display: flex;
+
+    height: 100%;
+
+    align-items: baseline;
+    gap: 20%;
+
+    padding-top: 5%;
+    padding-left: 1%;
+}
+
+.i-monitoramento{
+    font-size: 300%;
+}
+
+.tabela-usuarios{
+    width: 95%;
+}
+
+.margin-tabela-monitoramento{
+    margin: 5% 0;
+}
+
+.margin-busca{
+    margin-top: 2%;
+}
