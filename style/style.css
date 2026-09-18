@@ -178,7 +178,6 @@ body{
     overflow-y: auto;
 }
 
-
 .logo-box{
     display:flex;
     flex-direction:column;
@@ -193,7 +192,8 @@ body{
     letter-spacing:6px;
 
     background:linear-gradient(90deg,#5e9bff,#a5cffd,#5e9bff);
-    -webkit-background-clip:text;
+    background-clip: text;
+    -webkit-background-clip: text;
     -webkit-text-fill-color:transparent;
 }
 
@@ -836,14 +836,6 @@ body{
   margin-left: 2vh;
 }
 
-
-
-
-/* index.css colado para baixo dessa região após mudanças no desenvolvimento do projeto seguindo as boas práticas */
-
-
-
-
 .navbar-inicio{
     position: fixed;
 
@@ -867,8 +859,9 @@ body{
 .title_index{
     font-family: 'Science Gothic', sans-serif;
     background: linear-gradient(90deg, #9b9b9b, #ffffff, #9b9b9b);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -976,6 +969,8 @@ a{
 
 
 /* (atencao!!!!!)   pagina monitoramento sendo testada abaixo (adicionar qualquer coisa acima desta linha) */
+
+
 
 .cards-monitoramento{
     display: flex;
