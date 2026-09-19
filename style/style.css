@@ -170,7 +170,6 @@ body {
     overflow-y: auto;
 }
 
-
 .logo-box{
     display:flex;
     flex-direction:column;
@@ -831,17 +830,11 @@ body {
   margin-left: 2vh;
 }
 
-
-
-
-/* index.css colado para baixo dessa região após mudanças no desenvolvimento do projeto seguindo as boas práticas */
-
-
-
-
 .navbar-inicio{
+    position: fixed;
+
     width: 100%;
-    height: 70px;
+    height: 10%;
     align-items: center;
     display: flex;
     color: aliceblue;
@@ -970,6 +963,8 @@ a{
 
 
 /* (atencao!!!!!)   pagina monitoramento sendo testada abaixo (adicionar qualquer coisa acima desta linha) */
+
+
 
 .cards-monitoramento{
     display: flex;
