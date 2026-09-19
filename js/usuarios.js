@@ -174,9 +174,6 @@ botaoAdicionar.addEventListener("click", function() {
 
     tipoInput.value = "";
 
-
-    alert("Usuário cadastrado com sucesso!");
-
 });
 
 
