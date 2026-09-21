@@ -883,6 +883,8 @@ body {
     display: flex;
 
     color: aliceblue;
+
+    box-shadow: black 0 0 30px 0;
 }
 
 .main_inicio{
@@ -1016,4 +1018,12 @@ a{
 .imputs-usuario{
     display: flex;
     gap: 2%;
+}
+
+.logo-login{
+    position: fixed;
+    bottom: 91%;
+    right: 95%;
+
+    height: 7%;
 }
