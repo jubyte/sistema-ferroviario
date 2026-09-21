@@ -130,6 +130,15 @@
             <input type="text" id="buscar" placeholder="Buscar por nome ou ID">
         </div>
 
+         <div id="sensorVazio" class="sensor-vazio">
+
+            <i class="bi bi-broadcast"></i>
+            <h4> Nenhum usuário cadastrado ainda. </h4>
+            <p> Cadastre um novo usuário para começar. </p>
+
+        </div>
+
+
         <div class="tabela-usuarios">
             <table class="table table-bordered align-middle">
                 <thead>
