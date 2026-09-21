@@ -1,4 +1,5 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +8,13 @@
     <link rel="shortcut icon" type="imagex/png" href="../../assets/icons/logo_site.png">
     <link href="https://fonts.googleapis.com/css2?family=Science+Gothic:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <title>Monitoramento | MockingRail</title>
+    <title>Usuários | MockingRail</title>
 </head>
 <body>
     <aside class="sidebar">
     
         <div class="logo-box">
-
+        
             <h1 class="logo">
             R<span>Λ</span>IL
             </h1>
@@ -27,8 +28,8 @@
             <i class="bi bi-person-fill"></i>
 
             <div class="usuario-info">
-            <span>Usuário</span>
-            <p>admin@mockingrail</p>
+                <span>Usuário</span>
+                <p>admin@mockingrail</p>
             </div>
 
         </div>
@@ -50,7 +51,7 @@
             <span>SENSORES</span>
             </a>
 
-            <a href="monitoramento.php" class="menu-item active">
+            <a href="monitoramento.php" class="menu-item">
             <i class="bi bi-activity"></i>
             <span>MONITORAMENTO</span>
             </a>
@@ -60,44 +61,93 @@
             <span>RELATÓRIOS</span>
             </a>
 
-            <a href="usuarios.php" class="menu-item">
+            <a href="usuarios.php" class="menu-item active">
             <i class="bi bi-people-fill"></i>
             <span>USUÁRIOS</span>
             </a>
 
         </nav>
 
-        <a href="login.php" class="sair">
+        <a href="login.html" class="sair">
         <i class="bi bi-box-arrow-left"></i>
         <span>SAIR</span> </a>
 
     </aside> 
 
+    <!--Titulo-->
 
     <main class="conteudo">
+        <header class="cabecalho">
+            <h2>TRENS</h2>
+            <h4>SISTEMA FERROVIÁRIO</h4>
+        </header>
 
-        <section class="cabecalho">
-            <h1 class="titulo-menu">MENU</h1>
-            <h2 class="titulo-sistema">SISTEMA FERROVIÁRIO</h2>
-        </section>
+        <!--Cadastro-->
 
+        <div class="fundo">
+            <div class="cadastro-box">
+                <h2 class="usuario__title">
+                    
+                    <i class="bi bi-plus-circle"></i>
+                    
+                    CADASTRAR TREM</h2>
 
-        <div class="sensor_busca margin-busca">
+                <div class="imputs-usuario">
+                    
+                    <div class="col-md-3">
+                        <label class="label-custom">NOME</label>
+                        <input type="text" id="nome" class="form-control input-custom">
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="label-custom">E-MAIL</label>
+                        <input type="email" id="email" class="form-control input-custom">
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="label-custom">TELEFONE</label>
+                        <input type="text" id="telefone" class="form-control input-custom">
+                    </div>
+
+                    <div class="col-md-1">
+                        <label class="label-custom">TIPO</label>
+                        <select id="tipo" class="form-select input-custom select-custom">
+                            <option value="" selected disabled>SELECIONE</option>
+                            <option value="Administrador">Administrador</option>
+                            <option value="Usuário">Usuário</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button id="btnAdicionar" class="btn botao-custom w-100">+ADICIONAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sensor_busca">
             <i class="bi bi-search"></i>
-
             <input type="text" id="buscar" placeholder="Buscar por nome ou ID">
         </div>
 
+         <div id="sensorVazio" class="sensor-vazio">
 
-        <div class="tabela-usuarios margin-tabela-monitoramento">
+            <i class="bi bi-broadcast"></i>
+            <h4> Nenhum trem cadastrado ainda. </h4>
+            <p> Cadastre um novo trem para começar. </p>
+
+        </div>
+
+
+        <div class="tabela-usuarios">
             <table class="table table-bordered align-middle">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>NOME</th>
-                        <th>E-MAIL</th>
-                        <th>TELEFONE</th>
-                        <th>STATUS</th>
+                        <th>EMPRESA</th>
+                        <th>TIPO</th>
+                        <th>NÚMEROS DE VAGÕES</th>
                     </tr>
                 </thead>
 
@@ -107,51 +157,8 @@
 
         </div>
 
-
-        <section class="cards-monitoramento">
-
-            <div class="infos-monitoramento">
-                <h6>Consumo de energia:</h6>
-
-                <div class="info">
-                    <i class="bi bi-lightning i-monitoramento"></i>
-                    <p>7000</p>
-                </div>
-            </div>
-
-
-            <div class="infos-monitoramento">
-                <h6>Temperatura:</h6>
-
-                <div class="info">
-                    <i class="bi bi-cpu i-monitoramento"></i>
-                    <p>7000</p>
-                </div>
-            </div>
-
-
-            <div class="infos-monitoramento">
-                <h6>Pressão dos freios:</h6>
-
-                <div class="info">
-                    <i class="bi bi-activity i-monitoramento"></i>
-                    <p>7000</p>
-                </div>
-            </div>
-
-
-            <div class="infos-monitoramento">
-                <h6>Falhas:</h6>
-
-                <div class="info">
-                    <i class="bi bi-exclamation-triangle i-monitoramento"></i>
-                    <p>7000</p>
-                </div>
-            </div>
-
-        </section>
-
     </main>
 
+    <script src="../../script/usuarios.js"></script>
 </body>
 </html>
