@@ -35,39 +35,39 @@
 
         <nav class="menu">
 
-            <a href="menu.html" class="menu-item">
+            <a href="menu.php" class="menu-item">
             <i class="bi bi-house-door-fill"></i>
             <span>MENU</span>
             </a>
 
-            <a href="painel.html" class="menu-item">
+            <a href="painel.php" class="menu-item">
             <i class="bi bi-grid-1x2-fill"></i>
             <span>PAINEL</span>
             </a>
 
-            <a href="sensores.html" class="menu-item">
+            <a href="sensores.php" class="menu-item">
             <i class="bi bi-cpu-fill"></i>
             <span>SENSORES</span>
             </a>
 
-            <a href="monitoramento.html" class="menu-item active">
+            <a href="monitoramento.php" class="menu-item active">
             <i class="bi bi-activity"></i>
             <span>MONITORAMENTO</span>
             </a>
 
-            <a href="relatorios.html" class="menu-item">
+            <a href="relatorios.php" class="menu-item">
             <i class="bi bi-file-earmark-bar-graph-fill"></i>
             <span>RELATÓRIOS</span>
             </a>
 
-            <a href="usuarios.html" class="menu-item">
+            <a href="usuarios.php" class="menu-item">
             <i class="bi bi-people-fill"></i>
             <span>USUÁRIOS</span>
             </a>
 
         </nav>
 
-        <a href="login.html" class="sair">
+        <a href="login.php" class="sair">
         <i class="bi bi-box-arrow-left"></i>
         <span>SAIR</span> </a>
 

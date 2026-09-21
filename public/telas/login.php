@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <a href="../../index.html">
+    <a href="../../index.php">
         <img class="logo-login" src="../../assets/icons/logo.png" alt="logo da MockingRail">
     </a>
 

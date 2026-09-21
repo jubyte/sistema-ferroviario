@@ -879,11 +879,9 @@ body {
     
     justify-content: center;
     align-items: center;
-
     display: flex;
 
     color: aliceblue;
-
     box-shadow: black 0 0 30px 0;
 }
 
@@ -961,12 +959,6 @@ a{
     max-width: 1100px;
     font-weight: bold;
 }
-
-
-
-/* (atencao!!!!!)   pagina monitoramento sendo testada abaixo (adicionar qualquer coisa acima desta linha) */
-
-
 
 .cards-monitoramento{
     display: flex;

@@ -34,7 +34,7 @@ form.addEventListener("submit", (e) => {
     mensagem.innerHTML = "";
 
     if (email === "admin" && senha === "admin") {
-        window.location.href = "menu.html";
+        window.location.href = "menu.php";
     }
 
     if (!email.includes("@") || !email.includes(".")) {
@@ -75,7 +75,7 @@ form.addEventListener("submit", (e) => {
 
         } else if (senhaSalva === senha) {
 
-            window.location.href = "menu.html"; 
+            window.location.href = "menu.php"; 
         
         } else {
 

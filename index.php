@@ -11,16 +11,16 @@
 <body >
    
     <nav class="navbar-inicio flex">
-        <a href="../../index.html">
+        <a href="../../index.php">
             <img class="logo-login" src="../../assets/icons/logo.png" alt="logo da MockingRail">
         </a>
         <h2 class="title_index">Mocking Rail</h2>
         <div class="anav flex">
-            <a class="linksnav" href="index.html">Início</a>
-            <a class="linksnav" href="public/inicio/historia.html">História</a>
-            <a class="linksnav" href="public/inicio/objetivos.html">Objetivos</a>
-            <a class="linksnav" href="public/inicio/sustentabilidade.html">Sustentabilidade</a>
-            <a class="login_botao_index" href="public/telas/login.html">Login</a>
+            <a class="linksnav" href="index.php">Início</a>
+            <a class="linksnav" href="public/inicio/historia.php">História</a>
+            <a class="linksnav" href="public/inicio/objetivos.php">Objetivos</a>
+            <a class="linksnav" href="public/inicio/sustentabilidade.php">Sustentabilidade</a>
+            <a class="login_botao_index" href="public/telas/login.php">Login</a>
         </div>
     </nav>
 

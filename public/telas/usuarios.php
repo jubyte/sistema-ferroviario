@@ -12,51 +12,69 @@
 </head>
 <body>
     <aside class="sidebar">
+    
         <div class="logo-box">
-            <h1 class="logo">R<span>Λ</span>IL</h1>
+        
+            <h1 class="logo">
+            R<span>Λ</span>IL
+            </h1>
+
             <div class="logo-line"></div>
+
         </div>
 
         <div class="usuario-box">
+
             <i class="bi bi-person-fill"></i>
+
             <div class="usuario-info">
                 <span>Usuário</span>
                 <p>admin@mockingrail</p>
             </div>
+
         </div>
 
         <nav class="menu">
-            <a href="/pages/telas/menu.html" class="menu-item">
-                <i class="bi bi-house-door-fill"></i>
-                <span>MENU</span>
+
+            <a href="menu.php" class="menu-item">
+            <i class="bi bi-house-door-fill"></i>
+            <span>MENU</span>
             </a>
-            <a href="/pages/telas/painel.html" class="menu-item">
-                <i class="bi bi-grid-1x2-fill"></i>
-                <span>PAINEL</span>
+
+            <a href="painel.php" class="menu-item">
+            <i class="bi bi-grid-1x2-fill"></i>
+            <span>PAINEL</span>
             </a>
-            <a href="/pages/telas/sensores.html" class="menu-item">
-                <i class="bi bi-cpu-fill"></i>
-                <span>SENSORES</span>
+
+            <a href="sensores.php" class="menu-item">
+            <i class="bi bi-cpu-fill"></i>
+            <span>SENSORES</span>
             </a>
-            <a href="/pages/telas/monitoramento.html" class="menu-item">
-                <i class="bi bi-activity"></i>
-                <span>MONITORAMENTO</span>
+
+            <a href="monitoramento.php" class="menu-item">
+            <i class="bi bi-activity"></i>
+            <span>MONITORAMENTO</span>
             </a>
-            <a href="/pages/telas/relatorios.html" class="menu-item">
-                <i class="bi bi-file-earmark-bar-graph-fill"></i>
-                <span>RELATÓRIOS</span>
+
+            <a href="relatorios.php" class="menu-item">
+            <i class="bi bi-file-earmark-bar-graph-fill"></i>
+            <span>RELATÓRIOS</span>
             </a>
-            <a href="/pages/telas/usuarios.html" class="menu-item active">
-                <i class="bi bi-people-fill"></i>
-                <span>USUÁRIOS</span>
+
+            <a href="usuarios.php" class="menu-item active">
+            <i class="bi bi-people-fill"></i>
+            <span>USUÁRIOS</span>
             </a>
+
         </nav>
 
-        <a href="/pages/telas/login.html" class="sair">
-            <i class="bi bi-box-arrow-left"></i>
-            <span>SAIR</span>
-        </a>
+        <a href="login.html" class="sair">
+        <i class="bi bi-box-arrow-left"></i>
+        <span>SAIR</span> </a>
+
     </aside> 
+
+    <!--Titulo-->
 
     <main class="conteudo">
         <header class="cabecalho">
@@ -64,11 +82,18 @@
             <h4>SISTEMA FERROVIÁRIO</h4>
         </header>
 
-        <div class="container-fluid py-4 fundo">
-            <div class="cadastro-box">
-                <h2 class="usuario__title">CADASTRAR USUÁRIO</h2>
+        <!--Cadastro-->
 
-                <div class="row g-4 align-items-end">
+        <div class="fundo">
+            <div class="cadastro-box">
+                <h2 class="usuario__title">
+                    
+                    <i class="bi bi-plus-circle"></i>
+                    
+                    CADASTRAR USUÁRIO</h2>
+
+                <div class="imputs-usuario">
+                    
                     <div class="col-md-3">
                         <label class="label-custom">NOME</label>
                         <input type="text" id="nome" class="form-control input-custom">
@@ -79,12 +104,12 @@
                         <input type="email" id="email" class="form-control input-custom">
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <label class="label-custom">TELEFONE</label>
                         <input type="text" id="telefone" class="form-control input-custom">
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         <label class="label-custom">TIPO</label>
                         <select id="tipo" class="form-select input-custom select-custom">
                             <option value="" selected disabled>SELECIONE</option>
@@ -93,8 +118,7 @@
                         </select>
                     </div>
 
-                    <div class="col-md-1 d-flex align-items-end">
-                        <!-- Adicionado id="btnAdicionar" -->
+                    <div class="col-md-2 d-flex align-items-end">
                         <button id="btnAdicionar" class="btn botao-custom w-100">+ADICIONAR</button>
                     </div>
                 </div>
@@ -106,7 +130,7 @@
             <input type="text" id="buscar" placeholder="Buscar por nome ou ID">
         </div>
 
-        <div class="table-responsive">
+        <div class="tabela-usuarios">
             <table class="table table-bordered align-middle">
                 <thead>
                     <tr>
@@ -117,10 +141,13 @@
                         <th>STATUS</th>
                     </tr>
                 </thead>
-                <tbody id="tabelaUsuarios">
-                </tbody>
+
+                <tbody id="tabelaUsuarios"></tbody>
+
             </table>
+
         </div>
+
     </main>
 
     <script src="../../script/usuarios.js"></script>

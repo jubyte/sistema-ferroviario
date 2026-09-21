@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,13 +7,13 @@
     <link rel="shortcut icon" type="imagex/png" href="../../assets/icons/logo_site.png">
     <link href="https://fonts.googleapis.com/css2?family=Science+Gothic:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <title>Usuários | MockingRail</title>
+    <title>Sensores | MockingRail</title>
 </head>
 <body>
     <aside class="sidebar">
     
         <div class="logo-box">
-        
+
             <h1 class="logo">
             R<span>Λ</span>IL
             </h1>
@@ -28,128 +27,155 @@
             <i class="bi bi-person-fill"></i>
 
             <div class="usuario-info">
-                <span>Usuário</span>
-                <p>admin@mockingrail</p>
+            <span>Usuário</span>
+            <p>admin@mockingrail</p>
             </div>
 
         </div>
 
         <nav class="menu">
 
-            <a href="menu.html" class="menu-item">
+            <a href="menu.php" class="menu-item">
             <i class="bi bi-house-door-fill"></i>
             <span>MENU</span>
             </a>
 
-            <a href="painel.html" class="menu-item">
+            <a href="painel.php" class="menu-item">
             <i class="bi bi-grid-1x2-fill"></i>
             <span>PAINEL</span>
             </a>
 
-            <a href="sensores.html" class="menu-item">
+            <a href="sensores.php" class="menu-item active">
             <i class="bi bi-cpu-fill"></i>
             <span>SENSORES</span>
             </a>
 
-            <a href="monitoramento.html" class="menu-item">
+            <a href="monitoramento.php" class="menu-item">
             <i class="bi bi-activity"></i>
             <span>MONITORAMENTO</span>
             </a>
 
-            <a href="relatorios.html" class="menu-item">
+            <a href="relatorios.php" class="menu-item">
             <i class="bi bi-file-earmark-bar-graph-fill"></i>
             <span>RELATÓRIOS</span>
             </a>
 
-            <a href="usuarios.html" class="menu-item active">
+            <a href="usuarios.php" class="menu-item">
             <i class="bi bi-people-fill"></i>
             <span>USUÁRIOS</span>
             </a>
 
         </nav>
 
-        <a href="login.html" class="sair">
+        <a href="login.php" class="sair">
         <i class="bi bi-box-arrow-left"></i>
         <span>SAIR</span> </a>
 
     </aside> 
 
-    <!--Titulo-->
-
     <main class="conteudo">
+
         <header class="cabecalho">
-            <h2>USUÁRIOS</h2>
+            <h2>SENSORES</h2>
             <h4>SISTEMA FERROVIÁRIO</h4>
         </header>
 
-        <!--Cadastro-->
-
-        <div class="fundo">
-            <div class="cadastro-box">
+        <div class="sensor_caixa">
                 <h2 class="usuario__title">
-                    
-                    <i class="bi bi-plus-circle"></i>
-                    
-                    CADASTRAR USUÁRIO</h2>
+                    <i class="bi bi-plus-circle"></i> CADASTRAR SENSOR
+                </h2>
 
-                <div class="imputs-usuario">
-                    
-                    <div class="col-md-3">
-                        <label class="label-custom">NOME</label>
-                        <input type="text" id="nome" class="form-control input-custom">
-                    </div>
+
+                <div class="row g-4 align-items-end">
+
 
                     <div class="col-md-3">
-                        <label class="label-custom">E-MAIL</label>
-                        <input type="email" id="email" class="form-control input-custom">
+                        <label class="label-custom"> NOME </label>
+                        <input type="text" id="nome" class="form-control input-custom" placeholder="">
                     </div>
+
+
+                    <div class="col-md-3">
+                        <label class="label-custom"> TIPO </label>
+                        <input type="text" id="tipo" class="form-control input-custom" placeholder="">
+                    </div>
+
+
+                    <div class="col-md-3">
+                        <label class="label-custom"> LOCAL </label>
+                        <input type="text" id="local" class="form-control input-custom" placeholder="">
+                    </div>
+
 
                     <div class="col-md-2">
-                        <label class="label-custom">TELEFONE</label>
-                        <input type="text" id="telefone" class="form-control input-custom">
-                    </div>
 
-                    <div class="col-md-1">
-                        <label class="label-custom">TIPO</label>
-                        <select id="tipo" class="form-select input-custom select-custom">
+                        <label class="label-custom"> STATUS </label>
+                        <select id="status" class="form-select input-custom select-custom">
                             <option value="" selected disabled>SELECIONE</option>
-                            <option value="Administrador">Administrador</option>
-                            <option value="Usuário">Usuário</option>
+                            <option value="Ativo"> Ativo </option>
+                            <option value="Inativo"> Inativo </option>
                         </select>
+
                     </div>
 
-                    <div class="col-md-2 d-flex align-items-end">
+                    <!--botão-->
+
+                    <div class="col-md-1 d-flex align-items-end">
                         <button id="btnAdicionar" class="btn botao-custom w-100">+ADICIONAR</button>
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
+       
 
         <div class="sensor_busca">
+
             <i class="bi bi-search"></i>
+
             <input type="text" id="buscar" placeholder="Buscar por nome ou ID">
+
         </div>
 
-        <div class="tabela-usuarios">
+
+        <div id="sensorVazio" class="sensor-vazio">
+
+            <div class="icone_vazio">
+                <i class="bi bi-broadcast" id="icone_vazio"></i>
+            </div>
+            <h4> Nenhum sensor cadastrado ainda. </h4>
+            <p> Cadastre um novo sensor para começar. </p>
+
+        </div>
+
+
+        <div class="sensor_tabela">
+
             <table class="table table-bordered align-middle">
                 <thead>
+                    
                     <tr>
                         <th>ID</th>
                         <th>NOME</th>
-                        <th>E-MAIL</th>
-                        <th>TELEFONE</th>
+                        <th>TIPO</th>
+                        <th>LOCAL</th>
                         <th>STATUS</th>
                     </tr>
+
                 </thead>
-
-                <tbody id="tabelaUsuarios"></tbody>
-
+                <tbody id="tabelaSensores"></tbody>
             </table>
 
         </div>
 
     </main>
 
-    <script src="../../script/usuarios.js"></script>
+</div>
+
+<script src="../../script/sensores.js"></script>
+
 </body>
 </html>

@@ -16,11 +16,11 @@
         </a>
         <h2 class="title_index">Mocking Rail</h2>
         <div class="anav flex">
-            <a class="linksnav" href="../../index.html">Início</a>
-            <a class="linksnav" href="historia.html">História</a>
-            <a class="linksnav" href="objetivos.html">Objetivos</a>
-            <a class="linksnav" href="sustentabilidade.html">Sustentabilidade</a>
-            <a class="login_botao_index" href="../telas/login.html">Login</a>
+            <a class="linksnav" href="../../index.php">Início</a>
+            <a class="linksnav" href="historia.php">História</a>
+            <a class="linksnav" href="objetivos.php">Objetivos</a>
+            <a class="linksnav" href="sustentabilidade.php">Sustentabilidade</a>
+            <a class="login_botao_index" href="../telas/login.php">Login</a>
         </div>
     </nav>
 
