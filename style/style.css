@@ -1019,3 +1019,102 @@ a{
 
     height: 7%;
 }
+
+
+
+
+
+
+/*(ATENÇÃO TROPINHA) nao mexam nisso ainda, estou testando o painel, coloquem novas classes aq em cima*/
+
+
+.cards-painel {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 55px;
+    margin-bottom: 24px;
+}
+
+.card-painel {
+    height: 114px;
+
+    border: 1px solid #34416b;
+
+    background: rgba(10, 20, 57, 0.55);
+
+    display: flex;
+    align-items: center;
+
+    padding: 14px;
+
+    box-sizing: border-box;
+}
+
+.icone-card {
+    width: 43px;
+    height: 43px;
+
+    border: 1px solid currentColor;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 21px;
+
+    flex-shrink: 0;
+}
+
+.icone-card.laranja {
+    color: #f39a0b;
+}
+
+.icone-card.vermelho {
+    color: #ff1717;
+}
+
+.info-card {
+    margin-left: 10px;
+}
+
+.info-card h3 {
+    font-family: 'Science Gothic', sans-serif;
+
+    font-size: 12px;
+    line-height: 14px;
+
+    letter-spacing: 3px;
+
+    margin: 0;
+
+    color: #e1e4ed;
+}
+
+.info-card strong {
+    display: block;
+
+    color: #f39a0b;
+
+    font-size: 12px;
+
+    margin-top: 4px;
+}
+
+.info-card .texto-vermelho {
+    color: #ff1717;
+}
+
+.info-card span {
+    display: block;
+
+    font-family: 'Science Gothic', sans-serif;
+
+    color: #d9ddec;
+
+    font-size: 8px;
+    line-height: 12px;
+
+    letter-spacing: 3px;
+
+    margin-top: 5px;
+}

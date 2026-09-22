@@ -72,5 +72,78 @@
         <span>SAIR</span> </a>
 
     </aside> 
+
+    <main class="conteudo">
+
+    <section class="cabecalho">
+        <h1 class="titulo-menu">PAINEL</h1>
+        <h2 class="titulo-sistema">SISTEMA FERROVIÁRIO</h2>
+    </section>
+
+
+    <section class="cards-painel">
+
+        <div class="card-painel">
+
+            <div class="icone-card laranja">
+                <i class="bi bi-train-front"></i>
+            </div>
+
+            <div class="info-card">
+                <h3>TRENS ATIVOS</h3>
+                <strong>2/13</strong>
+                <span>OPERAÇÃO NORMAL</span>
+            </div>
+
+        </div>
+
+
+        <div class="card-painel">
+
+            <div class="icone-card laranja">
+                <i class="bi bi-cpu"></i>
+            </div>
+
+            <div class="info-card">
+                <h3>SENSORES<br>ONLINE</h3>
+                <strong>7</strong>
+                <span>DE 9<br>CADASTRADOS</span>
+            </div>
+
+        </div>
+
+
+        <div class="card-painel">
+
+            <div class="icone-card vermelho">
+                <i class="bi bi-activity"></i>
+            </div>
+
+            <div class="info-card">
+                <h3>INTEGRI-<br>DADE</h3>
+                <strong class="texto-vermelho">76%</strong>
+                <span>STATUS DA<br>REDE</span>
+            </div>
+
+        </div>
+
+
+        <div class="card-painel">
+
+            <div class="icone-card vermelho">
+                <i class="bi bi-exclamation-triangle"></i>
+            </div>
+
+            <div class="info-card">
+                <h3>ALERTAS<br>CRÍTICOS</h3>
+                <strong class="texto-vermelho">2</strong>
+                <span>REQUER<br>ATENÇÃO</span>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
 </body>
 </html>
