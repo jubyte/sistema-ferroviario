@@ -1,4 +1,4 @@
-![Banner](../assets/imgs/banner_xampp.png)
+![Banner](../assets/imgs/banner_pdo.png)
 
 ## 1. CONCEITO 
 
