@@ -1118,3 +1118,311 @@ a{
 
     margin-top: 5px;
 }
+
+.area-central {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        290px;
+
+    gap: 28px;
+}
+
+.grafico-painel {
+    height: 282px;
+
+    border: 1px solid #34416b;
+
+    background: rgba(10, 20, 57, 0.5);
+
+    padding: 20px 25px;
+
+    box-sizing: border-box;
+}
+
+.grafico-painel h2 {
+    font-family: 'Science Gothic', sans-serif;
+
+    font-size: 14px;
+
+    letter-spacing: 4px;
+
+    margin: 0;
+
+    color: #d9deea;
+}
+
+.grafico {
+    display: flex;
+
+    height: 220px;
+
+    margin-top: 10px;
+}
+
+.eixo-y {
+    width: 25px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    padding: 20px 0 25px;
+
+    color: #929ab2;
+
+    font-size: 8px;
+}
+
+.area-grafico {
+    position: relative;
+
+    flex: 1;
+
+    padding-bottom: 20px;
+}
+
+.legenda-grafico {
+    text-align: center;
+
+    font-size: 8px;
+
+    color: #c7cede;
+}
+
+.legenda-grafico span {
+    display: inline-block;
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #9bc8ff;
+
+    margin-right: 4px;
+}
+
+.area-grafico svg {
+    position: absolute;
+
+    top: 25px;
+    left: 0;
+
+    width: 100%;
+    height: 175px;
+}
+
+.area-grafico svg line {
+    stroke: #26345b;
+
+    stroke-width: 1;
+}
+
+.area-grafico svg circle {
+    fill: #9bc8ff;
+}
+
+.eixo-x {
+    position: absolute;
+
+    bottom: 2px;
+
+    left: 0;
+    right: 0;
+
+    display: flex;
+
+    justify-content: space-around;
+
+    color: #929ab2;
+
+    font-size: 8px;
+}
+
+.status-painel {
+    height: 282px;
+
+    border: 1px solid #34416b;
+
+    background: rgba(10, 20, 57, 0.5);
+}
+
+.status-painel h2 {
+    height: 59px;
+
+    padding: 19px 13px;
+
+    margin: 0;
+
+    border-bottom: 1px solid #303b60;
+
+    font-family: 'Science Gothic', sans-serif;
+
+    font-size: 14px;
+
+    letter-spacing: 4px;
+}
+
+.status-trem {
+    height: 109px;
+
+    padding: 15px 13px;
+
+    border-bottom: 1px solid #303b60;
+
+    box-sizing: border-box;
+}
+
+.status-trem strong {
+    display: block;
+
+    font-size: 14px;
+}
+
+.status-trem > span {
+    display: block;
+
+    font-size: 12px;
+
+    margin-top: 1px;
+}
+
+.status {
+    width: 180px;
+
+    height: 23px;
+
+    margin-top: 9px;
+
+    padding: 3px 7px;
+
+    font-family: 'Science Gothic', sans-serif;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    box-sizing: border-box;
+}
+
+.status i {
+    display: inline-block;
+
+    width: 14px;
+    height: 14px;
+
+    border-radius: 50%;
+
+    vertical-align: middle;
+
+    margin-right: 4px;
+}
+
+.operacional {
+    background: #8d5d20;
+
+    color: #f7a916;
+}
+
+.operacional i {
+    background: #ffa900;
+}
+
+.falha {
+    background: #7d0c22;
+
+    color: #ff2020;
+}
+
+.falha i {
+    background: #ff1717;
+}
+
+.alertas-painel {
+    margin-top: 39px;
+
+    border: 1px solid #34416b;
+
+    background: rgba(10, 20, 57, 0.5);
+}
+
+.titulo-alertas {
+    height: 68px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 0 17px;
+
+    border-bottom: 2px solid #68718b;
+
+    color: #ff1717;
+
+    box-sizing: border-box;
+}
+
+.titulo-alertas i {
+    font-size: 39px;
+}
+
+.titulo-alertas h2 {
+    font-family: 'Science Gothic', sans-serif;
+
+    font-size: 19px;
+
+    letter-spacing: 6px;
+
+    margin: 0;
+}
+
+.alerta {
+    min-height: 43px;
+
+    border-bottom: 2px solid #3a4464;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 0 16px;
+
+    box-sizing: border-box;
+}
+
+.alerta:last-child {
+    border-bottom: none;
+}
+
+.alerta p {
+    margin: 0;
+
+    font-size: 15px;
+
+    color: #d5d9e6;
+}
+
+.bolinha {
+    width: 15px;
+    height: 15px;
+
+    border-radius: 50%;
+
+    flex-shrink: 0;
+}
+
+.critica {
+    background: #a71616;
+}
+
+.aviso {
+    background: #dc5b1b;
+}
