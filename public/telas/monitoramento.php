@@ -8,7 +8,7 @@
     <link rel="shortcut icon" type="imagex/png" href="../../assets/icons/logo_site.png">
     <link href="https://fonts.googleapis.com/css2?family=Science+Gothic:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <title>Usuários | MockingRail</title>
+    <title>Monitoramento | MockingRail</title>
 </head>
 <body>
     <aside class="sidebar">
@@ -51,7 +51,7 @@
             <span>SENSORES</span>
             </a>
 
-            <a href="monitoramento.php" class="menu-item">
+            <a href="monitoramento.php" class="menu-item active">
             <i class="bi bi-activity"></i>
             <span>MONITORAMENTO</span>
             </a>
@@ -61,14 +61,14 @@
             <span>RELATÓRIOS</span>
             </a>
 
-            <a href="usuarios.php" class="menu-item active">
+            <a href="usuarios.php" class="menu-item">
             <i class="bi bi-people-fill"></i>
             <span>USUÁRIOS</span>
             </a>
 
         </nav>
 
-        <a href="login.html" class="sair">
+        <a href="login.php" class="sair">
         <i class="bi bi-box-arrow-left"></i>
         <span>SAIR</span> </a>
 
@@ -77,6 +77,7 @@
     <!--Titulo-->
 
     <main class="conteudo">
+
         <header class="cabecalho">
             <h2>TRENS</h2>
             <h4>SISTEMA FERROVIÁRIO</h4>
@@ -84,74 +85,79 @@
 
         <!--Cadastro-->
 
-        <div class="fundo">
-            <div class="cadastro-box">
+        <div class="sensor_caixa">
                 <h2 class="usuario__title">
-                    
-                    <i class="bi bi-plus-circle"></i>
-                    
-                    CADASTRAR TREM</h2>
+                    <i class="bi bi-plus-circle"></i> CADASTRAR TREM
+                </h2>
 
-                <div class="imputs-usuario">
+
+                <div class="row g-4 align-items-end">
                     
+
                     <div class="col-md-3">
-                        <label class="label-custom">NOME</label>
-                        <input type="text" id="nome" class="form-control input-custom">
+                        <label class="label-custom"> NOME </label>
+                        <input type="text" id="nome" class="form-control input-custom" placeholder="">
                     </div>
 
                     <div class="col-md-3">
-                        <label class="label-custom">E-MAIL</label>
-                        <input type="email" id="email" class="form-control input-custom">
+                        <label class="label-custom"> EMPRESA </label>
+                        <input type="text" id="empresa" class="form-control input-custom" placeholder="">
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="label-custom"> Nº VAGÕES </label>
+                        <input type="number" id="vagoes" class="form-control input-custom" placeholder="">
                     </div>
 
                     <div class="col-md-2">
-                        <label class="label-custom">TELEFONE</label>
-                        <input type="text" id="telefone" class="form-control input-custom">
-                    </div>
-
-                    <div class="col-md-1">
-                        <label class="label-custom">TIPO</label>
+                        <label class="label-custom"> TIPO </label>
                         <select id="tipo" class="form-select input-custom select-custom">
                             <option value="" selected disabled>SELECIONE</option>
-                            <option value="Administrador">Administrador</option>
-                            <option value="Usuário">Usuário</option>
+                            <option value="Eletrico"> Elétrico </option>
+                            <option value="Diesel"> Diesel </option>
                         </select>
                     </div>
 
-                    <div class="col-md-2 d-flex align-items-end">
+                    <div class="col-md-1 d-flex align-items-end">
                         <button id="btnAdicionar" class="btn botao-custom w-100">+ADICIONAR</button>
                     </div>
                 </div>
-            </div>
         </div>
 
         <div class="sensor_busca">
+
             <i class="bi bi-search"></i>
+
             <input type="text" id="buscar" placeholder="Buscar por nome ou ID">
+
         </div>
 
          <div id="sensorVazio" class="sensor-vazio">
 
-            <i class="bi bi-broadcast"></i>
+            <div class="icone_vazio">
+                <i class="bi bi-broadcast"></i>
+            </div>
             <h4> Nenhum trem cadastrado ainda. </h4>
             <p> Cadastre um novo trem para começar. </p>
 
         </div>
 
 
-        <div class="tabela-usuarios">
+        <div class="sensor_tabela">
+
             <table class="table table-bordered align-middle">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>NOME</th>
                         <th>EMPRESA</th>
+                        <th>Nº VAGÕES</th>
                         <th>TIPO</th>
-                        <th>NÚMEROS DE VAGÕES</th>
                     </tr>
+                    
                 </thead>
 
-                <tbody id="tabelaUsuarios"></tbody>
+                <tbody id="tabelaSensores"></tbody>
 
             </table>
 
@@ -159,6 +165,5 @@
 
     </main>
 
-    <script src="../../script/usuarios.js"></script>
 </body>
 </html>

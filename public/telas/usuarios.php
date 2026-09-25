@@ -68,7 +68,7 @@
 
         </nav>
 
-        <a href="login.html" class="sair">
+        <a href="login.php" class="sair">
         <i class="bi bi-box-arrow-left"></i>
         <span>SAIR</span> </a>
 
