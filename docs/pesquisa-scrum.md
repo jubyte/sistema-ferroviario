@@ -1,85 +1,99 @@
 ![Banner](../assets/imgs/banner_scrum.jpg)
 
-## 1. CONCEITO 	
-	
-O Scrum é uma metodologia ágil usada para organizar e gerenciar projetos, principalmente no desenvolvimento de software. Ele ajuda as equipes a trabalharem de forma mais organizada, rápida e eficiente. No Scrum, o trabalho é dividido em pequenas etapas chamadas Sprints, que são períodos curtos de desenvolvimento. Assim, a equipe consegue entregar partes do projeto aos poucos, corrigir erros mais rapidamente e melhorar continuamente. Além disso, o Scrum incentiva o trabalho em equipe, a organização e o aprendizado com as experiências do projeto, ajudando a encontrar soluções melhores e aumentar a qualidade do produto final.
+## 1. CONCEITO
+
+Scrum é um framework utilizado para desenvolver, entregar e manter produtos em ambientes complexos. Ele organiza o trabalho em ciclos curtos chamados Sprints, permitindo que a equipe desenvolva incrementos do produto, acompanhe os resultados e faça adaptações ao longo do projeto.
+
+O Scrum é baseado em transparência, inspeção e adaptação. Dessa forma, a equipe consegue identificar problemas, avaliar o andamento do trabalho e realizar mudanças quando necessário. :contentReference[oaicite:8]{index=8}
 
 ## 2. OBJETIVO
 
-O principal objetivo do Scrum é ajudar as equipes a desenvolver projetos de forma mais organizada, rápida e eficiente. A metodologia busca melhorar o trabalho em equipe, facilitar a comunicação entre os integrantes e permitir que o projeto seja entregue em pequenas partes ao longo do desenvolvimento. Com o Scrum, a equipe consegue identificar problemas mais rapidamente, fazer melhorias constantes e adaptar o projeto caso seja necessário mudar alguma ideia ou requisito. Além disso, o Scrum ajuda a aumentar a qualidade do produto final e a produtividade da equipe.
+O objetivo do Scrum é ajudar uma equipe a gerar valor por meio do desenvolvimento incremental de um produto. O trabalho é organizado em Sprints, permitindo que a equipe planeje, desenvolva, avalie os resultados e adapte suas atividades continuamente.
 
-## 3. PRINCIPAIS PAPÉIS 
+Essa organização facilita a identificação de problemas e permite que mudanças sejam realizadas durante o desenvolvimento, em vez de somente ao final do projeto.
 
-No Scrum, existem três papéis principais: Product Owner, Scrum Master e Development Team. Cada um possui funções importantes para ajudar no desenvolvimento do projeto e no alcance dos objetivos da Sprint. O Product Owner é responsável por definir as prioridades do projeto e organizar as tarefas mais importantes. O Scrum Master ajuda a equipe a seguir corretamente a metodologia Scrum, removendo problemas que possam atrapalhar o trabalho. Já o Development Team é a equipe responsável por desenvolver as atividades e entregar as funcionalidades do projeto. Todos esses papéis trabalham juntos para garantir organização, colaboração e qualidade no desenvolvimento.
+## 3. PRINCIPAIS ACCOUNTABILITIES
+
+O Scrum Team possui três principais accountabilities: Product Owner, Scrum Master e Developers. As três atuam de forma integrada para alcançar o objetivo do produto e entregar um incremento de valor a cada Sprint. :contentReference[oaicite:9]{index=9}
 
 ### 3.1. PRODUCT OWNER
 
-Às vezes conhecido como refinamento do backlog , este evento é de responsabilidade do dono do produto. A principal função do dono do produto é conduzir o produto em direção à sua visão e manter-se constantemente atento ao mercado e ao cliente. Mantendo essa lista atualizada com base no feedback dos usuários e da equipe de desenvolvimento, o que ajuda a priorizar e manter a lista organizada e pronta para uso a qualquer momento.
+O Product Owner é responsável por maximizar o valor do produto resultante do trabalho do Scrum Team. Ele também é responsável pelo gerenciamento eficaz do Product Backlog, incluindo a definição e comunicação do Product Goal, a criação e organização dos itens do backlog e a garantia de que o backlog seja compreensível e transparente. :contentReference[oaicite:10]{index=10}
 
 ### 3.2. SCRUM MASTER
 
-Na reunião, toda a equipe de desenvolvimento planejou o trabalho a ser realizado durante o sprint atual. O Scrum Master lidera essa reunião, conhecida como evento de planejamento da sprint. Durante essa reunião, a equipe define a meta da sprint e planeja o trabalho a ser realizado. Em seguida, histórias de usuário específicas são adicionadas à sprint a partir do backlog do produto. 
-Essas histórias sempre se alinham com o objetivo e são consideradas viáveis ​​de serem implementadas durante a sprint pela equipe Scrum. Ao final da reunião de planejamento, todos os membros da equipe Scrum devem ter uma compreensão clara do que será entregue durante a sprint e como o incremento será alcançado.
+O Scrum Master é responsável por estabelecer o Scrum conforme definido no Scrum Guide e ajudar o Scrum Team a compreender seus princípios e práticas.
 
-### 3.3.  DEVELOPMENT TEAM
+Também auxilia na remoção de impedimentos, melhora a efetividade da equipe e ajuda a garantir que os eventos do Scrum sejam realizados de maneira adequada. :contentReference[oaicite:11]{index=11}
 
-O Development Team é a equipe responsável por desenvolver as tarefas do projeto no Scrum. Normalmente, essas equipes são pequenas, organizadas e formadas por pessoas com diferentes habilidades, permitindo que todos colaborem entre si. Os membros da equipe trabalham juntos para concluir as atividades da Sprint e alcançar os objetivos definidos. Além disso, o time participa do planejamento das tarefas e analisa o desempenho das Sprints anteriores para melhorar a organização e a produtividade nas próximas etapas do projeto.
+### 3.3. DEVELOPERS
+
+Os Developers são responsáveis por criar qualquer parte de um Increment utilizável a cada Sprint.
+
+Entre suas responsabilidades estão criar o plano da Sprint, manter a qualidade do trabalho de acordo com a Definition of Done, adaptar o planejamento diariamente em direção ao Sprint Goal e manter a responsabilidade profissional entre os integrantes da equipe. :contentReference[oaicite:12]{index=12}
 
 ### 3.4. EVENTOS DO SCRUM
 
-Os eventos do Scrum são etapas importantes que ajudam a equipe a organizar o projeto e acompanhar o desenvolvimento das tarefas. Esses eventos servem para melhorar a comunicação, manter a organização e ajudar a equipe a trabalhar de forma mais eficiente.
-Os principais eventos do Scrum são:
+Os eventos do Scrum são utilizados para criar oportunidades de inspeção e adaptação. Eles são:
 
 - **Sprint;**
-
 - **Sprint Planning;**
-
 - **Daily Scrum;**
-
 - **Sprint Review;**
-
 - **Sprint Retrospective.**
 
-Cada evento possui uma função específica, como planejar atividades, acompanhar o progresso do projeto, apresentar resultados e identificar melhorias para as próximas etapas do trabalho.
+Cada evento possui uma finalidade específica e contribui para o acompanhamento e a adaptação do trabalho.
 
 ### 3.5. SPRINT
 
-As Sprints são períodos curtos de trabalho no Scrum, onde a equipe se concentra em desenvolver uma parte do projeto. Durante a Sprint, são realizadas atividades como planejamento, reuniões diárias, revisões e retrospectivas para acompanhar o progresso e melhorar o trabalho da equipe. As Sprints ajudam a manter a organização, aumentar o foco da equipe e garantir entregas contínuas do projeto. Para que funcionem corretamente, é importante definir objetivos claros, organizar as tarefas e manter uma boa colaboração entre os integrantes da equipe. Além disso, as Sprints permitem que a equipe aprenda com cada etapa do projeto, fazendo melhorias constantes ao longo do desenvolvimento.
+A Sprint é um período de duração fixa em que todo o trabalho necessário para alcançar o Sprint Goal é realizado. Durante a Sprint, acontecem os demais eventos do Scrum.
+
+As Sprints ajudam a criar consistência no desenvolvimento e permitem que o progresso seja acompanhado de forma frequente.
 
 ### 3.6. SPRINT PLANNING
 
-O Sprint Planning é a reunião de planejamento da Sprint no Scrum. Nessa etapa, a equipe define quais tarefas serão realizadas durante a Sprint e como o trabalho será organizado. O objetivo dessa reunião é dividir o projeto em partes menores e mais fáceis de desenvolver, ajudando a equipe a manter a organização e o foco nas entregas. Durante o planejamento, também são definidos os objetivos da Sprint e as prioridades das tarefas. O Sprint Planning ajuda a melhorar a colaboração da equipe, facilita o acompanhamento do progresso do projeto e permite que mudanças sejam feitas de forma mais organizada ao longo do desenvolvimento.
+O Sprint Planning inicia a Sprint. Nesse evento, o Scrum Team define o objetivo da Sprint, seleciona os itens que serão trabalhados e planeja como o trabalho será realizado.
+
+O resultado desse planejamento é o Sprint Backlog, formado pelo Sprint Goal, pelos itens selecionados do Product Backlog e pelo plano de execução do trabalho.
 
 ### 3.7. DAILY SCRUM
 
-O Daily Scrum é uma reunião diária rápida realizada pela equipe, normalmente no início do dia. O objetivo dessa reunião é acompanhar o andamento da Sprint, organizar as atividades e identificar possíveis problemas que possam atrapalhar o desenvolvimento do projeto. Essa reunião costuma durar cerca de 15 minutos e ajuda todos os integrantes da equipe a permanecer alinhados com a meta da Sprint. Durante o encontro, cada membro geralmente responde três perguntas principais:
+O Daily Scrum é um evento de 15 minutos realizado pelos Developers durante a Sprint. Seu objetivo é inspecionar o progresso em direção ao Sprint Goal e adaptar o Sprint Backlog conforme necessário.
 
-- **O que fiz ontem?**
-
-- **O que vou fazer hoje?**
-
-- **Existe algum problema ou impedimento?**
-
-Além de melhorar a comunicação, o Daily Scrum ajuda a evitar desorganização e conversas paralelas, permitindo que a equipe mantenha o foco no trabalho e aumente a produtividade ao longo do dia.
+A reunião não precisa seguir obrigatoriamente três perguntas fixas. A equipe pode escolher a estrutura mais adequada, desde que o evento cumpra seu objetivo de acompanhar o progresso e planejar o trabalho do dia.
 
 ### 3.8. SPRINT REVIEW
 
-Ao final do sprint, a equipe se reúne para uma sessão informal para visualizar uma demonstração ou inspecionar o incremento. A equipe de desenvolvimento apresentou os itens do backlog que agora estão concluídos aos stakeholders e colegas de equipe para receber feedback.  O dono do produto pode decidir se libera ou não o incremento, embora na maioria dos casos ele seja liberado. Esta reunião de revisão também é o momento em que o dono do produto reformula o backlog do produto com base na sprint atual e pode contribuir para a próxima sessão de planejamento da sprint.
+A Sprint Review acontece no final da Sprint e tem como objetivo inspecionar o resultado produzido e discutir possíveis adaptações futuras.
 
-## 4. SPRINT RETROSPECTIVE
+Durante esse evento, o Scrum Team apresenta os resultados às partes interessadas e analisa o que foi realizado, o que mudou no ambiente e quais são os próximos passos possíveis.
 
-A retrospectiva é o momento em que a equipe se reúne para documentar e discutir o que funcionou e o que não funcionou em um sprint, um projeto, em relação às pessoas ou aos relacionamentos, às ferramentas ou até mesmo a determinadas cerimônias. 
+### 3.9. SPRINT RETROSPECTIVE
 
-## 5. BENEFÍCIOS 
+A Sprint Retrospective é o momento em que o Scrum Team analisa a Sprint em relação às pessoas, às interações, aos processos, às ferramentas e à Definition of Done.
 
-O Scrum possui cinco valores principais que ajudam a equipe a trabalhar de forma mais organizada, eficiente e colaborativa. Esses valores melhoram a comunicação, aumentam a 
-produtividade e ajudam no sucesso do projeto. O compromisso faz com que cada integrante cumpra suas responsabilidades e ajude a equipe a alcançar os objetivos da Sprint. A coragem incentiva os membros a enfrentarem desafios, apresentarem ideias e falarem sobre problemas encontrados. O foco ajuda a equipe a se concentrar nas tarefas mais importantes, melhorando a organização e evitando atrasos. Já a abertura incentiva uma comunicação clara e transparente entre todos os participantes do projeto. 
-Por fim, o respeito fortalece o trabalho em equipe, valorizando as opiniões e funções de cada integrante.Com esses valores, o Scrum traz benefícios como melhor organização, maior produtividade, entregas mais rápidas e melhoria na qualidade do projeto final.
+A equipe identifica o que funcionou, quais problemas foram encontrados e quais melhorias podem ser aplicadas na próxima Sprint.
 
-## REFERÊNCIAS 
+## 4. BENEFÍCIOS
 
-- ATLASSIAN. Sprints Scrum. Disponível em: https://www.atlassian.com/en/agile/scrum/sprints. Acesso em: 20 maio 2026.
+O Scrum pode contribuir para uma organização mais clara do trabalho e para a adaptação contínua do projeto.
 
-- ATLASSIAN. Papéis no Scrum. Disponível em: https://www.atlassian.com/br/agile/scrum/roles. Acesso em: 20 maio 2026.
+Entre seus principais benefícios estão:
 
-- ATLASSIAN. O que é o Scrum?. Disponível em: https://www.atlassian.com/agile/scrum/. Acesso em: 20 maio 2026.
+- organização do trabalho em ciclos curtos;
+- acompanhamento frequente do progresso;
+- identificação antecipada de problemas;
+- adaptação contínua do planejamento;
+- colaboração entre os integrantes;
+- melhoria contínua do processo;
+- entregas incrementais do produto.
+
+Além disso, o Scrum possui cinco valores que orientam o comportamento da equipe: **Compromisso, Foco, Abertura, Respeito e Coragem**. :contentReference[oaicite:13]{index=13}
+
+## REFERÊNCIAS
+
+SCHWABER, Ken; SUTHERLAND, Jeff. *The Scrum Guide: The Definitive Guide to Scrum: The Rules of the Game*. 2020. Disponível em: https://scrumguides.org/scrum-guide.html. Acesso em: 28 set. 2026.
+
+ATLASSIAN. Sprints Scrum. Disponível em: https://www.atlassian.com/en/agile/scrum/sprints. Acesso em: 20 maio 2026.
+
+ATLASSIAN. Papéis no Scrum. Disponível em: https://www.atlassian.com/br/agile/scrum/roles. Acesso em: 20 maio 2026.
