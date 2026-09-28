@@ -91,37 +91,37 @@
                 <div class="row g-4 align-items-end">
 
 
-                    <div class="col-md-3">
+                    <div class="col">
                         <label class="label-custom"> NOME </label>
                         <input type="text" id="nome" class="form-control input-custom" placeholder="">
                     </div>
 
 
-                    <div class="col-md-3">
+                    <div class="col">
+                        <label class="label-custom"> E-MAIL </label>
+                        <input type="text" id="email" class="form-control input-custom" placeholder="">
+                    </div>
+
+
+                    <div class="col">
+                        <label class="label-custom"> TELEFONE </label>
+                        <input type="text" id="telefone" class="form-control input-custom" placeholder="">
+                    </div>
+
+
+                    <div class="col">
+
                         <label class="label-custom"> TIPO </label>
-                        <input type="text" id="tipo" class="form-control input-custom" placeholder="">
-                    </div>
-
-
-                    <div class="col-md-3">
-                        <label class="label-custom"> LOCAL </label>
-                        <input type="text" id="local" class="form-control input-custom" placeholder="">
-                    </div>
-
-
-                    <div class="col-md-2">
-
-                        <label class="label-custom"> STATUS </label>
-                        <select id="status" class="form-select input-custom select-custom">
+                        <select id="tipo" class="form-select input-custom select-custom">
                             <option value="" selected disabled>SELECIONE</option>
-                            <option value="Ativo"> Ativo </option>
-                            <option value="Inativo"> Inativo </option>
+                            <option value="Administrador"> Administrador </option>
+                            <option value="Usuário"> Usuário </option>
                         </select>
 
                     </div>
 
 
-                    <div class="col-md-1 d-flex align-items-end">
+                    <div class="col">
                         <button id="btnAdicionar" class="btn botao-custom w-100">+ADICIONAR</button>
                     </div>
 
@@ -142,7 +142,8 @@
         </div>
 
 
-        <div class="tabela-usuarios">
+        <div class="sensor_tabela">
+
             <table class="table table-bordered align-middle">
                 <thead>
                     <tr>
