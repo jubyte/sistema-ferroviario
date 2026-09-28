@@ -82,7 +82,7 @@
 
         <div class="sensor_caixa">
             <h2 class="usuario__title">
-                <i class="bi bi-plus-circle"></i> CADASTRAR SENSOR
+                <i class="bi bi-plus-circle"></i> CADASTRAR SENSOR  
             </h2>
 
 
@@ -126,7 +126,6 @@
 
                 </div>
         </div>
-
        
 
         <div class="sensor_busca">
