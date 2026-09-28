@@ -1,39 +1,40 @@
 ![Banner](../assets/imgs/banner_crud.png)
 
-
 ## 1. CONCEITO
 
-O CRUD (Create, Read, Update e Delete) é um conjunto de quatro operações básicas utilizadas para manipular dados em sistemas de software. Esse conceito é fundamental, pois define como as informações são armazenadas, acessadas e modificadas dentro de um banco de dados ou outro tipo de repositório de dados. Segundo a Mozilla (2025), o CRUD representa as principais funções utilizadas na manipulação de informações em sistemas digitais.
+CRUD é um conjunto de quatro operações básicas utilizadas para manipular dados em sistemas de software. O termo é formado pelas iniciais de Create, Read, Update e Delete, que representam, respectivamente, criar, consultar, atualizar e excluir dados.
 
-O acrônimo CRUD representa quatro operações fundamentais:
+Essas operações são utilizadas em sistemas que precisam armazenar e gerenciar informações, principalmente em conjunto com bancos de dados relacionais.
+
+As quatro operações são:
 
 - **Create (INSERT):** responsável pela inserção de novos dados no sistema, como o cadastro de usuários;
-- **Read (SELECT):** utilizado para consultar ou visualizar informações armazenadas;
+- **Read (SELECT):** utilizada para consultar e visualizar informações armazenadas;
 - **Update (UPDATE):** permite modificar dados já existentes;
-- **Delete (DELETE):** realiza a remoção de dados do sistema, podendo ser feita de forma definitiva ou lógica, quando o dado apenas é marcado como inativo.
+- **Delete (DELETE):** realiza a remoção de dados que não são mais necessários. Essa remoção também pode ser lógica, quando o registro permanece armazenado, mas é marcado como inativo.
 
-### 1.1 OPERAÇÕES
+### 1.1. OPERAÇÕES
 
-As operações CRUD são consideradas a base da maioria dos sistemas digitais, desde aplicações simples até plataformas mais complexas. Sempre que um usuário cadastra, visualiza, edita ou exclui informações, ele está utilizando alguma das operações do CRUD.
+As operações CRUD estão presentes em grande parte dos sistemas digitais. Sempre que um usuário cadastra, consulta, altera ou exclui uma informação, uma ou mais dessas operações são utilizadas.
 
-Além disso, o CRUD auxilia na organização do sistema, pois define a forma como os usuários interagem com o banco de dados. Dessa maneira, o conceito contribui para a manutenção, organização e crescimento do sistema, permitindo um gerenciamento mais eficiente das informações.
+O CRUD também contribui para a organização do sistema, pois estabelece uma estrutura básica para a interação entre a aplicação e o banco de dados. Dessa forma, facilita o gerenciamento e a manutenção das informações.
 
 ## 2. APLICAÇÃO NO PROJETO
 
-No projeto desenvolvido, o CRUD é utilizado como base para organizar e controlar os dados recebidos pelos sensores dos trens. Cada informação coletada pelos sensores é armazenada no sistema como um dado no banco de dados.
+No projeto desenvolvido, o CRUD é utilizado para organizar e controlar os dados recebidos pelos sensores dos trens. As informações coletadas são armazenadas no banco de dados e podem ser manipuladas pela aplicação.
 
-Quando o trem envia novas informações, a operação Create é utilizada para registrar os dados no sistema. Esse processo ocorre continuamente, já que os sensores realizam coletas constantes de informações.
+A operação **Create** é utilizada para registrar novas informações enviadas pelos sensores, como localização, velocidade e consumo de energia.
 
-Por meio da operação Read, é possível visualizar os dados armazenados, como a localização do trem, a velocidade atual e o consumo de energia.
+Por meio da operação **Read**, é possível consultar os dados armazenados e visualizar as informações coletadas pelo sistema.
 
-Caso alguma informação precise ser corrigida ou atualizada, utiliza-se a operação Update. Isso pode ocorrer, por exemplo, na alteração do status de um trem para indicar manutenção ou correção de dados cadastrados incorretamente.
+A operação **Update** permite atualizar informações já existentes. Isso pode ocorrer, por exemplo, na alteração do status de um trem ou na correção de um dado cadastrado incorretamente.
 
-Já a operação Delete é responsável pela remoção de informações que não são mais necessárias, como dados duplicados ou antigos. Em determinadas situações, a exclusão pode ocorrer apenas de forma lógica, mantendo os dados armazenados, porém marcados como inativos.
+Já a operação **Delete** permite remover informações que não são mais necessárias, como registros duplicados ou dados que não precisam permanecer no sistema. Dependendo da regra definida para o projeto, essa exclusão também pode ser realizada de forma lógica.
 
 ## REFERÊNCIAS
 
-- MOZILLA. CRUD. MDN Web Docs, 2025. Disponível em: https://developer.mozilla.org/pt-BR/docs/Glossary/CRUD. Acesso em: 4 maio 2026.
+MOZILLA. CRUD. *MDN Web Docs*, 2025. Disponível em: https://developer.mozilla.org/pt-BR/docs/Glossary/CRUD. Acesso em: 4 maio 2026.
 
-- ESCOLA DNC. CRUD: o que é e como funciona. 2023. Disponível em: https://www.escoladnc.com.br/blog/crud-o-que-e-e-como-funciona. Acesso em: 4 maio 2026.
+ESCOLA DNC. CRUD: o que é e como funciona. 2023. Disponível em: https://www.escoladnc.com.br/blog/crud-o-que-e-e-como-funciona. Acesso em: 4 maio 2026.
 
-- PROGRAMADORES DEPRÊ. O que é CRUD? Explicado com exemplos em PHP e MySQL. 2022. Disponível em: https://programadoresdepre.com.br/o-que-e-crud/. Acesso em: 4 maio 2026.
+PROGRAMADORES DEPRÊ. O que é CRUD? Explicado com exemplos em PHP e MySQL. 2022. Disponível em: https://programadoresdepre.com.br/o-que-e-crud/. Acesso em: 4 maio 2026.
