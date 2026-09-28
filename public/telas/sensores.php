@@ -81,9 +81,9 @@
         </header>
 
         <div class="sensor_caixa">
-                <h2 class="usuario__title">
-                    <i class="bi bi-plus-circle"></i> CADASTRAR SENSOR
-                </h2>
+            <h2 class="usuario__title">
+                <i class="bi bi-plus-circle"></i> CADASTRAR SENSOR
+            </h2>
 
 
                 <div class="row g-4 align-items-end">
@@ -125,9 +125,6 @@
                     </div>
 
                 </div>
-
-            </div>
-
         </div>
 
        
