@@ -76,8 +76,8 @@ As consultas utilizam Prepared Statements para manter os valores recebidos separ
 
 ## REFERÊNCIAS
 
-PHP DOCUMENTATION GROUP. **PDO — PHP Data Objects**. PHP Manual. Disponível em: https://www.php.net/manual/pt_BR/book.pdo.php. Acesso em: 28 set. 2026.
+PHP DOCUMENTATION GROUP. **PDO — PHP Data Objects**. PHP Manual. Disponível em: https://www.php.net/manual/pt_BR/book.pdo.php. Acesso em: 09 set. 2026.
 
-PHP DOCUMENTATION GROUP. **Prepared Statements**. PHP Manual. Disponível em: https://www.php.net/manual/pt_BR/pdo.prepared-statements.php. Acesso em: 28 set. 2026.
+PHP DOCUMENTATION GROUP. **Prepared Statements**. PHP Manual. Disponível em: https://www.php.net/manual/pt_BR/pdo.prepared-statements.php. Acesso em: 09 set. 2026.
 
-PHP DOCUMENTATION GROUP. **PDO::prepare**. PHP Manual. Disponível em: https://www.php.net/manual/pt_BR/pdo.prepare.php. Acesso em: 28 set. 2026.
+PHP DOCUMENTATION GROUP. **PDO::prepare**. PHP Manual. Disponível em: https://www.php.net/manual/pt_BR/pdo.prepare.php. Acesso em: 09 set. 2026.

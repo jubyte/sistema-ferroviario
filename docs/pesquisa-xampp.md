@@ -74,9 +74,9 @@ Entre suas principais utilizações estão:
 
 ## REFERÊNCIAS
 
-APACHE FRIENDS. XAMPP. Disponível em: https://www.apachefriends.org/pt_br/index.html. Acesso em: 28 set. 2026.
+APACHE FRIENDS. XAMPP. Disponível em: https://www.apachefriends.org/pt_br/index.html. Acesso em: 18 maio 2026.
 
-APACHE FRIENDS. Download XAMPP. Disponível em: https://www.apachefriends.org/pt_br/download.html. Acesso em: 28 set. 2026.
+APACHE FRIENDS. Download XAMPP. Disponível em: https://www.apachefriends.org/pt_br/download.html. Acesso em: 18 maio 2026.
 
 IBM. O que é Apache Server? Disponível em: https://www.ibm.com/br-pt/think/topics/apache-server. Acesso em: 18 maio 2026.
 
