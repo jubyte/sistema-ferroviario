@@ -74,7 +74,6 @@
 
     </aside> 
 
-    <!--Titulo-->
 
     <main class="conteudo">
         <header class="cabecalho">
@@ -82,7 +81,6 @@
             <h4>SISTEMA FERROVIÁRIO</h4>
         </header>
 
-        <!--Cadastro-->
 
         <div class="sensor_caixa">
             <h2 class="usuario__title">
@@ -122,7 +120,6 @@
 
                     </div>
 
-                    <!--botão-->
 
                     <div class="col-md-1 d-flex align-items-end">
                         <button id="btnAdicionar" class="btn botao-custom w-100">+ADICIONAR</button>
