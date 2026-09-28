@@ -11,7 +11,7 @@
 <body >
    
     <nav class="navbar-inicio flex">
-        <a href="../../index.html">
+        <a href="../../index.php">
             <img class="logo-login" src="../../assets/icons/logo.png" alt="logo da MockingRail">
         </a>
         <h2 class="title_index">Mocking Rail</h2>
