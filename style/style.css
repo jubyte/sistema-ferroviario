@@ -156,6 +156,7 @@ body {
 }
 
 .sidebar {
+    width: 20%;
     min-height: 100vh;
     padding: 1% 1%;
 
@@ -325,7 +326,7 @@ body {
 @media(max-width:900px){
     .sidebar{
         width:100%;
-        min-height:auto;
+        min-height:100vh;
     }
     .menu-item{
         min-height:68px;
@@ -458,7 +459,7 @@ body {
 
 .conteudo{
     margin-top: 2%;
-    margin-left: 27%;
+    margin-left: 22%;
     width: 70%;
 }
 

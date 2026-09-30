@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-require_once 'conexao.php';
+require_once '../../infra/conexao.php';
 
 $nome = $_POST['nome'] ?? '';
 $email = $_POST['email'] ?? '';

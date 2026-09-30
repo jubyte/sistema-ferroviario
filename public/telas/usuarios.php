@@ -29,7 +29,7 @@
 
             <div class="usuario-info">
                 <span>Usuário</span>
-                <p id="email-usuario">admin@mockingrail</p>
+                <p id="emailusuario">admin@mockingrail</p>
             </div>
 
         </div>
