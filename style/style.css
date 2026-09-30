@@ -6,7 +6,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     color:white;
-      min-height:100vh;
+    min-height:110vh;
 }
 
 #titulo {
@@ -460,7 +460,7 @@ body {
 .conteudo{
     margin-top: 2%;
     margin-left: 22%;
-    width: 70%;
+    width: 76%;
 }
 
 .cabecalho{
@@ -517,11 +517,11 @@ body {
 }
 
 .cartao-sensores {
-    width: 420px;
+    width: 45%;
 }
 
 .cartao-alertas {
-    width: 200px;
+    width: 25%;
 }
 
 .cartao-sensores i,
@@ -531,12 +531,12 @@ body {
 
 .informacoes-sensores {
     display: flex;
-    gap: 40px;
+    gap: 130%;
 }
 
 
 .painel-monitoramento {
-    width: 900px;
+    width: 100%;
     border: 1px solid rgba(255,255,255,0.2);
     margin-top: 20px;
     padding: 15px;
@@ -558,7 +558,7 @@ body {
 
 
 .painel-trens {
-    width: 640px;
+    width: 70%;
     margin-top: 20px;
 }
 
@@ -595,7 +595,7 @@ body {
 }
 
 .cartao-indicador {
-    width: 290px;
+    width: 40%;
     border: 1px solid rgba(255,255,255,0.3);
     padding: 10px 15px;
 }
@@ -611,7 +611,7 @@ body {
 }
 
 .sensor_caixa{
-    width:95%;
+    width:100%;
     padding:20px;
     border:1px solid rgba(255,255,255,0.5);
     background:#07102b;
@@ -669,7 +669,7 @@ body {
 }
 
 .sensor_busca{
-    width:95%;
+    width:100%;
     margin-top:15px;
 
     background:#575d89;
@@ -679,6 +679,7 @@ body {
 
     padding:8px 12px;
 }
+
 
 .sensor_busca i{
     color:white;
@@ -700,7 +701,7 @@ body {
 }
 
 .sensor_tabela{
-    width:95%;
+    width:100%;
     margin-top:10px;
     border-collapse:collapse;
 }
@@ -732,7 +733,7 @@ body {
     color:#98c6fe;
 }
 .sensor-vazio{
-    width:95%;
+    width:100%;
     height:250px;
     margin-top:15px;
     border:1px solid #5a6699;
@@ -795,16 +796,7 @@ body {
     margin: 1%;
     padding: 1%;
 }
-.sensor_busca{
-    width:95%;
-    
-    background:#575d89;
 
-    display:flex;
-    align-items:center;
-
-    padding:1%;
-}
 .icone-color{
   color:#5c9aff;
     font-size: 18px;

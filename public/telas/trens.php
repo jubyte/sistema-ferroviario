@@ -51,8 +51,8 @@
             <span>SENSORES</span>
             </a>
 
-            <a href="trens.php" class="menu-item active">
-            <i class="bi bi-activity"></i>
+            <a href="trens.php" class="menu-item">
+            <i class="bi bi-train-front"></i>
             <span>TRENS</span>
             </a>
 
@@ -136,7 +136,7 @@
 
         </div>
 
-         <div id="sensorVazio" class="sensor-vazio">
+        <div id="sensorVazio" class="sensor-vazio">
 
             <div class="icone_vazio">
                 <i class="bi bi-broadcast"></i>

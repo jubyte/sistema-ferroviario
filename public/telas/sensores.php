@@ -51,7 +51,7 @@
             </a>
 
             <a href="trens.php" class="menu-item">
-            <i class="bi bi-activity"></i>
+            <i class="bi bi-train-front"></i>
             <span>TRENS</span>
             </a>
 
@@ -131,11 +131,10 @@
 
         </div>
 
-
         <div id="sensorVazio" class="sensor-vazio">
 
             <div class="icone_vazio">
-                <i class="bi bi-broadcast" id="icone_vazio"></i>
+                <i class="bi bi-broadcast"></i>
             </div>
             <h4> Nenhum sensor cadastrado ainda. </h4>
             <p> Cadastre um novo sensor para começar. </p>

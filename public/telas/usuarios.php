@@ -52,7 +52,7 @@
             </a>
 
             <a href="trens.php" class="menu-item">
-            <i class="bi bi-activity"></i>
+            <i class="bi bi-train-front"></i>
             <span>TRENS</span>
             </a>
 
