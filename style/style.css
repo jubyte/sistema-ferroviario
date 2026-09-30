@@ -61,11 +61,14 @@ body {
 }
 .usuario__title {
     font-size: clamp(14px, 5vw, 25px); 
-    letter-spacing: 10px;   
-    display: flex;
-    flex-direction: column;
+    letter-spacing: 5px;  
 
-    margin: 10px;   
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    margin: 10px; 
+
     background: linear-gradient(90deg, #9b9b9b, #ffffff, #9b9b9b);
     background-clip: text;
     -webkit-background-clip: text;
@@ -401,9 +404,7 @@ body {
 /* BOTÃO */
 
 .botao-custom{
-    height: 36px;
-    width: 140px;
-
+    height: 29px !important;
     border-radius: 0;
 
     border:
@@ -420,9 +421,10 @@ body {
 
     letter-spacing: 3px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
 
     transition: 0.3s ease;
 

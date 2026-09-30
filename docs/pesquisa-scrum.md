@@ -92,7 +92,7 @@ Além disso, o Scrum possui cinco valores que orientam o comportamento da equipe
 
 ## REFERÊNCIAS
 
-SCHWABER, Ken; SUTHERLAND, Jeff. *The Scrum Guide: The Definitive Guide to Scrum: The Rules of the Game*. 2020. Disponível em: https://scrumguides.org/scrum-guide.html. Acesso em: 28 set. 2026.
+SCHWABER, Ken; SUTHERLAND, Jeff. *The Scrum Guide: The Definitive Guide to Scrum: The Rules of the Game*. 2020. Disponível em: https://scrumguides.org/scrum-guide.html. Acesso em: 20 maio 2026.
 
 ATLASSIAN. Sprints Scrum. Disponível em: https://www.atlassian.com/en/agile/scrum/sprints. Acesso em: 20 maio 2026.
 

@@ -1,83 +1,39 @@
-//lista
-
 let usuarios = [];
-
-
-//pegar elementos do HTML
 
 const nomeInput = document.getElementById("nome");
 const emailInput = document.getElementById("email");
 const telefoneInput = document.getElementById("telefone");
 const tipoInput = document.getElementById("tipo");
-
 const botaoAdicionar = document.getElementById("btnAdicionar");
-
 const campoBusca = document.getElementById("buscar");
-
 const tabela = document.getElementById("tabelaUsuarios");
 
-
-document.getElementById("email-usuario").textContent = emailInput.value;
-
-//mostrar usuários
-
 function mostrarUsuarios(lista) {
-
     tabela.innerHTML = "";
 
     lista.forEach(function(usuario) {
-
         const linha = document.createElement("tr");
 
         linha.innerHTML = `
-            
+            <td>${String(usuario.id).padStart(2, "0")}</td>
+            <td>${usuario.nome}</td>
+            <td>${usuario.email}</td>
+            <td>${usuario.telefone}</td>
             <td>
-                ${String(usuario.id).padStart(2, "0")}
-            </td>
-
-            <td>
-                ${usuario.nome}
-            </td>
-
-            <td>
-                ${usuario.email}
-            </td>
-
-            <td>
-                ${usuario.telefone}
-            </td>
-
-            <td>
-
                 <div class="d-flex justify-content-between align-items-center">
-
                     <span class="status-ativo">
                         ● ${usuario.status}
                     </span>
-
                     <div>
-
-                        <button 
-                            class="btn-acao"
-                            onclick="editarUsuario(${usuario.id})">
-
+                        <button class="btn-acao" onclick="editarUsuario(${usuario.id})">
                             <i class="bi bi-pencil-square icone-color"></i>
-
                         </button>
 
-
-                        <button 
-                            class="btn-acao"
-                            onclick="removerUsuario(${usuario.id})">
-
+                        <button class="btn-acao" onclick="removerUsuario(${usuario.id})">
                             <i class="bi bi-trash3 icone-color"></i>
-
                         </button>
-
                     </div>
-
                 </div>
-
             </td>
         `;
 
@@ -85,18 +41,11 @@ function mostrarUsuarios(lista) {
     });
 }
 
-
-//adicionar usuário
-
 botaoAdicionar.addEventListener("click", function() {
-
     const nome = nomeInput.value.trim();
     const email = emailInput.value.trim();
     const telefone = telefoneInput.value.trim();
     const tipo = tipoInput.value;
-
-
-    //verificar campos
 
     if (nome === "") {
         alert("Digite o nome do usuário.");
@@ -104,13 +53,11 @@ botaoAdicionar.addEventListener("click", function() {
         return;
     }
 
-
     if (email === "") {
         alert("Digite o e-mail.");
         emailInput.focus();
         return;
     }
-
 
     if (telefone === "") {
         alert("Digite o telefone.");
@@ -118,189 +65,102 @@ botaoAdicionar.addEventListener("click", function() {
         return;
     }
 
-
     if (tipo === "") {
         alert("Selecione o tipo de usuário.");
         tipoInput.focus();
         return;
     }
 
-
-    //criar novo ID
-
-    let novoId = 1;
-
-    if (usuarios.length > 0) {
-
-        novoId = usuarios[usuarios.length - 1].id + 1;
-
-    }
-
-
-    //criar usuário
+    const novoId = usuarios.length > 0
+        ? usuarios[usuarios.length - 1].id + 1
+        : 1;
 
     const novoUsuario = {
-
         id: novoId,
-
         nome: nome,
-
         email: email,
-
         telefone: telefone,
-
         tipo: tipo,
-
         status: "Ativo"
-
     };
 
-
-    //adicionar na lista
-
     usuarios.push(novoUsuario);
-
-
-    //atualizar tabela
-
     mostrarUsuarios(usuarios);
 
-
-    //limpar campos
-
     nomeInput.value = "";
-
     emailInput.value = "";
-
     telefoneInput.value = "";
-
     tipoInput.value = "";
-
 });
-
-
-//pesquisar usuário
 
 campoBusca.addEventListener("input", function() {
-
     const texto = campoBusca.value.toLowerCase().trim();
 
-
     const resultados = usuarios.filter(function(usuario) {
-
         return (
-
-            usuario.nome.toLowerCase().includes(texto)
-
-            ||
-
+            usuario.nome.toLowerCase().includes(texto) ||
             String(usuario.id).includes(texto)
-
         );
-
     });
-
 
     mostrarUsuarios(resultados);
-
 });
 
-
-//remover usuário
-
 function removerUsuario(id) {
-
     const usuario = usuarios.find(function(usuario) {
-
         return usuario.id === id;
-
     });
-
 
     if (!usuario) {
         return;
     }
-
 
     const confirmar = confirm(
         "Deseja realmente remover o usuário " + usuario.nome + "?"
     );
 
-
     if (confirmar) {
-
         usuarios = usuarios.filter(function(usuario) {
-
             return usuario.id !== id;
-
         });
 
-
         mostrarUsuarios(usuarios);
-
     }
-
 }
 
-
-//editar usuário
-
 function editarUsuario(id) {
-
     const usuario = usuarios.find(function(usuario) {
-
         return usuario.id === id;
-
     });
-
 
     if (!usuario) {
         return;
     }
 
-
-    const novoNome = prompt(
-        "Digite o novo nome:",
-        usuario.nome
-    );
-
-
+    const novoNome = prompt("Digite o novo nome:", usuario.nome);
     if (novoNome === null || novoNome.trim() === "") {
         return;
     }
 
-
-    const novoEmail = prompt(
-        "Digite o novo e-mail:",
-        usuario.email
-    );
-
-
+    const novoEmail = prompt("Digite o novo e-mail:", usuario.email);
     if (novoEmail === null || novoEmail.trim() === "") {
         return;
     }
-
 
     const novoTelefone = prompt(
         "Digite o novo telefone:",
         usuario.telefone
     );
 
-
     if (novoTelefone === null || novoTelefone.trim() === "") {
         return;
     }
 
-
     usuario.nome = novoNome.trim();
-
     usuario.email = novoEmail.trim();
-
     usuario.telefone = novoTelefone.trim();
 
-
     mostrarUsuarios(usuarios);
-
 }
 
 mostrarUsuarios(usuarios);

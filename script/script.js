@@ -1,14 +1,11 @@
-// login ou cadastro
 let cadastro = false;
 
-// elementos
 const toggle = document.getElementById("toggle");
 const titulo = document.getElementById("titulo");
-const form = document.getElementById("form-login");
+const formulario = document.getElementById("form-login");
 const mensagem = document.getElementById("mensagem");
-const botao = form.querySelector("button");
+const botao = formulario.querySelector("button");
 
-// alternar
 toggle.addEventListener("click", (e) => {
     e.preventDefault();
 
@@ -20,12 +17,11 @@ toggle.addEventListener("click", (e) => {
     toggle.innerText = cadastro
         ? "Já tem uma conta? Faça login!"
         : "Não tem uma conta? Cadastre-se!";
-
+        
     mensagem.innerHTML = "";
 });
 
-// envio do formulário
-form.addEventListener("submit", (e) => {
+formulario.addEventListener("submit", (e) => {
     e.preventDefault();
 
     const email = document.getElementById("email").value.trim();
@@ -35,6 +31,7 @@ form.addEventListener("submit", (e) => {
 
     if (email === "admin" && senha === "admin") {
         window.location.href = "menu.php";
+        return;
     }
 
     if (!email.includes("@") || !email.includes(".")) {
@@ -50,7 +47,6 @@ form.addEventListener("submit", (e) => {
     }
 
     if (cadastro) {
-
         if (localStorage.getItem(email)) {
             mensagem.innerHTML =
                 "<div class='texto-aviso'>Esse email já está cadastrado!</div>";
@@ -62,27 +58,21 @@ form.addEventListener("submit", (e) => {
         mensagem.innerHTML =
             "<div class='texto-sucesso'>Cadastro realizado com sucesso!</div>";
 
-        form.reset();
+        formulario.reset();
+        return;
     }
 
-    else {
-        const senhaSalva = localStorage.getItem(email);
+    const senhaSalva = localStorage.getItem(email);
 
-        if (senhaSalva === null) {
-
-            mensagem.innerHTML =
-                "<div class='texto-perigo'>Usuário não encontrado!</div>";
-
-        } else if (senhaSalva === senha) {
-
-            window.location.href = "menu.php"; 
-        
-        } else {
-
-            mensagem.innerHTML =
-                "<div class='texto-perigo'>Email ou senha incorreta!</div>";
-        }
-
-        form.reset();
+    if (senhaSalva === null) {
+        mensagem.innerHTML =
+            "<div class='texto-perigo'>Usuário não encontrado!</div>";
+    } else if (senhaSalva === senha) {
+        window.location.href = "menu.php";
+    } else {
+        mensagem.innerHTML =
+            "<div class='texto-perigo'>Email ou senha incorreta!</div>";
     }
+
+    formulario.reset();
 });

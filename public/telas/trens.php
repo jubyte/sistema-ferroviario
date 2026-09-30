@@ -89,38 +89,39 @@
                 <div class="row g-4 align-items-end">
 
 
-                    <div class="col-md-3">
+                    <div class="col">
                         <label class="label-custom"> NOME </label>
                         <input type="text" id="nome" class="form-control input-custom" placeholder="">
                     </div>
 
 
-                    <div class="col-md-3">
+                    <div class="col">
+                        <label class="label-custom"> EMPRESA </label>
+                        <input type="text" id="empresa" class="form-control input-custom" placeholder="">
+                    </div>
+
+
+                    <div class="col">
+                        <label class="label-custom"> Nº VAGÕES </label>
+                        <input type="number" id="vagoes" class="form-control input-custom" placeholder="">
+                    </div>
+
+
+                    <div class="col">
+
                         <label class="label-custom"> TIPO </label>
-                        <input type="text" id="tipo" class="form-control input-custom" placeholder="">
-                    </div>
-
-
-                    <div class="col-md-3">
-                        <label class="label-custom"> LOCAL </label>
-                        <input type="text" id="local" class="form-control input-custom" placeholder="">
-                    </div>
-
-
-                    <div class="col-md-2">
-
-                        <label class="label-custom"> STATUS </label>
                         <select id="status" class="form-select input-custom select-custom">
                             <option value="" selected disabled>SELECIONE</option>
-                            <option value="Ativo"> Ativo </option>
-                            <option value="Inativo"> Inativo </option>
+                            <option value="Eletrico"> Elétrico </option>
+                            <option value="Diesel"> Diesel </option>
                         </select>
 
                     </div>
 
                     <!--botão-->
 
-                    <div class="col-md-1 d-flex align-items-end">
+                    <div class="col">
+
                         <button id="btnAdicionar" class="btn botao-custom w-100">+ADICIONAR</button>
                     </div>
 
