@@ -1,3 +1,5 @@
+let usuarios = [];
+
 const nomeInput = document.getElementById("nome");
 const emailInput = document.getElementById("email");
 const telefoneInput = document.getElementById("telefone");
@@ -7,8 +9,6 @@ const campoBusca = document.getElementById("buscar");
 const tabela = document.getElementById("tabelaUsuarios");
 const sensorVazio = document.getElementById("sensorVazio");
 
-let usuarios = [];
-
 function mostrarUsuarios(lista) {
 
     tabela.innerHTML = "";
@@ -17,7 +17,6 @@ function mostrarUsuarios(lista) {
 
         sensorVazio.style.display = "block";
         return;
-
     }
 
     sensorVazio.style.display = "none";
@@ -33,14 +32,13 @@ function mostrarUsuarios(lista) {
 
             <td>${usuario.email}</td>
 
-            <td>${usuario.telefone || "-"}</td>
+            <td>${usuario.telefone}</td>
 
             <td>
-
                 <div class="d-flex justify-content-between align-items-center">
 
                     <span class="status-ativo">
-                        ● ${usuario.status || "Ativo"}
+                        ● ${usuario.status}
                     </span>
 
                     <div>
@@ -64,15 +62,12 @@ function mostrarUsuarios(lista) {
                     </div>
 
                 </div>
-
             </td>
         `;
 
         tabela.appendChild(linha);
-
     });
 }
-
 
 function carregarUsuarios() {
 
@@ -98,9 +93,7 @@ function carregarUsuarios() {
 
             } else {
 
-                console.error(data.message);
-
-                alert(data.message || "Erro ao carregar usuários.");
+                alert(data.message);
 
             }
 
@@ -108,13 +101,12 @@ function carregarUsuarios() {
 
         .catch(function(error) {
 
-            console.error("Erro:", error);
+            console.error(error);
 
-            alert("Não foi possível carregar os usuários.");
+            alert("Erro ao carregar usuários.");
 
         });
 }
-
 
 botaoAdicionar.addEventListener("click", function() {
 
@@ -129,7 +121,6 @@ botaoAdicionar.addEventListener("click", function() {
         alert("Digite o nome do usuário.");
         nomeInput.focus();
         return;
-
     }
 
 
@@ -138,7 +129,6 @@ botaoAdicionar.addEventListener("click", function() {
         alert("Digite o e-mail.");
         emailInput.focus();
         return;
-
     }
 
 
@@ -147,7 +137,6 @@ botaoAdicionar.addEventListener("click", function() {
         alert("Digite o telefone.");
         telefoneInput.focus();
         return;
-
     }
 
 
@@ -156,7 +145,6 @@ botaoAdicionar.addEventListener("click", function() {
         alert("Selecione o tipo de usuário.");
         tipoInput.focus();
         return;
-
     }
 
 
@@ -196,7 +184,7 @@ botaoAdicionar.addEventListener("click", function() {
 
         } else {
 
-            alert(data.message || "Erro ao cadastrar usuário.");
+            alert(data.message);
 
         }
 
@@ -204,14 +192,13 @@ botaoAdicionar.addEventListener("click", function() {
 
     .catch(function(error) {
 
-        console.error("Erro:", error);
+        console.error(error);
 
         alert("Erro ao conectar com o servidor.");
 
     });
 
 });
-
 
 campoBusca.addEventListener("input", function() {
 
@@ -220,16 +207,8 @@ campoBusca.addEventListener("input", function() {
     const resultados = usuarios.filter(function(usuario) {
 
         return (
-
-            String(usuario.nome)
-                .toLowerCase()
-                .includes(texto)
-
-            ||
-
-            String(usuario.id)
-                .includes(texto)
-
+            usuario.nome.toLowerCase().includes(texto) ||
+            String(usuario.id).includes(texto)
         );
 
     });
@@ -284,15 +263,11 @@ function removerUsuario(id) {
 
     .then(function(data) {
 
+        alert(data.message);
+
         if (data.status === "success") {
 
-            alert(data.message);
-
             carregarUsuarios();
-
-        } else {
-
-            alert(data.message || "Erro ao excluir usuário.");
 
         }
 
@@ -300,7 +275,7 @@ function removerUsuario(id) {
 
     .catch(function(error) {
 
-        console.error("Erro:", error);
+        console.error(error);
 
         alert("Erro ao excluir usuário.");
 
@@ -346,7 +321,7 @@ function editarUsuario(id) {
 
     const novoTelefone = prompt(
         "Digite o novo telefone:",
-        usuario.telefone || ""
+        usuario.telefone
     );
 
 
@@ -378,15 +353,11 @@ function editarUsuario(id) {
 
     .then(function(data) {
 
+        alert(data.message);
+
         if (data.status === "success") {
 
-            alert(data.message);
-
             carregarUsuarios();
-
-        } else {
-
-            alert(data.message || "Erro ao editar usuário.");
 
         }
 
@@ -394,12 +365,11 @@ function editarUsuario(id) {
 
     .catch(function(error) {
 
-        console.error("Erro:", error);
+        console.error(error);
 
         alert("Erro ao editar usuário.");
 
     });
 
 }
-
 carregarUsuarios();

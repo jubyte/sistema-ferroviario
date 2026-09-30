@@ -1,18 +1,19 @@
 <?php
 
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=utf-8');
 
 require_once '../../../infra/conexao.php';
 
 $id = $_POST['id'] ?? null;
-$nome = $_POST['nome'] ?? '';
-$email = $_POST['email'] ?? '';
+$nome = trim($_POST['nome'] ?? '');
+$email = trim($_POST['email'] ?? '');
+$telefone = trim($_POST['telefone'] ?? '');
 
-if (!$id || empty($nome) || empty($email)) {
+if (!$id || $nome === '' || $email === '' || $telefone === '') {
 
     echo json_encode([
         'status' => 'error',
-        'message' => 'Preencha os campos obrigatórios.'
+        'message' => 'Preencha todos os campos.'
     ]);
 
     exit;
@@ -22,7 +23,8 @@ try {
 
     $sql = "UPDATE usuarios
             SET nome = :nome,
-                email = :email
+                email = :email,
+                telefone = :telefone
             WHERE id = :id";
 
     $stmt = $pdo->prepare($sql);
@@ -30,6 +32,7 @@ try {
     $stmt->execute([
         ':nome' => $nome,
         ':email' => $email,
+        ':telefone' => $telefone,
         ':id' => $id
     ]);
 
@@ -40,9 +43,20 @@ try {
 
 } catch (PDOException $e) {
 
-    echo json_encode([
-        'status' => 'error',
-        'message' => $e->getMessage()
-    ]);
+    if ($e->getCode() == 23000) {
+
+        echo json_encode([
+            'status' => 'error',
+            'message' => 'Este e-mail já está cadastrado para outro usuário.'
+        ]);
+
+    } else {
+
+        echo json_encode([
+            'status' => 'error',
+            'message' => 'Erro ao editar usuário: ' . $e->getMessage()
+        ]);
+
+    }
 
 }

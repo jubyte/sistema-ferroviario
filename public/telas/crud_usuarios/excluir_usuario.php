@@ -1,6 +1,6 @@
 <?php
 
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=utf-8');
 
 require_once '../../../infra/conexao.php';
 
@@ -10,7 +10,7 @@ if (!$id) {
 
     echo json_encode([
         'status' => 'error',
-        'message' => 'ID não informado.'
+        'message' => 'ID do usuário não informado.'
     ]);
 
     exit;
@@ -18,23 +18,35 @@ if (!$id) {
 
 try {
 
-    $stmt = $pdo->prepare("DELETE FROM usuarios WHERE id = :id");
+    $sql = "DELETE FROM usuarios WHERE id = :id";
+
+    $stmt = $pdo->prepare($sql);
 
     $stmt->execute([
         ':id' => $id
     ]);
 
-    echo json_encode([
-        'status' => 'success',
-        'message' => 'Usuário excluído com sucesso!'
-    ]);
+    if ($stmt->rowCount() > 0) {
+
+        echo json_encode([
+            'status' => 'success',
+            'message' => 'Usuário excluído com sucesso!'
+        ]);
+
+    } else {
+
+        echo json_encode([
+            'status' => 'error',
+            'message' => 'Usuário não encontrado.'
+        ]);
+
+    }
 
 } catch (PDOException $e) {
 
     echo json_encode([
         'status' => 'error',
-        'message' => $e->getMessage()
+        'message' => 'Erro ao excluir usuário: ' . $e->getMessage()
     ]);
 
-}
 }
