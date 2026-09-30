@@ -33,16 +33,16 @@
 
         </div>
 
-       <nav class="menu">
+        <nav class="menu">
 
             <a href="menu.php" class="menu-item">
             <i class="bi bi-house-door-fill"></i>
             <span>MENU</span>
             </a>
 
-            <a href="painel.php" class="menu-item active">
+            <a href="rotas.php" class="menu-item active">
             <i class="bi bi-grid-1x2-fill"></i>
-            <span>PAINEL</span>
+            <span>ROTAS</span>
             </a>
 
             <a href="sensores.php" class="menu-item">
@@ -50,14 +50,9 @@
             <span>SENSORES</span>
             </a>
 
-            <a href="monitoramento.php" class="menu-item">
+            <a href="trens.php" class="menu-item">
             <i class="bi bi-activity"></i>
-            <span>MONITORAMENTO</span>
-            </a>
-
-            <a href="relatorios.php" class="menu-item">
-            <i class="bi bi-file-earmark-bar-graph-fill"></i>
-            <span>RELATÓRIOS</span>
+            <span>TRENS</span>
             </a>
 
             <a href="usuarios.php" class="menu-item">

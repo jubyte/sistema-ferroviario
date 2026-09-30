@@ -17,6 +17,8 @@ const campoBusca = document.getElementById("buscar");
 const tabela = document.getElementById("tabelaUsuarios");
 
 
+document.getElementById("email-usuario").textContent = emailInput.value;
+
 //mostrar usuários
 
 function mostrarUsuarios(lista) {
