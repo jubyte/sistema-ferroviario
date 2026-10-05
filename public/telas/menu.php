@@ -51,7 +51,7 @@
             </a>
 
             <a href="trens.php" class="menu-item">
-            <i class="bi bi-activity"></i>
+            <i class="bi bi-train-front"></i>
             <span>TRENS</span>
             </a>
 
@@ -84,8 +84,8 @@
                     <h3>Sensores</h3>
 
                     <div class="informacoes-sensores">
-                        <span>xx ativos</span>
-                        <span>xx em manutenção</span>
+                        <span class="ativos">xx ativos</span>
+                        <span class="manutencao">xx em manutenção</span>
                     </div>
                 </div>
             </div>
@@ -159,6 +159,8 @@
         </section>
 
     </main>
+
+    <script src="../../script/usuarios.js"></script>
 
 </body>
 </html>

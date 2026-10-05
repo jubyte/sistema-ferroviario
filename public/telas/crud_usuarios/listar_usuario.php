@@ -1,10 +1,14 @@
 <?php
 
+header('Content-Type: application/json; charset=utf-8');
+
 require_once '../../../infra/conexao.php';
 
 try {
 
-    $sql = "SELECT * FROM usuarios ORDER BY id DESC";
+    $sql = "SELECT id, nome, email, telefone, tipo, status
+            FROM usuarios
+            ORDER BY id DESC";
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
@@ -12,15 +16,15 @@ try {
     $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode([
-        "status" => "success",
-        "usuarios" => $usuarios
+        'status' => 'success',
+        'usuarios' => $usuarios
     ]);
 
 } catch (PDOException $e) {
 
     echo json_encode([
-        "status" => "error",
-        "message" => $e->getMessage()
+        'status' => 'error',
+        'message' => $e->getMessage()
     ]);
 
 }

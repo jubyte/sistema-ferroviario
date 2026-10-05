@@ -1,18 +1,19 @@
 <?php
 
+header('Content-Type: application/json; charset=utf-8');
+
 require_once '../../../infra/conexao.php';
 
-header('Content-Type: application/json');
+$nome = trim($_POST['nome'] ?? '');
+$email = trim($_POST['email'] ?? '');
+$telefone = trim($_POST['telefone'] ?? '');
+$tipo = trim($_POST['tipo'] ?? '');
 
-$nome = $_POST['nome'] ?? '';
-$email = $_POST['email'] ?? '';
-$telefone = $_POST['telefone'] ?? '';
-
-if (empty($nome) || empty($email) || empty($telefone)) {
+if ($nome === '' || $email === '' || $telefone === '' || $tipo === '') {
 
     echo json_encode([
-        "status" => "error",
-        "message" => "Preencha todos os campos."
+        'status' => 'error',
+        'message' => 'Preencha todos os campos.'
     ]);
 
     exit;
@@ -20,27 +21,41 @@ if (empty($nome) || empty($email) || empty($telefone)) {
 
 try {
 
-    $sql = "INSERT INTO usuarios (nome, email, senha)
-            VALUES (:nome, :email, :senha)";
+    $sql = "INSERT INTO usuarios
+            (nome, email, telefone, tipo)
+            VALUES
+            (:nome, :email, :telefone, :tipo)";
 
     $stmt = $pdo->prepare($sql);
 
     $stmt->execute([
         ':nome' => $nome,
         ':email' => $email,
-        ':senha' => $senha
+        ':telefone' => $telefone,
+        ':tipo' => $tipo
     ]);
 
     echo json_encode([
-        "status" => "success",
-        "message" => "Usuário cadastrado com sucesso!"
+        'status' => 'success',
+        'message' => 'Usuário cadastrado com sucesso!'
     ]);
 
 } catch (PDOException $e) {
 
-    echo json_encode([
-        "status" => "error",
-        "message" => $e->getMessage()
-    ]);
+    if ($e->getCode() == 23000) {
+
+        echo json_encode([
+            'status' => 'error',
+            'message' => 'Este e-mail já está cadastrado.'
+        ]);
+
+    } else {
+
+        echo json_encode([
+            'status' => 'error',
+            'message' => 'Erro ao cadastrar usuário: ' . $e->getMessage()
+        ]);
+
+    }
 
 }
