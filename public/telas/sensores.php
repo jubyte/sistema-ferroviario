@@ -106,9 +106,8 @@
 
                         <label class="label-custom"> STATUS </label>
                         <select id="status" class="form-select input-custom select-custom">
-                            <option value="" selected disabled>SELECIONE</option>
-                            <option value="Ativo"> Ativo </option>
-                            <option value="Inativo"> Inativo </option>
+                            <option value="Ativo" selected>Ativo</option>
+                            <option value="Inativo">Inativo</option>
                         </select>
 
                     </div>
