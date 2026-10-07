@@ -10,20 +10,24 @@ $status = trim($_POST['status'] ?? '');
  
 if (!$id || $nome === '' || $tipo === '' || $local === '' || $status === '') {
  
-    echo json_encode(['status' => 'error', 'message' => 'Preencha todos os campos.']);
+    echo json_encode([
+        'status' => 'error', 
+        'message' => 'Preencha todos os campos.'
+        ]);
+
     exit;
 }
 
 try {
-    $stmt = "UPDATE sensores SET nome = :nome, tipo = :tipo, local = :local, status = :status WHERE id = :id";
+    $sql = "UPDATE sensores SET nome = :nome, tipo = :tipo, local = :local, status = :status WHERE id = :id";
     $stmt = $pdo->prepare($stmt);
 
     $stmt->execute([
-        ':id' => $id,
         ':nome' => $nome,
         ':tipo' => $tipo,
         ':local' => $local,
-        ':status' => $status
+        ':status' => $status,
+        ':id' => $id
     ]);
 
     echo json_encode([
@@ -33,21 +37,11 @@ try {
 
 } catch (PDOException $e) {
 
-    if ($e->getCode() == 23000) {
-
-        echo json_encode([
-            'status' => 'error',
-            'message' => 'Este sensor já está cadastrado para outro usuário.'
-        ]);
-
-    } else {
-
-        echo json_encode([
-            'status' => 'error',
-            'message' => 'Erro ao editar sensor: ' . $e->getMessage()
-        ]);
-
-    }
+    echo json_encode([
+        'status' => 'error',
+        'message' => 'Erro ao editar sensor: '
+    ]);
 
 }
+
 ?>

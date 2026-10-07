@@ -5,15 +5,20 @@ require_once '../../../infra/conexao.php';
 $id = $_POST['id'] ?? null;
 
 if (!$id) {
-    echo json_encode(['status' => 'error', 'message' => 'ID do sensor não informado.']);
+
+    echo json_encode([
+        'status' => 'error', 
+        'message' => 'ID do sensor não informado.'
+    ]);
+
     exit;
 }
 
 try {
 
-
     $sql = "DELETE FROM sensores WHERE id = :id";
     $stmt = $pdo->prepare($sql);
+
     $stmt->execute([':id' => $id]);
 
 
@@ -37,7 +42,7 @@ try {
 
     echo json_encode([
         'status' => 'error',
-        'message' => 'Erro ao excluir sensor: ' . $e->getMessage()
+        'message' => 'Erro ao excluir sensor: '
     ]);
 
 }
