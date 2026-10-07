@@ -1,23 +1,30 @@
 <?php
 header('Content-Type: application/json');
-require_once '../../infra/conexao.php';
-
-$busca = isset($_GET['busca']) ? trim($_GET['busca']) : '';
+require_once '../../../infra/conexao.php';
 
 try {
-    if (!empty($busca)) {
-        $stmt = $pdo->prepare("SELECT * FROM sensores WHERE nome LIKE :busca OR id = :id_exact ORDER BY id ASC");
-        $stmt->bindValue(':busca', "%$busca%");
-        $stmt->bindValue(':id_exact', is_numeric($busca) ? (int)$busca : 0);
-    } else {
-        $stmt = $pdo->prepare("SELECT * FROM sensores ORDER BY id ASC");
-    }
 
+    $sql = "SELECT id, nome, tipo, local, status
+            FROM sensores
+            ORDER BY id DESC";
+
+    $stmt = $pdo->prepare($sql);
     $stmt->execute();
-    $sensores = $stmt->fetchAll();
 
-    echo json_encode(['status' => 'success', 'data' => $sensores]);
+    $sensores = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode([
+        'status' => 'success',
+        'sensores' => $sensores
+    ]);
+
 } catch (PDOException $e) {
-    echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+
+    echo json_encode([
+        'status' => 'error',
+        'message' => $e->getMessage()
+    ]);
+
 }
+
 ?>
