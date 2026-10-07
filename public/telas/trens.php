@@ -103,14 +103,14 @@
 
                     <div class="col">
                         <label class="label-custom"> Nº VAGÕES </label>
-                        <input type="number" id="vagoes" class="form-control input-custom" placeholder="">
+                        <input type="number" min="1" id="vagoes" class="form-control input-custom" placeholder="">
                     </div>
 
 
                     <div class="col">
 
                         <label class="label-custom"> TIPO </label>
-                        <select id="status" class="form-select input-custom select-custom">
+                        <select id="tipo" class="form-select input-custom select-custom">
                             <option value="" selected disabled>SELECIONE</option>
                             <option value="Eletrico"> Elétrico </option>
                             <option value="Diesel"> Diesel </option>
@@ -157,17 +157,20 @@
                         <th>EMPRESA</th>
                         <th>Nº VAGÕES</th>
                         <th>TIPO</th>
+                        <th>STATUS</th>
                     </tr>
                     
                 </thead>
 
-                <tbody id="tabelaSensores"></tbody>
+                <tbody id="tabelaTrens"></tbody>
 
             </table>
 
         </div>
 
     </main>
+
+    <script src="../../script/trens.js"></script>
 
 </body>
 </html>
