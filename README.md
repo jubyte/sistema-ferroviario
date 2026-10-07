@@ -185,3 +185,101 @@ http://localhost/sistema-ferroviario/
 
 O sistema será iniciado pela página `index.php`.
 
+## PÁGINA INSTITUCIONAL
+
+A página inicial apresenta informações institucionais da Ferrorama Mocking Rail.
+
+O sistema possui as seguintes páginas:
+
+* **História:** apresenta informações sobre a história da empresa;
+* **Objetivos:** apresenta os objetivos da empresa e do projeto;
+* **Sustentabilidade:** apresenta informações relacionadas às práticas de sustentabilidade.
+
+Essas páginas fazem parte da área institucional do sistema.
+
+## LOGIN E CADASTRO
+
+O sistema possui uma área destinada ao acesso dos usuários.
+
+A tela de **Login** permite que o usuário informe seus dados para acessar a área interna do sistema.
+
+Também existe uma tela de **Cadastro**, destinada ao registro de novos usuários.
+
+As funcionalidades de login e cadastro estão em desenvolvimento e serão integradas às demais partes do sistema conforme o projeto avança.
+
+## MENU
+
+Após o acesso, o usuário será direcionado ao **Menu**, que funciona como a área principal da aplicação.
+
+O menu permite acessar as principais funcionalidades do sistema:
+
+* Usuários;
+* Sensores;
+* Trens;
+* Rotas.
+
+A tela também apresenta informações gerais da aplicação e serve como ponto de navegação entre as áreas do sistema.
+
+Essa funcionalidade está em desenvolvimento.
+
+## USUÁRIOS
+
+A área de **Usuários** é destinada ao gerenciamento dos usuários cadastrados no sistema.
+
+A funcionalidade contempla operações de:
+
+* Cadastro;
+* Listagem;
+* Edição;
+* Exclusão.
+
+Os arquivos responsáveis pelas operações do CRUD estão organizados na pasta:
+
+```text
+public/telas/crud_usuarios/
+```
+
+A tela de usuários e suas funcionalidades estão em desenvolvimento.
+
+## SENSORES
+
+A área de **Sensores** é destinada ao gerenciamento dos sensores utilizados pelo sistema.
+
+As informações relacionadas aos sensores incluem:
+
+* Nome;
+* Tipo;
+* Local;
+* Status.
+
+O CRUD de sensores está organizado na pasta:
+
+```text
+public/telas/crud_sensores/
+```
+
+A funcionalidade contempla operações de cadastro, listagem, edição e exclusão.
+
+A tela e sua integração com o banco de dados estão em desenvolvimento.
+
+## TRENS
+
+A área de **Trens** será utilizada para o gerenciamento das informações dos trens da empresa.
+
+A tela possui campos relacionados às informações do trem, como:
+
+* Nome;
+* Empresa;
+* Número de vagões;
+* Tipo.
+
+A funcionalidade de gerenciamento de trens está em desenvolvimento.
+
+## ROTAS
+
+A área de **Rotas** será destinada ao gerenciamento das rotas ferroviárias utilizadas pelo sistema.
+
+Essa funcionalidade faz parte do escopo do projeto e está em desenvolvimento.
+
+As informações e operações disponíveis nessa tela serão atualizadas neste README conforme a implementação for concluída.
+
