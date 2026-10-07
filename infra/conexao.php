@@ -1,6 +1,10 @@
 <?php
 
 $host = "localhost";
+<<<<<<< HEAD
+=======
+$port = "3306";
+>>>>>>> 139bd490ccd9b966eaf8e017675ca8988e42524e
 $dbname = "MockingRail";
 $user = "root";
 $password = "";
