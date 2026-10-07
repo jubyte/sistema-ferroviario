@@ -283,3 +283,28 @@ Essa funcionalidade faz parte do escopo do projeto e está em desenvolvimento.
 
 As informações e operações disponíveis nessa tela serão atualizadas neste README conforme a implementação for concluída.
 
+## DOCUMENTAÇÃO
+
+Os documentos utilizados durante o desenvolvimento do projeto estão armazenados na pasta:
+
+```text
+docs/
+```
+
+Entre eles estão:
+
+* Manual do Usuário;
+* Pesquisa sobre CRUD;
+* Pesquisa sobre PDO;
+* Pesquisa sobre Scrum;
+* Pesquisa sobre identidade visual;
+* Pesquisa sobre XAMPP.
+
+## AUTORES
+
+Projeto desenvolvido por estudantes do Curso Técnico em Desenvolvimento de Sistemas.
+
+* Eduarda Bosse de Miranda
+* Guilherme Goll Figueiró
+* Henrique Marques Tonioti
+* Julia Barbosa Ferreira
