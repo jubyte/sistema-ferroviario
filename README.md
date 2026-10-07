@@ -136,7 +136,7 @@ infra/conexao.php
 
 A aplicação utiliza **PDO** para realizar a comunicação com o banco de dados.
 
-## Como executar
+### Como executar
 
 O projeto utiliza PHP e MySQL, sendo necessário um servidor local para sua execução.
 
