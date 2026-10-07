@@ -1,20 +1,23 @@
 <?php
 header('Content-Type: application/json');
-require_once '../../infra/conexao.php';
+require_once '../../../infra/conexao.php';
 
 $id = $_POST['id'] ?? null;
-$nome = $_POST['nome'] ?? '';
-$tipo = $_POST['tipo'] ?? '';
-$local = $_POST['local'] ?? '';
-$status = $_POST['status'] ?? '';
-
-if (!$id || empty($nome) || empty($tipo) || empty($local) || empty($status)) {
-    echo json_encode(['status' => 'error', 'message' => 'Dados incompletos para atualização.']);
+$nome = trim($_POST['nome'] ?? '');
+$tipo = trim($_POST['tipo'] ?? '');
+$local = trim($_POST['local'] ?? '');
+$status = trim($_POST['status'] ?? '');
+ 
+if (!$id || $nome === '' || $tipo === '' || $local === '' || $status === '') {
+ 
+    echo json_encode(['status' => 'error', 'message' => 'Preencha todos os campos.']);
     exit;
 }
 
 try {
-    $stmt = $pdo->prepare("UPDATE sensores SET nome = :nome, tipo = :tipo, local = :local, status = :status WHERE id = :id");
+    $stmt = "UPDATE sensores SET nome = :nome, tipo = :tipo, local = :local, status = :status WHERE id = :id";
+    $stmt = $pdo->prepare($stmt);
+
     $stmt->execute([
         ':id' => $id,
         ':nome' => $nome,
@@ -23,8 +26,28 @@ try {
         ':status' => $status
     ]);
 
-    echo json_encode(['status' => 'success', 'message' => 'Sensor atualizado com sucesso!']);
+    echo json_encode([
+        'status' => 'success',
+        'message' => 'Sensor atualizado com sucesso!'
+    ]);
+
 } catch (PDOException $e) {
-    echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+
+    if ($e->getCode() == 23000) {
+
+        echo json_encode([
+            'status' => 'error',
+            'message' => 'Este sensor já está cadastrado para outro usuário.'
+        ]);
+
+    } else {
+
+        echo json_encode([
+            'status' => 'error',
+            'message' => 'Erro ao editar sensor: ' . $e->getMessage()
+        ]);
+
+    }
+
 }
 ?>
