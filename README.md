@@ -1,43 +1,45 @@
 ![Imagem do banner](/assets/imgs/banner.jpg)
 
-# Mocking Rail
+# MOCKING RAIL
 
-Sistema web de monitoramento ferroviário desenvolvido como Trabalho de Conclusão do Curso Técnico em Desenvolvimento de Sistemas do SESI/SENAI Santa Catarina (2026).
+Sistema de monitoramento ferroviário desenvolvido como Trabalho de Conclusão do Curso Técnico em Desenvolvimento de Sistemas do SESI SENAI Joinville, Santa Catarina (2026).
 
-A plataforma simula uma solução usada por empresas do setor ferroviário, integrando sensores IoT, banco de dados e uma interface de gerenciamento para acompanhar, em tempo real, o desempenho da operação.
+O projeto simula uma empresa do setor ferroviário, envolvendo sensores, banco de dados e uma interface web para gerenciamento e acompanhamento das informações da operação.
 
-## Sobre o projeto
+## SOBRE
 
-O Mocking Rail centraliza em painéis as informações operacionais de uma malha ferroviária: estado dos sensores, alertas, consumo de energia, temperatura, pressão dos freios e ocorrências de falha.
+O Mocking Rail foi desenvolvido para centralizar informações relacionadas à operação ferroviária e facilitar o gerenciamento de usuários, sensores, trens e rotas.
 
-A proposta é permitir que operadores e administradores identifiquem problemas rapidamente, planejem manutenções preventivas e tomem decisões com base em dados.
+O sistema também conta com uma página institucional, área de login e cadastro e uma interface interna para acesso às principais funcionalidades da plataforma.
 
-### Objetivos
+### OBJETIVOS
 
-* Monitorar em tempo real as condições dos trens e da infraestrutura
-* Antecipar falhas e apoiar a manutenção preventiva
-* Transformar grandes volumes de dados em indicadores claros
-* Oferecer uma interface simples para as equipes de operação
+* Facilitar o gerenciamento das informações ferroviárias;
+* Centralizar os dados utilizados pelo sistema;
+* Permitir o gerenciamento de usuários, sensores, trens e rotas;
+* Organizar as informações de forma simples e acessível;
+* Auxiliar no acompanhamento das operações ferroviárias.
 
-## Funcionalidades
+## FUNCIONALIDADES
 
-| Módulo             | Descrição                                                               | Status             |
-| ------------------ | ----------------------------------------------------------------------- | ------------------ |
-| Login / Cadastro   | Autenticação de usuários da plataforma                                  | Em desenvolvimento |
-| Menu               | Visão geral com resumo de sensores, alertas, trens e indicadores do dia | Em desenvolvimento |
-| Painel             | Dashboard com gráficos e indicadores operacionais                       | Em desenvolvimento |
-| Sensores           | Cadastro, listagem e busca de sensores (nome, tipo, local, status)      | Em desenvolvimento |
-| Monitoramento      | Acompanhamento de consumo, temperatura, pressão dos freios e falhas     | Em desenvolvimento |
-| Relatórios         | Geração de relatórios analíticos da operação                            | Planejado          |
-| Usuários           | CRUD de usuários (cadastro, edição, exclusão e listagem)                | Em desenvolvimento |
-| Site institucional | Páginas de História, Objetivos e Sustentabilidade                       | Concluído          |
+| Módulo               | Descrição                                                    | Status             |
+| -------------------- | ------------------------------------------------------------ | ------------------ |
+| Página institucional | Páginas de História, Objetivos e Sustentabilidade da empresa | Concluído          |
+| Login e Cadastro     | Acesso e cadastro de usuários do sistema                     | Concluído          |
+| Menu                 | Área principal com informações gerais do sistema             | Em desenvolvimento |
+| Usuários             | Cadastro, listagem, edição e exclusão de usuários            | Em desenvolvimento |
+| Trens                | Cadastro, listagem, edição e exclusão de sensores            | Em desenvolvimento |
+| Sensores             | Cadastro e gerenciamento das informações dos trens           | Em desenvolvimento |
+| Rotas                | Área destinada ao gerenciamento das rotas ferroviárias       | Em desenvolvimento |
 
-## Tecnologias
+As funcionalidades marcadas como **Em desenvolvimento** já fazem parte do escopo do sistema e serão concluídas ao longo do desenvolvimento do projeto.
+
+## TECNOLOGIAS
 
 ### Front-end
 
 * HTML5
-* CSS3 (folha de estilo própria em `style/style.css`)
+* CSS3
 * JavaScript
 * Bootstrap 5.3.2
 
@@ -45,81 +47,264 @@ A proposta é permitir que operadores e administradores identifiquem problemas r
 
 * PHP
 * MySQL
+* PDO
 
-## Estrutura de pastas
+## ESTRUTURA
 
 ```text
-mocking-rail/
+sistema-ferroviario/
+│
 ├── assets/
-│   └── icons/                 # Logos e ícones do sistema
-├── doc/                       # Documentação do TCC
-├── js/                        # Scripts do front-end
-│   ├── script.js              # Login e cadastro
-│   ├── sensores.js            # Lógica da tela de sensores
-│   └── usuarios.js            # Lógica da tela de usuários
-├── pages/
-│   ├── inicio/                # Páginas institucionais
-│   │   ├── história.html
-│   │   ├── objetivos.html
-│   │   └── sustentabilidade.html
-│   ├── telas/                 # Área logada do sistema
-│   │   ├── login.html
-│   │   ├── menu.html
-│   │   ├── painel.html
-│   │   ├── sensores.html
-│   │   ├── monitoramento.html
-│   │   ├── relatorios.html
-│   │   └── usuarios.html
-│   └── php/                   # Back-end
-│       ├── usuarios.php
-│       ├── listar_usuario.php
-│       ├── editar_usuario.php
-│       └── excluir_usuario.php
+│   ├── icons/                  # Ícones e elementos visuais
+│   └── imgs/                   # Imagens utilizadas no sistema
+│
+├── database/
+│   └── bd.sql                  # Script criação do banco de dados
+│
+├── docs/
+│   ├── manual-do-usuario.md    # Manual do usuário
+│   ├── pesquisa-crud.md        # Pesquisa sobre CRUD
+│   ├── pesquisa-pdo.md         # Pesquisa sobre PDO
+│   ├── pesquisa-scrum.md       # Pesquisa sobre Scrum
+│   ├── pesquisa-visual.md      # Pesquisa sobre identidade visual
+│   └── pesquisa-xampp.md       # Pesquisa sobre XAMPP
+│
+├── infra/
+│   └── conexao.php             # Conexão com o banco de dados
+│
+├── public/
+│   ├── inicio/
+│   │   ├── historia.php        # Páginas institucionais
+│   │   ├── objetivos.php      
+│   │   └── sustentabilidade.php
+│   │
+│   └── telas/
+│       ├── crud_sensores/
+│       │   ├── cadastro_sensor.php
+│       │   ├── editar_sensor.php
+│       │   ├── excluir_sensor.php
+│       │   └── listar_sensor.php
+│       │
+│       ├── crud_usuarios/
+│       │   ├── cadastrar.php
+│       │   ├── cadastro.php
+│       │   ├── editar_usuario.php
+│       │   ├── excluir_usuario.php
+│       │   └── listar_usuario.php
+│       │
+│       ├── login.php           # Tela de login
+│       ├── menu.php            # Menu principal
+│       ├── rotas.php           # Tela de rotas
+│       ├── sensores.php        # Tela de sensores
+│       ├── trens.php           # Tela de trens
+│       └── usuarios.php        # Tela de usuários
+│
+├── script/
+│   ├── script.js               # Lógica de login e cadastro
+│   ├── sensores.js             # Lógica de sensores
+│   └── usuarios.js             # Lógica de usuários
+│
 ├── style/
-│   └── style.css              # Estilos globais
-├── index.html                 # Página inicial
+│   └── style.css               # Estilos do sistema
+│
+├── index.php                   # Página inicial
 ├── LICENSE
 └── README.md
 ```
 
-## Como executar
+## BANCO DE DADOS
 
-O projeto usa PHP e banco de dados, então precisa de um servidor local.
+O sistema utiliza **MySQL** para armazenar e organizar as informações utilizadas pela aplicação.
 
-1. Instale o **XAMPP** (ou WAMP/Laragon).
-2. Copie a pasta do projeto para o diretório `htdocs`:
-
-```text
-C:\xampp\htdocs\mocking-rail
-```
-
-3. Inicie os módulos **Apache** e **MySQL** no painel do XAMPP.
-4. Acesse o **phpMyAdmin** em `http://localhost/phpmyadmin` e importe o script SQL do banco (disponível em `doc/`).
-5. Confira as credenciais de conexão no arquivo de conexão PHP.
-6. Abra no navegador:
+O script de criação do banco de dados está localizado em:
 
 ```text
-http://localhost/mocking-rail/index.html
+database/bd.sql
 ```
 
-> **Observação:** As páginas institucionais (`index.html`, História, Objetivos e Sustentabilidade) funcionam abrindo o arquivo diretamente, sem servidor.
+Entre as principais tabelas utilizadas atualmente estão:
 
-## Banco de dados
+* `usuarios` — informações dos usuários cadastrados;
+* `trens` — informações dos trens;
+* `sensores` — informações dos sensores.
 
-O sistema utiliza **MySQL**.
+A conexão entre o sistema e o banco de dados é realizada pelo arquivo:
 
-As principais entidades previstas são:
+```text
+infra/conexao.php
+```
 
-* `usuarios` — id, nome, e-mail, telefone, tipo (Administrador/Usuário), status
-* `sensores` — id, nome, tipo, local, status
-* `leituras` — id, sensor_id, valor, data/hora
-* `trens` — id, identificação, status
+A aplicação utiliza **PDO** para realizar a comunicação com o banco de dados.
 
-## Autores
+### Como executar
 
-Projeto desenvolvido por estudantes do Curso Técnico em Desenvolvimento de Sistemas — SESI/SENAI Santa Catarina.
+O projeto utiliza PHP e MySQL, sendo necessário um servidor local para sua execução.
 
-* Eduarda Bosse
-* Guilherme Figueiró
-* Henrique Tonioti
-* Julia Barbosa
+### 1. Instale o XAMPP
+
+Instale o **XAMPP** em seu computador.
+
+### 2. Coloque o projeto no XAMPP
+
+Copie a pasta do projeto para o diretório:
+
+```text
+C:\xampp\htdocs\
+```
+
+### 3. Inicie o servidor
+
+Abra o painel do XAMPP e inicie os módulos:
+
+* **Apache**
+* **MySQL**
+
+### 4. Crie o banco de dados
+
+Acesse o **phpMyAdmin** pelo navegador:
+
+```text
+http://localhost/phpmyadmin
+```
+
+Importe o arquivo:
+
+```text
+database/bd.sql
+```
+
+Esse arquivo contém as instruções necessárias para criação do banco de dados e das tabelas utilizadas pelo sistema.
+
+### 5. Acesse o sistema
+
+Após iniciar o Apache e o MySQL, abra no navegador:
+
+```text
+http://localhost/sistema-ferroviario/
+```
+
+O sistema será iniciado pela página `index.php`.
+
+## PÁGINA INSTITUCIONAL
+
+A página inicial apresenta informações institucionais da Ferrorama Mocking Rail.
+
+O sistema possui as seguintes páginas:
+
+* **História:** apresenta informações sobre a história da empresa;
+* **Objetivos:** apresenta os objetivos da empresa e do projeto;
+* **Sustentabilidade:** apresenta informações relacionadas às práticas de sustentabilidade.
+
+Essas páginas fazem parte da área institucional do sistema.
+
+## LOGIN E CADASTRO
+
+O sistema possui uma área destinada ao acesso dos usuários.
+
+A tela de **Login** permite que o usuário informe seus dados para acessar a área interna do sistema.
+
+Também existe uma tela de **Cadastro**, destinada ao registro de novos usuários.
+
+As funcionalidades de login e cadastro estão em desenvolvimento e serão integradas às demais partes do sistema conforme o projeto avança.
+
+## MENU
+
+Após o acesso, o usuário será direcionado ao **Menu**, que funciona como a área principal da aplicação.
+
+O menu permite acessar as principais funcionalidades do sistema:
+
+* Usuários;
+* Sensores;
+* Trens;
+* Rotas.
+
+A tela também apresenta informações gerais da aplicação e serve como ponto de navegação entre as áreas do sistema.
+
+Essa funcionalidade está em desenvolvimento.
+
+## USUÁRIOS
+
+A área de **Usuários** é destinada ao gerenciamento dos usuários cadastrados no sistema.
+
+A funcionalidade contempla operações de:
+
+* Cadastro;
+* Listagem;
+* Edição;
+* Exclusão.
+
+Os arquivos responsáveis pelas operações do CRUD estão organizados na pasta:
+
+```text
+public/telas/crud_usuarios/
+```
+
+A tela de usuários e suas funcionalidades estão em desenvolvimento.
+
+## SENSORES
+
+A área de **Sensores** é destinada ao gerenciamento dos sensores utilizados pelo sistema.
+
+As informações relacionadas aos sensores incluem:
+
+* Nome;
+* Tipo;
+* Local;
+* Status.
+
+O CRUD de sensores está organizado na pasta:
+
+```text
+public/telas/crud_sensores/
+```
+
+A funcionalidade contempla operações de cadastro, listagem, edição e exclusão.
+
+A tela e sua integração com o banco de dados estão em desenvolvimento.
+
+## TRENS
+
+A área de **Trens** será utilizada para o gerenciamento das informações dos trens da empresa.
+
+A tela possui campos relacionados às informações do trem, como:
+
+* Nome;
+* Empresa;
+* Número de vagões;
+* Tipo.
+
+A funcionalidade de gerenciamento de trens está em desenvolvimento.
+
+## ROTAS
+
+A área de **Rotas** será destinada ao gerenciamento das rotas ferroviárias utilizadas pelo sistema.
+
+Essa funcionalidade faz parte do escopo do projeto e está em desenvolvimento.
+
+As informações e operações disponíveis nessa tela serão atualizadas neste README conforme a implementação for concluída.
+
+## DOCUMENTAÇÃO
+
+Os documentos utilizados durante o desenvolvimento do projeto estão armazenados na pasta:
+
+```text
+docs/
+```
+
+Entre eles estão:
+
+* Manual do Usuário;
+* Pesquisa sobre CRUD;
+* Pesquisa sobre PDO;
+* Pesquisa sobre Scrum;
+* Pesquisa sobre identidade visual;
+* Pesquisa sobre XAMPP.
+
+## AUTORES
+
+Projeto desenvolvido por estudantes do Curso Técnico em Desenvolvimento de Sistemas.
+
+* Eduarda Bosse de Miranda
+* Guilherme Goll Figueiró
+* Henrique Marques Tonioti
+* Julia Barbosa Ferreira

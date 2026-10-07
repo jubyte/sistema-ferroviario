@@ -1,3 +1,4 @@
+![Banner](../assets/imgs/banner_manual.png)
 # MANUAL DO USUÁRIO
 ### Ferrorama Mocking Rail
 

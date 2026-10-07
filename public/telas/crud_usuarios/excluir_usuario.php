@@ -2,15 +2,15 @@
 
 header('Content-Type: application/json; charset=utf-8');
 
-require_once '../../../infra/conexao.php';
+require_once __DIR__ . '/../../../infra/conexao.php';
 
-$id = $_POST['id'] ?? null;
+$id = $_POST['id'] ?? '';
 
-if (!$id) {
+if ($id === '') {
 
     echo json_encode([
-        'status' => 'error',
-        'message' => 'ID do usuário não informado.'
+        "status" => "error",
+        "message" => "ID do usuário não informado."
     ]);
 
     exit;
@@ -29,24 +29,26 @@ try {
     if ($stmt->rowCount() > 0) {
 
         echo json_encode([
-            'status' => 'success',
-            'message' => 'Usuário excluído com sucesso!'
+            "status" => "success",
+            "message" => "Usuário removido com sucesso!"
         ]);
 
     } else {
 
         echo json_encode([
-            'status' => 'error',
-            'message' => 'Usuário não encontrado.'
+            "status" => "error",
+            "message" => "Usuário não encontrado."
         ]);
-
     }
 
 } catch (PDOException $e) {
 
-    echo json_encode([
-        'status' => 'error',
-        'message' => 'Erro ao excluir usuário: ' . $e->getMessage()
-    ]);
+    error_log($e->getMessage());
 
+    echo json_encode([
+        "status" => "error",
+        "message" => "Erro ao excluir usuário."
+    ]);
 }
+
+?>
