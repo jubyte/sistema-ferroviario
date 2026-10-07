@@ -1,7 +1,7 @@
 <?php
 
 $host = "localhost";
-$port = "3389";
+$port = "3306";
 $dbname = "MockingRail";
 $user = "root";
 $password = "";
