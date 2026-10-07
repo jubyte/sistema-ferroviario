@@ -48,3 +48,66 @@ As funcionalidades marcadas como **Em desenvolvimento** já fazem parte do escop
 * PHP
 * MySQL
 * PDO
+
+## ESTRUTURA
+
+```text
+sistema-ferroviario/
+│
+├── assets/
+│   ├── icons/                  # Ícones e elementos visuais
+│   └── imgs/                   # Imagens utilizadas no sistema
+│
+├── database/
+│   └── bd.sql                  # Script criação do banco de dados
+│
+├── docs/
+│   ├── manual-do-usuario.md    # Manual do usuário
+│   ├── pesquisa-crud.md        # Pesquisa sobre CRUD
+│   ├── pesquisa-pdo.md         # Pesquisa sobre PDO
+│   ├── pesquisa-scrum.md       # Pesquisa sobre Scrum
+│   ├── pesquisa-visual.md      # Pesquisa sobre identidade visual
+│   └── pesquisa-xampp.md       # Pesquisa sobre XAMPP
+│
+├── infra/
+│   └── conexao.php             # Conexão com o banco de dados
+│
+├── public/
+│   ├── inicio/
+│   │   ├── historia.php        # Páginas institucionais
+│   │   ├── objetivos.php      
+│   │   └── sustentabilidade.php
+│   │
+│   └── telas/
+│       ├── crud_sensores/
+│       │   ├── cadastro_sensor.php
+│       │   ├── editar_sensor.php
+│       │   ├── excluir_sensor.php
+│       │   └── listar_sensor.php
+│       │
+│       ├── crud_usuarios/
+│       │   ├── cadastrar.php
+│       │   ├── cadastro.php
+│       │   ├── editar_usuario.php
+│       │   ├── excluir_usuario.php
+│       │   └── listar_usuario.php
+│       │
+│       ├── login.php           # Tela de login
+│       ├── menu.php            # Menu principal
+│       ├── rotas.php           # Tela de rotas
+│       ├── sensores.php        # Tela de sensores
+│       ├── trens.php           # Tela de trens
+│       └── usuarios.php        # Tela de usuários
+│
+├── script/
+│   ├── script.js               # Lógica de login e cadastro
+│   ├── sensores.js             # Lógica de sensores
+│   └── usuarios.js             # Lógica de usuários
+│
+├── style/
+│   └── style.css               # Estilos do sistema
+│
+├── index.php                   # Página inicial
+├── LICENSE
+└── README.md
+```
