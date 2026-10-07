@@ -111,3 +111,77 @@ sistema-ferroviario/
 ├── LICENSE
 └── README.md
 ```
+
+## BANCO DE DADOS
+
+O sistema utiliza **MySQL** para armazenar e organizar as informações utilizadas pela aplicação.
+
+O script de criação do banco de dados está localizado em:
+
+```text
+database/bd.sql
+```
+
+Entre as principais tabelas utilizadas atualmente estão:
+
+* `usuarios` — informações dos usuários cadastrados;
+* `trens` — informações dos trens;
+* `sensores` — informações dos sensores.
+
+A conexão entre o sistema e o banco de dados é realizada pelo arquivo:
+
+```text
+infra/conexao.php
+```
+
+A aplicação utiliza **PDO** para realizar a comunicação com o banco de dados.
+
+## Como executar
+
+O projeto utiliza PHP e MySQL, sendo necessário um servidor local para sua execução.
+
+### 1. Instale o XAMPP
+
+Instale o **XAMPP** em seu computador.
+
+### 2. Coloque o projeto no XAMPP
+
+Copie a pasta do projeto para o diretório:
+
+```text
+C:\xampp\htdocs\
+```
+
+### 3. Inicie o servidor
+
+Abra o painel do XAMPP e inicie os módulos:
+
+* **Apache**
+* **MySQL**
+
+### 4. Crie o banco de dados
+
+Acesse o **phpMyAdmin** pelo navegador:
+
+```text
+http://localhost/phpmyadmin
+```
+
+Importe o arquivo:
+
+```text
+database/bd.sql
+```
+
+Esse arquivo contém as instruções necessárias para criação do banco de dados e das tabelas utilizadas pelo sistema.
+
+### 5. Acesse o sistema
+
+Após iniciar o Apache e o MySQL, abra no navegador:
+
+```text
+http://localhost/sistema-ferroviario/
+```
+
+O sistema será iniciado pela página `index.php`.
+
