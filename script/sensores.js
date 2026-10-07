@@ -20,80 +20,259 @@ function mostrarSensores(lista) {
 
     sensorVazio.style.display = "none";
 
-    lista.forEach((sensor) => {
+    lista.forEach(function(sensor) {
+
         const linha = document.createElement("tr");
+        
         linha.innerHTML = `
-            <td>${sensor.id}</td>
+            
+            <td>${String(sensor.id).padStart(2, "0")}</td>
             <td>${sensor.nome}</td>
             <td>${sensor.tipo}</td>
             <td>${sensor.local}</td>
-            <td>${sensor.status}</td>
             <td>
-                <button onclick="editarSensor(${sensor.id})">Editar</button>
-                <button onclick="excluirSensor(${sensor.id})">Excluir</button>
-            </td> `;
+                <div class="d-flex justify-content-between align-items-center">
+
+                        <span class="status-ativo">
+                            ● ${sensor.status} 
+                        </span>
+                    <div>
+
+                        <button class="btn-acao" onclick="editarSensor(${sensor.id})"><i class="bi bi-pencil-square icone-color"></i></button>
+                        <button class="btn-acao" onclick="excluirSensor(${sensor.id})"><i class="bi bi-trash3 icone-color"></i></button>
+
+                    </div>
+
+                </div>
+            </td>
+        `;
 
         tabela.appendChild(linha);
     });
 }
 
-botaoAdicionar.addEventListener("click", () => {
+
+
+function carregarSensores() {
+
+    fetch("crud_sensores/listar_sensor.php")
+
+        .then(function(response) {
+
+            if (!response.ok) {
+                throw new Error("Erro HTTP: " + response.status);
+            }
+
+            return response.json();
+
+        })
+
+        .then(function(data) {
+
+            if (data.status === "success") {
+
+                sensores = data.sensores;
+
+                mostrarSensores(sensores);
+
+            } else {
+
+                alert(data.message);
+
+            }
+
+        })
+
+        .catch(function(error) {
+
+            console.error(error);
+
+            alert("Erro ao carregar sensores.");
+
+        });
+}
+
+
+
+botaoAdicionar.addEventListener("click", function() {
+
     const nome = nomeInput.value.trim();
     const tipo = tipoInput.value.trim();
     const local = localInput.value.trim();
     const status = statusInput.value;
 
-    if (!nome || !tipo || !local) {
-        alert("Preencha todos os campos.");
+    if (nome === "") {
+        alert("Digite o nome do sensor.");
+        nomeInput.focus();
+        return;
+    }
+    if (tipo === "") {
+        alert("Digite o tipo do sensor.");
+        tipoInput.focus();
+        return;
+    }
+    if (local === "") {
+        alert("Digite o local do sensor.");
+        localInput.focus();
         return;
     }
 
-    const sensor = {
-        id: sensores.length + 1,
-        nome: nome,
-        tipo: tipo,
-        local: local,
-        status: status
-    };
+    if (status === "") {
+        alert("Selecione o status do sensor.");
+        statusInput.focus();
+        return;
+    }
 
-    sensores.push(sensor);
-    mostrarSensores(sensores);
 
-    nomeInput.value = "";
-    tipoInput.value = "";
-    localInput.value = "";
+
+    const dados = new FormData();
+    dados.append("nome", nome);
+    dados.append("tipo", tipo);
+    dados.append("local", local);
+    dados.append("status", status);
+
+    fetch("crud_sensores/cadastrar_sensor.php", {
+        method: "POST",
+        body: dados
+    })
+
+    .then(function(response) {
+        return response.json();
+    })
+
+    .then(function(data) {
+        alert(data.message);
+        if (data.status === "success") {
+
+            nomeInput.value = "";
+            tipoInput.value = "";
+            localInput.value = "";
+            statusInput.value = "Ativo";
+        
+            carregarSensores();
+        }
+    })
+
+    .catch(function(error) {
+        console.error(error);
+        alert("Erro ao conectar com o servidor.");
+    });
 });
 
-campoBusca.addEventListener("input", () => {
-    const busca = campoBusca.value.toLowerCase();
-    const sensoresFiltrados = sensores.filter((sensor) =>
-        sensor.nome.toLowerCase().includes(busca) ||
-        sensor.tipo.toLowerCase().includes(busca) ||
-        sensor.local.toLowerCase().includes(busca)
-    );
+campoBusca.addEventListener("input", function() {
 
-    mostrarSensores(sensoresFiltrados);
+    const texto = campoBusca.value.toLowerCase().trim();
+    const resultados = sensores.filter(function(sensor) {
+        return (
+            sensor.nome.toLowerCase().includes(texto) ||
+            String(sensor.id).includes(texto)
+        );
+    });
+
+    mostrarSensores(resultados);
 });
 
-function editarSensor(id) {
-    const sensor = sensores.find((sensor) => sensor.id === id);
+function excluirSensor(id) {
+    const sensor = sensores.find(function(sensor) {
+        return Number(sensor.id) === Number(id);
+    });
 
     if (!sensor) {
         return;
     }
 
-    nomeInput.value = sensor.nome;
-    tipoInput.value = sensor.tipo;
-    localInput.value = sensor.local;
-    statusInput.value = sensor.status;
+    const confirmar = confirm("Deseja realmente remover o sensor \"" + sensor.nome + "?");
 
-    sensores = sensores.filter((sensor) => sensor.id !== id);
-    mostrarSensores(sensores);
+    if (!confirmar) {
+        return;
+    }
+
+    const dados = new FormData();
+    dados.append("id", id);
+
+    fetch("crud_sensores/excluir_sensor.php", {
+        method: "POST",
+        body: dados
+    })
+
+    .then(function(response) {
+        return response.json();
+    })
+
+    .then(function(data) {
+        alert(data.message);
+        if (data.status === "success") {
+            carregarSensores();
+        }
+    })
+
+    .catch(function(error) {
+        console.error(error);
+        alert("Erro ao excluir sensor.");
+    });
 }
 
-function excluirSensor(id) {
-    sensores = sensores.filter((sensor) => sensor.id !== id);
-    mostrarSensores(sensores);
+function editarSensor(id) {
+    const sensor = sensores.find(function(sensor) {
+        return Number(sensor.id) === Number(id);
+    });
+
+    if (!sensor) {
+        return;
+    }
+
+    const novoNome = prompt("Digite o novo nome do sensor:", sensor.nome);
+
+    if (novoNome === null || novoNome.trim() === "") {
+        return;
+    }
+
+    const novoTipo = prompt("Digite o novo tipo do sensor:", sensor.tipo);
+
+    if (novoTipo === null || novoTipo.trim() === "") {
+        return;
+    }
+
+    const novoLocal = prompt("Digite o novo local do sensor:", sensor.local);
+
+    if (novoLocal === null || novoLocal.trim() === "") {
+        return;
+    }
+
+    const novoStatus = prompt("Digite o novo status do sensor:", sensor.status);
+
+    if (novoStatus === null || novoStatus.trim() === "") {
+        return;
+    }
+
+    const dados = new FormData();
+
+    dados.append("id", id);
+    dados.append("nome", novoNome.trim());
+    dados.append("tipo", novoTipo.trim());
+    dados.append("local", novoLocal.trim());
+    dados.append("status", novoStatus.trim());
+
+    fetch("crud_sensores/editar_sensor.php", {
+        method: "POST",
+        body: dados
+    })
+
+    .then(function(response) {
+        return response.json();
+    })
+
+    .then(function(data) {
+        alert(data.message);
+        if (data.status === "success") {
+            carregarSensores();
+        }
+    })
+    .catch(function(error) {
+        console.error(error);
+        alert("Erro ao editar sensor.");
+    });
+
 }
 
-mostrarSensores(sensores);
+carregarSensores();
