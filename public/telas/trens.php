@@ -51,7 +51,7 @@
             <span>SENSORES</span>
             </a>
 
-            <a href="trens.php" class="menu-item">
+            <a href="trens.php" class="menu-item active">
             <i class="bi bi-train-front"></i>
             <span>TRENS</span>
             </a>
