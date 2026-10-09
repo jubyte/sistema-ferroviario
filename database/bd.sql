@@ -29,9 +29,3 @@ CREATE TABLE IF NOT EXISTS sensores (
     status VARCHAR(20) DEFAULT 'Ativo',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
---INSERT INTO usuarios (nome, email, telefone, tipo, status)
---VALUES
-
---('Eduarda', 'eduarda@mockingrail.com', '(47) 999999999', 'Administrador', 'Ativo'),
---('Marcus', 'marcus@gmail.com', '(47) 111111111', 'Usuário', 'Ativo');
