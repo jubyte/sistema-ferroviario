@@ -1,6 +1,9 @@
+
 <?php
-header('Content-Type: application/json');
-require_once '../../../infra/conexao.php';
+
+header('Content-Type: application/json; charset=utf-8');
+
+require_once __DIR__ . '/../../../infra/conexao.php';
 
 try {
 
@@ -8,23 +11,36 @@ try {
             FROM sensores
             ORDER BY id DESC";
 
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute();
+    $resultado = $conn->query($sql);
 
-    $sensores = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if (!$resultado) {
+        throw new RuntimeException('Falha ao consultar os sensores.');
+    }
+
+    $sensores = $resultado->fetch_all(MYSQLI_ASSOC);
 
     echo json_encode([
         'status' => 'success',
         'sensores' => $sensores
-    ]);
+    ], JSON_UNESCAPED_UNICODE);
 
-} catch (PDOException $e) {
+    $resultado->free();
+
+} catch (Throwable $e) {
+
+    error_log($e->getMessage());
+
+    http_response_code(500);
 
     echo json_encode([
         'status' => 'error',
         'message' => 'Erro ao listar sensores.'
-    ]);
+    ], JSON_UNESCAPED_UNICODE);
 
+} finally {
+
+    if (isset($conn) && $conn instanceof mysqli) {
+        $conn->close();
+    }
 }
-
 ?>

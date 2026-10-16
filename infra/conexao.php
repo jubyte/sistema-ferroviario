@@ -1,51 +1,26 @@
+
 <?php
 
 $host = "localhost";
-$port = "3306";
 $dbname = "MockingRail";
 $user = "root";
 $password = "";
 
-$porta = [3306, 3389, 3307];
+$conn = new mysqli(
+    $host,
+    $user,
+    $password,
+    $dbname,
+);
 
-$pdo = null;
-
-foreach ($portas as $porta) {
-
-    try {
-
-        $pdo = new PDO(
-            "mysql:host=$host;port=$porta;dbname=$dbname;charset=utf8mb4",
-            $user,
-            $password
-        );
-
-        $pdo->setAttribute(
-            PDO::ATTR_ERRMODE,
-            PDO::ERRMODE_EXCEPTION
-        );
-
-        $pdo->setAttribute(
-            PDO::ATTR_DEFAULT_FETCH_MODE,
-            PDO::FETCH_ASSOC
-        );
-
-        $pdo->setAttribute(
-            PDO::ATTR_EMULATE_PREPARES,
-            false
-        );
-
-        break;
-
-    } catch (PDOException $e) {
-
-        $pdo = null;
-    }
+if ($conn->connect_error) {
+    error_log($conn->connect_error);
+    die("Erro ao conectar com o banco de dados.");
 }
 
-if ($pdo === null) {
-
-    die("Não foi possível conectar ao banco de dados.");
+if (!$conn->set_charset("utf8mb4")) {
+    error_log($conn->error);
+    die("Erro ao configurar os caracteres do banco.");
 }
 
 ?>

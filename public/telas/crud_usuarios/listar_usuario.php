@@ -1,3 +1,4 @@
+
 <?php
 
 header('Content-Type: application/json; charset=utf-8');
@@ -14,55 +15,84 @@ try {
 
             $sql = "SELECT id, nome, email, telefone, tipo, status
                     FROM usuarios
-                    WHERE nome LIKE :busca
-                    OR id = :id
+                    WHERE nome LIKE ?
+                    OR id = ?
                     ORDER BY id ASC";
 
-            $stmt = $pdo->prepare($sql);
+            $stmt = $conn->prepare($sql);
 
-            $stmt->execute([
-                ':busca' => "%$busca%",
-                ':id' => (int)$busca
-            ]);
+            if (!$stmt) {
+                throw new Exception("Erro ao preparar a consulta.");
+            }
+
+            $nomeBusca = "%$busca%";
+            $idBusca = (int) $busca;
+
+            $stmt->bind_param("si", $nomeBusca, $idBusca);
 
         } else {
 
             $sql = "SELECT id, nome, email, telefone, tipo, status
                     FROM usuarios
-                    WHERE nome LIKE :busca
+                    WHERE nome LIKE ?
                     ORDER BY id ASC";
 
-            $stmt = $pdo->prepare($sql);
+            $stmt = $conn->prepare($sql);
 
-            $stmt->execute([
-                ':busca' => "%$busca%"
-            ]);
+            if (!$stmt) {
+                throw new Exception("Erro ao preparar a consulta.");
+            }
+
+            $nomeBusca = "%$busca%";
+
+            $stmt->bind_param("s", $nomeBusca);
         }
+
+        if (!$stmt->execute()) {
+            throw new Exception("Erro ao executar a consulta.");
+        }
+
+        $resultado = $stmt->get_result();
 
     } else {
 
-        $stmt = $pdo->query(
-            "SELECT id, nome, email, telefone, tipo, status
-             FROM usuarios
-             ORDER BY id ASC"
-        );
+        $sql = "SELECT id, nome, email, telefone, tipo, status
+                FROM usuarios
+                ORDER BY id ASC";
+
+        $resultado = $conn->query($sql);
+
+        if (!$resultado) {
+            throw new Exception("Erro ao consultar os usuários.");
+        }
     }
 
-    $usuarios = $stmt->fetchAll();
+    $usuarios = $resultado->fetch_all(MYSQLI_ASSOC);
 
     echo json_encode([
-        "status" => "success",
-        "usuarios" => $usuarios
-    ]);
+        'status' => 'success',
+        'usuarios' => $usuarios
+    ], JSON_UNESCAPED_UNICODE);
 
-} catch (PDOException $e) {
+} catch (Throwable $e) {
 
     error_log($e->getMessage());
 
-    echo json_encode([
-        "status" => "error",
-        "message" => "Erro ao carregar usuários."
-    ]);
-}
+    http_response_code(500);
 
+    echo json_encode([
+        'status' => 'error',
+        'message' => 'Não foi possível consultar os usuários.'
+    ], JSON_UNESCAPED_UNICODE);
+
+} finally {
+
+    if (isset($stmt) && $stmt instanceof mysqli_stmt) {
+        $stmt->close();
+    }
+
+    if (isset($conn) && $conn instanceof mysqli) {
+        $conn->close();
+    }
+}
 ?>

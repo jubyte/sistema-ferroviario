@@ -1,6 +1,25 @@
+
 <?php
-header('Content-Type: application/json, charset=utf-8');
-require_once '../../../infra/conexao.php';
+
+header('Content-Type: application/json; charset=utf-8');
+
+require_once __DIR__ . '/../../../infra/conexao.php';
+
+function responder($status, $message, $codigo = 200)
+{
+    http_response_code($codigo);
+
+    echo json_encode([
+        'status' => $status,
+        'message' => $message
+    ], JSON_UNESCAPED_UNICODE);
+
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    responder('error', 'Método de requisição inválido.', 405);
+}
 
 $nome = trim($_POST['nome'] ?? '');
 $tipo = trim($_POST['tipo'] ?? '');
@@ -8,35 +27,58 @@ $local = trim($_POST['local'] ?? '');
 $status = trim($_POST['status'] ?? '');
 
 if ($nome === '' || $tipo === '' || $local === '' || $status === '') {
+    responder('error', 'Preencha todos os campos.', 400);
+}
 
-    echo json_encode([
-        'status' => 'error', 
-        'message' => 'Preencha todos os campos.']);
-    exit;
+if (
+    mb_strlen($nome) > 100 ||
+    mb_strlen($tipo) > 50 ||
+    mb_strlen($local) > 150 ||
+    mb_strlen($status) > 30
+) {
+    responder('error', 'Um ou mais campos excedem o tamanho permitido.', 400);
 }
 
 try {
 
-    $sql = "INSERT INTO sensores (nome, tipo, local, status) VALUES (:nome, :tipo, :local, :status)";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([
-        ':nome' => $nome,
-        ':tipo' => $tipo,
-        ':local' => $local,
-        ':status' => $status
-    ]);
+    $sql = "INSERT INTO sensores (nome, tipo, `local`, status)
+            VALUES (?, ?, ?, ?)";
 
-    echo json_encode([
-        'status' => 'success',
-        'message' => 'Sensor cadastrado com sucesso!'
-    ]);
+    $stmt = $conn->prepare($sql);
 
-} catch (PDOException $e) {
+    if (!$stmt) {
+        throw new RuntimeException('Falha ao preparar o cadastro.');
+    }
 
-    echo json_encode([
-        'status' => 'error',
-        'message' => 'Erro ao cadastrar sensor.'
-    ]);
+    $stmt->bind_param(
+        'ssss',
+        $nome,
+        $tipo,
+        $local,
+        $status
+    );
+
+    $stmt->execute();
+    $stmt->close();
+
+    responder('success', 'Sensor cadastrado com sucesso!', 201);
+
+} catch (mysqli_sql_exception $e) {
+
+    error_log($e->getMessage());
+
+    responder('error', 'Erro ao cadastrar sensor.', 500);
+
+} catch (Throwable $e) {
+
+    error_log($e->getMessage());
+
+    responder('error', 'Erro ao cadastrar sensor.', 500);
+
+} finally {
+
+    if (isset($conn) && $conn instanceof mysqli) {
+        $conn->close();
+    }
 }
-
 ?>

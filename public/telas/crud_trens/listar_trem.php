@@ -1,8 +1,9 @@
+
 <?php
 
 header('Content-Type: application/json; charset=utf-8');
 
-require_once '../../../infra/conexao.php';
+require_once __DIR__ . '/../../../infra/conexao.php';
 
 try {
 
@@ -10,21 +11,36 @@ try {
             FROM trens
             ORDER BY id DESC";
 
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute();
+    $resultado = $conn->query($sql);
 
-    $trens = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if (!$resultado) {
+        throw new RuntimeException('Falha ao consultar os trens.');
+    }
+
+    $trens = $resultado->fetch_all(MYSQLI_ASSOC);
 
     echo json_encode([
         'status' => 'success',
         'trens' => $trens
-    ]);
+    ], JSON_UNESCAPED_UNICODE);
 
-} catch (PDOException $e) {
+    $resultado->free();
+
+} catch (Throwable $e) {
+
+    error_log($e->getMessage());
+
+    http_response_code(500);
 
     echo json_encode([
         'status' => 'error',
-        'message' => 'Erro ao carregar trens.'
-    ]);
+        'message' => 'Erro ao carregar os trens.'
+    ], JSON_UNESCAPED_UNICODE);
 
+} finally {
+
+    if (isset($conn) && $conn instanceof mysqli) {
+        $conn->close();
+    }
 }
+?>
