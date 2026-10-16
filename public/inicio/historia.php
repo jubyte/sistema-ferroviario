@@ -35,7 +35,23 @@
             <p>Desde o início, a proposta foi desenvolver um sistema que simulasse uma solução utilizada por empresas do setor ferroviário, aplicando conceitos de engenharia de software, modelagem de sistemas, banco de dados, interfaces para usuários e integração de tecnologias. O objetivo era unir conhecimentos técnicos com uma aplicação prática voltada à inovação e à mobilidade inteligente.</p>
             <p>Ao longo do desenvolvimento, a Mocking Rail evoluiu de um conceito acadêmico para um protótipo funcional, incorporando recursos como monitoramento em tempo real, gerenciamento de sensores e trens, geração de relatórios analíticos e acompanhamento de indicadores operacionais. Cada etapa do projeto foi planejada para seguir boas práticas de desenvolvimento de software e oferecer uma experiência intuitiva aos usuários.</p>
             <p>Hoje, a Mocking Rail representa a aplicação prática dos conhecimentos adquiridos durante a formação técnica, demonstrando como a tecnologia pode contribuir para tornar o transporte ferroviário mais seguro, eficiente e inteligente.</p>
+            <br>
+            <h3 class="titulo-criadores">Criadores:</h3><br>
+            
+            <div class="imagens_historia">
+                <img class="img_historia" src="../../assets/imgs/guilherme.png" alt="Imagem da Eduarda, criadora da Mocking Rail">
+                <img class="img_historia" src="../../assets/imgs/guilherme.png" alt="Imagem do Guilherme, criador da Mocking Rail">
+                <img class="img_historia" src="../../assets/imgs/guilherme.png" alt="Imagem do Henrique, criador da Mocking Rail">
+                <img class="img_historia" src="../../assets/imgs/guilherme.png" alt="Imagem da Julia, criadora da Mocking Rail">
+            </div>
+            <div class="nomes_historia">
+                <p>Guilherme</p>
+                <p>Eduarda</p>
+                <p>Henrique</p>
+                <p>Julia</p>
+            </div>
         </div>
+
     </main>
 
 </body>

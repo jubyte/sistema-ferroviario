@@ -675,6 +675,7 @@ body {
 
 .main_inicio {
     width: 150%;
+    align-items: center;
 }
 
 .linksnav {
@@ -1031,4 +1032,28 @@ a {
 
 .aviso {
     background: #dc5b1b;
+}
+
+
+.imagens_historia{
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.titulo-criadores{
+    font-family: 'Gotham', sans-serif;
+    color: #ffffff;
+}
+
+.nomes_historia{
+    display: flex;
+    justify-content: center;
+}
+
+.pessoa_historia{
+    height: 2%;
+    gap: 10px;
 }
