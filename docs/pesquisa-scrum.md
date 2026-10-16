@@ -1,4 +1,4 @@
-![Banner](../assets/imgs/banner_scrum.jpg)
+![Banner](../assets/imgs/banner_scrum.png)
 
 ## 1. CONCEITO
 
