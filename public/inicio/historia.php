@@ -39,10 +39,10 @@
             <h3 class="titulo-criadores">Criadores:</h3><br>
             
             <div class="imagens_historia">
-                <img class="img_historia" src="../../assets/imgs/guilherme.png" alt="Imagem da Eduarda, criadora da Mocking Rail">
+                <img class="img_historia" src="../../assets/imgs/eduarda.jpg" alt="Imagem da Eduarda, criadora da Mocking Rail">
                 <img class="img_historia" src="../../assets/imgs/guilherme.png" alt="Imagem do Guilherme, criador da Mocking Rail">
-                <img class="img_historia" src="../../assets/imgs/guilherme.png" alt="Imagem do Henrique, criador da Mocking Rail">
-                <img class="img_historia" src="../../assets/imgs/guilherme.png" alt="Imagem da Julia, criadora da Mocking Rail">
+                <img class="img_historia" src="../../assets/imgs/henrique.jpg" alt="Imagem do Henrique, criador da Mocking Rail">
+                <img class="img_historia" src="../../assets/imgs/julia.jpg" alt="Imagem da Julia, criadora da Mocking Rail">
             </div>
             <div class="nomes_historia">
                 <p>Guilherme</p>
