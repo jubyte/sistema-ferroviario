@@ -40,7 +40,7 @@
             
             <div class="imagens_historia">
                 <img class="img_historia" src="../../assets/imgs/eduarda.jpg" alt="Imagem da Eduarda, criadora da Mocking Rail">
-                <img class="img_historia" src="../../assets/imgs/guilherme.png" alt="Imagem do Guilherme, criador da Mocking Rail">
+                <img class="img_historia" src="../../assets/imgs/Captura de tela 2026-10-16 092257.png" alt="Imagem do Guilherme, criador da Mocking Rail">
                 <img class="img_historia" src="../../assets/imgs/henrique.jpg" alt="Imagem do Henrique, criador da Mocking Rail">
                 <img class="img_historia" src="../../assets/imgs/julia.jpg" alt="Imagem da Julia, criadora da Mocking Rail">
             </div>
