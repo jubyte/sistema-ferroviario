@@ -3,6 +3,7 @@
 
 $host = "localhost";
 $dbname = "MockingRail";
+$port = 3389;
 $user = "root";
 $password = "";
 
@@ -11,6 +12,7 @@ $conn = new mysqli(
     $user,
     $password,
     $dbname,
+    $port
 );
 
 if ($conn->connect_error) {

@@ -1,126 +1,115 @@
+
 <?php
 
 header('Content-Type: application/json; charset=utf-8');
 
 require_once __DIR__ . '/../../../infra/conexao.php';
 
+function responder($status, $message, $codigo = 200)
+{
+    http_response_code($codigo);
+
+    echo json_encode([
+        'status' => $status,
+        'message' => $message
+    ], JSON_UNESCAPED_UNICODE);
+
+    exit;
+}
+
+// Aceitar somente requisições POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    responder('error', 'Método de requisição inválido.', 405);
+}
+
+// Receber e limpar os dados
 $nome = trim($_POST['nome'] ?? '');
 $email = trim($_POST['email'] ?? '');
 $telefone = trim($_POST['telefone'] ?? '');
 $tipo = trim($_POST['tipo'] ?? '');
 
-if (
-    $nome === '' ||
-    $email === '' ||
-    $telefone === '' ||
-    $tipo === ''
-) {
-
-    echo json_encode([
-        "status" => "error",
-        "message" => "Preencha todos os campos."
-    ]);
-
-    exit;
+// Validar campos obrigatórios
+if ($nome === '' || $email === '' || $telefone === '' || $tipo === '') {
+    responder('error', 'Preencha todos os campos.', 400);
 }
 
-
-/* NOME */
-
+// Validar nome
 if (!preg_match('/^[\p{L}\s]+$/u', $nome)) {
-
-    echo json_encode([
-        "status" => "error",
-        "message" => "O nome deve conter apenas letras e espaços."
-    ]);
-
-    exit;
+    responder('error', 'O nome deve conter apenas letras e espaços.', 400);
 }
 
-
-/* E-MAIL */
-
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-
-    echo json_encode([
-        "status" => "error",
-        "message" => "Digite um e-mail válido."
-    ]);
-
-    exit;
+// Validar tamanho do nome
+if (mb_strlen($nome) > 100) {
+    responder('error', 'O nome deve ter no máximo 100 caracteres.', 400);
 }
 
-
-/* TELEFONE */
-
-if (!preg_match('/^[0-9()\s+\-]+$/', $telefone)) {
-
-    echo json_encode([
-        "status" => "error",
-        "message" => "Digite um telefone válido."
-    ]);
-
-    exit;
+// Validar e-mail
+if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 150) {
+    responder('error', 'Digite um e-mail válido.', 400);
 }
 
+// Validar telefone
+if (
+    !preg_match('/^[0-9()\s+\-]+$/', $telefone) ||
+    strlen($telefone) > 20
+) {
+    responder('error', 'Digite um telefone válido.', 400);
+}
 
-/* TIPO */
-
+// Validar tipo de usuário
 $tiposPermitidos = [
-    "Administrador",
-    "Usuário"
+    'Administrador',
+    'Usuário'
 ];
 
 if (!in_array($tipo, $tiposPermitidos, true)) {
-
-    echo json_encode([
-        "status" => "error",
-        "message" => "Tipo de usuário inválido."
-    ]);
-
-    exit;
+    responder('error', 'Tipo de usuário inválido.', 400);
 }
-
 
 try {
 
+    // Preparar consulta com MySQLi
     $sql = "INSERT INTO usuarios
             (nome, email, telefone, tipo, status)
-            VALUES
-            (:nome, :email, :telefone, :tipo, 'Ativo')";
+            VALUES (?, ?, ?, ?, 'Ativo')";
 
-    $stmt = $pdo->prepare($sql);
+    $stmt = $conn->prepare($sql);
 
-    $stmt->execute([
-        ':nome' => $nome,
-        ':email' => $email,
-        ':telefone' => $telefone,
-        ':tipo' => $tipo
-    ]);
+    if (!$stmt) {
+        throw new RuntimeException('Falha ao preparar o cadastro.');
+    }
 
-    echo json_encode([
-        "status" => "success",
-        "message" => "Usuário cadastrado com sucesso!"
-    ]);
+    $stmt->bind_param(
+        'ssss',
+        $nome,
+        $email,
+        $telefone,
+        $tipo
+    );
 
-} catch (PDOException $e) {
+    if (!$stmt->execute()) {
+        throw new RuntimeException('Falha ao executar o cadastro.');
+    }
+
+    $stmt->close();
+
+    responder('success', 'Usuário cadastrado com sucesso!', 201);
+
+} catch (mysqli_sql_exception $e) {
 
     error_log($e->getMessage());
 
-    if ($e->getCode() == 23000) {
-
-        echo json_encode([
-            "status" => "error",
-            "message" => "Este e-mail já está cadastrado."
-        ]);
-
-    } else {
-
-        echo json_encode([
-            "status" => "error",
-            "message" => "Erro ao cadastrar usuário."
-        ]);
+    // Erro 1062: valor duplicado em uma coluna UNIQUE
+    if ((int) $e->getCode() === 1062) {
+        responder('error', 'Este e-mail já está cadastrado.', 409);
     }
-}
 
+    responder('error', 'Erro ao cadastrar usuário.', 500);
+
+} catch (Throwable $e) {
+
+    error_log($e->getMessage());
+
+    responder('error', 'Erro ao cadastrar usuário.', 500);
+}
 ?>
