@@ -84,8 +84,8 @@
                     <h3>Sensores</h3>
 
                     <div class="informacoes-sensores">
-                        <span class="ativos">xx ativos</span>
-                        <span class="manutencao">xx em manutenção</span>
+                        <span class="ativos">10 ativos</span>
+                        <span class="manutencao">10 em manutenção</span>
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
 
                 <div>
                     <h3>Alertas</h3>
-                    <span>xx ativos</span>
+                    <span>3 ativos</span>
                 </div>
             </div>
 
@@ -164,8 +164,3 @@
 
 </body>
 </html>
-
-
-
-
-
