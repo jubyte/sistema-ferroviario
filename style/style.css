@@ -740,19 +740,16 @@ a {
     height: 7%;
 }
 
-/*(ATENÇÃO) nao mexam nisso ainda, estou testando o painel, coloquem novas classes aq em cima*/
-
 .cards-painel {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 55px;
-    margin-bottom: 24px;
+    gap: 1%;
+    margin: 1.5% 0 24px 0;
 }
 
 .card-painel {
     height: 114px;
-    border: 1px solid #34416b;
-    background: rgba(10, 20, 57, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     display: flex;
     align-items: center;
     padding: 14px;
@@ -810,14 +807,6 @@ a {
     line-height: 12px;
     letter-spacing: 3px;
     margin-top: 5px;
-}
-
-.area-central {
-    display: grid;
-    grid-template-columns:
-        minmax(0, 1fr)
-    290px;
-    gap: 28px;
 }
 
 .grafico-painel {
@@ -902,15 +891,14 @@ a {
 }
 
 .status-painel {
-    height: 282px;
     border: 1px solid #34416b;
-    background: rgba(10, 20, 57, 0.5);
+    width: 100%;
+    margin-bottom: 1.5%;
 }
 
 .status-painel h2 {
     height: 59px;
     padding: 19px 13px;
-    margin: 0;
     border-bottom: 1px solid #303b60;
     font-family: 'Science Gothic', sans-serif;
     font-size: 14px;
@@ -922,6 +910,9 @@ a {
     padding: 15px 13px;
     border-bottom: 1px solid #303b60;
     box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .status-trem strong {
@@ -938,7 +929,6 @@ a {
 .status {
     width: 180px;
     height: 23px;
-    margin-top: 9px;
     padding: 3px 7px;
     font-family: 'Science Gothic', sans-serif;
     font-size: 10px;

@@ -71,146 +71,23 @@
     <main class="conteudo">
 
     <section class="cabecalho">
-        <h1 class="titulo-menu">PAINEL</h1>
+        <h1 class="titulo-menu">ROTAS</h1>
         <h2 class="titulo-sistema">SISTEMA FERROVIÁRIO</h2>
     </section>
 
 
-    <section class="cards-painel">
-
-        <div class="card-painel">
-
-            <div class="icone-card laranja">
-                <i class="bi bi-train-front"></i>
-            </div>
-
-            <div class="info-card">
-                <h3>TRENS ATIVOS</h3>
-                <strong>2/13</strong>
-                <span>OPERAÇÃO NORMAL</span>
-            </div>
-
-        </div>
-
-
-        <div class="card-painel">
-
-            <div class="icone-card laranja">
-                <i class="bi bi-cpu"></i>
-            </div>
-
-            <div class="info-card">
-                <h3>SENSORES<br>ONLINE</h3>
-                <strong>7</strong>
-                <span>DE 9<br>CADASTRADOS</span>
-            </div>
-
-        </div>
-
-
-        <div class="card-painel">
-
-            <div class="icone-card vermelho">
-                <i class="bi bi-activity"></i>
-            </div>
-
-            <div class="info-card">
-                <h3>INTEGRI-<br>DADE</h3>
-                <strong class="texto-vermelho">76%</strong>
-                <span>STATUS DA<br>REDE</span>
-            </div>
-
-        </div>
-
-
-        <div class="card-painel">
-
-            <div class="icone-card vermelho">
-                <i class="bi bi-exclamation-triangle"></i>
-            </div>
-
-            <div class="info-card">
-                <h3>ALERTAS<br>CRÍTICOS</h3>
-                <strong class="texto-vermelho">2</strong>
-                <span>REQUER<br>ATENÇÃO</span>
-            </div>
-
-        </div>
-
-    </section>
-
-
-     <section class="area-central">
-
-        <div class="grafico-painel">
-
-            <h2>VELOCIDADE MÉDIA - HOJE</h2>
-
-            <div class="grafico">
-
-                <div class="eixo-y">
-                    <span>100</span>
-                    <span>80</span>
-                    <span>60</span>
-                    <span>40</span>
-                    <span>20</span>
-                    <span>0</span>
-                </div>
-
-                <div class="area-grafico">
-
-                    <div class="legenda-grafico">
-                        <span></span>
-                        Trem Dourado - Distrito 1
-                    </div>
-
-                    <svg viewBox="0 0 700 300">
-
-                        <line x1="0" y1="20" x2="700" y2="20"></line>
-                        <line x1="0" y1="75" x2="700" y2="75"></line>
-                        <line x1="0" y1="130" x2="700" y2="130"></line>
-                        <line x1="0" y1="185" x2="700" y2="185"></line>
-                        <line x1="0" y1="240" x2="700" y2="240"></line>
-                        <line x1="0" y1="295" x2="700" y2="295"></line>
-
-                        <polyline
-                            points="55,105 205,65 355,48 505,85 650,55"
-                            fill="none"
-                            stroke="#9bc8ff"
-                            stroke-width="3">
-                        </polyline>
-
-                        <circle cx="55" cy="105" r="4"></circle>
-                        <circle cx="205" cy="65" r="4"></circle>
-                        <circle cx="355" cy="48" r="4"></circle>
-                        <circle cx="505" cy="85" r="4"></circle>
-                        <circle cx="650" cy="55" r="4"></circle>
-
-                    </svg>
-
-                    <div class="eixo-x">
-                        <span>08h</span>
-                        <span>09h</span>
-                        <span>10h</span>
-                        <span>11h</span>
-                        <span>12h</span>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
+    <section class="area-central">
 
         <div class="status-painel">
 
-            <h2>STATUS</h2>
+            <h2>EM MOVIMENTO:</h2>
 
             <div class="status-trem">
 
-                <strong>Trem Dourado</strong>
-                <span>Linha Distrito 1</span>
+                <div>
+                    <strong>Trem Dourado</strong>
+                    <span>Rota 1</span>
+                </div>
 
                 <div class="status operacional">
                     <i></i>
@@ -222,8 +99,10 @@
 
             <div class="status-trem">
 
-                <strong>Trem Carvão</strong>
-                <span>Linha Distrito 12</span>
+                <div>
+                    <strong>Trem Carvão</strong>
+                    <span>Rota 12</span>
+                </div>
 
                 <div class="status falha">
                     <i></i>
@@ -237,61 +116,72 @@
     </section>
 
 
-        <section class="alertas-painel">
 
-        <div class="titulo-alertas">
+    <div class="sensor_caixa">
+            <h2 class="usuario__title">
+                <i class="bi bi-plus-circle"></i> CADASTRAR ROTA
+            </h2>
 
-            <i class="bi bi-exclamation-triangle"></i>
 
-            <h2>ALERTAS RECENTES</h2>
+                <div class="row g-4 align-items-end">
+
+
+                    <div class="col">
+                        <label class="label-custom"> NOME </label>
+                        <input type="text" id="nome" class="form-control input-custom" placeholder="">
+                    </div>
+
+
+                    <div class="col">
+                        <label class="label-custom"> INÍCIO DA ROTA</label>
+                        <input type="text" id="localizacao-inicial" class="form-control input-custom" placeholder="Inicio">
+                    </div>
+
+                    <div class="col">
+                        <label class="label-custom"> FIM DA ROTA</label>
+                        <input type="text" id="localizacao-final" class="form-control input-custom" placeholder="Fim">
+                    </div>
+
+
+                    <div class="col">
+                        <button id="btnAdicionar" class="btn botao-custom w-100">+ADICIONAR</button>
+                    </div>
+
+                </div>
+        </div>
+
+        <div class="sensor_busca">
+            <i class="bi bi-search"></i>
+            <input type="text" id="buscar" placeholder="Buscar por nome ou ID">
+        </div>
+
+         <div id="sensorVazio" class="sensor-vazio">
+
+            <i class="bi bi-broadcast"></i>
+            <h4> Nenhum usuário cadastrado ainda. </h4>
+            <p> Cadastre um novo usuário para começar. </p>
 
         </div>
 
 
-        <div class="alerta">
+        <div class="sensor_tabela">
 
-            <span class="bolinha critica"></span>
+            <table class="table table-bordered align-middle">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NOME</th>
+                        <th>E-MAIL</th>
+                        <th>TELEFONE</th>
+                        <th>STATUS</th>
+                    </tr>
+                </thead>
 
-            <p>
-                Temperatura crítica no Trem carvão (102°C)
-            </p>
+                <tbody id="tabelaUsuarios"></tbody>
 
-        </div>
-
-
-        <div class="alerta">
-
-            <span class="bolinha critica"></span>
-
-            <p>
-                Velocidade acima do limite - Trem Madeira (142 km/h)
-            </p>
+            </table>
 
         </div>
-
-
-        <div class="alerta">
-
-            <span class="bolinha aviso"></span>
-
-            <p>
-                Sensor SNS-F02 reportou falha na junção Distrito 7 - Distrito 12
-            </p>
-
-        </div>
-
-
-        <div class="alerta">
-
-            <span class="bolinha aviso"></span>
-
-            <p>
-                Consumo 18% acima da média - Trem Madeira
-            </p>
-
-        </div>
-
-    </section>
 
 </main>
 </body>
