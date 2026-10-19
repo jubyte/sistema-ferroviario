@@ -158,8 +158,8 @@
          <div id="sensorVazio" class="sensor-vazio">
 
             <i class="bi bi-broadcast"></i>
-            <h4> Nenhum usuário cadastrado ainda. </h4>
-            <p> Cadastre um novo usuário para começar. </p>
+            <h4> Nenhuma rota cadastrada ainda. </h4>
+            <p> Cadastre uma nova rota para começar. </p>
 
         </div>
 
@@ -171,13 +171,12 @@
                     <tr>
                         <th>ID</th>
                         <th>NOME</th>
-                        <th>E-MAIL</th>
-                        <th>TELEFONE</th>
-                        <th>STATUS</th>
+                        <th>INÍCIO</th>
+                        <th>FIM</th>
                     </tr>
                 </thead>
 
-                <tbody id="tabelaUsuarios"></tbody>
+                <tbody id="tabelaRotas"></tbody>
 
             </table>
 
