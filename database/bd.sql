@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS Mockingrail;
-USE Mockingrail;
+CREATE DATABASE IF NOT EXISTS Mockingrail1;
+USE Mockingrail1;
 
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
