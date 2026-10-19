@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS Mockingrail1;
+CREATE DATABASE IF NOT EXISTS mockingrail;
 USE Mockingrail1;
 
 CREATE TABLE usuarios (
