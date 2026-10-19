@@ -46,12 +46,12 @@
 
                 <div class="pessoa_historia">
                     <img class="img_historia" src="../../assets/imgs/eduarda.jpg" alt="Imagem da Eduarda, criadora da Mocking Rail">
-                    <p>Guilherme</p>
+                    <p>Eduarda</p>
                 </div>
 
                 <div class="pessoa_historia">
-                    <img class="img_historia" src="../../assets/imgs/Captura de tela 2026-10-16 092257.png" alt="Imagem do Guilherme, criador da Mocking Rail">
-                    <p>Eduarda</p>
+                    <img class="img_historia" src="../../assets/imgs/guilherme.jpg" alt="Imagem do Guilherme, criador da Mocking Rail">
+                    <p>Guilherme</p>
                 </div>
 
                 <div class="pessoa_historia">
