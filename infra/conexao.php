@@ -3,7 +3,7 @@
 $servidor = "localhost";
 $usuario = "root";
 $senha = "";
-$banco = "mockingraill";
+$banco = "mockingrail";
 $port = 3306;
 
 $conn = new mysqli($servidor, $usuario, $senha, $banco, $port);
