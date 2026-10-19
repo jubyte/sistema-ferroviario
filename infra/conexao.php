@@ -1,11 +1,11 @@
 <?php
 $host = "localhost";
-$usuario = "root";
-$senha = "";
-$banco = "mockingrail";
-$porta = 3309;
+$user = "root";
+$password = "";
+$database = "mockingrail";
+$port = 3309;
 
-$conn = new mysqli($host, $usuario, $senha, $banco, $porta);
+$conn = new mysqli($host, $user, $password, $database, $port);
 
 if ($conn->connect_error) {
     die("Erro ao conectar com o banco de dados.");
