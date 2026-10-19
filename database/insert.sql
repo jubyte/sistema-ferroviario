@@ -1,4 +1,4 @@
---USE Mockingrail;
+--USE Mockingraill;
 
 --usuários
 --INSERT INTO usuarios (nome, email, telefone, tipo, status) VALUES

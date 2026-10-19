@@ -3,10 +3,10 @@
 $servidor = "localhost";
 $usuario = "root";
 $senha = "";
-$banco = "mockingrail";
-$porta = 3306;
+$banco = "mockingraill";
+$port = 3306;
 
-$conn = new mysqli($servidor, $usuario, $senha, $banco, $porta);
+$conn = new mysqli($servidor, $usuario, $senha, $banco, $port);
 
 if ($conn->connect_error) {
     die("Erro ao conectar com o banco de dados.");
