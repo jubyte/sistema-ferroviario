@@ -1,4 +1,4 @@
-![Imagem do banner](/assets/imgs/banner.jpg)
+![Imagem do banner](/assets/imgs/banner.png)
 
 # MOCKING RAIL
 

@@ -17,7 +17,7 @@
         </a>
 
         <h2 class="title_index">Mocking Rail</h2>
-        
+
         <div class="anav flex">
             <a class="linksnav" href="../../index.php">Início</a>
             <a class="linksnav" href="historia.php">História</a>
