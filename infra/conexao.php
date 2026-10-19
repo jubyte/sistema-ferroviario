@@ -3,7 +3,7 @@
 
 $host = "localhost";
 $dbname = "MockingRail";
-$port = 3389;
+$port = 3306;
 $user = "root";
 $password = "";
 

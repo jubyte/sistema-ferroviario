@@ -18,7 +18,7 @@ body {
     inset: 0;
     background:
         linear-gradient(to bottom, #00000054, #00000077),
-        url('../assets/imgs/fundo_login.jpg') center/cover no-repeat;
+        url('../assets/imgs/login.png') center/cover no-repeat;
     z-index: -1;
 }
 
