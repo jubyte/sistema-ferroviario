@@ -11,10 +11,13 @@
 <body>
    
     <nav class="navbar-inicio flex">
+
         <a href="../../index.php">
             <img class="logo-login" src="../../assets/icons/logo.png" alt="logo da MockingRail">
         </a>
+
         <h2 class="title_index">Mocking Rail</h2>
+
         <div class="anav flex">
             <a class="linksnav" href="../../index.php">Início</a>
             <a class="linksnav" href="historia.php">História</a>
@@ -25,6 +28,7 @@
     </nav>
 
     <main class="main_inicio">
+
         <div class="msg_index">
             <h1>História</h1>
         </div>
@@ -39,17 +43,29 @@
             <h3 class="titulo-criadores">Criadores:</h3><br>
             
             <div class="imagens_historia">
-                <img class="img_historia" src="../../assets/imgs/eduarda.jpg" alt="Imagem da Eduarda, criadora da Mocking Rail">
-                <img class="img_historia" src="../../assets/imgs/guilherme.jpg" alt="Imagem do Guilherme, criador da Mocking Rail">
-                <img class="img_historia" src="../../assets/imgs/henrique.jpg" alt="Imagem do Henrique, criador da Mocking Rail">
-                <img class="img_historia" src="../../assets/imgs/julia.jpg" alt="Imagem da Julia, criadora da Mocking Rail">
+
+                <div class="pessoa_historia">
+                    <img class="img_historia" src="../../assets/imgs/eduarda.jpg" alt="Imagem da Eduarda, criadora da Mocking Rail">
+                    <p>Guilherme</p>
+                </div>
+
+                <div class="pessoa_historia">
+                    <img class="img_historia" src="../../assets/imgs/Captura de tela 2026-10-16 092257.png" alt="Imagem do Guilherme, criador da Mocking Rail">
+                    <p>Eduarda</p>
+                </div>
+
+                <div class="pessoa_historia">
+                    <img class="img_historia" src="../../assets/imgs/henrique.jpg" alt="Imagem do Henrique, criador da Mocking Rail">
+                    <p>Henrique</p>
+                </div>
+
+                <div class="pessoa_historia">
+                    <img class="img_historia" src="../../assets/imgs/julia.jpg" alt="Imagem da Julia, criadora da Mocking Rail">
+                    <p>Julia</p>
+                </div>
+
             </div>
-            <div class="nomes_historia">
-                <p>Guilherme</p>
-                <p>Eduarda</p>
-                <p>Henrique</p>
-                <p>Julia</p>
-            </div>
+
         </div>
 
     </main>
