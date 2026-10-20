@@ -1,83 +1,54 @@
-
-?>
 <?php
-
 header('Content-Type: application/json; charset=utf-8');
-
 require_once __DIR__ . '/../../../infra/conexao.php';
 
 function responder($status, $message, $codigo = 200)
 {
     http_response_code($codigo);
-
     echo json_encode([
         'status' => $status,
         'message' => $message
     ], JSON_UNESCAPED_UNICODE);
-
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    responder('error', 'Método de requisição inválido.', 405);
+    responder('error', 'Método inválido.', 405);
 }
 
-$id = trim($_POST['id'] ?? '');
+$idTexto = $_POST['id'] ?? '';
 
-if ($id === '') {
-    responder('error', 'ID do sensor não informado.', 400);
-}
-
-if (!ctype_digit($id) || (int) $id < 1) {
+if (!ctype_digit((string)$idTexto) || (int)$idTexto < 1) {
     responder('error', 'ID do sensor inválido.', 400);
 }
 
-$id = (int) $id;
+$id = (int)$idTexto;
 
 try {
-
-    $sql = "DELETE FROM sensores WHERE id = ?";
-
-    $stmt = $conn->prepare($sql);
-
-    if (!$stmt) {
-        throw new RuntimeException('Falha ao preparar a exclusão.');
-    }
-
+    $stmt = $conn->prepare("DELETE FROM sensores WHERE id = ?");
     $stmt->bind_param('i', $id);
     $stmt->execute();
 
-    if ($stmt->affected_rows > 0) {
+    $excluidos = $stmt->affected_rows;
+    $stmt->close();
 
-        $stmt->close();
-
-        responder('success', 'Sensor excluído com sucesso!');
-
-    } else {
-
-        $stmt->close();
-
+    if ($excluidos === 0) {
         responder('error', 'Sensor não encontrado.', 404);
     }
 
+    responder('success', 'Sensor excluído com sucesso!');
+
 } catch (mysqli_sql_exception $e) {
-
     error_log($e->getMessage());
-
     responder(
         'error',
-        'Não foi possível excluir o sensor. Verifique se existem registros vinculados.',
+        'Não foi possível excluir. Verifique se existem leituras ou alertas associados.',
         409
     );
-
 } catch (Throwable $e) {
-
     error_log($e->getMessage());
-
-    responder('error', 'Erro ao excluir sensor.', 500);
-
+    responder('error', 'Erro interno ao excluir sensor.', 500);
 } finally {
-
     if (isset($conn) && $conn instanceof mysqli) {
         $conn->close();
     }
