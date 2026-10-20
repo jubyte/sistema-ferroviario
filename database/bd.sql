@@ -18,19 +18,22 @@ CREATE TABLE IF NOT EXISTS trens (
     empresa VARCHAR(100) NOT NULL,
     tipo VARCHAR(20) NOT NULL,
     numero_vagoes INT NOT NULL,
-    usuario_responsavel_id INT,
-    status VARCHAR(20) DEFAULT 'Ativo',
-    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (usuario_responsavel_id) REFERENCES usuarios(id)
-);
+    status VARCHAR(20) NOT NULL DEFAULT 'Ativo',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS sensores (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     tipo VARCHAR(20) NOT NULL,
     localizacao VARCHAR(100) NOT NULL,
-    trem_id INT,
-    status VARCHAR(20) DEFAULT 'Ativo',
+    trem_id INT UNSIGNED NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'Ativo',
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (trem_id) REFERENCES trens(id)
-);
+
+    CONSTRAINT fk_sensores_trens
+        FOREIGN KEY (trem_id)
+        REFERENCES trens(id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL
+) ENGINE=InnoDB;
