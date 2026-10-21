@@ -15,25 +15,39 @@ if ($nome === '' || $inicio === '' || $fim === '') {
     exit;
 }
 
-$stmt = $conn->prepare(
-    "INSERT INTO rotas (nome, localizacao_inicial, localizacao_final, descricao, distancia, tempo_estimado, trem_id)
-     VALUES (?, ?, ?, NULL, NULL, NULL, NULL)"
-);
-$stmt->bind_param("sss", $nome, $inicio, $fim);
+try {
+    $sql = "INSERT INTO rotas (
+                nome,
+                localizacao_inicial,
+                localizacao_final,
+                descricao,
+                distancia,
+                tempo_estimado
+            ) VALUES (?, ?, ?, NULL, NULL, NULL)";
 
-if ($stmt->execute()) {
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sss", $nome, $inicio, $fim);
+    $stmt->execute();
+
     echo json_encode([
         "status"  => "success",
         "message" => "Rota cadastrada com sucesso."
     ], JSON_UNESCAPED_UNICODE);
-} else {
+
+    $stmt->close();
+
+} catch (Throwable $e) {
+    error_log("Erro ao cadastrar rota: " . $e->getMessage());
+
     http_response_code(500);
+
     echo json_encode([
         "status"  => "error",
-        "message" => "Erro ao cadastrar rota.",
-        "detalhe" => $stmt->error
+        "message" => "Erro ao cadastrar rota."
     ], JSON_UNESCAPED_UNICODE);
-}
 
-$stmt->close();
-$conn->close();
+} finally {
+    if (isset($conn) && $conn instanceof mysqli) {
+        $conn->close();
+    }
+}

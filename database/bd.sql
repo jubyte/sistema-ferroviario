@@ -55,12 +55,6 @@ CREATE TABLE IF NOT EXISTS rotas (
     descricao TEXT NULL,
     distancia DECIMAL(10,2) NULL,
     tempo_estimado INT NULL,
-    trem_id INT UNSIGNED NULL,
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    status VARCHAR(20) NOT NULL DEFAULT 'Ativo',
-    CONSTRAINT fk_rotas_trens
-        FOREIGN KEY (trem_id)
-        REFERENCES trens(id)
-        ON UPDATE CASCADE
-        ON DELETE SET NULL
+    status VARCHAR(20) NOT NULL DEFAULT 'Ativo'
 );
