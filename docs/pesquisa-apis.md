@@ -135,7 +135,7 @@ A segurança de uma API exige medidas para proteger os dados e controlar o acess
 
 Essas medidas ajudam a reduzir acessos indevidos, exposição de informações e outras vulnerabilidades.
 
-## Referências
+## REFERÊNCIAS
 
 MDN WEB DOCS. **Introdução às Web APIs**. Disponível em: https://developer.mozilla.org/pt-BR/docs/Learn_web_development/Extensions/Client-side_APIs/Introduction. Acesso em: 20 out. 2026.
 
