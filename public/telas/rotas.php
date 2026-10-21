@@ -70,99 +70,66 @@
 
     <main class="conteudo">
 
-    <section class="cabecalho">
-        <h1 class="titulo-menu">ROTAS</h1>
-        <h2 class="titulo-sistema">SISTEMA FERROVIÁRIO</h2>
-    </section>
+        <header class="cabecalho">
+            <h2>ROTAS</h2>
+            <h4>SISTEMA FERROVIÁRIO</h4>
+        </header>
 
+        <div class="sensor_caixa">
 
-    <section class="area-central">
-
-        <div class="status-painel">
-
-            <h2>EM MOVIMENTO:</h2>
-
-            <div class="status-trem">
-
-                <div>
-                    <strong>Trem Dourado</strong>
-                    <span>Rota 1</span>
-                </div>
-
-                <div class="status operacional">
-                    <i></i>
-                    OPERACIONAL
-                </div>
-
-            </div>
-
-
-            <div class="status-trem">
-
-                <div>
-                    <strong>Trem Carvão</strong>
-                    <span>Rota 12</span>
-                </div>
-
-                <div class="status falha">
-                    <i></i>
-                    FALHA
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <div class="sensor_caixa">
             <h2 class="usuario__title">
                 <i class="bi bi-plus-circle"></i> CADASTRAR ROTA
             </h2>
 
+            <div class="row g-4 align-items-end">
 
-                <div class="row g-4 align-items-end">
-
-
-                    <div class="col">
-                        <label class="label-custom"> NOME </label>
-                        <input type="text" id="nome" class="form-control input-custom" placeholder="">
-                    </div>
-
-
-                    <div class="col">
-                        <label class="label-custom"> INÍCIO DA ROTA</label>
-                        <input type="text" id="localizacao-inicial" class="form-control input-custom" placeholder="Inicio">
-                    </div>
-
-                    <div class="col">
-                        <label class="label-custom"> FIM DA ROTA</label>
-                        <input type="text" id="localizacao-final" class="form-control input-custom" placeholder="Fim">
-                    </div>
-
-
-                    <div class="col">
-                        <button id="btnAdicionar" class="btn botao-custom w-100">+ADICIONAR</button>
-                    </div>
-
+                <div class="col">
+                    <label class="label-custom">ID DO TREM</label>
+                    <input type="number" id="trem_id" class="form-control input-custom">
                 </div>
+
+                <div class="col">
+                    <label class="label-custom">NOME</label>
+                    <input type="text" id="nome" class="form-control input-custom">
+                </div>
+
+                <div class="col">
+                    <label class="label-custom">DESCRIÇÃO</label>
+                    <input type="text" id="descricao" class="form-control input-custom">
+                </div>
+
+                <div class="col">
+                    <label class="label-custom">DISTÂNCIA (KM)</label>
+                    <input type="number" id="distancia" class="form-control input-custom">
+                </div>
+
+                <div class="col">
+                    <label class="label-custom">TEMPO (MIN)</label>
+                    <input type="number" id="tempo_estimado" class="form-control input-custom">
+                </div>
+
+                <div class="col">
+                    <button id="btnAdicionar" class="btn botao-custom w-100" type="button"> +ADICIONAR </button>
+                </div>
+
+            </div>
+
         </div>
 
         <div class="sensor_busca">
+
             <i class="bi bi-search"></i>
             <input type="text" id="buscar" placeholder="Buscar por nome ou ID">
-        </div>
-
-         <div id="sensorVazio" class="sensor-vazio">
-
-            <i class="bi bi-broadcast"></i>
-            <h4> Nenhuma rota cadastrada ainda. </h4>
-            <p> Cadastre uma nova rota para começar. </p>
 
         </div>
 
+        <div id="rotaVazia" class="sensor-vazio">
+
+            <i class="bi bi-grid-1x2-fill"></i>
+            <h4>Nenhuma rota cadastrada ainda.</h4>
+            <p>Cadastre uma nova rota para começar.</p>
+
+        </div>
 
         <div class="sensor_tabela">
 
@@ -171,13 +138,15 @@
                     <tr>
                         <th>ID</th>
                         <th>NOME</th>
-                        <th>INÍCIO</th>
-                        <th>FIM</th>
+                        <th>DESCRIÇÃO</th>
+                        <th>DISTÂNCIA</th>
+                        <th>TEMPO</th>
+                        <th>TREM</th>
+                        <th>DATA</th>
+                        <th>AÇÕES</th>
                     </tr>
                 </thead>
-
                 <tbody id="tabelaRotas"></tbody>
-
             </table>
 
         </div>
