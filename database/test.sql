@@ -17,9 +17,9 @@ INSERT INTO sensores (nome, tipo, localizacao, trem_id, status) VALUES
 ('Sensor de Consumo de Energia 02', 'Energia', 'Distrito Industrial, Joinville', (SELECT id FROM trens WHERE nome = 'Carga 02' LIMIT 1), 'Ativo');
 
 -- rotas
-INSERT INTO rotas (nome, descricao, distancia, tempo_estimado, trem_id) VALUES
-('Rota Joinville - Sao Francisco do Sul', 'Trajeto simulado para transporte de cargas entre Joinville e Sao Francisco do Sul.', 45.00, 60, (SELECT id FROM trens WHERE nome = 'Carga 02' LIMIT 1)),
-('Rota Distrito 12', 'Trajeto simulado de monitoramento ferroviario na regiao de Joinville.', 20.00, 35, (SELECT id FROM trens WHERE nome = 'Distrito 12' LIMIT 1));
+INSERT INTO rotas (nome, localizacao_inicial, localizacao_final, descricao, distancia, tempo_estimado, trem_id) VALUES
+('Rota Joinville - Sao Francisco do Sul', 'Joinville', 'São Francisco do Sul', 'Trajeto simulado para transporte de cargas entre Joinville e Sao Francisco do Sul.', 45.00, 60, (SELECT id FROM trens WHERE nome = 'Carga 02' LIMIT 1)),
+('Rota Distrito 12', 'Centro', 'Distrito Industrial', 'Trajeto simulado de monitoramento ferroviario na regiao de Joinville.', 20.00, 35, (SELECT id FROM trens WHERE nome = 'Distrito 12' LIMIT 1));
 
 -- conferência
 SELECT * FROM usuarios;

@@ -1,91 +1,41 @@
-
 <?php
 header('Content-Type: application/json; charset=utf-8');
 
 require_once __DIR__ . '/../../../infra/conexao.php';
 
-try {
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        http_response_code(405);
-        echo json_encode([
-            'status' => 'error',
-            'message' => 'Método não permitido.'
-        ]);
-        exit;
-    }
+$id     = $_POST['id'] ?? '';
+$nome   = trim($_POST['nome'] ?? '');
+$inicio = trim($_POST['localizacao_inicial'] ?? '');
+$fim    = trim($_POST['localizacao_final'] ?? '');
 
-    $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
-    $nome = trim($_POST['nome'] ?? '');
-    $inicio = trim($_POST['localizacao_inicial'] ?? '');
-    $fim = trim($_POST['localizacao_final'] ?? '');
-
-    if (!$id || $id < 1) {
-        http_response_code(400);
-        echo json_encode([
-            'status' => 'error',
-            'message' => 'ID da rota inválido.'
-        ]);
-        exit;
-    }
-
-    if ($nome === '' || $inicio === '' || $fim === '') {
-        http_response_code(400);
-        echo json_encode([
-            'status' => 'error',
-            'message' => 'Preencha todos os campos.'
-        ]);
-        exit;
-    }
-
-    $sql = "UPDATE rotas
-            SET nome = ?,
-                localizacao_inicial = ?,
-                localizacao_final = ?
-            WHERE id = ?";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssi", $nome, $inicio, $fim, $id);
-    $stmt->execute();
-
-    if ($stmt->affected_rows === 0) {
-        // Pode significar que o ID não existe ou que
-        // os dados enviados são iguais aos dados atuais.
-        $verificar = $conn->prepare(
-            "SELECT id FROM rotas WHERE id = ?"
-        );
-        $verificar->bind_param("i", $id);
-        $verificar->execute();
-        $resultado = $verificar->get_result();
-
-        if ($resultado->num_rows === 0) {
-            http_response_code(404);
-            echo json_encode([
-                'status' => 'error',
-                'message' => 'Rota não encontrada.'
-            ]);
-            $verificar->close();
-            $stmt->close();
-            $conn->close();
-            exit;
-        }
-
-        $verificar->close();
-    }
-
+if ($id === '' || $nome === '' || $inicio === '' || $fim === '') {
     echo json_encode([
-        'status' => 'success',
-        'message' => 'Rota atualizada com sucesso!'
-    ]);
-
-    $stmt->close();
-    $conn->close();
-
-} catch (Throwable $e) {
-    error_log($e->getMessage());
-    http_response_code(500);
-
-    echo json_encode([
-        'status' => 'error',
-        'message' => 'Não foi possível atualizar a rota.'
-    ]);
+        "status"  => "error",
+        "message" => "Preencha todos os campos."
+    ], JSON_UNESCAPED_UNICODE);
+    exit;
 }
+
+$stmt = $conn->prepare(
+    "UPDATE rotas
+     SET nome = ?, localizacao_inicial = ?, localizacao_final = ?
+     WHERE id = ?"
+);
+$stmt->bind_param("sssi", $nome, $inicio, $fim, $id);
+
+if ($stmt->execute()) {
+    echo json_encode([
+        "status"  => "success",
+        "message" => "Rota editada com sucesso."
+    ], JSON_UNESCAPED_UNICODE);
+} else {
+    http_response_code(500);
+    echo json_encode([
+        "status"  => "error",
+        "message" => "Erro ao editar rota.",
+        "detalhe" => $stmt->error
+    ], JSON_UNESCAPED_UNICODE);
+}
+
+$stmt->close();
+$conn->close();

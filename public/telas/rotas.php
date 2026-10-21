@@ -78,47 +78,6 @@
         </header>
 
 
-    <section class="area-central">
-
-        <div class="status-painel">
-
-            <h2>EM MOVIMENTO:</h2>
-
-            <div class="status-trem">
-
-                <div>
-                    <strong>Trem Dourado</strong>
-                    <span>Rota 1</span>
-                </div>
-
-                <div class="status operacional">
-                    <i></i>
-                    OPERACIONAL
-                </div>
-
-            </div>
-
-
-            <div class="status-trem">
-
-                <div>
-                    <strong>Trem Carvão</strong>
-                    <span>Rota 12</span>
-                </div>
-
-                <div class="status falha">
-                    <i></i>
-                    FALHA
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
     
     <div class="sensor_caixa">
 
