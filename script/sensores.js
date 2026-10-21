@@ -1,4 +1,3 @@
-
 let sensores = [];
 let trensDisponiveis = [];
 
