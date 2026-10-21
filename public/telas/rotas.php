@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+if (!isset($_SESSION["email"])) {
+    header("Location: login.php");
+    exit;
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -30,7 +40,7 @@
 
             <div class="usuario-info">
                 <span>Usuário</span>
-                <p id="emailusuario">admin@mockingrail</p>
+                <p id="emailusuario"><?= htmlspecialchars($_SESSION["email"], ENT_QUOTES, 'UTF-8') ?></p>
             </div>
         </div>
 

@@ -1,5 +1,15 @@
+<?php
+session_start();
+
+if (!isset($_SESSION["email"])) {
+    header("Location: login.php");
+    exit;
+}
+?>
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,13 +20,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Science+Gothic:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <title>Usuários | MockingRail</title>
+    <title>Rotas | MockingRail</title>
 </head>
 
 <body>
+
     <aside class="sidebar">
+
         <div class="logo-box">
-            <h1 class="logo">R<span>Λ</span>IL</h1>
+            <h1 class="logo">
+                R<span>Λ</span>IL
+            </h1>
+
             <div class="logo-line"></div>
         </div>
 
@@ -25,7 +40,7 @@
 
             <div class="usuario-info">
                 <span>Usuário</span>
-                <p id="emailusuario">admin@mockingrail</p>
+                <p id="emailusuario"><?= htmlspecialchars($_SESSION["email"], ENT_QUOTES, 'UTF-8') ?></p>
             </div>
         </div>
 
