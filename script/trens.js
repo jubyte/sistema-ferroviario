@@ -156,7 +156,7 @@ botaoAdicionar.addEventListener("click", function() {
     dados.append("numero_vagoes", vagoes);
     dados.append("tipo", tipo);
 
-    fetch("crud_trens/cadastro_trem.php", {
+    fetch("crud_trens/cadastrar_trem.php", {
         method: "POST",
         body: dados
     })

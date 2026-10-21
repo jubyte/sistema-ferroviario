@@ -150,7 +150,7 @@ botaoAdicionar.addEventListener("click", function() {
     dados.append("trem_id", tremId);
     dados.append("status", status);
 
-    fetch("crud_sensores/cadastro_sensor.php", {
+    fetch("crud_sensores/cadastrar_sensor.php", {
         method: "POST",
         body: dados
     })
