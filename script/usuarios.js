@@ -125,13 +125,8 @@ botaoAdicionar.addEventListener("click", function() {
     dados.append("telefone", telefone);
     dados.append("tipo", tipo);
 
-<<<<<<< HEAD
-
     fetch("crud_usuarios/cadastrar_usuario.php", {
 
-=======
-    fetch("crud_usuarios/cadastro_usuario.php", {
->>>>>>> 6fb23db22ef11f54584036384439b2643a265b8d
         method: "POST",
         body: dados
     })
