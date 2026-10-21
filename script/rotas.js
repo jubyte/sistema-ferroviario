@@ -3,40 +3,16 @@ let rotas = [];
 const nomeInput = document.getElementById("nome");
 const descricaoInput = document.getElementById("descricao");
 const distanciaInput = document.getElementById("distancia");
-const tempoInput = document.getElementById("tempo_estimado");
-const tremInput = document.getElementById("trem_id");
+const tempoInput = document.getElementById("tempo");
+const tremInput = document.getElementById("trem");
 
 const botaoAdicionar = document.getElementById("btnAdicionar");
 const campoBusca = document.getElementById("buscar");
 const tabela = document.getElementById("tabelaRotas");
 const rotaVazia = document.getElementById("rotaVazia");
 
-function escapar(texto) {
-    const div = document.createElement("div");
-    div.textContent = texto ?? "";
-    return div.innerHTML;
-}
-
-function tratarResposta(response) {
-    return response.text().then(function(texto) {
-        let data;
-
-        try {
-            data = JSON.parse(texto);
-        } catch {
-            console.error("Resposta recebida do PHP:", texto);
-            throw new Error("O servidor não retornou JSON válido.");
-        }
-
-        if (!response.ok) {
-            throw new Error(data.message || "Erro HTTP: " + response.status);
-        }
-
-        return data;
-    });
-}
-
 function mostrarRotas(lista) {
+
     tabela.innerHTML = "";
 
     if (lista.length === 0) {
@@ -53,38 +29,40 @@ function mostrarRotas(lista) {
         linha.innerHTML = `
             <td>${String(rota.id).padStart(2, "0")}</td>
 
-            <td>${escapar(rota.nome)}</td>
+            <td>${rota.nome}</td>
 
-            <td>${escapar(rota.descricao)}</td>
+            <td>${rota.descricao}</td>
 
-            <td>${escapar(rota.distancia)} km</td>
+            <td>${rota.distancia} km</td>
 
-            <td>${escapar(rota.tempo_estimado)} min</td>
+            <td>${rota.tempo} min</td>
 
-            <td>Trem ${escapar(rota.trem_id)}</td>
-
-            <td>
-                ${new Date(rota.data_criacao).toLocaleDateString("pt-BR")}
-            </td>
+            <td>${rota.trem_id}</td>
 
             <td>
-                <button
-                    type="button"
-                    class="btn-acao"
-                    onclick="editarRota(${Number(rota.id)})"
-                    aria-label="Editar rota">
+                <div class="d-flex justify-content-between align-items-center">
 
-                    <i class="bi bi-pencil-square"></i>
-                </button>
+                    <span class="status-ativo">
+                        ● ${rota.status}
+                    </span>
 
-                <button
-                    type="button"
-                    class="btn-acao"
-                    onclick="excluirRota(${Number(rota.id)})"
-                    aria-label="Excluir rota">
+                    <div>
+                        <button
+                            class="btn-acao"
+                            onclick="editarRota(${rota.id})">
 
-                    <i class="bi bi-trash3"></i>
-                </button>
+                            <i class="bi bi-pencil-square icone-color"></i>
+                        </button>
+
+                        <button
+                            class="btn-acao"
+                            onclick="removerRota(${rota.id})">
+
+                            <i class="bi bi-trash3 icone-color"></i>
+                        </button>
+                    </div>
+
+                </div>
             </td>
         `;
 
@@ -92,56 +70,44 @@ function mostrarRotas(lista) {
     });
 }
 
-function aplicarBusca() {
-
-    const texto = campoBusca.value.toLowerCase().trim();
-
-    const resultados = rotas.filter(function(rota) {
-
-        return (
-            String(rota.nome).toLowerCase().includes(texto) ||
-            String(rota.id).includes(texto)
-        );
-
-    });
-
-    mostrarRotas(resultados);
-}
-
 function carregarRotas() {
 
     fetch("crud_rotas/listar_rota.php")
 
-        .then(tratarResposta)
+        .then(function(response) {
+
+            if (!response.ok) {
+                throw new Error(
+                    "Erro HTTP: " + response.status
+                );
+            }
+
+            return response.json();
+        })
 
         .then(function(data) {
 
-            if (
-                data.status === "success" &&
-                Array.isArray(data.rotas)
-            ) {
+            if (data.status === "success") {
 
                 rotas = data.rotas;
 
-                aplicarBusca();
+                mostrarRotas(rotas);
 
             } else {
 
-                throw new Error(
-                    data.message || "Erro ao carregar rotas."
-                );
+                alert(data.message);
             }
         })
 
         .catch(function(error) {
 
-            console.error("Erro ao carregar rotas:", error);
+            console.error(error);
 
-            alert("Não foi possível carregar as rotas.");
+            alert(
+                "Erro ao carregar rotas."
+            );
         });
 }
-
-campoBusca.addEventListener("input", aplicarBusca);
 
 botaoAdicionar.addEventListener("click", function() {
 
@@ -149,35 +115,60 @@ botaoAdicionar.addEventListener("click", function() {
     const descricao = descricaoInput.value.trim();
     const distancia = distanciaInput.value.trim();
     const tempo = tempoInput.value.trim();
-    const tremId = tremInput.value.trim();
+    const trem = tremInput.value.trim();
 
-    if (!nome) {
-        alert("Digite o nome da rota.");
+    if (nome === "") {
+
+        alert(
+            "Digite o nome da rota."
+        );
+
         nomeInput.focus();
+
         return;
     }
 
-    if (!descricao) {
-        alert("Digite a descrição da rota.");
+    if (descricao === "") {
+
+        alert(
+            "Digite a descrição da rota."
+        );
+
         descricaoInput.focus();
+
         return;
     }
 
-    if (!distancia || Number(distancia) <= 0) {
-        alert("Digite uma distância válida.");
+    if (distancia === "") {
+
+        alert(
+            "Digite a distância da rota."
+        );
+
         distanciaInput.focus();
+
         return;
     }
 
-    if (!tempo || Number(tempo) <= 0) {
-        alert("Digite o tempo previsto da rota.");
+    if (tempo === "") {
+
+        alert(
+            "Digite o tempo da rota."
+        );
+
         tempoInput.focus();
+
         return;
     }
 
-    if (!tremId || Number(tremId) <= 0) {
-        alert("Informe o ID do trem.");
+    if (trem === "") {
+
+        alert(
+            "Digite o ID do trem."
+        );
+
         tremInput.focus();
+
         return;
     }
 
@@ -186,158 +177,83 @@ botaoAdicionar.addEventListener("click", function() {
     dados.append("nome", nome);
     dados.append("descricao", descricao);
     dados.append("distancia", distancia);
-    dados.append("tempo_estimado", tempo);
-    dados.append("trem_id", tremId);
+    dados.append("tempo", tempo);
+    dados.append("trem_id", trem);
 
     fetch("crud_rotas/cadastrar_rota.php", {
 
         method: "POST",
         body: dados
-
     })
 
-        .then(tratarResposta)
+    .then(function(response) {
+        return response.json();
+    })
 
-        .then(function(data) {
+    .then(function(data) {
+
+        if (data.status === "success") {
 
             alert(data.message);
 
-            if (data.status === "success") {
+            nomeInput.value = "";
+            descricaoInput.value = "";
+            distanciaInput.value = "";
+            tempoInput.value = "";
+            tremInput.value = "";
 
-                nomeInput.value = "";
-                descricaoInput.value = "";
-                distanciaInput.value = "";
-                tempoInput.value = "";
-                tremInput.value = "";
+            carregarRotas();
 
-                carregarRotas();
-            }
-        })
+        } else {
 
-        .catch(function(error) {
+            alert(data.message);
+        }
+    })
 
-            console.error("Erro ao cadastrar rota:", error);
+    .catch(function(error) {
 
-            alert(
-                error.message ||
-                "Não foi possível cadastrar a rota."
-            );
-        });
+        console.error(error);
+
+        alert(
+            "Erro ao conectar com o servidor."
+        );
+    });
+
 });
 
-function editarRota(id) {
+campoBusca.addEventListener("input", function() {
 
-    const rota = rotas.find(function(item) {
-        return Number(item.id) === Number(id);
+    const texto =
+        campoBusca.value.toLowerCase().trim();
+
+    const resultados = rotas.filter(function(rota) {
+
+        return (
+            rota.nome.toLowerCase().includes(texto) ||
+            String(rota.id).includes(texto)
+        );
+
+    });
+
+    mostrarRotas(resultados);
+});
+
+function removerRota(id) {
+
+    const rota = rotas.find(function(rota) {
+
+        return Number(rota.id) === Number(id);
+
     });
 
     if (!rota) {
-        alert("Rota não encontrada.");
-        return;
-    }
-
-    const nome = prompt(
-        "Nome da rota:",
-        rota.nome
-    );
-
-    if (nome === null || nome.trim() === "") {
-        return;
-    }
-
-    const descricao = prompt(
-        "Descrição da rota:",
-        rota.descricao
-    );
-
-    if (descricao === null || descricao.trim() === "") {
-        return;
-    }
-
-    const distancia = prompt(
-        "Distância em quilômetros:",
-        rota.distancia
-    );
-
-    if (distancia === null || Number(distancia) <= 0) {
-        return;
-    }
-
-    const tempo = prompt(
-        "Tempo previsto em minutos:",
-        rota.tempo_estimado
-    );
-
-    if (tempo === null || Number(tempo) <= 0) {
-        return;
-    }
-
-    const tremId = prompt(
-        "ID do trem vinculado:",
-        rota.trem_id
-    );
-
-    if (
-        tremId === null ||
-        tremId.trim() === "" ||
-        Number(tremId) <= 0
-    ) {
-        return;
-    }
-
-    const dados = new FormData();
-
-    dados.append("id", id);
-    dados.append("nome", nome.trim());
-    dados.append("descricao", descricao.trim());
-    dados.append("distancia", distancia.trim());
-    dados.append("tempo_estimado", tempo.trim());
-    dados.append("trem_id", tremId.trim());
-
-    fetch("crud_rotas/editar_rota.php", {
-
-        method: "POST",
-        body: dados
-
-    })
-
-        .then(tratarResposta)
-
-        .then(function(data) {
-
-            alert(data.message);
-
-            if (data.status === "success") {
-                carregarRotas();
-            }
-        })
-
-        .catch(function(error) {
-
-            console.error("Erro ao editar rota:", error);
-
-            alert(
-                error.message ||
-                "Não foi possível editar a rota."
-            );
-        });
-}
-
-function excluirRota(id) {
-
-    const rota = rotas.find(function(item) {
-        return Number(item.id) === Number(id);
-    });
-
-    if (!rota) {
-        alert("Rota não encontrada.");
         return;
     }
 
     const confirmar = confirm(
-        'Deseja realmente excluir a rota "' +
+        "Deseja realmente remover a rota " +
         rota.nome +
-        '"?'
+        "?"
     );
 
     if (!confirmar) {
@@ -352,29 +268,126 @@ function excluirRota(id) {
 
         method: "POST",
         body: dados
-
     })
 
-        .then(tratarResposta)
+    .then(function(response) {
+        return response.json();
+    })
 
-        .then(function(data) {
+    .then(function(data) {
 
-            alert(data.message);
+        alert(data.message);
 
-            if (data.status === "success") {
-                carregarRotas();
-            }
-        })
+        if (data.status === "success") {
+            carregarRotas();
+        }
+    })
 
-        .catch(function(error) {
+    .catch(function(error) {
 
-            console.error("Erro ao excluir rota:", error);
+        console.error(error);
 
-            alert(
-                error.message ||
-                "Não foi possível excluir a rota."
-            );
-        });
+        alert(
+            "Erro ao excluir rota."
+        );
+    });
+}
+
+function editarRota(id) {
+
+    const rota = rotas.find(function(rota) {
+
+        return Number(rota.id) === Number(id);
+
+    });
+
+    if (!rota) {
+        return;
+    }
+
+    const novoNome = prompt(
+        "Digite o novo nome:",
+        rota.nome
+    );
+
+    if (
+        novoNome === null ||
+        novoNome.trim() === ""
+    ) {
+        return;
+    }
+
+    const novaDescricao = prompt(
+        "Digite a nova descrição:",
+        rota.descricao
+    );
+
+    if (
+        novaDescricao === null ||
+        novaDescricao.trim() === ""
+    ) {
+        return;
+    }
+
+    const novaDistancia = prompt(
+        "Digite a nova distância:",
+        rota.distancia
+    );
+
+    if (
+        novaDistancia === null ||
+        novaDistancia.trim() === ""
+    ) {
+        return;
+    }
+
+    const novoTempo = prompt(
+        "Digite o novo tempo:",
+        rota.tempo
+    );
+
+    if (
+        novoTempo === null ||
+        novoTempo.trim() === ""
+    ) {
+        return;
+    }
+
+    const dados = new FormData();
+
+    dados.append("id", id);
+    dados.append("nome", novoNome.trim());
+    dados.append("descricao", novaDescricao.trim());
+    dados.append("distancia", novaDistancia.trim());
+    dados.append("tempo", novoTempo.trim());
+
+    fetch("crud_rotas/editar_rota.php", {
+
+        method: "POST",
+        body: dados
+    })
+
+    .then(function(response) {
+        return response.json();
+    })
+
+    .then(function(data) {
+
+        alert(data.message);
+
+        if (data.status === "success") {
+            carregarRotas();
+        }
+    })
+
+    .catch(function(error) {
+
+        console.error(error);
+
+        alert(
+            "Erro ao editar rota."
+        );
+    });
 }
 
 carregarRotas();

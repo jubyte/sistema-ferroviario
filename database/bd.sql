@@ -46,5 +46,6 @@ CREATE TABLE rotas (
     tempo_estimado INT NOT NULL,
     trem_id INT UNSIGNED NULL,
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(20) NOT NULL DEFAULT 'Ativo',
     FOREIGN KEY (trem_id) REFERENCES trens(id)
-);
+) ENGINE=InnoDB;
