@@ -21,24 +21,33 @@ try {
     $resultado = $conn->query($sql);
 
     if (!$resultado) {
-        throw new RuntimeException('Falha ao consultar trens.');
+        throw new RuntimeException('Falha ao consultar trens: ' . $conn->error);
     }
 
-    $trens = $resultado->fetch_all(MYSQLI_ASSOC);
+    // Compatibilidade universal para extrair os dados sem depender do mysqlnd
+    $trens = [];
+    while ($linha = $resultado->fetch_assoc()) {
+        $trens[] = $linha;
+    }
+    
     $resultado->free();
 
+    http_response_code(200);
     echo json_encode([
         'status' => 'success',
-        'trens' => $trens
-    ], JSON_UNESCAPED_UNICODE);
+        'trens'  => $trens
+    ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
 } catch (Throwable $e) {
-    error_log($e->getMessage());
+    error_log('Erro ao listar trens: ' . $e->getMessage());
+
     http_response_code(500);
 
     echo json_encode([
         'status' => 'error',
-        'message' => 'Erro ao carregar trens.'
+        'message' => $e->getMessage(),
+        'arquivo' => basename($e->getFile()),
+        'linha' => $e->getLine()
     ], JSON_UNESCAPED_UNICODE);
 
 } finally {
@@ -46,4 +55,3 @@ try {
         $conn->close();
     }
 }
-?>

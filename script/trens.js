@@ -22,12 +22,11 @@ function tratarResposta(response) {
     if (!response.ok) {
         throw new Error("Erro HTTP: " + response.status);
     }
-
     return response.json();
 }
 
 function carregarUsuarios() {
-    fetch("crud_trens/listar_usuarios.php")
+    fetch("./crud_trens/listar_usuarios.php")
         .then(tratarResposta)
         .then(function(data) {
             if (
@@ -124,7 +123,7 @@ function mostrarTrens(lista) {
 }
 
 function carregarTrens() {
-    fetch("crud_trens/listar_trem.php")
+    fetch("./crud_trens/listar_trem.php")
         .then(tratarResposta)
         .then(function(data) {
             if (
@@ -160,7 +159,6 @@ function aplicarBusca() {
 }
 
 campoBusca.addEventListener("input", aplicarBusca);
-
 
 botaoAdicionar.addEventListener("click", function() {
     const nome = nomeInput.value.trim();
@@ -211,7 +209,7 @@ botaoAdicionar.addEventListener("click", function() {
     dados.append("tipo", tipo);
     dados.append("responsavel_id", responsavelId);
 
-    fetch("crud_trens/cadastrar_trem.php", {
+    fetch("./crud_trens/cadastrar_trem.php", {
         method: "POST",
         body: dados
     })
@@ -256,7 +254,7 @@ function excluirTrem(id) {
     const dados = new FormData();
     dados.append("id", id);
 
-    fetch("crud_trens/excluir_trem.php", {
+    fetch("./crud_trens/excluir_trem.php", {
         method: "POST",
         body: dados
     })
@@ -285,33 +283,21 @@ function editarTrem(id) {
     }
 
     const novoNome = prompt("Digite o novo nome do trem:", trem.nome);
-
     if (novoNome === null) return;
-
     if (novoNome.trim() === "") {
         alert("O nome não pode ficar vazio.");
         return;
     }
 
-    const novaEmpresa = prompt(
-        "Digite a nova empresa:",
-        trem.empresa
-    );
-
+    const novaEmpresa = prompt("Digite a nova empresa:", trem.empresa);
     if (novaEmpresa === null) return;
-
     if (novaEmpresa.trim() === "") {
         alert("A empresa não pode ficar vazia.");
         return;
     }
 
-    const novosVagoes = prompt(
-        "Digite o novo número de vagões:",
-        trem.numero_vagoes
-    );
-
+    const novosVagoes = prompt("Digite o novo número de vagões:", trem.numero_vagoes);
     if (novosVagoes === null) return;
-
     if (
         novosVagoes.trim() === "" ||
         !Number.isInteger(Number(novosVagoes)) ||
@@ -321,21 +307,14 @@ function editarTrem(id) {
         return;
     }
 
-    const novoTipo = prompt(
-        "Digite o novo tipo (Eletrico ou Diesel):",
-        trem.tipo
-    );
-
+    const novoTipo = prompt("Digite o novo tipo (Eletrico ou Diesel):", trem.tipo);
     if (novoTipo === null) return;
-
     const tipoNormalizado = novoTipo.trim();
-
     if (!["Eletrico", "Diesel"].includes(tipoNormalizado)) {
         alert("O tipo deve ser Eletrico ou Diesel.");
         return;
     }
 
-    // Selecionar o novo responsável
     if (usuarios.length === 0) {
         alert("Não há usuários carregados para selecionar.");
         return;
@@ -345,15 +324,12 @@ function editarTrem(id) {
         return usuario.id + " - " + usuario.nome;
     }).join("\n");
 
-    const responsavelAtual = trem.responsavel_id
-        ? String(trem.responsavel_id)
-        : "";
+    const responsavelAtual = trem.responsavel_id ? String(trem.responsavel_id) : "";
 
     const novoResponsavel = prompt(
         "Digite o ID do novo responsável:\n\n" + listaUsuarios,
         responsavelAtual
     );
-
     if (novoResponsavel === null) return;
 
     const usuarioSelecionado = usuarios.find(function(usuario) {
@@ -366,7 +342,6 @@ function editarTrem(id) {
     }
 
     const dados = new FormData();
-
     dados.append("id", id);
     dados.append("nome", novoNome.trim());
     dados.append("empresa", novaEmpresa.trim());
@@ -374,7 +349,7 @@ function editarTrem(id) {
     dados.append("tipo", tipoNormalizado);
     dados.append("responsavel_id", usuarioSelecionado.id);
 
-    fetch("crud_trens/editar_trem.php", {
+    fetch("./crud_trens/editar_trem.php", {
         method: "POST",
         body: dados
     })
@@ -393,5 +368,6 @@ function editarTrem(id) {
         });
 }
 
+// Inicialização
 carregarUsuarios();
 carregarTrens();
