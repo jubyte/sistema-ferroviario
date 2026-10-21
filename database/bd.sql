@@ -44,7 +44,12 @@ CREATE TABLE IF NOT EXISTS rotas (
     descricao TEXT,
     distancia DECIMAL(10,2) NOT NULL,
     tempo_estimado INT NOT NULL,
+<<<<<<< HEAD
     trem_id INT(10) UNSIGNED NOT NULL,
+=======
+    trem_id INT UNSIGNED NULL,
+>>>>>>> 3120248822e7283d69cf2e6cffaa1d8857ca5a96
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(20) NOT NULL DEFAULT 'Ativo',
     FOREIGN KEY (trem_id) REFERENCES trens(id)
-);
+) ENGINE=InnoDB;

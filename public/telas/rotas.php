@@ -83,10 +83,7 @@
 
             <div class="row g-4 align-items-end">
 
-                <div class="col">
-                    <label class="label-custom">ID DO TREM</label>
-                    <input type="number" id="trem_id" class="form-control input-custom">
-                </div>
+
 
                 <div class="col">
                     <label class="label-custom">NOME</label>
@@ -96,6 +93,14 @@
                 <div class="col">
                     <label class="label-custom">DESCRIÇÃO</label>
                     <input type="text" id="descricao" class="form-control input-custom">
+                </div>
+
+                <div class="col">
+                    <label for="trem_id" class="label-custom">TREM ASSOCIADO</label>
+                    <select id="trem_id"
+                            class="form-select input-custom select-custom">
+                        <option value="">Carregando trens...</option>
+                    </select>
                 </div>
 
                 <div class="col">
@@ -134,7 +139,9 @@
         <div class="sensor_tabela">
 
             <table class="table table-bordered align-middle">
+
                 <thead>
+
                     <tr>
                         <th>ID</th>
                         <th>NOME</th>
@@ -142,15 +149,18 @@
                         <th>DISTÂNCIA</th>
                         <th>TEMPO</th>
                         <th>TREM</th>
-                        <th>DATA</th>
-                        <th>AÇÕES</th>
+                        <th>STATUS</th>
                     </tr>
+
                 </thead>
+
                 <tbody id="tabelaRotas"></tbody>
+
             </table>
-
         </div>
+        
+    </main>
 
-</main>
+<script src="../../script/rotas.js"></script>
 </body>
 </html>
