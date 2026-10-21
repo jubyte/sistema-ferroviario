@@ -4,7 +4,7 @@ $servidor = "localhost";
 $usuario = "root";
 $senha = "1234";
 $banco = "mockingrail";
-$porta = 3306;
+$porta = 3389;
 
 $conn = new mysqli($servidor, $usuario, $senha, $banco, $porta);
 
