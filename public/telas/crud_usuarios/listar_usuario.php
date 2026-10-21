@@ -1,72 +1,34 @@
-
 <?php
-
 header('Content-Type: application/json; charset=utf-8');
-
 require_once __DIR__ . '/../../../infra/conexao.php';
 
 try {
-
     $busca = trim($_GET['busca'] ?? '');
 
     if ($busca !== '') {
-
         if (is_numeric($busca)) {
-
-            $sql = "SELECT id, nome, email, telefone, tipo, status
-                    FROM usuarios
-                    WHERE nome LIKE ?
-                    OR id = ?
-                    ORDER BY id ASC";
-
+            $sql = "SELECT id, nome, email, telefone, tipo, status FROM usuarios WHERE nome LIKE ? OR id = ? ORDER BY id ASC";
             $stmt = $conn->prepare($sql);
-
-            if (!$stmt) {
-                throw new Exception("Erro ao preparar a consulta.");
-            }
-
             $nomeBusca = "%$busca%";
-            $idBusca = (int) $busca;
 
-            $stmt->bind_param("si", $nomeBusca, $idBusca);
+            $idBusca = (int) $busca;
+            $stmt->bind_param('si', $nomeBusca, $idBusca);
 
         } else {
-
-            $sql = "SELECT id, nome, email, telefone, tipo, status
-                    FROM usuarios
-                    WHERE nome LIKE ?
-                    ORDER BY id ASC";
-
+            $sql = "SELECT id, nome, email, telefone, tipo, status FROM usuarios WHERE nome LIKE ? ORDER BY id ASC";
             $stmt = $conn->prepare($sql);
-
-            if (!$stmt) {
-                throw new Exception("Erro ao preparar a consulta.");
-            }
-
             $nomeBusca = "%$busca%";
 
-            $stmt->bind_param("s", $nomeBusca);
+            $stmt->bind_param('s', $nomeBusca);
         }
 
-        if (!$stmt->execute()) {
-            throw new Exception("Erro ao executar a consulta.");
-        }
-
+        $stmt->execute();
         $resultado = $stmt->get_result();
 
     } else {
-
-        $sql = "SELECT id, nome, email, telefone, tipo, status
-                FROM usuarios
-                ORDER BY id ASC";
-
+        $sql = "SELECT id, nome, email, telefone, tipo, status FROM usuarios ORDER BY id ASC";
         $resultado = $conn->query($sql);
-
-        if (!$resultado) {
-            throw new Exception("Erro ao consultar os usuários.");
-        }
     }
-
     $usuarios = $resultado->fetch_all(MYSQLI_ASSOC);
 
     echo json_encode([
@@ -75,24 +37,12 @@ try {
     ], JSON_UNESCAPED_UNICODE);
 
 } catch (Throwable $e) {
-
     error_log($e->getMessage());
-
     http_response_code(500);
 
     echo json_encode([
         'status' => 'error',
         'message' => 'Não foi possível consultar os usuários.'
     ], JSON_UNESCAPED_UNICODE);
-
-} finally {
-
-    if (isset($stmt) && $stmt instanceof mysqli_stmt) {
-        $stmt->close();
-    }
-
-    if (isset($conn) && $conn instanceof mysqli) {
-        $conn->close();
-    }
 }
 ?>

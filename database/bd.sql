@@ -6,8 +6,8 @@ CREATE TABLE IF NOT EXISTS usuarios (
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     telefone VARCHAR(20) NOT NULL,
-    tipo VARCHAR(30) NOT NULL,
-    senha VARCHAR(255) NOT NULL,
+    tipo VARCHAR(20) NOT NULL,
+    senha VARCHAR(50) NOT NULL,
     status VARCHAR(20) NOT NULL DEFAULT 'Ativo',
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS trens (
     numero_vagoes INT NOT NULL,
     status VARCHAR(20) NOT NULL DEFAULT 'Ativo',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB;
+) 
 
 CREATE TABLE IF NOT EXISTS sensores (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -36,4 +36,22 @@ CREATE TABLE IF NOT EXISTS sensores (
         REFERENCES trens(id)
         ON UPDATE CASCADE
         ON DELETE SET NULL
-) ENGINE=InnoDB;
+) 
+
+
+CREATE TABLE IF NOT EXISTS rotas (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    distancia DECIMAL(10,2) NOT NULL,
+    tempo_estimado INT NOT NULL,
+    trem_id INT UNSIGNED NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(20) NOT NULL DEFAULT 'Ativo',
+
+    CONSTRAINT fk_rotas_trens
+        FOREIGN KEY (trem_id)
+        REFERENCES trens(id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+);

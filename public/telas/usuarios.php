@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,14 +14,9 @@
 </head>
 
 <body>
-
     <aside class="sidebar">
-
         <div class="logo-box">
-            <h1 class="logo">
-                R<span>Λ</span>IL
-            </h1>
-
+            <h1 class="logo">R<span>Λ</span>IL</h1>
             <div class="logo-line"></div>
         </div>
 
@@ -35,7 +30,6 @@
         </div>
 
         <nav class="menu">
-
             <a href="menu.php" class="menu-item">
                 <i class="bi bi-house-door-fill"></i>
                 <span>MENU</span>
@@ -60,151 +54,73 @@
                 <i class="bi bi-people-fill"></i>
                 <span>USUÁRIOS</span>
             </a>
-
         </nav>
 
         <a href="login.php" class="sair">
             <i class="bi bi-box-arrow-left"></i>
             <span>SAIR</span>
         </a>
-
     </aside>
 
     <main class="conteudo">
-
         <header class="cabecalho">
             <h2>USUÁRIOS</h2>
             <h4>SISTEMA FERROVIÁRIO</h4>
         </header>
 
         <div class="sensor_caixa">
-
             <h2 class="usuario__title">
                 <i class="bi bi-plus-circle"></i>
                 CADASTRAR USUÁRIO
             </h2>
 
             <div class="row g-4 align-items-end">
-
                 <div class="col">
-                    <label for="nome" class="label-custom">
-                        NOME
-                    </label>
-
-                    <input
-                        type="text"
-                        id="nome"
-                        class="form-control input-custom"
-                        maxlength="100"
-                        required
-                    >
+                    <label for="nome" class="label-custom">NOME</label>
+                    <input type="text" id="nome" class="form-control input-custom" maxlength="100" required>
                 </div>
 
                 <div class="col">
-                    <label for="email" class="label-custom">
-                        E-MAIL
-                    </label>
-
-                    <input
-                        type="email"
-                        id="email"
-                        class="form-control input-custom"
-                        maxlength="150"
-                        required
-                    >
+                    <label for="email" class="label-custom">E-MAIL</label>
+                    <input type="email" id="email" class="form-control input-custom" maxlength="100" required>
                 </div>
 
                 <div class="col">
-                    <label for="telefone" class="label-custom">
-                        TELEFONE
-                    </label>
-
-                    <input
-                        type="tel"
-                        id="telefone"
-                        class="form-control input-custom"
-                        maxlength="20"
-                        required
-                    >
+                    <label for="telefone" class="label-custom">TELEFONE</label>
+                    <input type="tel" id="telefone" class="form-control input-custom" maxlength="20" required>
                 </div>
 
                 <div class="col">
-                    <label for="tipo" class="label-custom">
-                        TIPO
-                    </label>
+                    <label for="tipo" class="label-custom">TIPO</label>
 
-                    <select
-                        id="tipo"
-                        class="form-select input-custom select-custom"
-                        required
-                    >
-                        <option value="" selected disabled>
-                            SELECIONE
-                        </option>
-
-                        <option value="Administrador">
-                            Administrador
-                        </option>
-
-                        <option value="Usuário">
-                            Usuário
-                        </option>
+                    <select id="tipo" class="form-select input-custom select-custom" required>
+                        <option value="" selected disabled>SELECIONE</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Usuário">Usuário</option>
                     </select>
                 </div>
 
                 <div class="col">
-                    <label for="senha" class="label-custom">
-                        SENHA
-                    </label>
-
-                    <input
-                        type="password"
-                        id="senha"
-                        class="form-control input-custom"
-                        minlength="8"
-                        autocomplete="new-password"
-                        placeholder="Mín. 8 caracteres"
-                        required
-                    >
-                </div>
-
-                <div class="col">
-                    <button
-                        type="button"
-                        id="btnAdicionar"
-                        class="btn botao-custom w-100"
-                    >
+                    <button type="button" id="btnAdicionar" class="btn botao-custom w-100">
                         + ADICIONAR
                     </button>
                 </div>
-
             </div>
         </div>
 
         <div class="sensor_busca">
             <i class="bi bi-search"></i>
-
-            <input
-                type="text"
-                id="buscar"
-                placeholder="Buscar por nome ou ID"
-            >
+            <input type="text" id="buscar" placeholder="Buscar por nome ou ID">
         </div>
 
         <div id="sensorVazio" class="sensor-vazio">
-
             <i class="bi bi-broadcast"></i>
-
             <h4>Nenhum usuário cadastrado ainda.</h4>
-
             <p>Cadastre um novo usuário para começar.</p>
-
         </div>
 
         <div class="sensor_tabela">
-
             <table class="table table-bordered align-middle">
-
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -214,16 +130,11 @@
                         <th>STATUS</th>
                     </tr>
                 </thead>
-
                 <tbody id="tabelaUsuarios"></tbody>
-
             </table>
-
         </div>
-
     </main>
 
     <script src="../../script/usuarios.js"></script>
-
 </body>
 </html>

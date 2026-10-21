@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -128,10 +128,7 @@
                 </div>
 
                 <div class="col">
-                    <button type="button" id="btnAdicionar"
-                            class="btn botao-custom w-100">
-                        <i class="bi bi-plus-circle"></i> ADICIONAR SENSOR
-                    </button>
+                        <button id="btnAdicionar" class="btn botao-custom w-100">+ADICIONAR</button>
                 </div>
 
             </div>

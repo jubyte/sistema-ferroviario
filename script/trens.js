@@ -1,24 +1,23 @@
-
 let trens = [];
+let usuarios = [];
 
 const nomeInput = document.getElementById("nome");
 const empresaInput = document.getElementById("empresa");
 const vagoesInput = document.getElementById("vagoes");
 const tipoInput = document.getElementById("tipo");
+const responsavelInput = document.getElementById("responsavel_id");
 
 const botaoAdicionar = document.getElementById("btnAdicionar");
 const campoBusca = document.getElementById("buscar");
 const tabela = document.getElementById("tabelaTrens");
 const trenVazio = document.getElementById("sensorVazio");
 
-// Evita que texto digitado vire HTML na tabela
 function escapar(texto) {
     const div = document.createElement("div");
     div.textContent = texto ?? "";
     return div.innerHTML;
 }
 
-// Verifica a resposta HTTP e converte o JSON
 function tratarResposta(response) {
     if (!response.ok) {
         throw new Error("Erro HTTP: " + response.status);
@@ -27,7 +26,51 @@ function tratarResposta(response) {
     return response.json();
 }
 
-// Mostra os trens na tabela
+function carregarUsuarios() {
+    fetch("crud_trens/listar_usuarios.php")
+        .then(tratarResposta)
+        .then(function(data) {
+            if (
+                data.status !== "success" ||
+                !Array.isArray(data.usuarios)
+            ) {
+                throw new Error(
+                    data.message || "Erro ao carregar usuários."
+                );
+            }
+
+            usuarios = data.usuarios;
+
+            responsavelInput.innerHTML =
+                '<option value="">Selecione o responsável</option>';
+
+            usuarios.forEach(function(usuario) {
+                const opcao = document.createElement("option");
+
+                opcao.value = usuario.id;
+                opcao.textContent = usuario.nome;
+
+                responsavelInput.appendChild(opcao);
+            });
+
+            if (usuarios.length === 0) {
+                responsavelInput.innerHTML =
+                    '<option value="">Nenhum usuário cadastrado</option>';
+            }
+        })
+        .catch(function(error) {
+            console.error("Erro ao carregar usuários:", error);
+
+            responsavelInput.innerHTML =
+                '<option value="">Erro ao carregar usuários</option>';
+
+            alert(
+                "Não foi possível carregar os usuários. " +
+                "Verifique o arquivo listar_usuarios.php."
+            );
+        });
+}
+
 function mostrarTrens(lista) {
     tabela.innerHTML = "";
 
@@ -47,10 +90,10 @@ function mostrarTrens(lista) {
             <td>${escapar(trem.empresa)}</td>
             <td>${escapar(trem.numero_vagoes)}</td>
             <td>${trem.tipo === "Eletrico" ? "Elétrico" : escapar(trem.tipo)}</td>
+            <td>${escapar(trem.responsavel_nome || "Não informado")}</td>
 
             <td>
                 <div class="d-flex justify-content-between align-items-center">
-
                     <span class="status-ativo">
                         ● ${escapar(trem.status)}
                     </span>
@@ -72,7 +115,6 @@ function mostrarTrens(lista) {
                             <i class="bi bi-trash3 icone-color"></i>
                         </button>
                     </div>
-
                 </div>
             </td>
         `;
@@ -81,12 +123,14 @@ function mostrarTrens(lista) {
     });
 }
 
-// Consulta os trens no banco através do PHP
 function carregarTrens() {
     fetch("crud_trens/listar_trem.php")
         .then(tratarResposta)
         .then(function(data) {
-            if (data.status === "success" && Array.isArray(data.trens)) {
+            if (
+                data.status === "success" &&
+                Array.isArray(data.trens)
+            ) {
                 trens = data.trens;
                 aplicarBusca();
             } else {
@@ -99,14 +143,16 @@ function carregarTrens() {
         });
 }
 
-// Busca pelo nome ou ID
 function aplicarBusca() {
     const texto = campoBusca.value.toLowerCase().trim();
 
     const resultados = trens.filter(function(trem) {
         return (
             String(trem.nome).toLowerCase().includes(texto) ||
-            String(trem.id).includes(texto)
+            String(trem.id).includes(texto) ||
+            String(trem.empresa).toLowerCase().includes(texto) ||
+            String(trem.responsavel_nome || "")
+                .toLowerCase().includes(texto)
         );
     });
 
@@ -115,12 +161,13 @@ function aplicarBusca() {
 
 campoBusca.addEventListener("input", aplicarBusca);
 
-// Cadastra um trem
+
 botaoAdicionar.addEventListener("click", function() {
     const nome = nomeInput.value.trim();
     const empresa = empresaInput.value.trim();
     const vagoes = vagoesInput.value.trim();
     const tipo = tipoInput.value;
+    const responsavelId = responsavelInput.value;
 
     if (nome === "") {
         alert("Digite o nome do trem.");
@@ -150,13 +197,21 @@ botaoAdicionar.addEventListener("click", function() {
         return;
     }
 
+    if (!responsavelId) {
+        alert("Selecione o responsável pelo trem.");
+        responsavelInput.focus();
+        return;
+    }
+
     const dados = new FormData();
+
     dados.append("nome", nome);
     dados.append("empresa", empresa);
     dados.append("numero_vagoes", vagoes);
     dados.append("tipo", tipo);
+    dados.append("responsavel_id", responsavelId);
 
-    fetch("crud_trens/cadastro_trem.php", {
+    fetch("crud_trens/cadastrar_trem.php", {
         method: "POST",
         body: dados
     })
@@ -169,6 +224,7 @@ botaoAdicionar.addEventListener("click", function() {
                 empresaInput.value = "";
                 vagoesInput.value = "";
                 tipoInput.value = "";
+                responsavelInput.value = "";
 
                 carregarTrens();
             }
@@ -179,7 +235,6 @@ botaoAdicionar.addEventListener("click", function() {
         });
 });
 
-// Exclui um trem
 function excluirTrem(id) {
     const trem = trens.find(function(trem) {
         return Number(trem.id) === Number(id);
@@ -238,7 +293,10 @@ function editarTrem(id) {
         return;
     }
 
-    const novaEmpresa = prompt("Digite a nova empresa:", trem.empresa);
+    const novaEmpresa = prompt(
+        "Digite a nova empresa:",
+        trem.empresa
+    );
 
     if (novaEmpresa === null) return;
 
@@ -277,32 +335,63 @@ function editarTrem(id) {
         return;
     }
 
+    // Selecionar o novo responsável
+    if (usuarios.length === 0) {
+        alert("Não há usuários carregados para selecionar.");
+        return;
+    }
+
+    const listaUsuarios = usuarios.map(function(usuario) {
+        return usuario.id + " - " + usuario.nome;
+    }).join("\n");
+
+    const responsavelAtual = trem.responsavel_id
+        ? String(trem.responsavel_id)
+        : "";
+
+    const novoResponsavel = prompt(
+        "Digite o ID do novo responsável:\n\n" + listaUsuarios,
+        responsavelAtual
+    );
+
+    if (novoResponsavel === null) return;
+
+    const usuarioSelecionado = usuarios.find(function(usuario) {
+        return String(usuario.id) === novoResponsavel.trim();
+    });
+
+    if (!usuarioSelecionado) {
+        alert("Selecione um ID de usuário válido.");
+        return;
+    }
+
     const dados = new FormData();
+
     dados.append("id", id);
     dados.append("nome", novoNome.trim());
     dados.append("empresa", novaEmpresa.trim());
     dados.append("numero_vagoes", novosVagoes.trim());
     dados.append("tipo", tipoNormalizado);
+    dados.append("responsavel_id", usuarioSelecionado.id);
 
-   fetch("crud_trens/editar_trem.php", {
-    method: "POST",
-    body: dados
-})
-    .then(tratarResposta)
-    .then(function(data) {
-
-        if (data.status === "success") {
-            alert(data.message || "Trem atualizado com sucesso!");
-            carregarTrens();
-        } else {
-            alert(data.message || "Não foi possível editar o trem.");
-        }
-
+    fetch("crud_trens/editar_trem.php", {
+        method: "POST",
+        body: dados
     })
-    .catch(function(error) {
-        console.error("Erro ao editar trem:", error);
-        alert("Erro ao editar trem. Verifique o servidor.");
-    });
+        .then(tratarResposta)
+        .then(function(data) {
+            if (data.status === "success") {
+                alert(data.message || "Trem atualizado com sucesso!");
+                carregarTrens();
+            } else {
+                alert(data.message || "Não foi possível editar o trem.");
+            }
+        })
+        .catch(function(error) {
+            console.error("Erro ao editar trem:", error);
+            alert("Erro ao editar trem. Verifique o servidor.");
+        });
 }
 
+carregarUsuarios();
 carregarTrens();
