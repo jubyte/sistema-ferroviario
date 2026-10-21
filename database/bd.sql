@@ -6,8 +6,8 @@ CREATE TABLE IF NOT EXISTS usuarios (
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     telefone VARCHAR(20) NOT NULL,
-    tipo VARCHAR(30) NOT NULL,
-    senha VARCHAR(255) NOT NULL,
+    tipo VARCHAR(20) NOT NULL,
+    senha VARCHAR(50) NOT NULL,
     status VARCHAR(20) NOT NULL DEFAULT 'Ativo',
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -37,3 +37,14 @@ CREATE TABLE IF NOT EXISTS sensores (
         ON UPDATE CASCADE
         ON DELETE SET NULL
 ) ENGINE=InnoDB;
+
+CREATE TABLE rotas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    distancia DECIMAL(10,2) NOT NULL,
+    tempo_estimado INT NOT NULL,
+    trem_id INT NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (trem_id) REFERENCES trens(id)
+);
