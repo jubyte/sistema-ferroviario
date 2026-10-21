@@ -173,8 +173,6 @@
                         <th>Nº VAGÕES</th>
                         <th>TIPO</th>
                         <th>STATUS</th>
-                        <th>AÇÕES</th>
-                        
                     </tr>
                 </thead>
 
