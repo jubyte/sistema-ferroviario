@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -118,18 +118,18 @@
                         <option value="Diesel">Diesel</option>
                     </select>
                 </div>
-
                 <div class="col">
-                    <label for="usuario_responsavel" class="label-custom">
+                    <label for="responsavel_id" class="label-custom">
                         RESPONSÁVEL
                     </label>
 
                     <select
-                        id="usuario_responsavel"
+                        id="responsavel_id"
+                        name="responsavel_id"
                         class="form-select input-custom select-custom"
                         required>
-                        <option value="" selected disabled>
-                            SELECIONE O USUÁRIO
+                        <option value="" selected>
+                            CARREGANDO USUÁRIOS...
                         </option>
                     </select>
                 </div>
@@ -151,7 +151,7 @@
             <input
                 type="text"
                 id="buscar"
-                placeholder="Buscar por nome ou ID">
+                placeholder="Buscar por nome, ID ou responsável">
         </div>
 
         <div id="sensorVazio" class="sensor-vazio">
@@ -172,6 +172,7 @@
                         <th>EMPRESA</th>
                         <th>Nº VAGÕES</th>
                         <th>TIPO</th>
+                        <th>RESPONSÁVEL</th>
                         <th>STATUS</th>
                     </tr>
                 </thead>

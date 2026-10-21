@@ -1,4 +1,3 @@
-
 <?php
 header('Content-Type: application/json; charset=utf-8');
 
@@ -6,14 +5,18 @@ require_once __DIR__ . '/../../../infra/conexao.php';
 
 try {
     $sql = "SELECT
-                id,
-                nome,
-                empresa,
-                numero_vagoes,
-                tipo,
-                status
-            FROM trens
-            ORDER BY nome ASC";
+                t.id,
+                t.nome,
+                t.empresa,
+                t.numero_vagoes,
+                t.tipo,
+                t.status,
+                t.responsavel_id,
+                u.nome AS responsavel_nome
+            FROM trens t
+            LEFT JOIN usuarios u
+                ON t.responsavel_id = u.id
+            ORDER BY t.nome ASC";
 
     $resultado = $conn->query($sql);
 
