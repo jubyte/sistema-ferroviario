@@ -2,9 +2,9 @@
 <?php
 $servidor = "localhost";
 $usuario = "root";
-$senha = "";
+$senha = "1234";
 $banco = "mockingrail";
-$porta = 3309;
+$porta = 3389;
 
 $conn = new mysqli($servidor, $usuario, $senha, $banco, $porta);
 
