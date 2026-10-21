@@ -151,6 +151,8 @@
 
         </div>
 
-</main>
+    </main>
+
+<script src="../../script/rotas.js"></script>
 </body>
 </html>

@@ -44,7 +44,7 @@ CREATE TABLE rotas (
     descricao TEXT,
     distancia DECIMAL(10,2) NOT NULL,
     tempo_estimado INT NOT NULL,
-    trem_id INT NOT NULL,
+    trem_id INT UNSIGNED NULL,
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (trem_id) REFERENCES trens(id)
 );
