@@ -1,20 +1,16 @@
-<?php
 
+<?php
 header('Content-Type: application/json; charset=utf-8');
 
-require_once __DIR__ . '/../../../infra/conexao.php';
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 try {
-    $sql = "SELECT id, nome FROM usuarios ORDER BY nome ASC";
+    require_once __DIR__ . '/../../../infra/conexao.php';
 
+    $sql = "SELECT id, nome FROM usuarios ORDER BY nome ASC";
     $resultado = $conn->query($sql);
 
-    if (!$resultado) {
-        throw new RuntimeException('Erro ao consultar usuários.');
-    }
-
     $usuarios = $resultado->fetch_all(MYSQLI_ASSOC);
-
     $resultado->free();
 
     echo json_encode([
@@ -22,18 +18,18 @@ try {
         'usuarios' => $usuarios
     ], JSON_UNESCAPED_UNICODE);
 
+    $conn->close();
+
+
 } catch (Throwable $e) {
-    error_log($e->getMessage());
+    error_log('Erro em listar_usuarios.php: ' . $e->getMessage());
 
     http_response_code(500);
 
     echo json_encode([
         'status' => 'error',
-        'message' => 'Não foi possível carregar os usuários.'
+        'message' => $e->getMessage()
     ], JSON_UNESCAPED_UNICODE);
-
-} finally {
-    if (isset($conn) && $conn instanceof mysqli) {
-        $conn->close();
-    }
 }
+
+
