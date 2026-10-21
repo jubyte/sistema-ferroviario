@@ -128,10 +128,7 @@
                 </div>
 
                 <div class="col">
-                    <button type="button" id="btnAdicionar"
-                            class="btn botao-custom w-100">
-                        <i class="bi bi-plus-circle"></i> ADICIONAR SENSOR
-                    </button>
+                        <button id="btnAdicionar" class="btn botao-custom w-100">+ADICIONAR</button>
                 </div>
 
             </div>
