@@ -77,7 +77,6 @@
             <h4>SISTEMA FERROVIÁRIO</h4>
         </header>
 
-        <div class="sensor_caixa">
 
     <section class="area-central">
 
