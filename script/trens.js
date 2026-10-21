@@ -1,4 +1,3 @@
-
 let trens = [];
 
 const nomeInput = document.getElementById("nome");
@@ -11,14 +10,12 @@ const campoBusca = document.getElementById("buscar");
 const tabela = document.getElementById("tabelaTrens");
 const trenVazio = document.getElementById("sensorVazio");
 
-// Evita que texto digitado vire HTML na tabela
 function escapar(texto) {
     const div = document.createElement("div");
     div.textContent = texto ?? "";
     return div.innerHTML;
 }
 
-// Verifica a resposta HTTP e converte o JSON
 function tratarResposta(response) {
     if (!response.ok) {
         throw new Error("Erro HTTP: " + response.status);
@@ -27,7 +24,6 @@ function tratarResposta(response) {
     return response.json();
 }
 
-// Mostra os trens na tabela
 function mostrarTrens(lista) {
     tabela.innerHTML = "";
 
@@ -81,7 +77,6 @@ function mostrarTrens(lista) {
     });
 }
 
-// Consulta os trens no banco através do PHP
 function carregarTrens() {
     fetch("crud_trens/listar_trem.php")
         .then(tratarResposta)
@@ -99,7 +94,6 @@ function carregarTrens() {
         });
 }
 
-// Busca pelo nome ou ID
 function aplicarBusca() {
     const texto = campoBusca.value.toLowerCase().trim();
 
@@ -115,7 +109,6 @@ function aplicarBusca() {
 
 campoBusca.addEventListener("input", aplicarBusca);
 
-// Cadastra um trem
 botaoAdicionar.addEventListener("click", function() {
     const nome = nomeInput.value.trim();
     const empresa = empresaInput.value.trim();
@@ -179,7 +172,6 @@ botaoAdicionar.addEventListener("click", function() {
         });
 });
 
-// Exclui um trem
 function excluirTrem(id) {
     const trem = trens.find(function(trem) {
         return Number(trem.id) === Number(id);
