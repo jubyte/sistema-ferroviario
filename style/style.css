@@ -421,7 +421,10 @@ body {
 
 .informacoes-sensores {
     display: flex;
-    gap: 130%;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
 }
 
 .painel-monitoramento {
@@ -1053,4 +1056,10 @@ a {
 
 .img_historia{
     height: 5000%;
+}
+
+.botao-rotas{
+    background-color: rgba(145, 37, 37, 0);
+    border: 0;
+
 }

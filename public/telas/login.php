@@ -43,11 +43,6 @@
 
             </form>
 
-            <div class="text-center">
-                <a href="#" id="toggle" class="login__link">
-                    Não tem uma conta? Cadastre-se
-                </a>
-            </div>
         </div>
 
     </section>

@@ -2,7 +2,7 @@
 <?php
 $servidor = "localhost";
 $usuario = "root";
-$senha = "";
+$senha = "1234";
 $banco = "mockingrail";
 $port = 3306;
 

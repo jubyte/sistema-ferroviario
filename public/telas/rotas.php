@@ -117,71 +117,83 @@
 
 
 
+    
     <div class="sensor_caixa">
-            <h2 class="usuario__title">
-                <i class="bi bi-plus-circle"></i> CADASTRAR ROTA
-            </h2>
 
+        <h2 class="usuario__title">
+            <i class="bi bi-plus-circle"></i> CADASTRAR ROTA
+        </h2>
 
-                <div class="row g-4 align-items-end">
+        <form id="formRota">
+    <div class="row g-4 align-items-end">
 
-
-                    <div class="col">
-                        <label class="label-custom"> NOME </label>
-                        <input type="text" id="nome" class="form-control input-custom" placeholder="">
-                    </div>
-
-
-                    <div class="col">
-                        <label class="label-custom"> INÍCIO DA ROTA</label>
-                        <input type="text" id="localizacao-inicial" class="form-control input-custom" placeholder="Inicio">
-                    </div>
-
-                    <div class="col">
-                        <label class="label-custom"> FIM DA ROTA</label>
-                        <input type="text" id="localizacao-final" class="form-control input-custom" placeholder="Fim">
-                    </div>
-
-
-                    <div class="col">
-                        <button id="btnAdicionar" class="btn botao-custom w-100">+ADICIONAR</button>
-                    </div>
-
-                </div>
+        <div class="col">
+            <label for="nome" class="label-custom">NOME</label>
+            <input type="text" id="nome"
+                   class="form-control input-custom"
+                   maxlength="100" required>
         </div>
 
-        <div class="sensor_busca">
-            <i class="bi bi-search"></i>
-            <input type="text" id="buscar" placeholder="Buscar por nome ou ID">
+        <div class="col">
+            <label for="localizacao-inicial" class="label-custom">
+                INÍCIO DA ROTA
+            </label>
+            <input type="text" id="localizacao-inicial"
+                   class="form-control input-custom"
+                   maxlength="150" required>
         </div>
 
-         <div id="sensorVazio" class="sensor-vazio">
-
-            <i class="bi bi-broadcast"></i>
-            <h4> Nenhuma rota cadastrada ainda. </h4>
-            <p> Cadastre uma nova rota para começar. </p>
-
+        <div class="col">
+            <label for="localizacao-final" class="label-custom">
+                FIM DA ROTA
+            </label>
+            <input type="text" id="localizacao-final"
+                   class="form-control input-custom"
+                   maxlength="150" required>
         </div>
 
-
-        <div class="sensor_tabela">
-
-            <table class="table table-bordered align-middle">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>NOME</th>
-                        <th>INÍCIO</th>
-                        <th>FIM</th>
-                    </tr>
-                </thead>
-
-                <tbody id="tabelaRotas"></tbody>
-
-            </table>
-
+        <div class="col">
+            <button type="button" id="btnAdicionar"
+                    class="btn botao-custom w-100">
+                + ADICIONAR
+            </button>
         </div>
+
+    </div>
+</form>
+
+    </div>
+
+
+
+
+    <div class="sensor_busca">
+        <i class="bi bi-search"></i>
+        <input type="text" id="buscar" placeholder="Buscar por nome ou ID">
+    </div>
+     <div id="sensorVazio" class="sensor-vazio">
+        <i class="bi bi-broadcast"></i>
+        <h4> Nenhuma rota cadastrada ainda. </h4>
+        <p> Cadastre uma nova rota para começar. </p>
+    </div>
+    <div class="sensor_tabela">
+        <table class="table table-bordered align-middle">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NOME</th>
+                    <th>INÍCIO</th>
+                    <th>FIM</th>
+                    <th>Editar</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaRotas"></tbody>
+        </table>
+    </div>
 
 </main>
+
+<script src="../../script/rotas.js"></script>
+
 </body>
 </html>
