@@ -121,7 +121,7 @@
 
                 <div class="col">
                     <label for="usuario_responsavel" class="label-custom">
-                        USUÁRIO RESPONSÁVEL
+                        RESPONSÁVEL
                     </label>
 
                     <select
@@ -172,7 +172,6 @@
                         <th>EMPRESA</th>
                         <th>Nº VAGÕES</th>
                         <th>TIPO</th>
-                        <th>USUÁRIO RESPONSÁVEL</th>
                         <th>STATUS</th>
                         <th>AÇÕES</th>
                         
