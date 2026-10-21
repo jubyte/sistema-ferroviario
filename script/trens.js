@@ -368,6 +368,5 @@ function editarTrem(id) {
         });
 }
 
-// Inicialização
 carregarUsuarios();
 carregarTrens();

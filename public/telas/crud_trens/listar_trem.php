@@ -24,7 +24,6 @@ try {
         throw new RuntimeException('Falha ao consultar trens: ' . $conn->error);
     }
 
-    // Compatibilidade universal para extrair os dados sem depender do mysqlnd
     $trens = [];
     while ($linha = $resultado->fetch_assoc()) {
         $trens[] = $linha;
