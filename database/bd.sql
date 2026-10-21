@@ -38,14 +38,20 @@ CREATE TABLE IF NOT EXISTS sensores (
         ON DELETE SET NULL
 ) 
 
+
 CREATE TABLE IF NOT EXISTS rotas (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     descricao TEXT,
     distancia DECIMAL(10,2) NOT NULL,
     tempo_estimado INT NOT NULL,
-    trem_id INT(10) UNSIGNED NOT NULL,
+    trem_id INT UNSIGNED NOT NULL,
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     status VARCHAR(20) NOT NULL DEFAULT 'Ativo',
-    FOREIGN KEY (trem_id) REFERENCES trens(id)
-)
+
+    CONSTRAINT fk_rotas_trens
+        FOREIGN KEY (trem_id)
+        REFERENCES trens(id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+);
