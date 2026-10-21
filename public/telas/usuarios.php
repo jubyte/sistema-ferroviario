@@ -91,6 +91,11 @@
                 </div>
 
                 <div class="col">
+                    <label for="senha" class="label-custom">SENHA</label>
+                    <input type="password" id="senha" class="form-control input-custom" minlength="8" maxlength="72" autocomplete="new-password" required>
+                </div>
+
+                <div class="col">
                     <label for="tipo" class="label-custom">TIPO</label>
 
                     <select id="tipo" class="form-select input-custom select-custom" required>

@@ -3,6 +3,7 @@ let usuarios = [];
 const nomeInput = document.getElementById("nome");
 const emailInput = document.getElementById("email");
 const telefoneInput = document.getElementById("telefone");
+const senhaInput = document.getElementById("senha");
 const tipoInput = document.getElementById("tipo");
 const botaoAdicionar = document.getElementById("btnAdicionar");
 const campoBusca = document.getElementById("buscar");
@@ -89,6 +90,7 @@ botaoAdicionar.addEventListener("click", function() {
     const nome = nomeInput.value.trim();
     const email = emailInput.value.trim();
     const telefone = telefoneInput.value.trim();
+    const senha = senhaInput.value; // sem trim: espaços podem fazer parte da senha
     const tipo = tipoInput.value;
 
     if (nome === "") {
@@ -112,6 +114,20 @@ botaoAdicionar.addEventListener("click", function() {
     }
 
 
+    if (senha === "") {
+        alert("Digite a senha.");
+        senhaInput.focus();
+        return;
+    }
+
+
+    if (senha.length < 8) {
+        alert("A senha deve ter no mínimo 8 caracteres.");
+        senhaInput.focus();
+        return;
+    }
+
+
     if (tipo === "") {
         alert("Selecione o tipo de usuário.");
         tipoInput.focus();
@@ -123,6 +139,7 @@ botaoAdicionar.addEventListener("click", function() {
     dados.append("nome", nome);
     dados.append("email", email);
     dados.append("telefone", telefone);
+    dados.append("senha", senha);
     dados.append("tipo", tipo);
 
     fetch("crud_usuarios/cadastrar_usuario.php", {
@@ -142,6 +159,7 @@ botaoAdicionar.addEventListener("click", function() {
             nomeInput.value = "";
             emailInput.value = "";
             telefoneInput.value = "";
+            senhaInput.value = "";
             tipoInput.value = "";
 
             carregarUsuarios();

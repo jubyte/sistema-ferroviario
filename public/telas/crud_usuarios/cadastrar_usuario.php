@@ -22,8 +22,9 @@ $nome = trim($_POST['nome'] ?? '');
 $email = trim($_POST['email'] ?? '');
 $telefone = trim($_POST['telefone'] ?? '');
 $tipo = trim($_POST['tipo'] ?? '');
+$senha = $_POST['senha'] ?? ''; // sem trim: espaços podem fazer parte da senha
 
-if ($nome === '' || $email === '' || $telefone === '' || $tipo === '') {
+if ($nome === '' || $email === '' || $telefone === '' || $tipo === '' || $senha === '') {
     responder('error', 'Preencha todos os campos.', 400);
 }
 
@@ -39,17 +40,24 @@ if (!preg_match('/^[0-9()\s+\-]+$/', $telefone) || strlen($telefone) > 20) {
     responder('error', 'Digite um telefone válido, limite de caracteres.', 400);
 }
 
+// bcrypt considera apenas os primeiros 72 bytes
+if (strlen($senha) < 8 || strlen($senha) > 72) {
+    responder('error', 'A senha deve ter entre 8 e 72 caracteres.', 400);
+}
+
 $tiposPermitidos = ['Administrador', 'Usuário'];
 
 if (!in_array($tipo, $tiposPermitidos, true)) {
     responder('error', 'Tipo de usuário inválido.', 400);
 }
 
+$senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+
 try {
-    $sql = "INSERT INTO usuarios (nome, email, telefone, tipo, status) VALUES (?, ?, ?, ?, 'Ativo')";
+    $sql = "INSERT INTO usuarios (nome, email, telefone, senha, tipo, status) VALUES (?, ?, ?, ?, ?, 'Ativo')";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ssss', $nome, $email, $telefone, $tipo);
+    $stmt->bind_param('sssss', $nome, $email, $telefone, $senhaHash, $tipo);
     $stmt->execute();
     $stmt->close();
 
