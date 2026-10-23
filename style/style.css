@@ -616,6 +616,7 @@ body {
     cursor: pointer;
     background: transparent;
 }
+
 .btn-acao,
 .btn-acao:hover,
 .btn-acao:focus,
@@ -1059,6 +1060,7 @@ a {
 }
 
 .botao-rotas{
-    background-color: rgba(145, 37, 37, 0);
     border: 0;
+    color: #5c9aff;
+    background: transparent;
 }
