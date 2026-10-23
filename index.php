@@ -30,7 +30,7 @@
         </div>
 
         <div class="conteudo_index">
-            <h3>O quê é a Mocking Rail?</h3><br>
+            <h3 class="titulo-inicio">O quê é a Mocking Rail?</h3>
             <p>A Mocking Rail é uma empresa especializada no desenvolvimento de soluções tecnológicas para o monitoramento e gerenciamento inteligente de ferrovias. Nossa plataforma integra sensores IoT instalados ao longo dos trilhos e nas locomotivas, permitindo a coleta contínua de informações operacionais que são processadas em tempo real por um sistema centralizado.</p>
             <p>Os sensores monitoram diversos parâmetros, como velocidade dos trens, localização, temperatura, consumo de energia e possíveis falhas mecânicas ou estruturais. Todas essas informações são enviadas para uma base de dados segura, onde são organizadas e disponibilizadas por meio de uma interface intuitiva, permitindo que operadores e administradores acompanhem o funcionamento da ferrovia de forma rápida e eficiente.</p>
             <p>Além do monitoramento em tempo real, a plataforma oferece ferramentas para o gerenciamento de sensores, cadastro de trens, acompanhamento do desempenho operacional e geração de relatórios analíticos. Essas funcionalidades auxiliam equipes técnicas na identificação de anomalias, planejamento de manutenções preventivas e tomada de decisões estratégicas, reduzindo custos operacionais e aumentando a confiabilidade do transporte ferroviário.</p>
