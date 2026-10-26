@@ -1,5 +1,6 @@
 let sensores = [];
 let trensDisponiveis = [];
+let sensorEditando = null;
 
 const nomeInput = document.getElementById("nome");
 const tipoInput = document.getElementById("tipo");
@@ -105,6 +106,7 @@ function mostrarSensores(lista) {
                     aria-label="Editar sensor">
                     <i class="bi bi-pencil-square"></i>
                 </button>
+
                 <button type="button" class="btn-acao"
                     onclick="excluirSensor(${Number(sensor.id)})"
                     aria-label="Excluir sensor">
@@ -143,27 +145,49 @@ botaoAdicionar.addEventListener("click", function() {
     }
 
     const dados = new FormData();
+
     dados.append("nome", nome);
     dados.append("tipo", tipo);
     dados.append("local", local);
     dados.append("trem_id", tremId);
     dados.append("status", status);
 
+    // Se estiver editando, envia pro o PHP de edição
+    if (sensorEditando !== null) {
+        dados.append("id", sensorEditando);
+
+        fetch("crud_sensores/editar_sensor.php", {
+            method: "POST",
+            body: dados
+        })
+            .then(tratarResposta)
+            .then(function(data) {
+                alert(data.message || "Sensor atualizado com sucesso.");
+
+                if (data.status === "success") {
+                    limparFormulario();
+                    carregarSensores();
+                }
+            })
+            .catch(function(error) {
+                console.error("Erro ao editar sensor:", error);
+                alert("Não foi possível editar o sensor.");
+            });
+
+        return;
+    }
+
+    // Cadastro normal
     fetch("crud_sensores/cadastrar_sensor.php", {
         method: "POST",
         body: dados
     })
         .then(tratarResposta)
         .then(function(data) {
-            alert(data.message || "Operação concluída.");
+            alert(data.message || "Sensor cadastrado com sucesso.");
 
             if (data.status === "success") {
-                nomeInput.value = "";
-                tipoInput.value = "";
-                localInput.value = "";
-                tremInput.value = "";
-                statusInput.value = "Ativo";
-
+                limparFormulario();
                 carregarSensores();
             }
         })
@@ -183,87 +207,64 @@ function editarSensor(id) {
         return;
     }
 
-    const nome = prompt("Nome do sensor:", sensor.nome);
-    if (nome === null) return;
+    sensorEditando = sensor.id;
 
-    const tipos = [
-        "Velocidade", "Localizacao", "Energia",
-        "Temperatura", "Presenca", "Falha"
-    ];
+    nomeInput.value = sensor.nome;
+    tipoInput.value = sensor.tipo;
+    localInput.value = sensor.local;
+    tremInput.value = sensor.trem_id ?? "";
+    statusInput.value = sensor.status;
 
-    const tipoAtual = prompt(
-        "Tipo (" + tipos.join(", ") + "):",
-        sensor.tipo
-    );
-    if (tipoAtual === null) return;
+    botaoAdicionar.textContent = "Salvar alterações";
 
-    const tipo = tipoAtual.trim();
-    if (!tipos.includes(tipo)) {
-        alert("Tipo de sensor inválido.");
-        return;
+    const titulo = document.querySelector(".usuario__title");
+
+    if (titulo) {
+        titulo.textContent = "Editar sensor";
     }
 
-    const local = prompt("Localização:", sensor.local);
-    if (local === null) return;
+    let cancelar = document.getElementById("btnCancelar");
 
-    if (!nome.trim() || !local.trim()) {
-        alert("Nome e localização são obrigatórios.");
-        return;
+    if (!cancelar) {
+        cancelar = document.createElement("button");
+
+        cancelar.id = "btnCancelar";
+        cancelar.type = "button";
+        cancelar.textContent = "Cancelar edição";
+        cancelar.className = "btn btn-secondary mt-2";
+
+        botaoAdicionar.insertAdjacentElement("afterend", cancelar);
+
+        cancelar.addEventListener("click", limparFormulario);
     }
 
-    const tremAtual = sensor.trem_id ?? "";
-    const escolha = prompt(
-        "Digite o ID do trem ou deixe vazio para não associar.\n" +
-        trensDisponiveis.map(t => `${t.id} - ${t.nome}`).join("\n"),
-        tremAtual
-    );
+    cancelar.style.display = "inline-block";
 
-    if (escolha === null) return;
+    nomeInput.focus();
+}
 
-    if (
-        escolha.trim() !== "" &&
-        !trensDisponiveis.some(t => String(t.id) === escolha.trim())
-    ) {
-        alert("Selecione um ID de trem existente.");
-        return;
+function limparFormulario() {
+    sensorEditando = null;
+
+    nomeInput.value = "";
+    tipoInput.value = "";
+    localInput.value = "";
+    tremInput.value = "";
+    statusInput.value = "Ativo";
+
+    botaoAdicionar.textContent = "Adicionar";
+
+    const titulo = document.querySelector(".usuario__title");
+
+    if (titulo) {
+        titulo.textContent = "Adicionar sensor";
     }
 
-    const status = prompt(
-        "Status (Ativo ou Inativo):",
-        sensor.status
-    );
+    const cancelar = document.getElementById("btnCancelar");
 
-    if (status === null) return;
-
-    if (!["Ativo", "Inativo"].includes(status.trim())) {
-        alert("Status inválido.");
-        return;
+    if (cancelar) {
+        cancelar.style.display = "none";
     }
-
-    const dados = new FormData();
-    dados.append("id", id);
-    dados.append("nome", nome.trim());
-    dados.append("tipo", tipo);
-    dados.append("local", local.trim());
-    dados.append("trem_id", escolha.trim());
-    dados.append("status", status.trim());
-
-    fetch("crud_sensores/editar_sensor.php", {
-        method: "POST",
-        body: dados
-    })
-        .then(tratarResposta)
-        .then(function(data) {
-            alert(data.message || "Operação concluída.");
-
-            if (data.status === "success") {
-                carregarSensores();
-            }
-        })
-        .catch(function(error) {
-            console.error("Erro ao editar sensor:", error);
-            alert("Não foi possível editar o sensor.");
-        });
 }
 
 function excluirSensor(id) {
@@ -281,6 +282,7 @@ function excluirSensor(id) {
     }
 
     const dados = new FormData();
+
     dados.append("id", id);
 
     fetch("crud_sensores/excluir_sensor.php", {

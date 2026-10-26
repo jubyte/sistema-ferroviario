@@ -20,7 +20,7 @@ if (!isset($_SESSION["email"])) {
     <link href="https://fonts.googleapis.com/css2?family=Science+Gothic:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <title>Rotas | MockingRail</title>
+    <title>Trens | MockingRail</title>
 </head>
 
 <body>
