@@ -30,7 +30,7 @@
         </div>
 
         <div class="conteudo_index">
-            <h3>Nossos objetivos</h3><br>
+            <h3 class="titulo-inicio">Nossos objetivos</h3>
             <p>A Mocking Rail tem como objetivo desenvolver soluções tecnológicas que tornem o transporte ferroviário mais seguro, eficiente e inteligente. Por meio da integração entre sensores IoT, processamento de dados e monitoramento em tempo real, buscamos fornecer informações precisas que auxiliem operadores e administradores na tomada de decisões estratégicas.</p>
             <p>Nossa plataforma foi projetada para permitir o acompanhamento contínuo das condições operacionais dos trens e da infraestrutura ferroviária, possibilitando a identificação rápida de falhas, a prevenção de problemas e a otimização das atividades de manutenção. Dessa forma, contribuímos para reduzir riscos, minimizar interrupções e aumentar a confiabilidade das operações.</p>
             <p>Também buscamos oferecer uma experiência simples e intuitiva aos usuários, disponibilizando dashboards, relatórios analíticos e ferramentas de gerenciamento que transformam grandes volumes de dados em informações claras e úteis para o dia a dia das equipes responsáveis pela operação ferroviária.</p>

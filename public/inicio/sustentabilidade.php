@@ -30,7 +30,7 @@
         </div>
 
         <div class="conteudo_index">
-            <h3>Nossa visão de sustentabilidade</h3><br>
+            <h3 class="titulo-inicio">Nossa visão de sustentabilidade</h3>
             <p>Na Mocking Rail, acreditamos que a inovação tecnológica deve caminhar lado a lado com a responsabilidade ambiental e o desenvolvimento sustentável. Nossa visão é contribuir para um setor ferroviário cada vez mais eficiente, seguro e consciente, utilizando a tecnologia para otimizar recursos, reduzir desperdícios e promover uma gestão inteligente da infraestrutura ferroviária.</p>
             <p>Por meio do monitoramento em tempo real e da análise contínua de dados, nossa plataforma auxilia na identificação precoce de falhas, permitindo a realização de manutenções preventivas e evitando intervenções desnecessárias. Essa abordagem reduz o consumo de materiais, aumenta a vida útil dos equipamentos e contribui para uma operação mais eficiente e sustentável.</p>
             <p>Além do compromisso com o meio ambiente, valorizamos a segurança das pessoas e a confiabilidade das operações. Investimos em soluções que auxiliam na prevenção de acidentes, na melhoria dos processos operacionais e na utilização responsável das informações coletadas, sempre respeitando princípios de integridade, transparência e proteção dos dados.</p>
