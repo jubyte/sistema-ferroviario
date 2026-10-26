@@ -84,6 +84,110 @@ if (!isset($_SESSION["email"])) {
             <h1 class="titulo-menu">MENU</h1>
             <h2 class="titulo-sistema">SISTEMA FERROVIÁRIO</h2>
         </section>
+        <section class="resumo-superior">
+            <div class="cartao-sensores">
+                <i class="bi bi-broadcast"></i>
+                <div>
+                    <h3>Sensores</h3>
+                    <div class="informacoes-sensores">
+                        <span class="ativos">10 ativos</span>
+                        <span class="manutencao">10 em manutenção</span>
+                    </div>
+                </div>
+            </div>
+            <div class="cartao-alertas">
+                <i class="bi bi-exclamation-triangle"></i>
+                <div>
+                    <h3>Alertas</h3>
+                    <span>3 ativos</span>
+                </div>
+            </div>
+        </section>
+        <section class="cards-painel">
+            <div class="card-painel">
+                <div class="icone-card laranja">
+                    <i class="bi bi-train-front"></i>
+                </div>
+                <div class="info-card">
+                    <h3>TRENS ATIVOS</h3>
+                    <strong>2/13</strong>
+                    <span>OPERAÇÃO NORMAL</span>
+                </div>
+            </div>
+            <div class="card-painel">
+                <div class="icone-card laranja">
+                    <i class="bi bi-cpu"></i>
+                </div>
+                <div class="info-card">
+                    <h3>SENSORES<br>ONLINE</h3>
+                    <strong>7</strong>
+                    <span>DE 9<br>CADASTRADOS</span>
+                </div>
+            </div>
+            <div class="card-painel">
+                <div class="icone-card vermelho">
+                    <i class="bi bi-activity"></i>
+                </div>
+                <div class="info-card">
+                    <h3>INTEGRI-<br>DADE</h3>
+                    <strong class="texto-vermelho">76%</strong>
+                    <span>STATUS DA<br>REDE</span>
+                </div>
+            </div>
+            <div class="card-painel">
+                <div class="icone-card vermelho">
+                    <i class="bi bi-exclamation-triangle"></i>
+                </div>
+                <div class="info-card">
+                    <h3>ALERTAS<br>CRÍTICOS</h3>
+                    <strong class="texto-vermelho">2</strong>
+                    <span>REQUER<br>ATENÇÃO</span>
+                </div>
+            </div>
+        </section>
+        <section class="painel-monitoramento">
+            <div class="titulo-secao">
+                <i class="bi bi-bar-chart-line"></i>
+                <span>Monitoramento rápido</span>
+            </div>
+            <div class="area-monitoramento"></div>
+        </section>
+        <section class="painel-trens">
+            <div class="titulo-secao">
+                <i class="bi bi-train-front"></i>
+                <span>Trens</span>
+            </div>
+            <div class="lista-trens">
+                <div class="item-trem"></div>
+                <div class="item-trem"></div>
+                <div class="item-trem"></div>
+                <div class="item-trem"></div>
+                <div class="item-trem"></div>
+                <div class="item-trem"></div>
+                <div class="item-trem"></div>
+                <div class="item-trem"></div>
+                <div class="item-trem"></div>
+            </div>
+        </section>
+        <section class="secao-hoje">
+            <h2>Hoje</h2>
+            <div class="indicadores">
+                <div class="cartao-indicador">
+                    <span>Consumo</span>
+                    <h3>10 000</h3>
+                </div>
+                <div class="cartao-indicador">
+                    <span>Velocidade média</span>
+                    <h3>70</h3>
+                </div>
+                <div class="cartao-indicador">
+                    <span>Toneladas</span>
+                    <h3>300</h3>
+                </div>
+            </div>
+        </section>
+    </main> 
+
 
     <script src="../../script/usuarios.js"></script>
 
