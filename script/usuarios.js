@@ -1,304 +1,343 @@
+
 let usuarios = [];
+let usuarioEditando = null;
 
 const nomeInput = document.getElementById("nome");
 const emailInput = document.getElementById("email");
 const telefoneInput = document.getElementById("telefone");
 const senhaInput = document.getElementById("senha");
 const tipoInput = document.getElementById("tipo");
+
 const botaoAdicionar = document.getElementById("btnAdicionar");
 const campoBusca = document.getElementById("buscar");
 const tabela = document.getElementById("tabelaUsuarios");
 const sensorVazio = document.getElementById("sensorVazio");
 
-function mostrarUsuarios(lista) {
+function mostrarMensagem(mensagem) {
+    alert(mensagem);
+}
 
+function limparFormulario() {
+    nomeInput.value = "";
+    emailInput.value = "";
+    telefoneInput.value = "";
+    senhaInput.value = "";
+    tipoInput.value = "";
+
+    usuarioEditando = null;
+
+    botaoAdicionar.textContent = "+ ADICIONAR";
+    botaoAdicionar.disabled = false;
+
+    const titulo = document.querySelector(".usuario__title");
+
+    if (titulo) {
+        titulo.textContent = "Cadastro de Usuários";
+    }
+
+    const cancelar = document.getElementById("btnCancelar");
+
+    if (cancelar) {
+        cancelar.style.display = "none";
+    }
+}
+
+async function requisicaoPHP(url, opcoes = {}) {
+    const resposta = await fetch(url, opcoes);
+    const texto = await resposta.text();
+
+    let dados;
+
+    try {
+        dados = JSON.parse(texto);
+    } catch (erro) {
+        console.error("Resposta recebida do PHP:", texto);
+        throw new Error("O PHP não retornou JSON válido.");
+    }
+
+    if (!resposta.ok || dados.status !== "success") {
+        throw new Error(
+            dados.message || "Não foi possível concluir a operação."
+        );
+    }
+
+    return dados;
+}
+
+async function carregarUsuarios() {
+    try {
+        const dados = await requisicaoPHP(
+            "crud_usuarios/listar_usuario.php"
+        );
+
+        usuarios = Array.isArray(dados.usuarios)
+            ? dados.usuarios
+            : [];
+
+        filtrarUsuarios();
+
+    } catch (erro) {
+        console.error("Erro ao carregar usuários:", erro);
+        mostrarMensagem("Erro ao carregar usuários: " + erro.message);
+    }
+}
+
+function mostrarUsuarios(lista) {
     tabela.innerHTML = "";
 
     if (lista.length === 0) {
-        sensorVazio.style.display = "block";
+        if (sensorVazio) {
+            sensorVazio.style.display = "block";
+        }
         return;
     }
 
-    sensorVazio.style.display = "none";
+    if (sensorVazio) {
+        sensorVazio.style.display = "none";
+    }
 
     lista.forEach(function(usuario) {
         const linha = document.createElement("tr");
 
-        linha.innerHTML = `
-            <td>${String(usuario.id).padStart(2, "0")}</td>
-            <td>${usuario.nome}</td>
-            <td>${usuario.email}</td>
-            <td>${usuario.telefone}</td>
+        const colunaId = document.createElement("td");
+        colunaId.textContent = String(usuario.id).padStart(2, "0");
 
-            <td>
-                <div class="d-flex justify-content-between align-items-center">
-                    <span class="status-ativo">
-                        ● ${usuario.status}
-                    </span>
+        const colunaNome = document.createElement("td");
+        colunaNome.textContent = usuario.nome;
 
-                    <div>
-                        <button
-                            class="btn-acao"
-                            onclick="editarUsuario(${usuario.id})">
+        const colunaEmail = document.createElement("td");
+        colunaEmail.textContent = usuario.email;
 
-                            <i class="bi bi-pencil-square icone-color"></i>
-                        </button>
+        const colunaTelefone = document.createElement("td");
+        colunaTelefone.textContent = usuario.telefone;
 
-                        <button
-                            class="btn-acao"
-                            onclick="removerUsuario(${usuario.id})">
+        const colunaAcoes = document.createElement("td");
 
-                            <i class="bi bi-trash3 icone-color"></i>
-                        </button>
-                    </div>
-                </div>
-            </td>
-        `;
+        const areaAcoes = document.createElement("div");
+        areaAcoes.className =
+            "d-flex justify-content-between align-items-center";
+
+        const status = document.createElement("span");
+        status.className = "status-ativo";
+        status.textContent = "● " + (usuario.status || "Ativo");
+
+        const botoes = document.createElement("div");
+
+        const botaoEditar = document.createElement("button");
+        botaoEditar.type = "button";
+        botaoEditar.className = "btn-acao";
+        botaoEditar.innerHTML =
+            '<i class="bi bi-pencil-square icone-color"></i>';
+
+        botaoEditar.addEventListener("click", function() {
+            editarUsuario(usuario.id);
+        });
+
+        const botaoExcluir = document.createElement("button");
+        botaoExcluir.type = "button";
+        botaoExcluir.className = "btn-acao";
+        botaoExcluir.innerHTML =
+            '<i class="bi bi-trash3 icone-color"></i>';
+
+        botaoExcluir.addEventListener("click", function() {
+            removerUsuario(usuario.id);
+        });
+
+        botoes.appendChild(botaoEditar);
+        botoes.appendChild(botaoExcluir);
+
+        areaAcoes.appendChild(status);
+        areaAcoes.appendChild(botoes);
+
+        colunaAcoes.appendChild(areaAcoes);
+
+        linha.appendChild(colunaId);
+        linha.appendChild(colunaNome);
+        linha.appendChild(colunaEmail);
+        linha.appendChild(colunaTelefone);
+        linha.appendChild(colunaAcoes);
 
         tabela.appendChild(linha);
     });
 }
 
-function carregarUsuarios() {
-    fetch("crud_usuarios/listar_usuario.php")
+function filtrarUsuarios() {
+    const texto = campoBusca.value.trim().toLowerCase();
 
-        .then(function(response) {
-            if (!response.ok) {
-                throw new Error("Erro HTTP: " + response.status);
-            }
-            return response.json();
-        })
+    const filtrados = usuarios.filter(function(usuario) {
+        return (
+            String(usuario.id).includes(texto) ||
+            String(usuario.nome).toLowerCase().includes(texto) ||
+            String(usuario.email).toLowerCase().includes(texto) ||
+            String(usuario.telefone).toLowerCase().includes(texto)
+        );
+    });
 
-        .then(function(data) {
-            if (data.status === "success") {
-                usuarios = data.usuarios;
-                mostrarUsuarios(usuarios);
-            } else {
-
-                alert(data.message);
-            }
-
-        })
-
-        .catch(function(error) {
-            console.error(error);
-            alert("Erro ao carregar usuários.");
-        });
+    mostrarUsuarios(filtrados);
 }
 
-botaoAdicionar.addEventListener("click", function() {
+async function salvarUsuario() {
     const nome = nomeInput.value.trim();
     const email = emailInput.value.trim();
     const telefone = telefoneInput.value.trim();
-    const senha = senhaInput.value; // sem trim: espaços podem fazer parte da senha
+    const senha = senhaInput.value;
     const tipo = tipoInput.value;
 
-    if (nome === "") {
-        alert("Digite o nome do usuário.");
-        nomeInput.focus();
+    if (!nome || !email || !telefone || !tipo) {
+        mostrarMensagem("Preencha nome, e-mail, telefone e tipo.");
         return;
     }
 
-
-    if (email === "") {
-        alert("Digite o e-mail.");
-        emailInput.focus();
-        return;
-    }
-
-
-    if (telefone === "") {
-        alert("Digite o telefone.");
-        telefoneInput.focus();
-        return;
-    }
-
-
-    if (senha === "") {
-        alert("Digite a senha.");
+    if (usuarioEditando === null && !senha) {
+        mostrarMensagem("Digite a senha do usuário.");
         senhaInput.focus();
         return;
     }
 
-
-    if (senha.length < 8) {
-        alert("A senha deve ter no mínimo 8 caracteres.");
+    if (senha && senha.length < 8) {
+        mostrarMensagem("A senha deve ter no mínimo 8 caracteres.");
         senhaInput.focus();
         return;
     }
 
+    const dadosFormulario = new FormData();
 
-    if (tipo === "") {
-        alert("Selecione o tipo de usuário.");
-        tipoInput.focus();
-        return;
+    dadosFormulario.append("nome", nome);
+    dadosFormulario.append("email", email);
+    dadosFormulario.append("telefone", telefone);
+    dadosFormulario.append("tipo", tipo);
+
+    let url;
+
+    if (usuarioEditando !== null) {
+        url = "crud_usuarios/editar_usuario.php";
+
+        dadosFormulario.append("id", usuarioEditando);
+
+        // O PHP atual não altera senha nem tipo.
+        // A senha fica opcional e não é enviada nesta versão.
+    } else {
+        url = "crud_usuarios/cadastrar_usuario.php";
+        dadosFormulario.append("senha", senha);
     }
 
-    const dados = new FormData();
+    botaoAdicionar.disabled = true;
 
-    dados.append("nome", nome);
-    dados.append("email", email);
-    dados.append("telefone", telefone);
-    dados.append("senha", senha);
-    dados.append("tipo", tipo);
+    try {
+        const dados = await requisicaoPHP(url, {
+            method: "POST",
+            body: dadosFormulario
+        });
 
-    fetch("crud_usuarios/cadastrar_usuario.php", {
-
-        method: "POST",
-        body: dados
-    })
-
-    .then(function(response) {
-        return response.json();
-    })
-
-    .then(function(data) {
-        if (data.status === "success") {
-            alert(data.message);
-
-            nomeInput.value = "";
-            emailInput.value = "";
-            telefoneInput.value = "";
-            senhaInput.value = "";
-            tipoInput.value = "";
-
-            carregarUsuarios();
-
-        } else {
-            alert(data.message);
-        }
-    })
-
-    .catch(function(error) {
-        console.error(error);
-        alert("Erro ao conectar com o servidor.");
-    });
-
-});
-
-campoBusca.addEventListener("input", function() {
-    const texto = campoBusca.value.toLowerCase().trim();
-    const resultados = usuarios.filter(function(usuario) {
-
-        return (
-            usuario.nome.toLowerCase().includes(texto) ||
-            String(usuario.id).includes(texto)
+        mostrarMensagem(
+            dados.message ||
+            (usuarioEditando !== null
+                ? "Usuário atualizado com sucesso!"
+                : "Usuário cadastrado com sucesso!")
         );
 
-    });
+        limparFormulario();
+        await carregarUsuarios();
 
-    mostrarUsuarios(resultados);
-});
+    } catch (erro) {
+        console.error("Erro ao salvar usuário:", erro);
+        mostrarMensagem("Erro ao salvar usuário: " + erro.message);
+    } finally {
+        botaoAdicionar.disabled = false;
+    }
+}
 
-function removerUsuario(id) {
-    const usuario = usuarios.find(function(usuario) {
-        return Number(usuario.id) === Number(id);
+function editarUsuario(id) {
+    const usuario = usuarios.find((item) => String(item.id) === String(id));
+
+    if (!usuario) {
+        mostrarMensagem("Usuário não encontrado.");
+        return;
+    }
+
+    usuarioEditando = usuario.id;
+
+    nomeInput.value = usuario.nome;
+    emailInput.value = usuario.email;
+    telefoneInput.value = usuario.telefone;
+    tipoInput.value = usuario.tipo;
+
+    // A senha não será preenchida durante a edição
+    senhaInput.value = "";
+
+    botaoAdicionar.textContent = "Salvar alterações";
+
+    const titulo = document.querySelector(".usuario__title");
+    if (titulo) {
+        titulo.textContent = "Editar usuário";
+    }
+
+    let cancelar = document.getElementById("btnCancelar");
+
+    if (!cancelar) {
+        cancelar = document.createElement("button");
+        cancelar.id = "btnCancelar";
+        cancelar.type = "button";
+        cancelar.textContent = "Cancelar edição";
+        cancelar.className = "btn btn-secondary mt-2";
+
+        botaoAdicionar.insertAdjacentElement("afterend", cancelar);
+
+        cancelar.addEventListener("click", limparFormulario);
+    }
+
+    cancelar.style.display = "inline-block";
+
+    nomeInput.focus();
+}
+
+
+
+async function removerUsuario(id) {
+    const usuario = usuarios.find(function(item) {
+        return String(item.id) === String(id);
     });
 
     if (!usuario) {
+        mostrarMensagem("Usuário não encontrado.");
         return;
     }
 
     const confirmar = confirm(
-        "Deseja realmente remover o usuário " +
-        usuario.nome +
-        "?"
+        "Deseja realmente remover o usuário " + usuario.nome + "?"
     );
 
     if (!confirmar) {
         return;
     }
 
-    const dados = new FormData();
-    dados.append("id", id);
-    fetch("crud_usuarios/excluir_usuario.php", {
+    const dadosFormulario = new FormData();
+    dadosFormulario.append("id", id);
 
-        method: "POST",
-        body: dados
-    })
+    try {
+        const dados = await requisicaoPHP(
+            "crud_usuarios/excluir_usuario.php",
+            {
+                method: "POST",
+                body: dadosFormulario
+            }
+        );
 
-    .then(function(response) {
-        return response.json();
-    })
+        mostrarMensagem(dados.message || "Usuário excluído com sucesso!");
 
-    .then(function(data) {
-        alert(data.message);
-        if (data.status === "success") {
-            carregarUsuarios();
+        if (String(usuarioEditando) === String(id)) {
+            limparFormulario();
         }
-    })
 
-    .catch(function(error) {
-        console.error(error);
-        alert("Erro ao excluir usuário.");
-    });
+        await carregarUsuarios();
 
+    } catch (erro) {
+        console.error("Erro ao excluir usuário:", erro);
+        mostrarMensagem("Erro ao excluir usuário: " + erro.message);
+    }
 }
 
-function editarUsuario(id) {
-    const usuario = usuarios.find(function(usuario) {
-        return Number(usuario.id) === Number(id);
-    });
+botaoAdicionar.addEventListener("click", salvarUsuario);
+campoBusca.addEventListener("input", filtrarUsuarios);
 
-    if (!usuario) {
-        return;
-    }
-
-    const novoNome = prompt(
-        "Digite o novo nome:",
-        usuario.nome
-    );
-
-    if (novoNome === null || novoNome.trim() === "") {
-        return;
-    }
-
-    const novoEmail = prompt(
-        "Digite o novo e-mail:",
-        usuario.email
-    );
-
-    if (novoEmail === null || novoEmail.trim() === "") {
-        return;
-    }
-
-    const novoTelefone = prompt(
-        "Digite o novo telefone:",
-        usuario.telefone
-    );
-
-    if (novoTelefone === null || novoTelefone.trim() === "") {
-        return;
-    }
-
-    const dados = new FormData();
-    dados.append("id", id);
-    dados.append("nome", novoNome.trim());
-    dados.append("email", novoEmail.trim());
-    dados.append("telefone", novoTelefone.trim());
-
-
-    fetch("crud_usuarios/editar_usuario.php", {
-        method: "POST",
-        body: dados
-    })
-
-    .then(function(response) {
-        return response.json();
-    })
-
-    .then(function(data) {
-        alert(data.message);
-        if (data.status === "success") {
-
-            carregarUsuarios();
-        }
-    })
-
-    .catch(function(error) {
-        console.error(error);
-        alert("Erro ao editar usuário.");
-    });
-
-}
 carregarUsuarios();

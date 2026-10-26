@@ -1,7 +1,7 @@
 <?php
 $servidor = "localhost";
 $usuario = "root";
-$senha = "";
+$senha="";
 $banco = "mockingrail";
 $porta = 3309;  //alterar a porta para a padrão na maioria dos casos, que é 3306, na minha máquina estou utilizando a porta 3309, pois a 3306 está sendo utilizada por outro serviço.
 
