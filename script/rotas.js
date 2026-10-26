@@ -11,12 +11,11 @@ const campoBusca = document.getElementById("buscar");
 const tabela = document.getElementById("tabelaRotas");
 const sensorVazio = document.getElementById("sensorVazio");
 
-// Mostra mensagens ao usuário
+
 function mostrarMensagem(mensagem) {
     alert(mensagem);
 }
 
-// Limpa o formulário
 function limparFormulario() {
     nomeInput.value = "";
     inicioInput.value = "";
@@ -36,7 +35,6 @@ function limparFormulario() {
     }
 }
 
-// Faz uma requisição e interpreta a resposta do PHP
 async function requisicaoPHP(url, opcoes = {}) {
     const resposta = await fetch(url, opcoes);
     const texto = await resposta.text();
@@ -65,7 +63,6 @@ async function requisicaoPHP(url, opcoes = {}) {
     return dados;
 }
 
-// Lista as rotas cadastradas
 async function carregarRotas() {
     try {
         const dados = await requisicaoPHP("crud_rotas/listar.php");
@@ -79,7 +76,6 @@ async function carregarRotas() {
     }
 }
 
-// Desenha as linhas da tabela
 function mostrarRotas(lista) {
     tabela.innerHTML = "";
 
@@ -141,7 +137,7 @@ function mostrarRotas(lista) {
     });
 }
 
-// Pesquisa por nome ou ID
+
 function filtrarRotas() {
     const busca = campoBusca.value.trim().toLowerCase();
 
@@ -157,7 +153,6 @@ function filtrarRotas() {
     mostrarRotas(filtradas);
 }
 
-// Cadastra uma nova rota ou salva uma edição
 async function salvarRota() {
     const nome = nomeInput.value.trim();
     const inicio = inicioInput.value.trim();
@@ -202,7 +197,7 @@ async function salvarRota() {
     }
 }
 
-// Coloca os dados da rota no formulário para edição
+
 function editarRota(id) {
     const rota = rotas.find((item) => String(item.id) === String(id));
 
@@ -243,7 +238,6 @@ function editarRota(id) {
     nomeInput.focus();
 }
 
-// Exclui uma rota
 async function excluirRota(id) {
     const confirmar = confirm(
         "Tem certeza de que deseja excluir esta rota?"
@@ -276,12 +270,10 @@ async function excluirRota(id) {
     }
 }
 
-// Eventos
 botaoAdicionar.addEventListener("click", salvarRota);
 
 campoBusca.addEventListener("input", filtrarRotas);
 
-// Carrega as rotas quando a página abre
 document.addEventListener("DOMContentLoaded", carregarRotas);
 
 if (document.readyState !== "loading") {
