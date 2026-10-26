@@ -1,6 +1,7 @@
 <?php
 $servidor = "localhost";
 $usuario = "root";
+$senha="";
 $banco = "mockingrail";
 $porta = 3306;
 
