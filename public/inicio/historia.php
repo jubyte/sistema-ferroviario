@@ -34,7 +34,7 @@
         </div>
 
         <div class="conteudo_index">
-            <h3>História da Mocking Rail</h3><br>
+            <h3 class="titulo-inicio">História da Mocking Rail</h3>
             <p>A Mocking Rail nasceu em 2026, durante o desenvolvimento do Trabalho de Conclusão do Curso Técnico em Desenvolvimento de Sistemas do SESI/SENAI Santa Catarina. O projeto surgiu a partir do desafio de criar uma solução tecnológica capaz de monitorar, em tempo real, o desempenho de uma operação ferroviária por meio da integração de sensores IoT, banco de dados e uma plataforma de gerenciamento.</p>
             <p>Desde o início, a proposta foi desenvolver um sistema que simulasse uma solução utilizada por empresas do setor ferroviário, aplicando conceitos de engenharia de software, modelagem de sistemas, banco de dados, interfaces para usuários e integração de tecnologias. O objetivo era unir conhecimentos técnicos com uma aplicação prática voltada à inovação e à mobilidade inteligente.</p>
             <p>Ao longo do desenvolvimento, a Mocking Rail evoluiu de um conceito acadêmico para um protótipo funcional, incorporando recursos como monitoramento em tempo real, gerenciamento de sensores e trens, geração de relatórios analíticos e acompanhamento de indicadores operacionais. Cada etapa do projeto foi planejada para seguir boas práticas de desenvolvimento de software e oferecer uma experiência intuitiva aos usuários.</p>
@@ -71,4 +71,4 @@
     </main>
 
 </body>
-</html>
+</html> 
