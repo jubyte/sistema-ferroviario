@@ -643,7 +643,7 @@ body {
     padding: 0 15px;
     background-color: #000625;
     margin: 0%;
-    box-sizing: border-box
+    box-sizing: border-box;
 }
 
 .title_index {
@@ -1032,33 +1032,9 @@ a {
     background: #dc5b1b;
 }
 
-
-.imagens_historia{
-    gap: 2%;
-    height: 30%;
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.titulo-criadores{
-    font-family: 'Gotham', sans-serif;
-    color: #ffffff;
-}
-
 .nomes_historia{
     display: flex;
     justify-content: center;
-}
-
-.pessoa_historia{
-    height: 2%;
-    gap: 10px;
-    text-align: center;
-}
-
-.img_historia{
-    height: 5000%;
 }
 
 .botao-rotas{
@@ -1070,4 +1046,415 @@ a {
 .titulo-inicio{
     font-size: 1.5rem;
     margin-bottom: 4%;
+}
+
+body.pagina-institucional {
+    display: block;
+    min-height: 100vh;
+    background-color: #000625;
+    color: #ffffff;
+    overflow-x: hidden;
+    font-family: 'Gotham', sans-serif;
+}
+
+.pagina-institucional .logo-login {
+    position: static;
+    height: 43px;
+    width: auto;
+}
+
+.pagina-institucional .title_index {
+    font-size: 22px;
+    letter-spacing: 9px;
+}
+
+.pagina-institucional .linksnav:hover {
+    color: #98c6fe;
+    background: rgba(152,198,254,0.08);
+}
+
+.pagina-institucional .main_inicio {
+    width: 100%;
+    margin: 0;
+    padding: 76px 0 0;
+}
+
+.pagina-institucional .msg_index {
+    width: 100%;
+    height: 430px;
+    margin-top: 0;
+    padding: 40px 8%;
+    box-sizing: border-box;
+    justify-content: flex-start;
+    background-image:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,0.88),
+            rgba(0,0,0,0.55),
+            rgba(0,0,0,0.35)
+        ),
+        url('../assets/imgs/login.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.inicio-apresentacao {
+    width: 100%;
+    max-width: 680px;
+}
+
+.inicio-subtitulo {
+    display: block;
+    margin-bottom: 15px;
+    color: #98c6fe;
+    font-family: 'Science Gothic', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 4px;
+}
+
+.inicio-apresentacao h1 {
+    margin-bottom: 20px;
+    color: #ffffff;
+    font-family: 'Science Gothic', sans-serif;
+    font-size: clamp(30px, 4vw, 46px);
+    line-height: 1.2;
+    letter-spacing: 1px;
+}
+
+.inicio-apresentacao p {
+    max-width: 600px;
+    color: #d3d9e8;
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 1.8;
+}
+
+.inicio-acoes {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-top: 28px;
+}
+
+.botao-inicio {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    background: #172b65;
+    border: 1px solid #536fae;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: bold;
+    transition: 0.25s ease;
+}
+
+.botao-inicio:hover {
+    background: #293f83;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.link-inicio {
+    color: #dce6f8;
+    font-size: 13px;
+    transition: 0.25s ease;
+}
+
+.link-inicio:hover {
+    color: #98c6fe;
+}
+
+.pagina-institucional .conteudo_index {
+    width: 100%;
+    max-width: 1120px;
+    padding: 65px 30px;
+    box-sizing: border-box;
+    color: #ffffff;
+    font-weight: normal;
+    line-height: 1.8;
+}
+
+.secao-inicio {
+    margin-bottom: 45px;
+}
+
+.secao-inicio h2,
+.bloco-inicio h2 {
+    margin-bottom: 18px;
+    color: #ffffff;
+    font-family: 'Science Gothic', sans-serif;
+    font-size: clamp(22px, 3vw, 29px);
+    letter-spacing: 1px;
+}
+
+.secao-inicio p,
+.bloco-inicio p {
+    max-width: 950px;
+    color: #c7cfe0;
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+.inicio-funcionalidades {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin: 35px 0 50px;
+}
+
+.cartao-inicio {
+    min-height: 180px;
+    padding: 25px;
+    background: rgba(10,20,57,0.75);
+    border: 1px solid rgba(152,198,254,0.2);
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: 0.25s ease;
+}
+
+.cartao-inicio:hover {
+    border-color: #5d9afe;
+    background: #0c193d;
+    transform: translateY(-3px);
+}
+
+.cartao-inicio i {
+    color: #98c6fe;
+    font-size: 27px;
+}
+
+.cartao-inicio h3 {
+    margin: 15px 0 10px;
+    color: #ffffff;
+    font-family: 'Science Gothic', sans-serif;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.cartao-inicio p {
+    margin: 0;
+    color: #bfc9dc;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.bloco-inicio {
+    margin: 40px 0;
+    padding: 35px;
+    background: linear-gradient(
+        110deg,
+        rgba(13,29,69,0.95),
+        rgba(5,12,37,0.9)
+    );
+    border-left: 3px solid #5d9afe;
+}
+
+.bloco-inicio .botao-inicio {
+    margin-top: 15px;
+}
+
+.secao-criadores {
+    margin-top: 60px;
+}
+
+.secao-criadores h2 {
+    margin-bottom: 30px;
+}
+
+.imagens_historia {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: center;
+    gap: 25px;
+    height: auto;
+    margin-top: 25px;
+}
+
+.pessoa_historia {
+    height: auto;
+    gap: 10px;
+    text-align: center;
+}
+
+.img_historia {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    border: 1px solid rgba(152,198,254,0.35);
+    border-radius: 4px;
+    object-position: center 10%;
+}
+
+.pessoa_historia p {
+    margin-top: 12px;
+    color: #dce6f8;
+    font-family: 'Science Gothic', sans-serif;
+    font-size: 15px;
+    letter-spacing: 2px;
+}
+
+.titulo-criadores {
+    color: #ffffff;
+    font-family: 'Science Gothic', sans-serif;
+}
+
+@media (max-width: 900px) {
+
+    .pagina-institucional .navbar-inicio {
+        padding: 0 15px;
+    }
+
+    .pagina-institucional .title_index {
+        font-size: 17px;
+        letter-spacing: 5px;
+    }
+
+    .pagina-institucional .linksnav {
+        padding: 7px 5px;
+        font-size: 11px;
+    }
+
+    .pagina-institucional .login_botao_index {
+        padding: 8px;
+        font-size: 11px;
+    }
+
+    .inicio-funcionalidades {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .imagens_historia {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+
+    .pagina-institucional .navbar-inicio {
+        height: auto;
+        min-height: 105px;
+        padding: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .pagina-institucional .navbar-inicio > a {
+        display: none;
+    }
+
+    .pagina-institucional .title_index {
+        position: static;
+        transform: none;
+        width: 100%;
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .pagina-institucional .anav {
+        width: 100%;
+        margin: 5px 0 0;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 2px;
+    }
+
+    .pagina-institucional .linksnav {
+        font-size: 10px;
+        padding: 6px;
+    }
+
+    .pagina-institucional .login_botao_index {
+        font-size: 10px;
+        padding: 7px;
+    }
+
+    .pagina-institucional .main_inicio {
+        padding-top: 105px;
+    }
+
+    .pagina-institucional .msg_index {
+        height: 390px;
+        padding: 30px 22px;
+        background-position: center;
+    }
+
+    .inicio-apresentacao h1 {
+        font-size: 31px;
+    }
+
+    .inicio-apresentacao p {
+        font-size: 13px;
+    }
+
+    .pagina-institucional .conteudo_index {
+        padding: 40px 22px;
+    }
+
+    .inicio-funcionalidades {
+        grid-template-columns: 1fr;
+    }
+
+    .bloco-inicio {
+        padding: 23px;
+    }
+
+    .imagens_historia {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .img_historia {
+        height: 140px;
+    }
+}
+
+.pagina-institucional .navbar-inicio {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 76px;
+    padding: 0 35px;
+    background: #000625;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    box-sizing: border-box;
+}
+
+.pagina-institucional .anav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-left: auto;
+}
+
+.pagina-institucional .linksnav {
+    padding: 10px 8px;
+    font-family: 'Science Gothic', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.pagina-institucional .login_botao_index {
+    margin-left: 3px;
+    padding: 9px 15px;
+    font-family: 'Science Gothic', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
 }

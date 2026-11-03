@@ -1,27 +1,28 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="../../style/style.css">
     <link rel="shortcut icon" type="imagex/png" href="../../assets/icons/logo_site.png">
     <link href="https://fonts.googleapis.com/css2?family=Science+Gothic:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <title>História | MockingRail</title>
+
+    <title>História | Mocking Rail</title>
 </head>
-<body>
-   
+
+<body class="pagina-institucional">
+
     <nav class="navbar-inicio flex">
-
         <a href="../../index.php">
-            <img class="logo-login" src="../../assets/icons/logo.png" alt="logo da MockingRail">
+            <img class="logo-login" src="../../assets/icons/logo.png" alt="Logo Mocking Rail">
         </a>
-
-        <h2 class="title_index">Mocking Rail</h2>
 
         <div class="anav flex">
             <a class="linksnav" href="../../index.php">Início</a>
             <a class="linksnav" href="historia.php">História</a>
-            <a class="linksnav" href="objetivos.php">Objetivos</a>
+            <a class="linksnav" href="solucao.php">Solução</a>
             <a class="linksnav" href="sustentabilidade.php">Sustentabilidade</a>
             <a class="login_botao_index" href="../telas/login.php">Login</a>
         </div>
@@ -29,46 +30,65 @@
 
     <main class="main_inicio">
 
-        <div class="msg_index">
-            <h1>História</h1>
-        </div>
+        <section class="msg_index">
+            <div class="inicio-apresentacao">
+                <span class="inicio-subtitulo">NOSSA TRAJETÓRIA</span>
+                <h1>Uma ideia movida <br> pela tecnologia</h1>
 
-        <div class="conteudo_index">
-            <h3 class="titulo-inicio">História da Mocking Rail</h3>
-            <p>A Mocking Rail nasceu em 2026, durante o desenvolvimento do Trabalho de Conclusão do Curso Técnico em Desenvolvimento de Sistemas do SESI/SENAI Santa Catarina. O projeto surgiu a partir do desafio de criar uma solução tecnológica capaz de monitorar, em tempo real, o desempenho de uma operação ferroviária por meio da integração de sensores IoT, banco de dados e uma plataforma de gerenciamento.</p>
-            <p>Desde o início, a proposta foi desenvolver um sistema que simulasse uma solução utilizada por empresas do setor ferroviário, aplicando conceitos de engenharia de software, modelagem de sistemas, banco de dados, interfaces para usuários e integração de tecnologias. O objetivo era unir conhecimentos técnicos com uma aplicação prática voltada à inovação e à mobilidade inteligente.</p>
-            <p>Ao longo do desenvolvimento, a Mocking Rail evoluiu de um conceito acadêmico para um protótipo funcional, incorporando recursos como monitoramento em tempo real, gerenciamento de sensores e trens, geração de relatórios analíticos e acompanhamento de indicadores operacionais. Cada etapa do projeto foi planejada para seguir boas práticas de desenvolvimento de software e oferecer uma experiência intuitiva aos usuários.</p>
-            <p>Hoje, a Mocking Rail representa a aplicação prática dos conhecimentos adquiridos durante a formação técnica, demonstrando como a tecnologia pode contribuir para tornar o transporte ferroviário mais seguro, eficiente e inteligente.</p>
-            <br>
-            <h3 class="titulo-criadores">Criadores:</h3><br>
-            
-            <div class="imagens_historia">
+                <p> Conheça a origem da Mocking Rail e o desenvolvimento de uma solução voltada à inovação ferroviária. </p>
+            </div>
+        </section>
 
-                <div class="pessoa_historia">
-                    <img class="img_historia" src="../../assets/imgs/eduarda.jpg" alt="Imagem da Eduarda, criadora da Mocking Rail">
-                    <p>Eduarda</p>
-                </div>
+        <section class="conteudo_index">
 
-                <div class="pessoa_historia">
-                    <img class="img_historia" src="../../assets/imgs/guilherme.jpg" alt="Imagem do Guilherme, criador da Mocking Rail">
-                    <p>Guilherme</p>
-                </div>
+            <div class="secao-inicio">
+                <span class="inicio-subtitulo">COMO TUDO COMEÇOU</span>
+                <h2>O surgimento da Mocking Rail.</h2>
 
-                <div class="pessoa_historia">
-                    <img class="img_historia" src="../../assets/imgs/henrique.jpg" alt="Imagem do Henrique, criador da Mocking Rail">
-                    <p>Henrique</p>
-                </div>
+                <p> A Mocking Rail surgiu em 2026, durante o desenvolvimento de um projeto do Curso Técnico em Desenvolvimento de Sistemas do da Escola de Referencia SESI,Joinville, Santa Catarina. A proposta nasceu do desafio de desenvolver uma solução capaz de integrar tecnologias para o monitoramento de operações ferroviárias. </p>
 
-                <div class="pessoa_historia">
-                    <img class="img_historia" src="../../assets/imgs/julia.jpg" alt="Imagem da Julia, criadora da Mocking Rail">
-                    <p>Julia</p>
-                </div>
+                <p> O projeto foi planejado para reunir sensores IoT, banco de dados e uma plataforma de gerenciamento, permitindo centralizar informações sobre trens, infraestrutura e suas condições. </p>
 
+                <p> Durante seu desenvolvimento, foram aplicados conhecimentos de programação, modelagem de sistemas, desenvolvimento web, integração de tecnologias e gerenciamento de dados. O resultado é um protótipo funcional que demonstra como essas ferramentas podem ser utilizadas no setor ferroviário.</p>
             </div>
 
-        </div>
+            <div class="bloco-inicio">
+                <div>
+                    <span class="inicio-subtitulo">DESENVOLVIMENTO</span>
+                    <h2>Da proposta à aplicação prática.</h2>
+
+                    <p> A construção da plataforma envolve diferentes etapas, desde o planejamento da solução até a implementação das funcionalidades de gerenciamento de trens, sensores e rotas. </p>
+                </div>
+            </div>
+
+            <section class="secao-criadores">
+                <span class="inicio-subtitulo">NOSSA EQUIPE</span>
+                <h2 class="titulo-criadores">Conheça os criadores.</h2>
+
+                <div class="imagens_historia">
+
+                    <div class="pessoa_historia">
+                        <img class="img_historia" src="../../assets/imgs/eduarda.jpg" alt="Eduarda"><p>Eduarda</p>
+                    </div>
+
+                    <div class="pessoa_historia">
+                        <img class="img_historia" src="../../assets/imgs/guilherme.jpg" alt="Guilherme"><p>Guilherme</p>
+                    </div>
+
+                    <div class="pessoa_historia">
+                        <img class="img_historia" src="../../assets/imgs/henrique.jpg" alt="Henrique"><p>Henrique</p>
+                    </div>
+
+                    <div class="pessoa_historia">
+                        <img class="img_historia" src="../../assets/imgs/julia.jpg" alt="Julia"><p>Julia</p>
+                    </div>
+
+                </div>
+            </section>
+
+        </section>
 
     </main>
 
 </body>
-</html> 
+</html>

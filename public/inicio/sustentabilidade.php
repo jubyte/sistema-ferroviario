@@ -1,41 +1,91 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="../../style/style.css">
     <link rel="shortcut icon" type="imagex/png" href="../../assets/icons/logo_site.png">
     <link href="https://fonts.googleapis.com/css2?family=Science+Gothic:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <title>Sustentabilidade | MockingRail</title>
+
+    <title>Sustentabilidade | Mocking Rail</title>
 </head>
-<body >
-   
+
+<body class="pagina-institucional">
+
     <nav class="navbar-inicio flex">
         <a href="../../index.php">
-            <img class="logo-login" src="../../assets/icons/logo.png" alt="logo da MockingRail">
+            <img class="logo-login" src="../../assets/icons/logo.png" alt="Logo Mocking Rail">
         </a>
-        <h2 class="title_index">Mocking Rail</h2>
+
         <div class="anav flex">
             <a class="linksnav" href="../../index.php">Início</a>
             <a class="linksnav" href="historia.php">História</a>
-            <a class="linksnav" href="objetivos.php">Objetivos</a>
+            <a class="linksnav" href="solucao.php">Solução</a>
             <a class="linksnav" href="sustentabilidade.php">Sustentabilidade</a>
             <a class="login_botao_index" href="../telas/login.php">Login</a>
         </div>
     </nav>
 
     <main class="main_inicio">
-        <div class="msg_index">
-            <h1>Sustentabilidade</h1>
-        </div>
 
-        <div class="conteudo_index">
-            <h3 class="titulo-inicio">Nossa visão de sustentabilidade</h3>
-            <p>Na Mocking Rail, acreditamos que a inovação tecnológica deve caminhar lado a lado com a responsabilidade ambiental e o desenvolvimento sustentável. Nossa visão é contribuir para um setor ferroviário cada vez mais eficiente, seguro e consciente, utilizando a tecnologia para otimizar recursos, reduzir desperdícios e promover uma gestão inteligente da infraestrutura ferroviária.</p>
-            <p>Por meio do monitoramento em tempo real e da análise contínua de dados, nossa plataforma auxilia na identificação precoce de falhas, permitindo a realização de manutenções preventivas e evitando intervenções desnecessárias. Essa abordagem reduz o consumo de materiais, aumenta a vida útil dos equipamentos e contribui para uma operação mais eficiente e sustentável.</p>
-            <p>Além do compromisso com o meio ambiente, valorizamos a segurança das pessoas e a confiabilidade das operações. Investimos em soluções que auxiliam na prevenção de acidentes, na melhoria dos processos operacionais e na utilização responsável das informações coletadas, sempre respeitando princípios de integridade, transparência e proteção dos dados.</p>
-            <p>Nossa visão é ser referência em tecnologia para mobilidade ferroviária inteligente, desenvolvendo soluções que impulsionem a inovação sem abrir mão da responsabilidade socioambiental. Acreditamos que o futuro das ferrovias depende da união entre tecnologia, eficiência e sustentabilidade, construindo um sistema de transporte mais moderno, confiável e preparado para as próximas gerações.</p>
-        </div>
+        <section class="msg_index">
+
+            <div class="inicio-apresentacao">
+                <span class="inicio-subtitulo">TECNOLOGIA E RESPONSABILIDADE</span>
+                <h1>Inovação que acompanha o futuro</h1>
+                <p> Eficiência operacional e uso inteligente de recursos como parte de uma mobilidade ferroviária mais sustentável. </p>
+            </div>
+
+        </section>
+
+        <section class="conteudo_index">
+
+            <div class="secao-inicio">
+                <span class="inicio-subtitulo">NOSSO COMPROMISSO</span>
+                <h2>Tecnologia também é responsabilidade.</h2>
+
+                <p> A sustentabilidade no setor ferroviário envolve não apenas questões ambientais, mas também a utilização eficiente de recursos, a segurança das operações e o planejamento adequado da infraestrutura. </p>
+
+                <p> A Mocking Rail busca contribuir para esse cenário por meio de ferramentas de monitoramento e organização de informações, auxiliando na identificação de problemas e no acompanhamento do desempenho operacional. </p>
+            </div>
+
+            <div class="inicio-funcionalidades">
+
+                <div class="cartao-inicio">
+                    <i class="bi bi-recycle"></i>
+                    <h3>Uso consciente de recursos</h3>
+                    <p> O acompanhamento de informações operacionais pode auxiliar na identificação de oportunidades para otimizar a utilização de recursos. </p>
+                </div>
+
+                <div class="cartao-inicio">
+                    <i class="bi bi-tools"></i>
+                    <h3>Manutenção preventiva</h3>
+                    <p> A identificação antecipada de irregularidades pode ajudar a planejar intervenções e evitar substituições desnecessárias de equipamentos. </p>
+                </div>
+
+                <div class="cartao-inicio">
+                    <i class="bi bi-shield-check"></i>
+                    <h3>Segurança operacional</h3>
+                    <p> O monitoramento das condições ferroviárias contribui para decisões mais conscientes e para a prevenção de problemas. </p>
+                </div>
+
+            </div>
+
+            <section class="bloco-inicio">
+
+                <span class="inicio-subtitulo">VISÃO DE FUTURO</span>
+                <h2>Conectando tecnologia, eficiência e sustentabilidade.</h2>
+
+                <p> Acreditamos que a evolução do transporte ferroviário depende da integração entre inovação tecnológica, responsabilidade ambiental e gestão eficiente. Por isso, buscamos desenvolver uma solução que contribua para operações mais organizadas, confiáveis e preparadas para o futuro. </p>
+
+                <a class="botao-inicio" href="../../index.php"> Voltar ao início <i class="bi bi-arrow-right"></i> </a>
+            
+            </section>
+
+        </section>
+
     </main>
 
 </body>

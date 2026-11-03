@@ -1,41 +1,97 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="style/style.css">
     <link rel="shortcut icon" type="imagex/png" href="assets/icons/logo_site.png">
     <link href="https://fonts.googleapis.com/css2?family=Science+Gothic:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <title>Bem vindo | MockingRail</title>
+
+    <title>Início | Mocking Rail</title>
 </head>
-<body >
-   
+
+<body class="pagina-institucional">
+
     <nav class="navbar-inicio flex">
         <a href="index.php">
-            <img class="logo-login" src="assets/icons/logo.png" alt="logo da MockingRail">
+            <img class="logo-login" src="assets/icons/logo.png" alt="Logo Mocking Rail">
         </a>
-        <h2 class="title_index">Mocking Rail</h2>
+
         <div class="anav flex">
             <a class="linksnav" href="index.php">Início</a>
             <a class="linksnav" href="public/inicio/historia.php">História</a>
-            <a class="linksnav" href="public/inicio/objetivos.php">Objetivos</a>
+            <a class="linksnav" href="public/inicio/solucao.php">Solução</a>
             <a class="linksnav" href="public/inicio/sustentabilidade.php">Sustentabilidade</a>
             <a class="login_botao_index" href="public/telas/login.php">Login</a>
         </div>
     </nav>
 
     <main class="main_inicio">
-        <div class="msg_index">
-            <h1>Bem vindo ao Mocking Rail</h1>
-        </div>
 
-        <div class="conteudo_index">
-            <h3 class="titulo-inicio">O quê é a Mocking Rail?</h3>
-            <p>A Mocking Rail é uma empresa especializada no desenvolvimento de soluções tecnológicas para o monitoramento e gerenciamento inteligente de ferrovias. Nossa plataforma integra sensores IoT instalados ao longo dos trilhos e nas locomotivas, permitindo a coleta contínua de informações operacionais que são processadas em tempo real por um sistema centralizado.</p>
-            <p>Os sensores monitoram diversos parâmetros, como velocidade dos trens, localização, temperatura, consumo de energia e possíveis falhas mecânicas ou estruturais. Todas essas informações são enviadas para uma base de dados segura, onde são organizadas e disponibilizadas por meio de uma interface intuitiva, permitindo que operadores e administradores acompanhem o funcionamento da ferrovia de forma rápida e eficiente.</p>
-            <p>Além do monitoramento em tempo real, a plataforma oferece ferramentas para o gerenciamento de sensores, cadastro de trens, acompanhamento do desempenho operacional e geração de relatórios analíticos. Essas funcionalidades auxiliam equipes técnicas na identificação de anomalias, planejamento de manutenções preventivas e tomada de decisões estratégicas, reduzindo custos operacionais e aumentando a confiabilidade do transporte ferroviário.</p>
-            <p>Com foco em inovação, segurança e eficiência, a Mocking Rail utiliza tecnologia para transformar dados em informações relevantes, proporcionando uma gestão moderna, integrada e preparada para atender às demandas das ferrovias atuais e futuras.</p>
-        </div>
+        <section class="msg_index">
+
+            <div class="inicio-apresentacao">
+                <span class="inicio-subtitulo">MONITORAMENTO FERROVIÁRIO INTELIGENTE</span>
+
+                <h1>O futuro não espera<br>Nós o monitoramos</h1>
+
+                <p> Tecnologia integrada para monitorar trens, sensores e rotas, contribuindo para uma gestão ferroviária mais eficiente e segura. </p>
+
+                <div class="inicio-acoes">
+                    <a class="botao-inicio" href="public/telas/login.php"> Fazer login <i class="bi bi-arrow-right"></i> </a>
+                    <a class="link-inicio" href="public/inicio/objetivos.php"> Conhecer a solução </a>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="conteudo_index">
+
+            <div class="secao-inicio">
+                <span class="inicio-subtitulo">NOSSA TECNOLOGIA</span>
+                <h2>Monitoramento conectado à operação ferroviária.</h2>
+                <p> A Mocking Rail é uma solução tecnológica desenvolvida para integrar informações de trens e sensores em uma plataforma centralizada, facilitando o acompanhamento das ações ferroviárias. </p>
+            </div>
+
+            <div class="inicio-funcionalidades">
+
+                <div class="cartao-inicio">
+                    <i class="bi bi-train-front"></i>
+                    <h3>Monitoramento de trens</h3>
+                    <p> Acompanhamento de informações operacionais, localização e desempenho ferroviário. </p>
+                </div>
+
+                <div class="cartao-inicio">
+                    <i class="bi bi-cpu"></i>
+                    <h3>Integração de sensores</h3>
+                    <p> Coleta de informações por sensores IoT para acompanhar as condições da infraestrutura. </p>
+                </div>
+
+                <div class="cartao-inicio">
+                    <i class="bi bi-graph-up-arrow"></i>
+                    <h3>Análise de informações</h3>
+                    <p> Organização de dados e indicadores que auxiliam no acompanhamento das operações. </p>
+                </div>
+
+            </div>
+
+            <section class="bloco-inicio">
+
+                <div>
+                    <span class="inicio-subtitulo">NOSSA PROPOSTA</span>
+                    <h2>Tecnologia para decisões mais inteligentes.</h2>
+
+                    <p> Ao reunir informações operacionais em um único ambiente, a Mocking Rail busca facilitar a identificação de irregularidades, apoiar o planejamento de manutenções e contribuir para a confiabilidade do transporte ferroviário. </p>
+                </div>
+
+                <a class="botao-inicio" href="public/inicio/historia.php"> Conheça nosso projeto <i class="bi bi-arrow-right"></i> </a>
+            
+            </section>
+
+        </section>
+
     </main>
 
 </body>
