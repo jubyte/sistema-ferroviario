@@ -1,10 +1,77 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../infra/conexao.php';
 
 if (!isset($_SESSION["email"])) {
     header("Location: login.php");
     exit;
 }
+
+$totalTrens = 0;
+$trensAtivos = 0;
+$totalSensores = 0;
+$sensoresOnline = 0;
+$sensoresInativos = 0;
+$integridade = 0;
+$alertasCriticos = 0;
+$usuariosAtivos = 0;
+$totalUsuarios = 0;
+
+$sqlContagemTrens = "SELECT COUNT(*) AS total_trens,
+    SUM(CASE WHEN status = 'Ativo' THEN 1 ELSE 0 END) AS trens_ativos
+    FROM trens";
+
+$resultado = $conn->query($sqlContagemTrens);
+
+if ($resultado && $resultado->num_rows > 0) {
+    $dadosTrens = $resultado->fetch_assoc();
+    $totalTrens = (int) ($dadosTrens['total_trens'] ?? 0);
+    $trensAtivos = (int) ($dadosTrens['trens_ativos'] ?? 0);
+}
+
+$sqlContagemSensores = "SELECT COUNT(*) AS total_sensores,
+    SUM(CASE WHEN status = 'Ativo' THEN 1 ELSE 0 END) AS sensores_online,
+    SUM(CASE WHEN status = 'Inativo' THEN 1 ELSE 0 END) AS sensores_inativos
+    FROM sensores";
+
+$resultadoSensores = $conn->query($sqlContagemSensores);
+
+if ($resultadoSensores && $resultadoSensores->num_rows > 0) {
+    $dadosSensores = $resultadoSensores->fetch_assoc();
+    $totalSensores = (int) ($dadosSensores['total_sensores'] ?? 0);
+    $sensoresOnline = (int) ($dadosSensores['sensores_online'] ?? 0);
+    $sensoresInativos = (int) ($dadosSensores['sensores_inativos'] ?? 0);
+}
+
+if ($totalSensores > 0) {
+    $integridade = (int) round(($sensoresOnline / $totalSensores) * 100);
+}
+
+$alertasCriticos = $sensoresInativos;
+
+$sqlContagemUsuarios = "SELECT COUNT(*) AS total_usuarios,
+    SUM(CASE WHEN status = 'Ativo' THEN 1 ELSE 0 END) AS usuarios_ativos
+    FROM usuarios";
+
+$resultadoUsuarios = $conn->query($sqlContagemUsuarios);
+
+if ($resultadoUsuarios && $resultadoUsuarios->num_rows > 0) {
+    $dadosUsuarios = $resultadoUsuarios->fetch_assoc();
+    $totalUsuarios = (int) ($dadosUsuarios['total_usuarios'] ?? 0);
+    $usuariosAtivos = (int) ($dadosUsuarios['usuarios_ativos'] ?? 0);
+}
+
+$trensAtivosLista = [];
+$sqlTrensAtivos = "SELECT nome, tipo, empresa FROM trens WHERE status = 'Ativo' ORDER BY nome ASC LIMIT 9";
+$resultadoTrensAtivos = $conn->query($sqlTrensAtivos);
+
+if ($resultadoTrensAtivos) {
+    while ($linha = $resultadoTrensAtivos->fetch_assoc()) {
+        $trensAtivosLista[] = $linha;
+    }
+}
+
+$conn->close();
 ?>
 
 
@@ -90,8 +157,8 @@ if (!isset($_SESSION["email"])) {
                 <div>
                     <h3>Sensores</h3>
                     <div class="informacoes-sensores">
-                        <span class="ativos">10 ativos</span>
-                        <span class="manutencao">10 em manutenção</span>
+                        <span class="ativos"><?= htmlspecialchars((string) $sensoresOnline, ENT_QUOTES, 'UTF-8') ?> ativos</span>
+                        <span class="manutencao"><?= htmlspecialchars((string) $sensoresInativos, ENT_QUOTES, 'UTF-8') ?> em manutenção</span>
                     </div>
                 </div>
             </div>
@@ -99,7 +166,17 @@ if (!isset($_SESSION["email"])) {
                 <i class="bi bi-exclamation-triangle"></i>
                 <div>
                     <h3>Alertas</h3>
-                    <span>3 ativos</span>
+                    <span><?= htmlspecialchars((string) $alertasCriticos, ENT_QUOTES, 'UTF-8') ?> ativos</span>
+                </div>
+            </div>
+            <div class="cartao-sensores">
+                <i class="bi bi-people-fill"></i>
+                <div>
+                    <h3>Usuários</h3>
+                    <div class="informacoes-sensores">
+                        <span class="ativos"><?= htmlspecialchars((string) $usuariosAtivos, ENT_QUOTES, 'UTF-8') ?> ativos</span>
+                        <span class="manutencao"><?= htmlspecialchars((string) ($totalUsuarios - $usuariosAtivos), ENT_QUOTES, 'UTF-8') ?> inativos</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -110,7 +187,7 @@ if (!isset($_SESSION["email"])) {
                 </div>
                 <div class="info-card">
                     <h3>TRENS ATIVOS</h3>
-                    <strong>2/13</strong>
+                    <strong><?= htmlspecialchars((string) $trensAtivos, ENT_QUOTES, 'UTF-8') ?> / <?= htmlspecialchars((string) $totalTrens, ENT_QUOTES, 'UTF-8') ?></strong>
                     <span>OPERAÇÃO NORMAL</span>
                 </div>
             </div>
@@ -120,8 +197,8 @@ if (!isset($_SESSION["email"])) {
                 </div>
                 <div class="info-card">
                     <h3>SENSORES<br>ONLINE</h3>
-                    <strong>7</strong>
-                    <span>DE 9<br>CADASTRADOS</span>
+                    <strong><?= htmlspecialchars((string) $sensoresOnline, ENT_QUOTES, 'UTF-8') ?></strong>
+                    <span>DE <?= htmlspecialchars((string) $totalSensores, ENT_QUOTES, 'UTF-8') ?><br>CADASTRADOS</span>
                 </div>
             </div>
             <div class="card-painel">
@@ -130,7 +207,7 @@ if (!isset($_SESSION["email"])) {
                 </div>
                 <div class="info-card">
                     <h3>INTEGRI-<br>DADE</h3>
-                    <strong class="texto-vermelho">76%</strong>
+                    <strong class="texto-vermelho"><?= htmlspecialchars((string) $integridade, ENT_QUOTES, 'UTF-8') ?>%</strong>
                     <span>STATUS DA<br>REDE</span>
                 </div>
             </div>
@@ -140,35 +217,45 @@ if (!isset($_SESSION["email"])) {
                 </div>
                 <div class="info-card">
                     <h3>ALERTAS<br>CRÍTICOS</h3>
-                    <strong class="texto-vermelho">2</strong>
+                    <strong class="texto-vermelho"><?= htmlspecialchars((string) $alertasCriticos, ENT_QUOTES, 'UTF-8') ?></strong>
                     <span>REQUER<br>ATENÇÃO</span>
                 </div>
             </div>
         </section>
+
         <section class="painel-monitoramento">
             <div class="titulo-secao">
-                <i class="bi bi-bar-chart-line"></i>
-                <span>Monitoramento rápido</span>
+                <i class="bi bi-cloud"></i>
+                <span>Clima nas regiões da ferrovia:</span>
             </div>
             <div class="area-monitoramento"></div>
         </section>
+
         <section class="painel-trens">
             <div class="titulo-secao">
                 <i class="bi bi-train-front"></i>
                 <span>Trens</span>
             </div>
             <div class="lista-trens">
-                <div class="item-trem"></div>
-                <div class="item-trem"></div>
-                <div class="item-trem"></div>
-                <div class="item-trem"></div>
-                <div class="item-trem"></div>
-                <div class="item-trem"></div>
-                <div class="item-trem"></div>
-                <div class="item-trem"></div>
-                <div class="item-trem"></div>
+                <?php if (!empty($trensAtivosLista)): ?>
+                    <?php foreach ($trensAtivosLista as $tremAtivo): ?>
+                        <div class="item-trem">
+                            <div class="item-trem-conteudo">
+                                <strong><?= htmlspecialchars((string) $tremAtivo['nome'], ENT_QUOTES, 'UTF-8') ?></strong>
+                                <small><?= htmlspecialchars((string) $tremAtivo['tipo'], ENT_QUOTES, 'UTF-8') ?></small>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="item-trem">
+                        <div class="item-trem-conteudo">
+                            <strong>Nenhum trem ativo</strong>
+                        </div>
+                    </div>
+                <?php endif; ?>
             </div>
         </section>
+
         <section class="secao-hoje">
             <h2>Hoje</h2>
             <div class="indicadores">

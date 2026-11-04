@@ -440,6 +440,8 @@ body {
     gap: 10px;
     font-size: 1.3rem;
     margin-bottom: 15px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .area-monitoramento {
@@ -449,7 +451,7 @@ body {
 }
 
 .painel-trens {
-    width: 70%;
+    width: 100%;
     margin-top: 20px;
 }
 
@@ -461,14 +463,43 @@ body {
 
 .lista-trens {
     display: grid;
-    grid-template-columns: repeat(9, 1fr);
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+    gap: 0;
+    box-sizing: border-box;
 }
 
 .item-trem {
-    height: 65px;
+    min-height: 65px;
     border-left: 1px solid rgba(255,255,255,0.2);
     border-right: 1px solid rgba(255,255,255,0.2);
     border-bottom: 1px solid rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    text-align: center;
+    background: rgba(12, 20, 41, 0.5);
+}
+
+.item-trem-conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    font-size: 0.72rem;
+    line-height: 1.2;
+}
+
+.item-trem-conteudo strong {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.item-trem-conteudo small {
+    color: #d8dcee;
+    opacity: 0.9;
 }
 
 .secao-hoje {
