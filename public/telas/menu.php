@@ -256,23 +256,6 @@ $conn->close();
             </div>
         </section>
 
-        <section class="secao-hoje">
-            <h2>Hoje</h2>
-            <div class="indicadores">
-                <div class="cartao-indicador">
-                    <span>Consumo</span>
-                    <h3>10 000</h3>
-                </div>
-                <div class="cartao-indicador">
-                    <span>Velocidade média</span>
-                    <h3>70</h3>
-                </div>
-                <div class="cartao-indicador">
-                    <span>Toneladas</span>
-                    <h3>300</h3>
-                </div>
-            </div>
-        </section>
     </main> 
 
 
