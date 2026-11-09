@@ -265,7 +265,7 @@ function editarUsuario(id) {
     // A senha não será preenchida durante a edição
     senhaInput.value = "";
 
-    botaoAdicionar.textContent = "Salvar alterações";
+    botaoAdicionar.textContent = "SALVAR ALTERAÇÕES";
 
     const titulo = document.querySelector(".usuario__title");
     if (titulo) {

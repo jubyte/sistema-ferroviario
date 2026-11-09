@@ -142,7 +142,7 @@ if (!isset($_SESSION["email"])) {
                 </div>
 
                 <div class="col">
-                        <button id="btnAdicionar" class="btn botao-custom w-100">+ADICIONAR</button>
+                        <button id="btnAdicionar" class="btn botao-custom w-100">+ ADICIONAR</button>
                 </div>
 
             </div>
