@@ -23,7 +23,7 @@ if (!isset($_SESSION["email"])) {
     <title>Rotas | MockingRail</title>
 </head>
 
-<body>
+<body data-usuario-tipo="<?= htmlspecialchars($_SESSION["tipo"] ?? "", ENT_QUOTES, 'UTF-8') ?>">
 
     <aside class="sidebar">
 
@@ -97,14 +97,14 @@ if (!isset($_SESSION["email"])) {
 
         <form id="formRota">
             <div class="row g-4 align-items-end">
-        
+
                 <div class="col">
                     <label for="nome" class="label-custom">NOME</label>
                     <input type="text" id="nome"
                            class="form-control input-custom"
                            maxlength="100" required>
                 </div>
-        
+
                 <div class="col">
                     <label for="localizacao-inicial" class="label-custom">
                         INÍCIO DA ROTA
@@ -113,7 +113,7 @@ if (!isset($_SESSION["email"])) {
                            class="form-control input-custom"
                            maxlength="150" required>
                 </div>
-        
+
                 <div class="col">
                     <label for="localizacao-final" class="label-custom">
                         FIM DA ROTA
@@ -122,14 +122,14 @@ if (!isset($_SESSION["email"])) {
                            class="form-control input-custom"
                            maxlength="150" required>
                 </div>
-        
+
                 <div class="col">
                     <button type="button" id="btnAdicionar"
                             class="btn botao-custom w-100">
                         + ADICIONAR
                     </button>
                 </div>
-        
+
             </div>
         </form>
 

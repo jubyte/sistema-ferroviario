@@ -13,6 +13,19 @@ const campoBusca = document.getElementById("buscar");
 const tabela = document.getElementById("tabelaSensores");
 const sensorVazio = document.getElementById("sensorVazio");
 
+function usuarioEhAdministrador() {
+    return (document.body.dataset.usuarioTipo || "") === "Administrador";
+}
+
+function exigirPermissaoAdmin() {
+    if (!usuarioEhAdministrador()) {
+        alert("Você não tem permissão para realizar tal ação");
+        return false;
+    }
+
+    return true;
+}
+
 function escapar(texto) {
     const div = document.createElement("div");
     div.textContent = texto ?? "";
@@ -133,6 +146,10 @@ function aplicarBusca() {
 campoBusca.addEventListener("input", aplicarBusca);
 
 botaoAdicionar.addEventListener("click", function() {
+    if (!exigirPermissaoAdmin()) {
+        return;
+    }
+
     const nome = nomeInput.value.trim();
     const tipo = tipoInput.value;
     const local = localInput.value.trim();
@@ -171,7 +188,7 @@ botaoAdicionar.addEventListener("click", function() {
             })
             .catch(function(error) {
                 console.error("Erro ao editar sensor:", error);
-                alert("Não foi possível editar o sensor.");
+                alert(error.message || "Não foi possível editar o sensor.");
             });
 
         return;
@@ -193,11 +210,15 @@ botaoAdicionar.addEventListener("click", function() {
         })
         .catch(function(error) {
             console.error("Erro ao cadastrar sensor:", error);
-            alert("Não foi possível cadastrar o sensor.");
+            alert(error.message || "Não foi possível cadastrar o sensor.");
         });
 });
 
 function editarSensor(id) {
+    if (!exigirPermissaoAdmin()) {
+        return;
+    }
+
     const sensor = sensores.find(function(item) {
         return Number(item.id) === Number(id);
     });
@@ -268,6 +289,10 @@ function limparFormulario() {
 }
 
 function excluirSensor(id) {
+    if (!exigirPermissaoAdmin()) {
+        return;
+    }
+
     const sensor = sensores.find(function(item) {
         return Number(item.id) === Number(id);
     });
@@ -299,7 +324,7 @@ function excluirSensor(id) {
         })
         .catch(function(error) {
             console.error("Erro ao excluir sensor:", error);
-            alert("Não foi possível excluir o sensor.");
+            alert(error.message || "Não foi possível excluir o sensor.");
         });
 }
 

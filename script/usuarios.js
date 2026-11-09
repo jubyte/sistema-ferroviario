@@ -13,6 +13,19 @@ const campoBusca = document.getElementById("buscar");
 const tabela = document.getElementById("tabelaUsuarios");
 const sensorVazio = document.getElementById("sensorVazio");
 
+function usuarioEhAdministrador() {
+    return (document.body.dataset.usuarioTipo || "") === "Administrador";
+}
+
+function exigirPermissaoAdmin() {
+    if (!usuarioEhAdministrador()) {
+        alert("Você não tem permissão para realizar tal ação");
+        return false;
+    }
+
+    return true;
+}
+
 function mostrarMensagem(mensagem) {
     alert(mensagem);
 }
@@ -177,6 +190,10 @@ function filtrarUsuarios() {
 }
 
 async function salvarUsuario() {
+    if (!exigirPermissaoAdmin()) {
+        return;
+    }
+
     const nome = nomeInput.value.trim();
     const email = emailInput.value.trim();
     const telefone = telefoneInput.value.trim();
@@ -248,6 +265,10 @@ async function salvarUsuario() {
 }
 
 function editarUsuario(id) {
+    if (!exigirPermissaoAdmin()) {
+        return;
+    }
+
     const usuario = usuarios.find((item) => String(item.id) === String(id));
 
     if (!usuario) {
@@ -294,6 +315,10 @@ function editarUsuario(id) {
 
 
 async function removerUsuario(id) {
+    if (!exigirPermissaoAdmin()) {
+        return;
+    }
+
     const usuario = usuarios.find(function(item) {
         return String(item.id) === String(id);
     });

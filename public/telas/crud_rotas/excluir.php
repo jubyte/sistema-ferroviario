@@ -1,7 +1,33 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
+session_start();
 
 require_once __DIR__ . '/../../../infra/conexao.php';
+
+function responder($status, $message, $codigo = 200)
+{
+    http_response_code($codigo);
+
+    echo json_encode([
+        'status' => $status,
+        'message' => $message
+    ], JSON_UNESCAPED_UNICODE);
+
+    exit;
+}
+
+function verificarPermissaoAdmin()
+{
+    if (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== 'Administrador') {
+        responder('error', 'Você não tem permissão para realizar tal ação', 403);
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    responder('error', 'Método de requisição inválido.', 405);
+}
+
+verificarPermissaoAdmin();
 
 $id = $_POST['id'] ?? '';
 

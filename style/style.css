@@ -467,22 +467,22 @@ body {
 
 .lista-trens {
     display: grid;
-    grid-template-columns: repeat(9, minmax(0, 1fr));
-    gap: 0;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px;
     box-sizing: border-box;
+    align-items: stretch;
 }
 
 .item-trem {
     min-height: 65px;
-    border-left: 1px solid rgba(255,255,255,0.2);
-    border-right: 1px solid rgba(255,255,255,0.2);
-    border-bottom: 1px solid rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.2);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 8px;
     text-align: center;
     background: rgba(12, 20, 41, 0.5);
+    border-radius: 8px;
 }
 
 .item-trem-conteudo {

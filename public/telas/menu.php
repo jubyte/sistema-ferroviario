@@ -62,7 +62,7 @@ if ($resultadoUsuarios && $resultadoUsuarios->num_rows > 0) {
 }
 
 $trensAtivosLista = [];
-$sqlTrensAtivos = "SELECT nome, tipo, empresa FROM trens WHERE status = 'Ativo' ORDER BY nome ASC LIMIT 9";
+$sqlTrensAtivos = "SELECT nome, tipo, empresa FROM trens WHERE status = 'Ativo' ORDER BY nome ASC";
 $resultadoTrensAtivos = $conn->query($sqlTrensAtivos);
 
 if ($resultadoTrensAtivos) {

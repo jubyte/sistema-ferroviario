@@ -13,6 +13,19 @@ const campoBusca = document.getElementById("buscar");
 const tabela = document.getElementById("tabelaTrens");
 const trenVazio = document.getElementById("sensorVazio");
 
+function usuarioEhAdministrador() {
+    return (document.body.dataset.usuarioTipo || "") === "Administrador";
+}
+
+function exigirPermissaoAdmin() {
+    if (!usuarioEhAdministrador()) {
+        alert("Você não tem permissão para realizar tal ação");
+        return false;
+    }
+
+    return true;
+}
+
 function escapar(texto) {
     const div = document.createElement("div");
     div.textContent = texto ?? "";
@@ -20,11 +33,22 @@ function escapar(texto) {
 }
 
 function tratarResposta(response) {
-    if (!response.ok) {
-        throw new Error("Erro HTTP: " + response.status);
-    }
+    return response.text().then(function(texto) {
+        let data;
 
-    return response.json();
+        try {
+            data = JSON.parse(texto);
+        } catch (erro) {
+            console.error("Resposta recebida do PHP:", texto);
+            throw new Error("O servidor não retornou JSON válido.");
+        }
+
+        if (!response.ok) {
+            throw new Error(data.message || "Erro HTTP: " + response.status);
+        }
+
+        return data;
+    });
 }
 
 function carregarUsuarios() {
@@ -65,10 +89,7 @@ function carregarUsuarios() {
             responsavelInput.innerHTML =
                 '<option value="">Erro ao carregar usuários</option>';
 
-            alert(
-                "Não foi possível carregar os usuários. " +
-                "Verifique o arquivo listar_usuarios.php."
-            );
+            alert(error.message || "Não foi possível carregar os usuários. Verifique o arquivo listar_usuarios.php.");
         });
 }
 
@@ -140,7 +161,7 @@ function carregarTrens() {
         })
         .catch(function(error) {
             console.error("Erro ao carregar trens:", error);
-            alert("Erro ao carregar trens. Verifique o servidor.");
+            alert(error.message || "Erro ao carregar trens. Verifique o servidor.");
         });
 }
 
@@ -164,6 +185,10 @@ function aplicarBusca() {
 campoBusca.addEventListener("input", aplicarBusca);
 
 botaoAdicionar.addEventListener("click", function() {
+    if (!exigirPermissaoAdmin()) {
+        return;
+    }
+
     const nome = nomeInput.value.trim();
     const empresa = empresaInput.value.trim();
     const vagoes = vagoesInput.value.trim();
@@ -236,7 +261,7 @@ botaoAdicionar.addEventListener("click", function() {
             })
             .catch(function(error) {
                 console.error("Erro ao editar trem:", error);
-                alert("Erro ao editar trem. Verifique o servidor.");
+                alert(error.message || "Erro ao editar trem. Verifique o servidor.");
             });
 
         return;
@@ -258,11 +283,15 @@ botaoAdicionar.addEventListener("click", function() {
         })
         .catch(function(error) {
             console.error("Erro ao cadastrar trem:", error);
-            alert("Erro ao cadastrar trem. Verifique o servidor.");
+            alert(error.message || "Erro ao cadastrar trem. Verifique o servidor.");
         });
 });
 
 function editarTrem(id) {
+    if (!exigirPermissaoAdmin()) {
+        return;
+    }
+
     const trem = trens.find(function(item) {
         return Number(item.id) === Number(id);
     });
@@ -336,6 +365,10 @@ function limparFormulario() {
 }
 
 function excluirTrem(id) {
+    if (!exigirPermissaoAdmin()) {
+        return;
+    }
+
     const trem = trens.find(function(trem) {
         return Number(trem.id) === Number(id);
     });
@@ -371,7 +404,7 @@ function excluirTrem(id) {
         })
         .catch(function(error) {
             console.error("Erro ao excluir trem:", error);
-            alert("Erro ao excluir trem. Verifique o servidor.");
+            alert(error.message || "Erro ao excluir trem. Verifique o servidor.");
         });
 }
 

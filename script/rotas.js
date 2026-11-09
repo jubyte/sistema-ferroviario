@@ -10,6 +10,18 @@ const campoBusca = document.getElementById("buscar");
 const tabela = document.getElementById("tabelaRotas");
 const sensorVazio = document.getElementById("sensorVazio");
 
+function usuarioEhAdministrador() {
+    return (document.body.dataset.usuarioTipo || "") === "Administrador";
+}
+
+function exigirPermissaoAdmin() {
+    if (!usuarioEhAdministrador()) {
+        alert("Você não tem permissão para realizar tal ação");
+        return false;
+    }
+
+    return true;
+}
 
 function mostrarMensagem(mensagem) {
     alert(mensagem);
@@ -153,6 +165,10 @@ function filtrarRotas() {
 }
 
 async function salvarRota() {
+    if (!exigirPermissaoAdmin()) {
+        return;
+    }
+
     const nome = nomeInput.value.trim();
     const inicio = inicioInput.value.trim();
     const fim = fimInput.value.trim();
@@ -197,6 +213,10 @@ async function salvarRota() {
 
 
 function editarRota(id) {
+    if (!exigirPermissaoAdmin()) {
+        return;
+    }
+
     const rota = rotas.find((item) => String(item.id) === String(id));
 
     if (!rota) {
@@ -237,6 +257,10 @@ function editarRota(id) {
 }
 
 async function excluirRota(id) {
+    if (!exigirPermissaoAdmin()) {
+        return;
+    }
+
     const confirmar = confirm(
         "Tem certeza de que deseja excluir esta rota?"
     );

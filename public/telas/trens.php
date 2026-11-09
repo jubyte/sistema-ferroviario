@@ -23,7 +23,7 @@ if (!isset($_SESSION["email"])) {
     <title>Trens | MockingRail</title>
 </head>
 
-<body>
+<body data-usuario-tipo="<?= htmlspecialchars($_SESSION["tipo"] ?? "", ENT_QUOTES, 'UTF-8') ?>">
 
     <aside class="sidebar">
 
