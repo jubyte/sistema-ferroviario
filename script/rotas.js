@@ -1,4 +1,3 @@
-
 let rotas = [];
 let rotaEditando = null;
 
@@ -163,7 +162,6 @@ async function salvarRota() {
         return;
     }
 
-    // Os nomes enviados precisam corresponder aos nomes esperados pelo PHP.
     const dadosFormulario = new FormData();
     dadosFormulario.append("nome", nome);
     dadosFormulario.append("localizacao_inicial", inicio);

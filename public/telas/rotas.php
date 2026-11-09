@@ -96,57 +96,57 @@ if (!isset($_SESSION["email"])) {
         </h2>
 
         <form id="formRota">
-    <div class="row g-4 align-items-end">
-
-        <div class="col">
-            <label for="nome" class="label-custom">NOME</label>
-            <input type="text" id="nome"
-                   class="form-control input-custom"
-                   maxlength="100" required>
-        </div>
-
-        <div class="col">
-            <label for="localizacao-inicial" class="label-custom">
-                INÍCIO DA ROTA
-            </label>
-            <input type="text" id="localizacao-inicial"
-                   class="form-control input-custom"
-                   maxlength="150" required>
-        </div>
-
-        <div class="col">
-            <label for="localizacao-final" class="label-custom">
-                FIM DA ROTA
-            </label>
-            <input type="text" id="localizacao-final"
-                   class="form-control input-custom"
-                   maxlength="150" required>
-        </div>
-
-        <div class="col">
-            <button type="button" id="btnAdicionar"
-                    class="btn botao-custom w-100">
-                + ADICIONAR
-            </button>
-        </div>
+            <div class="row g-4 align-items-end">
+        
+                <div class="col">
+                    <label for="nome" class="label-custom">NOME</label>
+                    <input type="text" id="nome"
+                           class="form-control input-custom"
+                           maxlength="100" required>
+                </div>
+        
+                <div class="col">
+                    <label for="localizacao-inicial" class="label-custom">
+                        INÍCIO DA ROTA
+                    </label>
+                    <input type="text" id="localizacao-inicial"
+                           class="form-control input-custom"
+                           maxlength="150" required>
+                </div>
+        
+                <div class="col">
+                    <label for="localizacao-final" class="label-custom">
+                        FIM DA ROTA
+                    </label>
+                    <input type="text" id="localizacao-final"
+                           class="form-control input-custom"
+                           maxlength="150" required>
+                </div>
+        
+                <div class="col">
+                    <button type="button" id="btnAdicionar"
+                            class="btn botao-custom w-100">
+                        + ADICIONAR
+                    </button>
+                </div>
+        
+            </div>
+        </form>
 
     </div>
-</form>
-
-    </div>
-
-
 
 
     <div class="sensor_busca">
         <i class="bi bi-search"></i>
         <input type="text" id="buscar" placeholder="Buscar por nome ou ID">
     </div>
+
      <div id="sensorVazio" class="sensor-vazio">
         <i class="bi bi-broadcast"></i>
         <h4> Nenhuma rota cadastrada ainda. </h4>
         <p> Cadastre uma nova rota para começar. </p>
     </div>
+
     <div class="sensor_tabela">
         <table class="table table-bordered align-middle">
             <thead>

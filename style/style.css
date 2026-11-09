@@ -631,12 +631,12 @@ body {
 }
 
 .table th {
-    background-color: #081f7a;
+    background-color: #0e2068;
     color: white;
 }
 
 .table td {
-    background-color: rgb(4, 23, 99);
+    background-color: rgb(11, 21, 63);
     color: white;
 }
 
@@ -1518,7 +1518,7 @@ body.pagina-institucional {
 .clima-busca{
     background-color: #0c132f;
     border-radius: 4px;
-    border: 1px solid #3e63a0;
+    border: 1px solid #3a547e;
 }
 
 .clima-box{
