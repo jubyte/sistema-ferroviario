@@ -234,7 +234,7 @@ function editarRota(id) {
 
     const titulo = document.querySelector(".usuario__title");
     if (titulo) {
-        titulo.textContent = "Editar rota";
+        titulo.textContent = "EDITAR ROTA";
     }
 
     let cancelar = document.getElementById("btnCancelar");
@@ -243,8 +243,8 @@ function editarRota(id) {
         cancelar = document.createElement("button");
         cancelar.id = "btnCancelar";
         cancelar.type = "button";
-        cancelar.textContent = "Cancelar edição";
-        cancelar.className = "btn btn-secondary mt-2";
+        cancelar.textContent = "CANCELAR ALTERAÇÕES";
+        cancelar.className = "btn botao-cancelar w-100 mt-2";
 
         botaoAdicionar.insertAdjacentElement("afterend", cancelar);
 
