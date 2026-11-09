@@ -215,7 +215,7 @@ function editarSensor(id) {
     tremInput.value = sensor.trem_id ?? "";
     statusInput.value = sensor.status;
 
-    botaoAdicionar.textContent = "Salvar alterações";
+    botaoAdicionar.textContent = "SALVAR ALTERAÇÕES";
 
     const titulo = document.querySelector(".usuario__title");
 
@@ -252,7 +252,7 @@ function limparFormulario() {
     tremInput.value = "";
     statusInput.value = "Ativo";
 
-    botaoAdicionar.textContent = "Adicionar";
+    botaoAdicionar.textContent = "+ ADICIONAR";
 
     const titulo = document.querySelector(".usuario__title");
 

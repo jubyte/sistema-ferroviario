@@ -280,7 +280,7 @@ function editarTrem(id) {
     tipoInput.value = trem.tipo;
     responsavelInput.value = trem.responsavel_id ?? "";
 
-    botaoAdicionar.textContent = "Salvar alterações";
+    botaoAdicionar.textContent = "SALVAR ALTERAÇÕES";
 
     const titulo = document.querySelector(".usuario__title");
 
@@ -320,7 +320,7 @@ function limparFormulario() {
     tipoInput.value = "";
     responsavelInput.value = "";
 
-    botaoAdicionar.textContent = "Adicionar";
+    botaoAdicionar.textContent = "+ ADICIONAR";
 
     const titulo = document.querySelector(".usuario__title");
 

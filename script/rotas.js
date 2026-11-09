@@ -22,7 +22,7 @@ function limparFormulario() {
     fimInput.value = "";
 
     rotaEditando = null;
-    botaoAdicionar.textContent = "Adicionar rota";
+    botaoAdicionar.textContent = "+ ADICIONAR ROTA";
 
     const titulo = document.querySelector(".usuario__title");
     if (titulo) {
@@ -212,7 +212,7 @@ function editarRota(id) {
     inicioInput.value = rota.localizacao_inicial;
     fimInput.value = rota.localizacao_final;
 
-    botaoAdicionar.textContent = "Salvar alterações";
+    botaoAdicionar.textContent = "SALVAR ALTERAÇÕES";
 
     const titulo = document.querySelector(".usuario__title");
     if (titulo) {
