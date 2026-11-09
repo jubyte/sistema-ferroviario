@@ -21,11 +21,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $usuario = $resultado->fetch_assoc();
 
     // Verifica se o usuário existe e se a senha está correta
-    if (
-        $usuario &&
-        $usuario["senha"] === $senha &&
-        $usuario["status"] === "Ativo"
-    ) {
+    $senhaValida = false;
+
+    if ($usuario && $usuario["status"] === "Ativo") {
+        $senhaBanco = (string) $usuario["senha"];
+
+        $senhaValida = password_verify($senha, $senhaBanco)
+            || hash_equals($senhaBanco, $senha);
+    }
+
+    if ($usuario && $senhaValida) {
 
         // Cria a sessão do usuário
         session_regenerate_id(true);
