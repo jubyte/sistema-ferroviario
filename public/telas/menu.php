@@ -223,13 +223,34 @@ $conn->close();
             </div>
         </section>
 
+
         <section class="painel-monitoramento">
+
             <div class="titulo-secao">
                 <i class="bi bi-cloud"></i>
                 <span>Clima nas regiões da ferrovia:</span>
             </div>
-            <div class="area-monitoramento"></div>
+
+            <div id="previsaoTempo" class="area-monitoramento">
+
+                <div class="clima-box">
+
+                    <div id="resultadoTempo">
+                        <h3>Nenhuma cidade selecionada</h3>
+                        <p>Digite uma cidade para consultar a previsão.</p>
+                    </div>
+
+                    <div class="clima-busca">
+                        <input type="text" id="cidade" class="input-clima" placeholder="Digite uma cidade">
+                        <button id="btnBuscar" class="btn-clima">Buscar</button>
+                    </div>
+
+                </div>
+
+            </div>
+
         </section>
+
 
         <section class="painel-trens">
             <div class="titulo-secao">
@@ -260,6 +281,6 @@ $conn->close();
 
 
     <script src="../../script/usuarios.js"></script>
-
+    <script src="../../script/previsao_clima.js"></script>
 </body>
 </html>

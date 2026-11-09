@@ -471,8 +471,12 @@ body {
 
 .area-monitoramento {
     height: 290px;
-    background: #434a70;
+    background: #20243b;
     border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
 }
 
 .painel-trens {
@@ -652,12 +656,12 @@ body {
 }
 
 .table th {
-    background-color: #081f7a;
+    background-color: #0e2068;
     color: white;
 }
 
 .table td {
-    background-color: rgb(4, 23, 99);
+    background-color: rgb(11, 21, 63);
     color: white;
 }
 
@@ -1513,4 +1517,35 @@ body.pagina-institucional {
     letter-spacing: 1px;
     text-transform: uppercase;
     white-space: nowrap;
+}
+
+.input-clima{
+    width: 70%;
+    height: 15%;
+    color: white;
+    background-color: #0c132f;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    margin: 0 3.4% 0 0.5%;
+}
+
+.btn-clima{
+    width: 25%;
+    height: 15%;
+    color: white;
+    background-color: #0f2680;
+    border-radius: 4px;
+    border: 0;
+    margin: 0;
+}
+
+.clima-busca{
+    background-color: #0c132f;
+    border-radius: 4px;
+    border: 1px solid #3a547e;
+}
+
+.clima-box{
+    width: 30%;
 }
