@@ -2,37 +2,36 @@
 
 # MOCKING RAIL
 
-Sistema de monitoramento ferroviário desenvolvido como Trabalho de Conclusão do Curso Técnico em Desenvolvimento de Sistemas do SESI SENAI Joinville, Santa Catarina (2026).
+Um sistema de monitoramento ferroviário desenvolvido como Trabalho de Conclusão do Curso Técnico em Desenvolvimento de Sistemas do SESI SENAI Joinville, Santa Catarina (2026).
 
 O projeto simula uma empresa do setor ferroviário, envolvendo sensores, banco de dados e uma interface web para gerenciamento e acompanhamento das informações da operação.
 
 ## SOBRE
 
-O Mocking Rail foi desenvolvido para centralizar informações relacionadas à operação ferroviária e facilitar o gerenciamento de usuários, sensores, trens e rotas.
+O Mocking Rail foi desenvolvido para centralizar informações relacionadas à operação ferroviária e facilitar o gerenciamento de todos os usuários, sensores, trens e rotas envolvidos nas operações da ferrovia.
 
-O sistema também conta com uma página institucional, área de login e cadastro e uma interface interna para acesso às principais funcionalidades da plataforma.
+O sistema também conta com uma página de introdução sobre história e funcionamento breves, área de login e uma interface interna para acesso às principais funcionalidades da plataforma.
 
 ### OBJETIVOS
 
-* Facilitar o gerenciamento das informações ferroviárias;
+* Facilitar o gerenciamento das informações da ferrovia;
 * Centralizar os dados utilizados pelo sistema;
-* Permitir o gerenciamento de usuários, sensores, trens e rotas;
-* Organizar as informações de forma simples e acessível;
+* Permitir o gerenciamento de usuários, sensores, trens e rotas com maior facilidade;
+* Organizar as informações de forma simples, acessível e clara para qualquer um que tenha conhecimento básico do funcionamento da ferrovia;
 * Auxiliar no acompanhamento das operações ferroviárias.
 
 ## FUNCIONALIDADES
 
-| Módulo               | Descrição                                                    | Status             |
-| -------------------- | ------------------------------------------------------------ | ------------------ |
-| Página institucional | Páginas de História, Objetivos e Sustentabilidade da empresa | Concluído          |
-| Login e Cadastro     | Acesso e cadastro de usuários do sistema                     | Concluído          |
-| Menu                 | Área principal com informações gerais do sistema             | Em desenvolvimento |
-| Usuários             | Cadastro, listagem, edição e exclusão de usuários            | Em desenvolvimento |
-| Trens                | Cadastro, listagem, edição e exclusão de sensores            | Em desenvolvimento |
-| Sensores             | Cadastro e gerenciamento das informações dos trens           | Em desenvolvimento |
-| Rotas                | Área destinada ao gerenciamento das rotas ferroviárias       | Em desenvolvimento |
+| Módulo               | Descrição                                                    | Status    |
+| -------------------- | ------------------------------------------------------------ | --------- |
+| Página de introdução | Páginas de História, Objetivos e Sustentabilidade da empresa | Concluído |
+| Login e Cadastro     | Acesso e cadastro de usuários do sistema                     | Concluído |
+| Menu                 | Área principal com informações gerais do sistema             | Concluído |
+| Usuários             | Cadastro, listagem, edição e exclusão de usuários            | Concluído |
+| Trens                | Cadastro, listagem, edição e exclusão de sensores            | Concluído |
+| Sensores             | Cadastro e gerenciamento das informações dos trens           | Concluído |
+| Rotas                | Área destinada ao gerenciamento das rotas ferroviárias       | Concluído |
 
-As funcionalidades marcadas como **Em desenvolvimento** já fazem parte do escopo do sistema e serão concluídas ao longo do desenvolvimento do projeto.
 
 ## TECNOLOGIAS
 
@@ -48,6 +47,7 @@ As funcionalidades marcadas como **Em desenvolvimento** já fazem parte do escop
 * PHP
 * MySQL
 * PDO
+* APIs de clima e CEP
 
 ## ESTRUTURA
 
@@ -100,8 +100,11 @@ sistema-ferroviario/
 │       └── usuarios.php        # Tela de usuários
 │
 ├── script/
+│   ├── previsao_clima.js               # Lógica de login e cadastro
+│   ├── rotas.js               # Lógica de login e cadastro
 │   ├── script.js               # Lógica de login e cadastro
 │   ├── sensores.js             # Lógica de sensores
+│   ├── trens.js               # Lógica de login e cadastro
 │   └── usuarios.js             # Lógica de usuários
 │
 ├── style/
@@ -127,6 +130,7 @@ Entre as principais tabelas utilizadas atualmente estão:
 * `usuarios` — informações dos usuários cadastrados;
 * `trens` — informações dos trens;
 * `sensores` — informações dos sensores.
+* `rotas` — informações dos rotas.
 
 A conexão entre o sistema e o banco de dados é realizada pelo arquivo:
 
@@ -185,7 +189,7 @@ http://localhost/sistema-ferroviario/
 
 O sistema será iniciado pela página `index.php`.
 
-## PÁGINA INSTITUCIONAL
+## PÁGINA DE INTORDUÇÃO
 
 A página inicial apresenta informações institucionais da Ferrorama Mocking Rail.
 
@@ -197,15 +201,11 @@ O sistema possui as seguintes páginas:
 
 Essas páginas fazem parte da área institucional do sistema.
 
-## LOGIN E CADASTRO
+## LOGIN
 
 O sistema possui uma área destinada ao acesso dos usuários.
 
-A tela de **Login** permite que o usuário informe seus dados para acessar a área interna do sistema.
-
-Também existe uma tela de **Cadastro**, destinada ao registro de novos usuários.
-
-As funcionalidades de login e cadastro estão em desenvolvimento e serão integradas às demais partes do sistema conforme o projeto avança.
+A tela de **Login** permite que o usuário informe seus dados para acessar a área interna do sistema, como é um sistema voltado para a área empresarial e contém dados restritos a funcionários o cadastro de novos usuários deve ser realizado por um administrador.
 
 ## MENU
 
@@ -220,8 +220,6 @@ O menu permite acessar as principais funcionalidades do sistema:
 
 A tela também apresenta informações gerais da aplicação e serve como ponto de navegação entre as áreas do sistema.
 
-Essa funcionalidade está em desenvolvimento.
-
 ## USUÁRIOS
 
 A área de **Usuários** é destinada ao gerenciamento dos usuários cadastrados no sistema.
@@ -229,7 +227,7 @@ A área de **Usuários** é destinada ao gerenciamento dos usuários cadastrados
 A funcionalidade contempla operações de:
 
 * Cadastro;
-* Listagem;
+* Listagem (com pesquisa);
 * Edição;
 * Exclusão.
 
@@ -238,8 +236,6 @@ Os arquivos responsáveis pelas operações do CRUD estão organizados na pasta:
 ```text
 public/telas/crud_usuarios/
 ```
-
-A tela de usuários e suas funcionalidades estão em desenvolvimento.
 
 ## SENSORES
 
@@ -260,8 +256,6 @@ public/telas/crud_sensores/
 
 A funcionalidade contempla operações de cadastro, listagem, edição e exclusão.
 
-A tela e sua integração com o banco de dados estão em desenvolvimento.
-
 ## TRENS
 
 A área de **Trens** será utilizada para o gerenciamento das informações dos trens da empresa.
@@ -273,15 +267,15 @@ A tela possui campos relacionados às informações do trem, como:
 * Número de vagões;
 * Tipo.
 
-A funcionalidade de gerenciamento de trens está em desenvolvimento.
-
 ## ROTAS
 
-A área de **Rotas** será destinada ao gerenciamento das rotas ferroviárias utilizadas pelo sistema.
+A área de **Rotas** será utilizada para o gerenciamento das informações das rotas da ferrovia.
 
-Essa funcionalidade faz parte do escopo do projeto e está em desenvolvimento.
+A tela possui campos relacionados às informações das rotas, como:
 
-As informações e operações disponíveis nessa tela serão atualizadas neste README conforme a implementação for concluída.
+* Nome;
+* Início;
+* Fim;
 
 ## DOCUMENTAÇÃO
 
@@ -302,7 +296,7 @@ Entre eles estão:
 
 ## AUTORES
 
-Projeto desenvolvido por estudantes do Curso Técnico em Desenvolvimento de Sistemas.
+Projeto desenvolvido por estudantes do Curso Técnico em Desenvolvimento de Sistemas da escola SESI/SENAI Moinho.
 
 * Eduarda Bosse de Miranda
 * Guilherme Goll Figueiró
