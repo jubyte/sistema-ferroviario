@@ -189,7 +189,7 @@ http://localhost/sistema-ferroviario/
 
 O sistema será iniciado pela página `index.php`.
 
-## PÁGINA DE INTORDUÇÃO
+## PÁGINA DE INTRODUÇÃO
 
 A página inicial apresenta informações institucionais da Ferrorama Mocking Rail.
 
