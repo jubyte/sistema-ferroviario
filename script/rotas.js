@@ -374,29 +374,11 @@ function mostrarRotas(lista) {
 
         const colunaInicio = document.createElement("td");
         const cepInicio = extrairCep(rota.localizacao_inicial || "");
-        if (cepInicio) {
-            const linkInicio = document.createElement("a");
-            linkInicio.href = `rota_detalhes.php?id=${rota.id}`;
-            linkInicio.textContent = rota.localizacao_inicial;
-            linkInicio.className = "usuario-link";
-            linkInicio.style.display = "inline-block";
-            colunaInicio.appendChild(linkInicio);
-        } else {
-            colunaInicio.textContent = rota.localizacao_inicial;
-        }
+        colunaInicio.textContent = cepInicio ? `CEP: ${cepInicio}` : rota.localizacao_inicial;
 
         const colunaFim = document.createElement("td");
         const cepFim = extrairCep(rota.localizacao_final || "");
-        if (cepFim) {
-            const linkFim = document.createElement("a");
-            linkFim.href = `rota_detalhes.php?id=${rota.id}`;
-            linkFim.textContent = rota.localizacao_final;
-            linkFim.className = "usuario-link";
-            linkFim.style.display = "inline-block";
-            colunaFim.appendChild(linkFim);
-        } else {
-            colunaFim.textContent = rota.localizacao_final;
-        }
+        colunaFim.textContent = cepFim ? `CEP: ${cepFim}` : rota.localizacao_final;
 
         const colunaAcoes = document.createElement("td");
 
