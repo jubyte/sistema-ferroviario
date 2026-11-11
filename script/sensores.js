@@ -26,6 +26,50 @@ function exigirPermissaoAdmin() {
     return true;
 }
 
+function formatarCep(valor) {
+    const numeros = (valor || "").replace(/\D/g, "").slice(0, 8);
+
+    if (numeros.length <= 5) {
+        return numeros;
+    }
+
+    return `${numeros.slice(0, 5)}-${numeros.slice(5)}`;
+}
+
+function extrairCep(texto) {
+    if (!texto || typeof texto !== "string") {
+        return null;
+    }
+
+    const match = texto.match(/\d{5}-\d{3}/);
+    return match ? match[0] : null;
+}
+
+function montarDescricaoLocalizacao(dados) {
+    const partes = [];
+
+    if (dados.cep) {
+        partes.push(`CEP: ${formatarCep(dados.cep)}`);
+    }
+
+    if (dados.logradouro) {
+        partes.push(dados.logradouro);
+    }
+
+    if (dados.bairro) {
+        partes.push(dados.bairro);
+    }
+
+    if (dados.localidade || dados.uf) {
+        const cidadeUf = [dados.localidade, dados.uf].filter(Boolean).join("/");
+        if (cidadeUf) {
+            partes.push(cidadeUf);
+        }
+    }
+
+    return partes.join(" - ");
+}
+
 function escapar(texto) {
     const div = document.createElement("div");
     div.textContent = texto ?? "";
@@ -106,11 +150,15 @@ function mostrarSensores(lista) {
     lista.forEach(function(sensor) {
         const linha = document.createElement("tr");
 
+        const localFormatado = extrairCep(sensor.local || "")
+            ? `CEP: ${extrairCep(sensor.local || "")}`
+            : sensor.local || "";
+
         linha.innerHTML = `
             <td>${String(sensor.id).padStart(2, "0")}</td>
             <td>${escapar(sensor.nome)}</td>
             <td>${escapar(sensor.tipo)}</td>
-            <td>${escapar(sensor.local)}</td>
+            <td>${escapar(localFormatado)}</td>
             <td>${escapar(sensor.trem_nome || "Não associado")}</td>
             <td>${escapar(sensor.status)}</td>
             <td>
@@ -132,6 +180,34 @@ function mostrarSensores(lista) {
     });
 }
 
+async function consultarCepSensor() {
+    const cep = formatarCep(localInput ? localInput.value : "");
+
+    if (!cep || !/^\d{5}-\d{3}$/.test(cep)) {
+        return;
+    }
+
+    try {
+        const resposta = await fetch(`https://viacep.com.br/ws/${cep.replace(/\D/g, "")}/json/`);
+
+        if (!resposta.ok) {
+            throw new Error("Falha ao consultar o CEP.");
+        }
+
+        const dados = await resposta.json();
+
+        if (dados.erro) {
+            alert("CEP não encontrado. Verifique o número informado.");
+            return;
+        }
+
+        localInput.value = montarDescricaoLocalizacao(dados);
+    } catch (erro) {
+        console.error("Erro ao consultar CEP do sensor:", erro);
+        alert("Não foi possível consultar o CEP neste momento. Verifique a conexão e tente novamente.");
+    }
+}
+
 function aplicarBusca() {
     const texto = campoBusca.value.toLowerCase().trim();
 
@@ -144,6 +220,25 @@ function aplicarBusca() {
 }
 
 campoBusca.addEventListener("input", aplicarBusca);
+
+if (localInput) {
+    localInput.addEventListener("input", function(event) {
+        event.target.value = event.target.value.replace(/\s{2,}/g, " ").trimStart();
+        const valorAtual = event.target.value.trim();
+
+        if (/^\d{5,5}$/.test(valorAtual.replace(/\D/g, ""))) {
+            event.target.value = formatarCep(valorAtual);
+        }
+    });
+
+    localInput.addEventListener("blur", function() {
+        const valor = (localInput.value || "").trim();
+
+        if (valor && /^\d{5}-\d{3}$/.test(formatarCep(valor))) {
+            consultarCepSensor();
+        }
+    });
+}
 
 botaoAdicionar.addEventListener("click", function() {
     if (!exigirPermissaoAdmin()) {
