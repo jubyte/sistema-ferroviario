@@ -10,6 +10,34 @@ const campoBusca = document.getElementById("buscar");
 const tabela = document.getElementById("tabelaRotas");
 const sensorVazio = document.getElementById("sensorVazio");
 
+const camposEndereco = {
+    inicial: {
+        cep: document.getElementById("cep-inicial"),
+        logradouro: document.getElementById("logradouro-inicial"),
+        bairro: document.getElementById("bairro-inicial"),
+        cidade: document.getElementById("cidade-inicial"),
+        estado: document.getElementById("estado-inicial"),
+        localizacao: document.getElementById("localizacao-inicial")
+    },
+    final: {
+        cep: document.getElementById("cep-final"),
+        logradouro: document.getElementById("logradouro-final"),
+        bairro: document.getElementById("bairro-final"),
+        cidade: document.getElementById("cidade-final"),
+        estado: document.getElementById("estado-final"),
+        localizacao: document.getElementById("localizacao-final")
+    }
+};
+
+const modalEndereco = document.getElementById("modalEndereco");
+const modalEnderecoTitulo = document.getElementById("modalEnderecoTitulo");
+const modalCep = document.getElementById("modalCep");
+const modalLogradouro = document.getElementById("modalLogradouro");
+const modalBairro = document.getElementById("modalBairro");
+const modalCidade = document.getElementById("modalCidade");
+const modalEstado = document.getElementById("modalEstado");
+const btnFecharModal = document.getElementById("btnFecharModal");
+
 function usuarioEhAdministrador() {
     return (document.body.dataset.usuarioTipo || "") === "Administrador";
 }
@@ -27,13 +55,32 @@ function mostrarMensagem(mensagem) {
     alert(mensagem);
 }
 
+function formatarCep(valor) {
+    const numeros = (valor || "").replace(/\D/g, "").slice(0, 8);
+
+    if (numeros.length <= 5) {
+        return numeros;
+    }
+
+    return `${numeros.slice(0, 5)}-${numeros.slice(5)}`;
+}
+
 function limparFormulario() {
     nomeInput.value = "";
     inicioInput.value = "";
     fimInput.value = "";
 
+    Object.values(camposEndereco).forEach((campos) => {
+        if (campos.cep) campos.cep.value = "";
+        if (campos.logradouro) campos.logradouro.value = "";
+        if (campos.bairro) campos.bairro.value = "";
+        if (campos.cidade) campos.cidade.value = "";
+        if (campos.estado) campos.estado.value = "";
+        if (campos.localizacao) campos.localizacao.value = "";
+    });
+
     rotaEditando = null;
-    botaoAdicionar.textContent = "+ ADICIONAR ROTA";
+    botaoAdicionar.textContent = "+ ADICIONAR";
 
     const titulo = document.querySelector(".usuario__title");
     if (titulo) {
@@ -43,6 +90,209 @@ function limparFormulario() {
     const cancelar = document.getElementById("btnCancelar");
     if (cancelar) {
         cancelar.style.display = "none";
+    }
+}
+
+function obterDadosEndereco(tipo) {
+    const campos = camposEndereco[tipo];
+
+    return {
+        cep: (campos.cep ? campos.cep.value.trim() : ""),
+        logradouro: (campos.logradouro ? campos.logradouro.value.trim() : ""),
+        bairro: (campos.bairro ? campos.bairro.value.trim() : ""),
+        cidade: (campos.cidade ? campos.cidade.value.trim() : ""),
+        estado: (campos.estado ? campos.estado.value.trim() : "")
+    };
+}
+
+function montarDescricaoEndereco(tipo, dados = null) {
+    const dadosEndereco = dados || obterDadosEndereco(tipo);
+    const partes = [];
+
+    if (dadosEndereco.cep) {
+        partes.push(`CEP ${dadosEndereco.cep}`);
+    }
+
+    if (dadosEndereco.logradouro) {
+        partes.push(dadosEndereco.logradouro);
+    }
+
+    if (dadosEndereco.bairro) {
+        partes.push(dadosEndereco.bairro);
+    }
+
+    if (dadosEndereco.cidade || dadosEndereco.estado) {
+        const cidadeEstado = [dadosEndereco.cidade, dadosEndereco.estado]
+            .filter(Boolean)
+            .join("/");
+
+        if (cidadeEstado) {
+            partes.push(cidadeEstado);
+        }
+    }
+
+    const descricao = partes.join(" - ");
+
+    if (camposEndereco[tipo].localizacao) {
+        camposEndereco[tipo].localizacao.value = descricao;
+    }
+
+    return descricao;
+}
+
+function atualizarCamposEndereco(tipo, dados) {
+    const campos = camposEndereco[tipo];
+
+    if (campos.cep) {
+        campos.cep.value = formatarCep(dados.cep || "");
+    }
+
+    if (campos.logradouro) {
+        campos.logradouro.value = dados.logradouro || "";
+    }
+
+    if (campos.bairro) {
+        campos.bairro.value = dados.bairro || "";
+    }
+
+    if (campos.cidade) {
+        campos.cidade.value = dados.localidade || "";
+    }
+
+    if (campos.estado) {
+        campos.estado.value = dados.uf || "";
+    }
+
+    montarDescricaoEndereco(tipo, {
+        cep: dados.cep || "",
+        logradouro: dados.logradouro || "",
+        bairro: dados.bairro || "",
+        cidade: dados.localidade || "",
+        estado: dados.uf || ""
+    });
+}
+
+function abrirModalEndereco(tipo, dados) {
+    const rotulo = tipo === "inicial" ? "Detalhes do endereço inicial" : "Detalhes do endereço final";
+    modalEnderecoTitulo.textContent = rotulo;
+    modalCep.textContent = dados.cep || "Não informado";
+    modalLogradouro.textContent = dados.logradouro || "Não informado";
+    modalBairro.textContent = dados.bairro || "Não informado";
+    modalCidade.textContent = dados.localidade || "Não informado";
+    modalEstado.textContent = dados.uf || "Não informado";
+    modalEndereco.classList.add("is-visible");
+    modalEndereco.setAttribute("aria-hidden", "false");
+}
+
+function extrairCep(texto) {
+    if (!texto || typeof texto !== "string") {
+        return null;
+    }
+
+    const match = texto.match(/\d{5}-\d{3}/);
+    return match ? match[0] : null;
+}
+
+async function abrirModalComCepInformado(cep, rotulo = "Detalhes do endereço") {
+    const valorCep = formatarCep(cep || "");
+
+    if (!valorCep || !/^\d{5}-\d{3}$/.test(valorCep)) {
+        mostrarMensagem("Nenhum CEP válido foi encontrado para abrir os detalhes do endereço.");
+        return;
+    }
+
+    try {
+        const resposta = await fetch(`https://viacep.com.br/ws/${valorCep.replace(/\D/g, "")}/json/`);
+
+        if (!resposta.ok) {
+            throw new Error("Falha de comunicação com a API de CEP.");
+        }
+
+        const dados = await resposta.json();
+
+        if (dados.erro) {
+            mostrarMensagem("CEP não encontrado.");
+            return;
+        }
+
+        modalEnderecoTitulo.textContent = rotulo;
+        modalCep.textContent = dados.cep || "Não informado";
+        modalLogradouro.textContent = dados.logradouro || "Não informado";
+        modalBairro.textContent = dados.bairro || "Não informado";
+        modalCidade.textContent = dados.localidade || "Não informado";
+        modalEstado.textContent = dados.uf || "Não informado";
+        modalEndereco.classList.add("is-visible");
+        modalEndereco.setAttribute("aria-hidden", "false");
+    } catch (erro) {
+        console.error("Erro ao abrir modal do CEP da tabela:", erro);
+        mostrarMensagem("Não foi possível consultar os detalhes do CEP selecionado.");
+    }
+}
+
+function fecharModalEndereco() {
+    modalEndereco.classList.remove("is-visible");
+    modalEndereco.setAttribute("aria-hidden", "true");
+}
+
+async function consultarCep(tipo) {
+    const cepInput = camposEndereco[tipo].cep;
+    const cep = formatarCep(cepInput.value);
+
+    if (!cep || !/^\d{5}-\d{3}$/.test(cep)) {
+        mostrarMensagem("Informe um CEP válido para consultar o endereço.");
+        return;
+    }
+
+    try {
+        const resposta = await fetch(`https://viacep.com.br/ws/${cep.replace(/\D/g, "")}/json/`);
+
+        if (!resposta.ok) {
+            throw new Error("Falha de comunicação com a API de CEP.");
+        }
+
+        const dados = await resposta.json();
+
+        if (dados.erro) {
+            mostrarMensagem("CEP não encontrado. Verifique o número informado.");
+            return;
+        }
+
+        atualizarCamposEndereco(tipo, dados);
+        abrirModalEndereco(tipo, dados);
+    } catch (erro) {
+        console.error("Erro ao consultar CEP:", erro);
+        mostrarMensagem("Não foi possível consultar o CEP neste momento. Verifique a conexão com a internet e tente novamente.");
+    }
+}
+
+function configurarConsultasCep() {
+    Object.keys(camposEndereco).forEach((tipo) => {
+        const entradaCep = camposEndereco[tipo].cep;
+
+        if (entradaCep) {
+            entradaCep.addEventListener("input", (event) => {
+                event.target.value = formatarCep(event.target.value);
+            });
+
+            entradaCep.addEventListener("keydown", (event) => {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    consultarCep(tipo);
+                }
+            });
+        }
+    });
+
+    if (btnFecharModal) {
+        btnFecharModal.addEventListener("click", fecharModalEndereco);
+    }
+
+    if (modalEndereco) {
+        modalEndereco.addEventListener("click", (event) => {
+            if (event.target === modalEndereco) {
+                fecharModalEndereco();
+            }
+        });
     }
 }
 
@@ -111,17 +361,36 @@ function mostrarRotas(lista) {
         colunaNome.textContent = rota.nome;
 
         const colunaInicio = document.createElement("td");
-        colunaInicio.textContent = rota.localizacao_inicial;
+        const cepInicio = extrairCep(rota.localizacao_inicial || "");
+        if (cepInicio) {
+            const spanInicio = document.createElement("span");
+            spanInicio.textContent = rota.localizacao_inicial;
+            spanInicio.style.cursor = "pointer";
+            spanInicio.style.textDecoration = "underline";
+            spanInicio.addEventListener("click", () => abrirModalComCepInformado(cepInicio, "Detalhes do endereço inicial"));
+            colunaInicio.appendChild(spanInicio);
+        } else {
+            colunaInicio.textContent = rota.localizacao_inicial;
+        }
 
         const colunaFim = document.createElement("td");
-        colunaFim.textContent = rota.localizacao_final;
+        const cepFim = extrairCep(rota.localizacao_final || "");
+        if (cepFim) {
+            const spanFim = document.createElement("span");
+            spanFim.textContent = rota.localizacao_final;
+            spanFim.style.cursor = "pointer";
+            spanFim.style.textDecoration = "underline";
+            spanFim.addEventListener("click", () => abrirModalComCepInformado(cepFim, "Detalhes do endereço final"));
+            colunaFim.appendChild(spanFim);
+        } else {
+            colunaFim.textContent = rota.localizacao_final;
+        }
 
         const colunaAcoes = document.createElement("td");
-        
-        
+
         const botaoEditar = document.createElement("button");
         botaoEditar.type = "button";
-        botaoEditar.innerHTML =  '<i class="bi bi-pencil-square"></i>';
+        botaoEditar.innerHTML = '<i class="bi bi-pencil-square"></i>';
         botaoEditar.className = "botao-rotas";
         botaoEditar.addEventListener("click", () => {
             editarRota(rota.id);
@@ -148,7 +417,6 @@ function mostrarRotas(lista) {
     });
 }
 
-
 function filtrarRotas() {
     const busca = campoBusca.value.trim().toLowerCase();
 
@@ -170,11 +438,11 @@ async function salvarRota() {
     }
 
     const nome = nomeInput.value.trim();
-    const inicio = inicioInput.value.trim();
-    const fim = fimInput.value.trim();
+    const inicio = montarDescricaoEndereco("inicial").trim();
+    const fim = montarDescricaoEndereco("final").trim();
 
     if (!nome || !inicio || !fim) {
-        mostrarMensagem("Preencha todos os campos.");
+        mostrarMensagem("Preencha todos os campos e consulte os CEPs para completar os endereços.");
         return;
     }
 
@@ -210,7 +478,6 @@ async function salvarRota() {
         botaoAdicionar.disabled = false;
     }
 }
-
 
 function editarRota(id) {
     if (!exigirPermissaoAdmin()) {
@@ -261,9 +528,7 @@ async function excluirRota(id) {
         return;
     }
 
-    const confirmar = confirm(
-        "Tem certeza de que deseja excluir esta rota?"
-    );
+    const confirmar = confirm("Tem certeza de que deseja excluir esta rota?");
 
     if (!confirmar) {
         return;
@@ -293,8 +558,8 @@ async function excluirRota(id) {
 }
 
 botaoAdicionar.addEventListener("click", salvarRota);
-
 campoBusca.addEventListener("input", filtrarRotas);
+configurarConsultasCep();
 
 document.addEventListener("DOMContentLoaded", carregarRotas);
 

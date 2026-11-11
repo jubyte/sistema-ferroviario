@@ -304,6 +304,129 @@ body {
     padding-left: 10px;
 }
 
+.endereco-card {
+    background: rgba(14, 20, 46, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    padding: 16px;
+    height: 100%;
+}
+
+.cep-card {
+    min-height: 120px;
+}
+
+.endereco-card h3 {
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #dfe9ff;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.input-cep-group {
+    display: flex;
+    gap: 8px;
+}
+
+.cep-input {
+    flex: 1;
+}
+
+.btn-cep-consultar {
+    flex-shrink: 0;
+    border: 1px solid rgba(255,255,255,0.35);
+    background: #142a5d;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 6px 8px;
+    border-radius: 0;
+}
+
+.btn-cep-consultar:hover {
+    background: #1c3d85;
+    color: #fff;
+}
+
+.modal-endereco {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.modal-endereco.is-visible {
+    display: flex;
+}
+
+.modal-endereco-content {
+    width: min(560px, 92vw);
+    background: #000625;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    padding: 18px 20px;
+}
+
+.modal-endereco-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.modal-endereco-header h3 {
+    margin: 0;
+    color: #fff;
+    letter-spacing: 1.5px;
+    font-size: 18px;
+}
+
+.btn-fechar-modal {
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-size: 32px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.modal-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.modal-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 12px;
+}
+
+.modal-item span {
+    font-size: 11px;
+    color: #a7b7d6;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.modal-item strong {
+    font-size: 14px;
+    color: #fff;
+    word-break: break-word;
+}
+
+.modal-item-wide {
+    grid-column: 1 / -1;
+}
+
 /* SELECT */
 
 .select-custom {
@@ -1548,4 +1671,12 @@ body.pagina-institucional {
 
 .clima-box{
     width: 30%;
+}
+
+.endereco-rota{
+    width: 20%;
+}
+
+.nome-rota{
+    width: 40%;
 }
