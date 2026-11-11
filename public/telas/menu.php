@@ -202,13 +202,13 @@ $conn->close();
                 </div>
             </div>
             <div class="card-painel">
-                <div class="icone-card vermelho">
+                <div id="iconeIntegridadeSistema" class="icone-card vermelho">
                     <i class="bi bi-activity"></i>
                 </div>
                 <div class="info-card">
                     <h3>INTEGRI-<br>DADE</h3>
-                    <strong class="texto-vermelho"><?= htmlspecialchars((string) $integridade, ENT_QUOTES, 'UTF-8') ?>%</strong>
-                    <span>STATUS DA<br>REDE</span>
+                    <strong id="integridadeSistema" class="texto-vermelho"><?= htmlspecialchars((string) $integridade, ENT_QUOTES, 'UTF-8') ?>%</strong>
+                    <span id="statusIntegridadeSistema">STATUS DO<br>SISTEMA</span>
                 </div>
             </div>
             <div class="card-painel">
@@ -282,5 +282,67 @@ $conn->close();
 
     <script src="../../script/usuarios.js"></script>
     <script src="../../script/previsao_clima.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const integridadeSistema = document.getElementById('integridadeSistema');
+            const statusIntegridadeSistema = document.getElementById('statusIntegridadeSistema');
+            const iconeIntegridadeSistema = document.getElementById('iconeIntegridadeSistema');
+
+            if (!integridadeSistema || !statusIntegridadeSistema || !iconeIntegridadeSistema) {
+                return;
+            }
+
+            const endpoints = [
+                'crud_usuarios/listar_usuario.php',
+                'crud_rotas/listar.php',
+                'crud_sensores/listar_sensor.php',
+                'crud_trens/listar_trem.php'
+            ];
+
+            let atendidos = 0;
+
+            for (const endpoint of endpoints) {
+                try {
+                    const resposta = await fetch(endpoint, {
+                        method: 'GET',
+                        cache: 'no-store'
+                    });
+
+                    if (!resposta.ok) {
+                        throw new Error(`HTTP ${resposta.status}`);
+                    }
+
+                    const dados = await resposta.json();
+
+                    if (!dados || dados.status !== 'success') {
+                        throw new Error('Resposta inválida');
+                    }
+
+                    atendidos += 1;
+                } catch (error) {
+                    console.warn('CRUD indisponível:', endpoint, error);
+                }
+            }
+
+            const percentual = Math.round((atendidos / endpoints.length) * 100);
+            integridadeSistema.textContent = `${percentual}%`;
+            integridadeSistema.classList.remove('texto-vermelho', 'texto-amarelo', 'texto-azul');
+            iconeIntegridadeSistema.classList.remove('vermelho', 'texto-vermelho', 'texto-amarelo', 'texto-azul');
+
+            if (percentual === 100) {
+                statusIntegridadeSistema.innerHTML = 'SISTEMA<br>ONLINE';
+                integridadeSistema.classList.add('texto-azul');
+                iconeIntegridadeSistema.classList.add('texto-azul');
+            } else if (percentual >= 75) {
+                statusIntegridadeSistema.innerHTML = 'ATENÇÃO<br>NO SISTEMA';
+                integridadeSistema.classList.add('texto-amarelo');
+                iconeIntegridadeSistema.classList.add('texto-amarelo');
+            } else {
+                statusIntegridadeSistema.innerHTML = 'SISTEMA<br>CRÍTICO';
+                integridadeSistema.classList.add('texto-vermelho');
+                iconeIntegridadeSistema.classList.add('texto-vermelho');
+            }
+        });
+    </script>
 </body>
 </html>
