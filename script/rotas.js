@@ -172,6 +172,14 @@ function atualizarCamposEndereco(tipo, dados) {
     });
 }
 
+function abrirDetalhesDaRota(rotaId) {
+    if (!rotaId) {
+        return;
+    }
+
+    window.location.href = `rota_detalhes.php?id=${rotaId}`;
+}
+
 function abrirModalEndereco(tipo, dados) {
     const rotulo = tipo === "inicial" ? "Detalhes do endereço inicial" : "Detalhes do endereço final";
     modalEnderecoTitulo.textContent = rotulo;
@@ -358,17 +366,21 @@ function mostrarRotas(lista) {
         colunaId.textContent = rota.id;
 
         const colunaNome = document.createElement("td");
-        colunaNome.textContent = rota.nome;
+        const linkNome = document.createElement("a");
+        linkNome.href = `rota_detalhes.php?id=${rota.id}`;
+        linkNome.textContent = rota.nome;
+        linkNome.className = "usuario-link";
+        colunaNome.appendChild(linkNome);
 
         const colunaInicio = document.createElement("td");
         const cepInicio = extrairCep(rota.localizacao_inicial || "");
         if (cepInicio) {
-            const spanInicio = document.createElement("span");
-            spanInicio.textContent = rota.localizacao_inicial;
-            spanInicio.style.cursor = "pointer";
-            spanInicio.style.textDecoration = "underline";
-            spanInicio.addEventListener("click", () => abrirModalComCepInformado(cepInicio, "Detalhes do endereço inicial"));
-            colunaInicio.appendChild(spanInicio);
+            const linkInicio = document.createElement("a");
+            linkInicio.href = `rota_detalhes.php?id=${rota.id}`;
+            linkInicio.textContent = rota.localizacao_inicial;
+            linkInicio.className = "usuario-link";
+            linkInicio.style.display = "inline-block";
+            colunaInicio.appendChild(linkInicio);
         } else {
             colunaInicio.textContent = rota.localizacao_inicial;
         }
@@ -376,12 +388,12 @@ function mostrarRotas(lista) {
         const colunaFim = document.createElement("td");
         const cepFim = extrairCep(rota.localizacao_final || "");
         if (cepFim) {
-            const spanFim = document.createElement("span");
-            spanFim.textContent = rota.localizacao_final;
-            spanFim.style.cursor = "pointer";
-            spanFim.style.textDecoration = "underline";
-            spanFim.addEventListener("click", () => abrirModalComCepInformado(cepFim, "Detalhes do endereço final"));
-            colunaFim.appendChild(spanFim);
+            const linkFim = document.createElement("a");
+            linkFim.href = `rota_detalhes.php?id=${rota.id}`;
+            linkFim.textContent = rota.localizacao_final;
+            linkFim.className = "usuario-link";
+            linkFim.style.display = "inline-block";
+            colunaFim.appendChild(linkFim);
         } else {
             colunaFim.textContent = rota.localizacao_final;
         }

@@ -660,6 +660,7 @@ body {
     gap: 8px;
     box-sizing: border-box;
     align-items: stretch;
+    margin-top: 1%;
 }
 
 .item-trem {
@@ -1043,6 +1044,18 @@ a {
     color: #ff1717;
 }
 
+.icone-card.texto-azul {
+    color: #2143ce;
+}
+
+.icone-card.texto-amarelo {
+    color: #f39a0b;
+}
+
+.icone-card.texto-vermelho {
+    color: #ff1717;
+}
+
 .info-card {
     margin-left: 10px;
 }
@@ -1065,6 +1078,26 @@ a {
 
 .info-card .texto-vermelho {
     color: #ff1717;
+}
+
+.info-card .texto-amarelo {
+    color: #f39a0b;
+}
+
+.info-card .texto-azul {
+    color: #2143ce;
+}
+
+.info-card .texto-amarelo {
+    color: #f39a0b;
+}
+
+.info-card .texto-vermelho {
+    color: #ff1717;
+}
+
+.icone-card.icone-integridade.texto-azul {
+    color: #0f2680;
 }
 
 .info-card span {
