@@ -164,15 +164,34 @@ body {
     background: rgba(255, 255, 255, 0.795);
 }
 
-.usuario-box {
+.usuario-box-link {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    color: inherit;
     margin-top: 22px;
+}
+
+.usuario-box-link:hover {
+    text-decoration: none;
+}
+
+.usuario-box {
+    width: 100%;
     padding: 18px 20px;
     gap: 15px;
     background: #07102b;
     border: 1px solid rgba(255, 255, 255, 0.795);
     display: flex;
     align-items: center;
-    height: 10vh;
+    min-height: 10vh;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.usuario-box:hover {
+    border-color: #5d9afe;
+    background: #0d1738;
 }
 
 .usuario-box i {
@@ -521,9 +540,31 @@ body {
 .cabecalho {
     font-family: 'Science Gothic', sans-serif;
     color: #d7d7d8;
-    font-weight: bold;
     letter-spacing: 2px;
     margin-bottom: 2%;
+}
+
+.cabecalho h2,
+.cabecalho h4 {
+    font-family: 'Science Gothic', sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    line-height: 1.2;
+    margin: 0;
+    color: #d7d7d8;
+}
+
+.cabecalho h2 {
+    font-size: 2.2rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.cabecalho h4 {
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.9;
 }
 
 .titulo-menu {
@@ -786,6 +827,44 @@ body {
 .table td {
     background-color: rgb(11, 21, 63);
     color: white;
+}
+
+.usuario-link {
+    color: #dfe9ff;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.usuario-link:hover {
+    color: #9ec1ff;
+}
+
+.usuario-detalhes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.usuario-detalhe-item {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 14px 16px;
+}
+
+.usuario-detalhe-item span {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #a7b7d6;
+    margin-bottom: 8px;
+}
+
+.usuario-detalhe-item strong {
+    color: white;
+    font-size: 15px;
+    word-break: break-word;
 }
 
 .status-ativo {

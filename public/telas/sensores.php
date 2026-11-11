@@ -35,14 +35,16 @@ if (!isset($_SESSION["email"])) {
             <div class="logo-line"></div>
         </div>
 
-        <div class="usuario-box">
-            <i class="bi bi-person-fill"></i>
+        <a href="usuario_detalhes.php?id=<?= htmlspecialchars((string) ($_SESSION["id"] ?? 0), ENT_QUOTES, 'UTF-8') ?>" class="usuario-box-link">
+            <div class="usuario-box">
+                <i class="bi bi-person-fill"></i>
 
-            <div class="usuario-info">
-                <span>Usuário</span>
-                <p id="emailusuario"><?= htmlspecialchars($_SESSION["email"], ENT_QUOTES, 'UTF-8') ?></p>
+                <div class="usuario-info">
+                    <span>Usuário</span>
+                    <p id="emailusuario"><?= htmlspecialchars($_SESSION["email"], ENT_QUOTES, 'UTF-8') ?></p>
+                </div>
             </div>
-        </div>
+        </a>
 
         <nav class="menu">
             <a href="menu.php" class="menu-item">

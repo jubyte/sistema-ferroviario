@@ -7,7 +7,7 @@ try {
 
     if ($busca !== '') {
         if (is_numeric($busca)) {
-            $sql = "SELECT id, nome, email, telefone, tipo, status FROM usuarios WHERE nome LIKE ? OR id = ? ORDER BY id ASC";
+            $sql = "SELECT id, nome, email, telefone, cep, logradouro, bairro, cidade, estado, tipo, status FROM usuarios WHERE nome LIKE ? OR id = ? ORDER BY id ASC";
             $stmt = $conn->prepare($sql);
             $nomeBusca = "%$busca%";
 
@@ -15,7 +15,7 @@ try {
             $stmt->bind_param('si', $nomeBusca, $idBusca);
 
         } else {
-            $sql = "SELECT id, nome, email, telefone, tipo, status FROM usuarios WHERE nome LIKE ? ORDER BY id ASC";
+            $sql = "SELECT id, nome, email, telefone, cep, logradouro, bairro, cidade, estado, tipo, status FROM usuarios WHERE nome LIKE ? ORDER BY id ASC";
             $stmt = $conn->prepare($sql);
             $nomeBusca = "%$busca%";
 
@@ -26,7 +26,7 @@ try {
         $resultado = $stmt->get_result();
 
     } else {
-        $sql = "SELECT id, nome, email, telefone, tipo, status FROM usuarios ORDER BY id ASC";
+        $sql = "SELECT id, nome, email, telefone, cep, logradouro, bairro, cidade, estado, tipo, status FROM usuarios ORDER BY id ASC";
         $resultado = $conn->query($sql);
     }
     $usuarios = $resultado->fetch_all(MYSQLI_ASSOC);

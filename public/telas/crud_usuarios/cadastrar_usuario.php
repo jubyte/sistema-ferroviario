@@ -32,10 +32,19 @@ $nome = trim($_POST['nome'] ?? '');
 $email = trim($_POST['email'] ?? '');
 $telefone = trim($_POST['telefone'] ?? '');
 $tipo = trim($_POST['tipo'] ?? '');
+$cep = trim($_POST['cep'] ?? '');
+$logradouro = trim($_POST['logradouro'] ?? '');
+$bairro = trim($_POST['bairro'] ?? '');
+$cidade = trim($_POST['cidade'] ?? '');
+$estado = trim($_POST['estado'] ?? '');
 $senha = $_POST['senha'] ?? ''; // sem trim: espaços podem fazer parte da senha
 
 if ($nome === '' || $email === '' || $telefone === '' || $tipo === '' || $senha === '') {
     responder('error', 'Preencha todos os campos.', 400);
+}
+
+if ($cep !== '' && !preg_match('/^\d{5}-\d{3}$/', $cep)) {
+    responder('error', 'CEP inválido. Informe um CEP no formato 00000-000.', 400);
 }
 
 if (!preg_match('/^[\p{L}\s]+$/u', $nome) || mb_strlen($nome) > 100) {
@@ -61,13 +70,19 @@ if (!in_array($tipo, $tiposPermitidos, true)) {
     responder('error', 'Tipo de usuário inválido.', 400);
 }
 
+$cep = $cep !== '' ? $cep : null;
+$logradouro = $logradouro !== '' ? $logradouro : null;
+$bairro = $bairro !== '' ? $bairro : null;
+$cidade = $cidade !== '' ? $cidade : null;
+$estado = $estado !== '' ? $estado : null;
+
 $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
 try {
-    $sql = "INSERT INTO usuarios (nome, email, telefone, senha, tipo, status) VALUES (?, ?, ?, ?, ?, 'Ativo')";
+    $sql = "INSERT INTO usuarios (nome, email, telefone, cep, logradouro, bairro, cidade, estado, senha, tipo, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Ativo')";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('sssss', $nome, $email, $telefone, $senhaHash, $tipo);
+    $stmt->bind_param('ssssssssss', $nome, $email, $telefone, $cep, $logradouro, $bairro, $cidade, $estado, $senhaHash, $tipo);
     $stmt->execute();
     $stmt->close();
 

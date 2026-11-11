@@ -35,14 +35,16 @@ if (!isset($_SESSION["email"])) {
             <div class="logo-line"></div>
         </div>
 
-        <div class="usuario-box">
-            <i class="bi bi-person-fill"></i>
+        <a href="usuario_detalhes.php?id=<?= htmlspecialchars((string) ($_SESSION["id"] ?? 0), ENT_QUOTES, 'UTF-8') ?>" class="usuario-box-link">
+            <div class="usuario-box">
+                <i class="bi bi-person-fill"></i>
 
-            <div class="usuario-info">
-                <span>Usuário</span>
-                <p id="emailusuario"><?= htmlspecialchars($_SESSION["email"], ENT_QUOTES, 'UTF-8') ?></p>
+                <div class="usuario-info">
+                    <span>Usuário</span>
+                    <p id="emailusuario"><?= htmlspecialchars($_SESSION["email"], ENT_QUOTES, 'UTF-8') ?></p>
+                </div>
             </div>
-        </div>
+        </a>
 
         <nav class="menu">
             <a href="menu.php" class="menu-item">
@@ -90,27 +92,27 @@ if (!isset($_SESSION["email"])) {
             </h2>
 
             <div class="row g-4 align-items-end">
-                <div class="col">
+                <div class="col-12 col-lg-2">
                     <label for="nome" class="label-custom">NOME</label>
                     <input type="text" id="nome" class="form-control input-custom" maxlength="100" required>
                 </div>
 
-                <div class="col">
+                <div class="col-12 col-lg-2">
                     <label for="email" class="label-custom">E-MAIL</label>
                     <input type="email" id="email" class="form-control input-custom" maxlength="100" required>
                 </div>
 
-                <div class="col">
+                <div class="col-12 col-lg-2">
                     <label for="telefone" class="label-custom">TELEFONE</label>
                     <input type="tel" id="telefone" class="form-control input-custom" maxlength="20" required>
                 </div>
 
-                <div class="col">
+                <div class="col-12 col-lg-2">
                     <label for="senha" class="label-custom">SENHA</label>
                     <input type="password" id="senha" class="form-control input-custom" minlength="8" maxlength="72" autocomplete="new-password" required>
                 </div>
 
-                <div class="col">
+                <div class="col-12 col-lg-2">
                     <label for="tipo" class="label-custom">TIPO</label>
 
                     <select id="tipo" class="form-select input-custom select-custom" required>
@@ -120,10 +122,35 @@ if (!isset($_SESSION["email"])) {
                     </select>
                 </div>
 
-                <div class="col">
+                <div class="col-12 col-lg-2">
                     <button type="button" id="btnAdicionar" class="btn botao-custom w-100">
                         + ADICIONAR
                     </button>
+                </div>
+
+                <div class="col-12 col-lg-2">
+                    <label for="cep" class="label-custom">CEP</label>
+                    <input type="text" id="cep" class="form-control input-custom" maxlength="9" placeholder="00000-000">
+                </div>
+
+                <div class="col-12 col-lg-3">
+                    <label for="logradouro" class="label-custom">LOGRADOURO</label>
+                    <input type="text" id="logradouro" class="form-control input-custom" readonly>
+                </div>
+
+                <div class="col-12 col-lg-2">
+                    <label for="bairro" class="label-custom">BAIRRO</label>
+                    <input type="text" id="bairro" class="form-control input-custom" readonly>
+                </div>
+
+                <div class="col-12 col-lg-3">
+                    <label for="cidade" class="label-custom">CIDADE</label>
+                    <input type="text" id="cidade" class="form-control input-custom" readonly>
+                </div>
+
+                <div class="col-12 col-lg-2">
+                    <label for="estado" class="label-custom">UF</label>
+                    <input type="text" id="estado" class="form-control input-custom" readonly>
                 </div>
             </div>
         </div>

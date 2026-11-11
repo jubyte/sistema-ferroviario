@@ -34,9 +34,18 @@ $id = trim($_POST['id'] ?? '');
 $nome = trim($_POST['nome'] ?? '');
 $email = trim($_POST['email'] ?? '');
 $telefone = trim($_POST['telefone'] ?? '');
+$cep = trim($_POST['cep'] ?? '');
+$logradouro = trim($_POST['logradouro'] ?? '');
+$bairro = trim($_POST['bairro'] ?? '');
+$cidade = trim($_POST['cidade'] ?? '');
+$estado = trim($_POST['estado'] ?? '');
 
 if ($id === '' || $nome === '' || $email === '' || $telefone === '') {
     responder('error', 'Preencha todos os campos.', 400);
+}
+
+if ($cep !== '' && !preg_match('/^\d{5}-\d{3}$/', $cep)) {
+    responder('error', 'CEP inválido. Informe um CEP no formato 00000-000.', 400);
 }
 
 if (!ctype_digit($id) || (int) $id < 1) {
@@ -73,12 +82,18 @@ try {
         responder('error', 'Usuário não encontrado.', 404);
     }
 
+    $cep = $cep !== '' ? $cep : null;
+    $logradouro = $logradouro !== '' ? $logradouro : null;
+    $bairro = $bairro !== '' ? $bairro : null;
+    $cidade = $cidade !== '' ? $cidade : null;
+    $estado = $estado !== '' ? $estado : null;
+
     $sql = "UPDATE usuarios
-            SET nome = ?, email = ?, telefone = ?
+            SET nome = ?, email = ?, telefone = ?, cep = ?, logradouro = ?, bairro = ?, cidade = ?, estado = ?
             WHERE id = ?";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('sssi', $nome, $email, $telefone, $id);
+    $stmt->bind_param('ssssssssi', $nome, $email, $telefone, $cep, $logradouro, $bairro, $cidade, $estado, $id);
     $stmt->execute();
     $stmt->close();
 
