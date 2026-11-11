@@ -1,16 +1,13 @@
 
-CREATE DATABASE IF NOT EXISTS mockingrail
-    CHARACTER SET utf8mb4
-    COLLATE utf8mb4_unicode_ci;
-
+CREATE DATABASE IF NOT EXISTS mockingrail;
 USE mockingrail;
 
 CREATE TABLE IF NOT EXISTS usuarios (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    email VARCHAR(150) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
     telefone VARCHAR(20) NOT NULL,
-    tipo VARCHAR(30) NOT NULL,
+    tipo VARCHAR(20) NOT NULL,
     senha VARCHAR(255) NOT NULL,
     status VARCHAR(20) NOT NULL DEFAULT 'Ativo',
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -22,9 +19,10 @@ CREATE TABLE IF NOT EXISTS trens (
     empresa VARCHAR(100) NOT NULL,
     tipo VARCHAR(20) NOT NULL,
     numero_vagoes INT NOT NULL,
+    responsavel_id INT UNSIGNED,
     status VARCHAR(20) NOT NULL DEFAULT 'Ativo',
-    responsavel_id INT UNSIGNED DEFAULT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
     CONSTRAINT fk_trens_usuarios
         FOREIGN KEY (responsavel_id)
         REFERENCES usuarios(id)
@@ -37,9 +35,10 @@ CREATE TABLE IF NOT EXISTS sensores (
     nome VARCHAR(100) NOT NULL,
     tipo VARCHAR(20) NOT NULL,
     localizacao VARCHAR(100) NOT NULL,
-    trem_id INT UNSIGNED DEFAULT NULL,
+    trem_id INT UNSIGNED,
     status VARCHAR(20) NOT NULL DEFAULT 'Ativo',
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
     CONSTRAINT fk_sensores_trens
         FOREIGN KEY (trem_id)
         REFERENCES trens(id)
@@ -52,9 +51,16 @@ CREATE TABLE IF NOT EXISTS rotas (
     nome VARCHAR(100) NOT NULL,
     localizacao_inicial VARCHAR(150) NOT NULL,
     localizacao_final VARCHAR(150) NOT NULL,
-    descricao TEXT NULL,
-    distancia DECIMAL(10,2) NULL,
-    tempo_estimado INT NULL,
+    trem_id INT UNSIGNED NOT NULL,
+    descricao TEXT,
+    distancia DECIMAL(10,2),
+    tempo_estimado INT,
+    status VARCHAR(20) NOT NULL DEFAULT 'Ativo',
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    status VARCHAR(20) NOT NULL DEFAULT 'Ativo'
+
+    CONSTRAINT fk_rotas_trens
+        FOREIGN KEY (trem_id)
+        REFERENCES trens(id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
 );
