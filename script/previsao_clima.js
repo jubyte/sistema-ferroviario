@@ -1,59 +1,101 @@
+(() => {
+
+    
 const cidadeInput = document.getElementById("cidade");
 const btnBuscar = document.getElementById("btnBuscar");
 const resultadoTempo = document.getElementById("resultadoTempo");
 
-btnBuscar.addEventListener("click", buscarPrevisao);
+if (!cidadeInput || !btnBuscar || !resultadoTempo) {
+    console.error("Elementos da previsão do tempo não encontrados.");
+} else {
 
-async function buscarPrevisao() {
-    const cidade = cidadeInput.value.trim();
+    btnBuscar.addEventListener("click", buscarPrevisao);
 
-    if (cidade === "") {
-        resultadoTempo.innerHTML = "<p>Digite uma cidade.</p>";
-        return;
-    }
+    cidadeInput.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            buscarPrevisao();
+        }
+    });
 
-    resultadoTempo.innerHTML = "<p>Buscando previsão...</p>";
+    async function buscarPrevisao() {
 
-    try {
-        const respostaCidade = await fetch(
-            `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cidade)}&count=1&language=pt&format=json`
-        );
+        const cidade = cidadeInput.value.trim();
 
-        const dadosCidade = await respostaCidade.json();
-
-        if (!dadosCidade.results || dadosCidade.results.length === 0) {
-            resultadoTempo.innerHTML = "<p>Cidade não encontrada.</p>";
+        if (cidade === "") {
+            resultadoTempo.innerHTML = "<p>Digite uma cidade.</p>";
             return;
         }
 
-        const local = dadosCidade.results[0];
+        resultadoTempo.innerHTML = "<p>Buscando previsão...</p>";
 
-        const latitude = local.latitude;
-        const longitude = local.longitude;
+        btnBuscar.disabled = true;
 
-        const respostaTempo = await fetch(
-            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m&timezone=auto`
-        );
+        try {
 
-        const dadosTempo = await respostaTempo.json();
+            const respostaCidade = await fetch(
+                `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cidade)}&count=1&language=pt&format=json`
+            );
 
-        resultadoTempo.innerHTML = `
-            <h3>${local.name}</h3>
+            if (!respostaCidade.ok) {
+                throw new Error("Erro ao consultar a localização.");
+            }
 
-            <p>Temperatura: ${dadosTempo.current.temperature_2m} °C</p>
+            const dadosCidade = await respostaCidade.json();
 
-            <p>Umidade: ${dadosTempo.current.relative_humidity_2m}%</p>
+            if (!dadosCidade.results || dadosCidade.results.length === 0) {
+                resultadoTempo.innerHTML = "<p>Cidade não encontrada.</p>";
+                return;
+            }
 
-            <p>Chuva: ${dadosTempo.current.precipitation} mm</p>
+            const local = dadosCidade.results[0];
 
-            <p>Vento: ${dadosTempo.current.wind_speed_10m} km/h</p>
-        `;
+            const respostaTempo = await fetch(
+                `https://api.open-meteo.com/v1/forecast?latitude=${local.latitude}&longitude=${local.longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m&timezone=auto`
+            );
 
-    } catch (erro) {
-        console.error(erro);
+            if (!respostaTempo.ok) {
+                throw new Error("Erro ao consultar a previsão.");
+            }
 
-        resultadoTempo.innerHTML = `
-            <p>Erro ao buscar a previsão do tempo.</p>
-        `;
+            const dadosTempo = await respostaTempo.json();
+
+            if (!dadosTempo.current) {
+                throw new Error("Dados meteorológicos indisponíveis.");
+            }
+
+            const clima = dadosTempo.current;
+
+            resultadoTempo.innerHTML = `
+                <h3>${local.name}</h3>
+
+                <p>${local.admin1 || ""} - ${local.country || ""}</p>
+
+                <p>Temperatura: ${clima.temperature_2m} °C</p>
+
+                <p>Sensação térmica: ${clima.apparent_temperature} °C</p>
+
+                <p>Umidade: ${clima.relative_humidity_2m}%</p>
+
+                <p>Chuva: ${clima.precipitation} mm</p>
+
+                <p>Vento: ${clima.wind_speed_10m} km/h</p>
+            `;
+
+        } catch (erro) {
+
+            console.error("Erro na previsão:", erro);
+
+            resultadoTempo.innerHTML = `
+                <p>Não foi possível buscar a previsão do tempo.</p>
+                <p>${erro.message}</p>
+            `;
+
+        } finally {
+
+            btnBuscar.disabled = false;
+
+        }
     }
 }
+
+})();

@@ -187,6 +187,20 @@ body {
     min-height: 10vh;
     box-sizing: border-box;
     transition: border-color 0.2s ease, background 0.2s ease;
+    overflow: hidden;
+}
+
+.usuario-info {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.usuario-info p {
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .usuario-box:hover {
@@ -646,6 +660,7 @@ body {
 .painel-trens {
     width: 100%;
     margin-top: 20px;
+    margin-bottom: 2%;
 }
 
 .painel-trens .titulo-secao {
@@ -1754,31 +1769,34 @@ body.pagina-institucional {
     white-space: nowrap;
 }
 
+.clima-busca{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0c132f;
+    border-radius: 4px;
+    border: 1px solid #3a547e;
+    margin: 0;
+    padding: 0;
+}
+
 .input-clima{
-    width: 70%;
-    height: 15%;
+    width: 65%;
     color: white;
     background-color: #0c132f;
     border: 0;
-    margin: 0;
-    padding: 0;
-    margin: 0 3.4% 0 0.5%;
+    outline: none;
+    padding: 8px 10px;
 }
 
 .btn-clima{
     width: 25%;
-    height: 15%;
     color: white;
     background-color: #0f2680;
     border-radius: 4px;
     border: 0;
-    margin: 0;
-}
-
-.clima-busca{
-    background-color: #0c132f;
-    border-radius: 4px;
-    border: 1px solid #3a547e;
+    padding: 8px 0;
+    cursor: pointer;
 }
 
 .clima-box{
