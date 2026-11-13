@@ -187,6 +187,20 @@ body {
     min-height: 10vh;
     box-sizing: border-box;
     transition: border-color 0.2s ease, background 0.2s ease;
+    overflow: hidden;
+}
+
+.usuario-info {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.usuario-info p {
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .usuario-box:hover {
@@ -649,6 +663,7 @@ body {
 .painel-trens {
     width: 100%;
     margin-top: 20px;
+    margin-bottom: 2%;
 }
 
 .painel-trens .titulo-secao {

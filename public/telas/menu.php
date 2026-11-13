@@ -280,7 +280,7 @@ $conn->close();
     </main> 
 
 
-    <script src="../../script/usuarios.js"></script>
+    
     <script src="../../script/previsao_clima.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
