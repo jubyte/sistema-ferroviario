@@ -648,13 +648,16 @@ body {
 }
 
 .area-monitoramento {
-    height: 290px;
+    min-height: 290px;
+    height: auto;
     background: #20243b;
     border-radius: 20px;
     justify-content: center;
     align-items: center;
     text-align: center;
     display: flex;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .painel-trens {
@@ -1769,38 +1772,99 @@ body.pagina-institucional {
     white-space: nowrap;
 }
 
-.clima-busca{
+#resultadoTempo {
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    background-color: #0c132f;
-    border-radius: 4px;
-    border: 1px solid #3a547e;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    box-sizing: border-box;
+}
+
+#resultadoTempo h3,
+#resultadoTempo p {
     margin: 0;
-    padding: 0;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .input-clima{
-    width: 65%;
+    flex: 1 1 auto;
+    width: 100%;
+    min-width: 0;
+    height: auto;
     color: white;
     background-color: #0c132f;
     border: 0;
-    outline: none;
-    padding: 8px 10px;
+    margin: 0;
+    padding: 10px 12px;
+    box-sizing: border-box;
 }
 
 .btn-clima{
-    width: 25%;
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 90px;
+    height: auto;
     color: white;
     background-color: #0f2680;
     border-radius: 4px;
     border: 0;
-    padding: 8px 0;
+    margin: 0;
+    padding: 10px 14px;
     cursor: pointer;
 }
 
+.clima-busca{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    background-color: #0c132f;
+    border-radius: 4px;
+    border: 1px solid #3a547e;
+    padding: 6px 8px;
+    box-sizing: border-box;
+}
+
 .clima-box{
-    width: 30%;
+    width: min(100%, 420px);
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+@media (max-width: 600px) {
+    .area-monitoramento {
+        padding: 15px;
+    }
+
+    .clima-box {
+        width: 100%;
+    }
+
+    .clima-busca {
+        flex-wrap: wrap;
+    }
+
+    .input-clima,
+    .btn-clima {
+        width: 100%;
+    }
+
+    .btn-clima {
+        margin-top: 4px;
+    }
 }
 
 .endereco-rota{
