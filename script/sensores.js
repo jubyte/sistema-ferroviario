@@ -1,11 +1,13 @@
 let sensores = [];
 let trensDisponiveis = [];
+let rotasDisponiveis = [];
 let sensorEditando = null;
 
 const nomeInput = document.getElementById("nome");
 const tipoInput = document.getElementById("tipo");
 const localInput = document.getElementById("local");
 const tremInput = document.getElementById("trem_id");
+const rotaInput = document.getElementById("rota_id");
 const statusInput = document.getElementById("status");
 
 const botaoAdicionar = document.getElementById("btnAdicionar");
@@ -120,6 +122,34 @@ function carregarListaTrens() {
         });
 }
 
+function carregarListaRotas() {
+    fetch("crud_rotas/listar.php")
+        .then(tratarResposta)
+        .then(function(data) {
+            if (data.status !== "success" || !Array.isArray(data.rotas)) {
+                throw new Error(data.message || "Não foi possível carregar as rotas.");
+            }
+
+            rotasDisponiveis = data.rotas;
+
+            rotaInput.innerHTML =
+                '<option value="">Selecione a rota</option>';
+
+            rotasDisponiveis.forEach(function(rota) {
+                const opcao = document.createElement("option");
+                opcao.value = rota.id;
+                opcao.textContent = rota.nome;
+                rotaInput.appendChild(opcao);
+            });
+        })
+        .catch(function(error) {
+            console.error("Erro ao carregar rotas:", error);
+            if (rotaInput) {
+                rotaInput.innerHTML = '<option value="">Erro ao carregar rotas</option>';
+            }
+        });
+}
+
 function carregarSensores() {
     fetch("crud_sensores/listar_sensor.php")
         .then(tratarResposta)
@@ -160,6 +190,7 @@ function mostrarSensores(lista) {
             <td>${escapar(sensor.tipo)}</td>
             <td>${escapar(localFormatado)}</td>
             <td>${escapar(sensor.trem_nome || "Não associado")}</td>
+            <td>${escapar(sensor.rota_nome || "Não associada")}</td>
             <td>${escapar(sensor.status)}</td>
             <td>
                 <button type="button" class="btn-acao"
@@ -249,10 +280,11 @@ botaoAdicionar.addEventListener("click", function() {
     const tipo = tipoInput.value;
     const local = localInput.value.trim();
     const tremId = tremInput.value;
+    const rotaId = rotaInput.value;
     const status = statusInput.value;
 
-    if (!nome || !tipo || !local) {
-        alert("Preencha o nome, o tipo e a localização do sensor.");
+    if (!nome || !tipo || !local || !rotaId) {
+        alert("Preencha o nome, o tipo, a localização e a rota responsável do sensor.");
         return;
     }
 
@@ -262,6 +294,7 @@ botaoAdicionar.addEventListener("click", function() {
     dados.append("tipo", tipo);
     dados.append("local", local);
     dados.append("trem_id", tremId);
+    dados.append("rota_id", rotaId);
     dados.append("status", status);
 
     // Se estiver editando, envia pro o PHP de edição
@@ -329,6 +362,7 @@ function editarSensor(id) {
     tipoInput.value = sensor.tipo;
     localInput.value = sensor.local;
     tremInput.value = sensor.trem_id ?? "";
+    rotaInput.value = sensor.rota_id ?? "";
     statusInput.value = sensor.status;
 
     botaoAdicionar.textContent = "SALVAR ALTERAÇÕES";
@@ -366,6 +400,7 @@ function limparFormulario() {
     tipoInput.value = "";
     localInput.value = "";
     tremInput.value = "";
+    rotaInput.value = "";
     statusInput.value = "Ativo";
 
     botaoAdicionar.textContent = "+ ADICIONAR";
@@ -424,4 +459,5 @@ function excluirSensor(id) {
 }
 
 carregarListaTrens();
+carregarListaRotas();
 carregarSensores();

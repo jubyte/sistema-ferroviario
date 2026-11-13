@@ -73,7 +73,7 @@ if (!isset($_SESSION["email"])) {
             </a>
         </nav>
 
-        <a href="login.php" class="sair">
+        <a href="../../index.php" class="sair">
             <i class="bi bi-box-arrow-left"></i>
             <span>SAIR</span>
         </a>
@@ -134,6 +134,15 @@ if (!isset($_SESSION["email"])) {
                 </div>
 
                 <div class="col">
+                    <label for="rota_id" class="label-custom">ROTA RESPONSÁVEL</label>
+                    <select id="rota_id"
+                            class="form-select input-custom select-custom"
+                            required>
+                        <option value="">Carregando rotas...</option>
+                    </select>
+                </div>
+
+                <div class="col">
                     <label for="status" class="label-custom">STATUS</label>
                     <select id="status"
                             class="form-select input-custom select-custom"
@@ -171,6 +180,7 @@ if (!isset($_SESSION["email"])) {
                         <th>TIPO</th>
                         <th>LOCALIZAÇÃO</th>
                         <th>TREM ASSOCIADO</th>
+                        <th>ROTA RESPONSÁVEL</th>
                         <th>STATUS</th>
                         <th>AÇÕES</th>
                     </tr>

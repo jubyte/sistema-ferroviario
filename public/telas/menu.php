@@ -139,7 +139,7 @@ $conn->close();
 
         </nav>
 
-        <a href="login.php" class="sair">
+        <a href="../../index.php" class="sair">
         <i class="bi bi-box-arrow-left"></i>
         <span>SAIR</span> </a>
 

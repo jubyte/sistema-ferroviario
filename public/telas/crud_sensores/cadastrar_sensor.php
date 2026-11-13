@@ -35,6 +35,7 @@ $tipo = trim($_POST['tipo'] ?? '');
 $local = trim($_POST['local'] ?? '');
 $status = trim($_POST['status'] ?? '');
 $tremIdRecebido = trim($_POST['trem_id'] ?? '');
+$rotaIdRecebido = trim($_POST['rota_id'] ?? '');
 
 if ($nome === '' || $tipo === '' || $local === '' || $status === '') {
     responder('error', 'Preencha nome, tipo, localização e status.', 400);
@@ -79,8 +80,15 @@ if ($tremIdRecebido !== '') {
     $tremId = (int)$tremIdRecebido;
 }
 
+$rotaId = null;
+
+if ($rotaIdRecebido === '' || !ctype_digit($rotaIdRecebido) || (int)$rotaIdRecebido < 1) {
+    responder('error', 'Selecione uma rota válida.', 400);
+}
+
+$rotaId = (int)$rotaIdRecebido;
+
 try {
-    // Confere se o trem selecionado realmente existe.
     if ($tremId !== null) {
         $sqlVerificar = "SELECT id FROM trens WHERE id = ?";
         $stmtVerificar = $conn->prepare($sqlVerificar);
@@ -101,9 +109,27 @@ try {
         }
     }
 
+    $sqlVerificarRota = "SELECT id FROM rotas WHERE id = ?";
+    $stmtVerificarRota = $conn->prepare($sqlVerificarRota);
+
+    if (!$stmtVerificarRota) {
+        throw new RuntimeException('Falha ao verificar a rota.');
+    }
+
+    $stmtVerificarRota->bind_param('i', $rotaId);
+    $stmtVerificarRota->execute();
+    $stmtVerificarRota->store_result();
+
+    $rotaExiste = $stmtVerificarRota->num_rows > 0;
+    $stmtVerificarRota->close();
+
+    if (!$rotaExiste) {
+        responder('error', 'A rota selecionada não existe.', 400);
+    }
+
     $sql = "INSERT INTO sensores
-            (nome, tipo, localizacao, trem_id, status)
-            VALUES (?, ?, ?, ?, ?)";
+            (nome, tipo, localizacao, trem_id, rota_id, status)
+            VALUES (?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
 
@@ -112,11 +138,12 @@ try {
     }
 
     $stmt->bind_param(
-        'sssis',
+        'sssiis',
         $nome,
         $tipo,
         $local,
         $tremId,
+        $rotaId,
         $status
     );
 

@@ -33,6 +33,7 @@ $tipo = trim($_POST['tipo'] ?? '');
 $local = trim($_POST['local'] ?? '');
 $status = trim($_POST['status'] ?? '');
 $tremTexto = trim($_POST['trem_id'] ?? '');
+$rotaTexto = trim($_POST['rota_id'] ?? '');
 
 $tiposPermitidos = [
     'Velocidade', 'Localizacao', 'Energia',
@@ -73,19 +74,44 @@ if ($tremTexto !== '') {
     $tremId = (int)$tremTexto;
 }
 
+if ($rotaTexto === '' || !ctype_digit($rotaTexto) || (int)$rotaTexto < 1) {
+    responder('error', 'Selecione uma rota válida.', 400);
+}
+
+$rotaId = (int)$rotaTexto;
+
 try {
+    $sqlVerificarRota = "SELECT id FROM rotas WHERE id = ?";
+    $stmtVerificarRota = $conn->prepare($sqlVerificarRota);
+
+    if (!$stmtVerificarRota) {
+        throw new RuntimeException('Falha ao verificar a rota.');
+    }
+
+    $stmtVerificarRota->bind_param('i', $rotaId);
+    $stmtVerificarRota->execute();
+    $stmtVerificarRota->store_result();
+
+    $rotaExiste = $stmtVerificarRota->num_rows > 0;
+    $stmtVerificarRota->close();
+
+    if (!$rotaExiste) {
+        responder('error', 'A rota selecionada não existe.', 400);
+    }
+
     $sql = "UPDATE sensores
             SET nome = ?, tipo = ?, localizacao = ?,
-                trem_id = ?, status = ?
+                trem_id = ?, rota_id = ?, status = ?
             WHERE id = ?";
 
     $stmt = $conn->prepare($sql);
     $stmt->bind_param(
-        'sssisi',
+        'sssiisi',
         $nome,
         $tipo,
         $local,
         $tremId,
+        $rotaId,
         $status,
         $id
     );

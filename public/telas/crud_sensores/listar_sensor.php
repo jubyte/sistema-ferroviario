@@ -6,9 +6,11 @@ require_once __DIR__ . '/../../../infra/conexao.php';
 try {
     $sql = "SELECT s.id, s.nome, s.tipo,
                    s.localizacao AS local,
-                   s.trem_id, t.nome AS trem_nome, s.status
+                   s.trem_id, t.nome AS trem_nome,
+                   s.rota_id, r.nome AS rota_nome, s.status
             FROM sensores s
             LEFT JOIN trens t ON t.id = s.trem_id
+            LEFT JOIN rotas r ON r.id = s.rota_id
             ORDER BY s.id DESC";
 
     $resultado = $conn->query($sql);
