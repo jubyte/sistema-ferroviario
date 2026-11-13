@@ -1776,9 +1776,10 @@ body.pagina-institucional {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
     gap: 8px;
-    text-align: left;
+    text-align: center;
     word-break: break-word;
     overflow-wrap: anywhere;
     box-sizing: border-box;
@@ -1789,6 +1790,7 @@ body.pagina-institucional {
     margin: 0;
     width: 100%;
     max-width: 100%;
+    text-align: center;
     overflow-wrap: anywhere;
     word-break: break-word;
 }
@@ -1839,6 +1841,7 @@ body.pagina-institucional {
     flex-direction: column;
     gap: 16px;
     box-sizing: border-box;
+    align-items: center;
 }
 
 @media (max-width: 600px) {
