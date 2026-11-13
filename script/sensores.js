@@ -184,28 +184,54 @@ function mostrarSensores(lista) {
             ? `CEP: ${extrairCep(sensor.local || "")}`
             : sensor.local || "";
 
-        linha.innerHTML = `
-            <td>${String(sensor.id).padStart(2, "0")}</td>
-            <td>${escapar(sensor.nome)}</td>
-            <td>${escapar(sensor.tipo)}</td>
-            <td>${escapar(localFormatado)}</td>
-            <td>${escapar(sensor.trem_nome || "Não associado")}</td>
-            <td>${escapar(sensor.rota_nome || "Não associada")}</td>
-            <td>${escapar(sensor.status)}</td>
-            <td>
-                <button type="button" class="btn-acao"
-                    onclick="editarSensor(${Number(sensor.id)})"
-                    aria-label="Editar sensor">
-                    <i class="bi bi-pencil-square"></i>
-                </button>
+        const colunaId = document.createElement("td");
+        colunaId.textContent = String(sensor.id).padStart(2, "0");
 
-                <button type="button" class="btn-acao"
-                    onclick="excluirSensor(${Number(sensor.id)})"
-                    aria-label="Excluir sensor">
-                    <i class="bi bi-trash3"></i>
-                </button>
-            </td>
+        const colunaNome = document.createElement("td");
+        const linkNome = document.createElement("a");
+        linkNome.href = `sensor_detalhes.php?id=${sensor.id}`;
+        linkNome.textContent = sensor.nome;
+        linkNome.className = "usuario-link";
+        colunaNome.appendChild(linkNome);
+
+        const colunaTipo = document.createElement("td");
+        colunaTipo.textContent = sensor.tipo || "-";
+
+        const colunaLocal = document.createElement("td");
+        colunaLocal.textContent = localFormatado || "Não informado";
+
+        const colunaTrem = document.createElement("td");
+        colunaTrem.textContent = sensor.trem_nome || "Não associado";
+
+        const colunaRota = document.createElement("td");
+        colunaRota.textContent = sensor.rota_nome || "Não associada";
+
+        const colunaStatus = document.createElement("td");
+        colunaStatus.textContent = sensor.status || "Ativo";
+
+        const colunaAcoes = document.createElement("td");
+        colunaAcoes.innerHTML = `
+            <button type="button" class="btn-acao"
+                onclick="editarSensor(${Number(sensor.id)})"
+                aria-label="Editar sensor">
+                <i class="bi bi-pencil-square"></i>
+            </button>
+
+            <button type="button" class="btn-acao"
+                onclick="excluirSensor(${Number(sensor.id)})"
+                aria-label="Excluir sensor">
+                <i class="bi bi-trash3"></i>
+            </button>
         `;
+
+        linha.appendChild(colunaId);
+        linha.appendChild(colunaNome);
+        linha.appendChild(colunaTipo);
+        linha.appendChild(colunaLocal);
+        linha.appendChild(colunaTrem);
+        linha.appendChild(colunaRota);
+        linha.appendChild(colunaStatus);
+        linha.appendChild(colunaAcoes);
 
         tabela.appendChild(linha);
     });

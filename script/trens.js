@@ -106,40 +106,62 @@ function mostrarTrens(lista) {
     lista.forEach(function(trem) {
         const linha = document.createElement("tr");
 
-        linha.innerHTML = `
-            <td>${String(trem.id).padStart(2, "0")}</td>
-            <td>${escapar(trem.nome)}</td>
-            <td>${escapar(trem.empresa)}</td>
-            <td>${escapar(trem.numero_vagoes)}</td>
-            <td>${trem.tipo === "Eletrico" ? "Elétrico" : escapar(trem.tipo)}</td>
-            <td>${escapar(trem.responsavel_nome || "Não informado")}</td>
+        const colunaId = document.createElement("td");
+        colunaId.textContent = String(trem.id).padStart(2, "0");
 
-            <td>
-                <div class="d-flex justify-content-between align-items-center">
-                    <span class="status-ativo">
-                        ● ${escapar(trem.status)}
-                    </span>
+        const colunaNome = document.createElement("td");
+        const linkNome = document.createElement("a");
+        linkNome.href = `trem_detalhes.php?id=${trem.id}`;
+        linkNome.textContent = trem.nome;
+        linkNome.className = "usuario-link";
+        colunaNome.appendChild(linkNome);
 
-                    <div>
-                        <button
-                            type="button"
-                            class="btn-acao"
-                            onclick="editarTrem(${Number(trem.id)})"
-                            aria-label="Editar trem">
-                            <i class="bi bi-pencil-square icone-color"></i>
-                        </button>
+        const colunaEmpresa = document.createElement("td");
+        colunaEmpresa.textContent = trem.empresa || "Não informado";
 
-                        <button
-                            type="button"
-                            class="btn-acao"
-                            onclick="excluirTrem(${Number(trem.id)})"
-                            aria-label="Excluir trem">
-                            <i class="bi bi-trash3 icone-color"></i>
-                        </button>
-                    </div>
+        const colunaVagoes = document.createElement("td");
+        colunaVagoes.textContent = trem.numero_vagoes ?? "-";
+
+        const colunaTipo = document.createElement("td");
+        colunaTipo.textContent = trem.tipo === "Eletrico" ? "Elétrico" : (trem.tipo || "-");
+
+        const colunaResponsavel = document.createElement("td");
+        colunaResponsavel.textContent = trem.responsavel_nome || "Não informado";
+
+        const colunaAcoes = document.createElement("td");
+        colunaAcoes.innerHTML = `
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="status-ativo">
+                    ● ${escapar(trem.status || "Ativo")}
+                </span>
+
+                <div>
+                    <button
+                        type="button"
+                        class="btn-acao"
+                        onclick="editarTrem(${Number(trem.id)})"
+                        aria-label="Editar trem">
+                        <i class="bi bi-pencil-square icone-color"></i>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn-acao"
+                        onclick="excluirTrem(${Number(trem.id)})"
+                        aria-label="Excluir trem">
+                        <i class="bi bi-trash3 icone-color"></i>
+                    </button>
                 </div>
-            </td>
+            </div>
         `;
+
+        linha.appendChild(colunaId);
+        linha.appendChild(colunaNome);
+        linha.appendChild(colunaEmpresa);
+        linha.appendChild(colunaVagoes);
+        linha.appendChild(colunaTipo);
+        linha.appendChild(colunaResponsavel);
+        linha.appendChild(colunaAcoes);
 
         tabela.appendChild(linha);
     });
