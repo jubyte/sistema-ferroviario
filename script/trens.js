@@ -362,6 +362,7 @@ function editarTrem(id) {
     nomeInput.focus();
 }
 
+
 function limparFormulario() {
     tremEditando = null;
 
@@ -382,9 +383,10 @@ function limparFormulario() {
     const cancelar = document.getElementById("btnCancelar");
 
     if (cancelar) {
-        cancelar.style.display = "none";
+        cancelar.remove();
     }
 }
+
 
 function excluirTrem(id) {
     if (!exigirPermissaoAdmin()) {

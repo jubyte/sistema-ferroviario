@@ -120,7 +120,7 @@ function limparFormulario() {
     const cancelar = document.getElementById("btnCancelar");
 
     if (cancelar) {
-        cancelar.style.display = "none";
+        cancelar.remove();
     }
 }
 

@@ -83,13 +83,15 @@ function limparFormulario() {
     botaoAdicionar.textContent = "+ ADICIONAR";
 
     const titulo = document.querySelector(".usuario__title");
+
     if (titulo) {
         titulo.textContent = "Cadastro de Rotas";
     }
-
+    
     const cancelar = document.getElementById("btnCancelar");
+
     if (cancelar) {
-        cancelar.style.display = "none";
+        cancelar.remove();
     }
 }
 
