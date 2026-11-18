@@ -125,9 +125,9 @@ if (!isset($_SESSION["email"])) {
                     </div>
                 </div>
 
-                <div class="col-12 col-lg-1">
-                    <div class="d-flex justify-content-sapce-between">
-                        <button type="button" id="btnAdicionar" class="btn botao-custom">
+                <div class="col-12 col-lg-2">
+                    <div class="acoes-rota">
+                        <button type="button" id="btnAdicionar" class="btn botao-custom w-100">
                             + ADICIONAR
                         </button>
                     </div>

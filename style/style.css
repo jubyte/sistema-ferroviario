@@ -1874,3 +1874,14 @@ body.pagina-institucional {
 .nome-rota{
     width: 40%;
 }
+
+.acoes-rota {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.acoes-rota .botao-custom,
+.acoes-rota .botao-cancelar {
+    width: 100%;
+}

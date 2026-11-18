@@ -509,7 +509,13 @@ function editarRota(id) {
         cancelar.textContent = "CANCELAR ALTERAÇÕES";
         cancelar.className = "btn botao-cancelar w-100 mt-2";
 
-        botaoAdicionar.insertAdjacentElement("afterend", cancelar);
+        const acoesRota = botaoAdicionar.closest(".acoes-rota");
+
+        if (acoesRota) {
+            acoesRota.appendChild(cancelar);
+        } else {
+            botaoAdicionar.insertAdjacentElement("afterend", cancelar);
+        }
 
         cancelar.addEventListener("click", limparFormulario);
     }
