@@ -1,54 +1,37 @@
-
 <?php
 session_start();
+include "../../infra/conexao.php";
 
-require_once __DIR__ . "/../../infra/conexao.php";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-// Verifica se o formulário foi enviado
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $email = trim($_POST["email"]);
+    $senha = $_POST["senha"];
 
-    $email = trim($_POST["email"] ?? "");
-    $senha = $_POST["senha"] ?? "";
-
-    // Procura o usuário pelo e-mail
     $sql = "SELECT id, nome, email, senha, tipo, status FROM usuarios WHERE email = ?";
-
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);
     $stmt->execute();
+    $usuario = $stmt->get_result()->fetch_assoc();
 
-    $resultado = $stmt->get_result();
-    $usuario = $resultado->fetch_assoc();
+    $senhaCerta = false;
 
-    // Verifica se o usuário existe e se a senha está correta
-    $senhaValida = false;
-
-    if ($usuario && $usuario["status"] === "Ativo") {
-        $senhaBanco = (string) $usuario["senha"];
-
-        $senhaValida = password_verify($senha, $senhaBanco)
-            || hash_equals($senhaBanco, $senha);
+    if ($usuario && $usuario["status"] == "Ativo") {
+        if (password_verify($senha, $usuario["senha"]) || $senha == $usuario["senha"]) {
+            $senhaCerta = true;
+        }
     }
 
-    if ($usuario && $senhaValida) {
-
-        // Cria a sessão do usuário
-        session_regenerate_id(true);
-
+    if ($senhaCerta) {
         $_SESSION["id"] = $usuario["id"];
         $_SESSION["nome"] = $usuario["nome"];
         $_SESSION["email"] = $usuario["email"];
         $_SESSION["tipo"] = $usuario["tipo"];
 
-        // Redireciona para a página inicial do sistema
         header("Location: menu.php");
         exit;
-
     } else {
-
         $erro = "E-mail ou senha incorretos!";
     }
-
 }
 ?>
 
@@ -99,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <div id="mensagem" class="text-center mt-3">
                     <?php if (isset($erro)): ?>
                         <span class="text-danger">
-                            <?= htmlspecialchars($erro, ENT_QUOTES, 'UTF-8') ?>
+                            <?= htmlspecialchars($erro) ?>
                         </span>
                     <?php endif; ?>
                 </div>
@@ -112,7 +95,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 </main>
 
-<script src="../../script/script.js"></script>
 
 </body>
 </html>

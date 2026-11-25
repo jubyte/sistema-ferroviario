@@ -1,78 +1,41 @@
-let cadastro = false;
+const mensagem = document.querySelector(".alert");
 
-const toggle = document.getElementById("toggle");
-const titulo = document.getElementById("titulo");
-const formulario = document.getElementById("form-login");
-const mensagem = document.getElementById("mensagem");
-const botao = formulario.querySelector("button");
+if (mensagem) {
+    setTimeout(function () {
+        mensagem.style.display = "none";
+    }, 4000);
+}
 
-toggle.addEventListener("click", (e) => {
-    e.preventDefault();
+const formulariosSalvar = document.querySelectorAll(".form-salvar");
 
-    cadastro = !cadastro;
+for (let i = 0; i < formulariosSalvar.length; i++) {
+    formulariosSalvar[i].addEventListener("submit", function () {
+        const botao = this.querySelector("button[type='submit']");
+        botao.disabled = true;
+        botao.textContent = this.dataset.carregando;
+    });
+}
 
-    titulo.innerText = cadastro ? "CADASTRO" : "LOGIN";
-    botao.innerText = cadastro ? "CADASTRAR" : "ENTRAR";
+const formulariosExcluir = document.querySelectorAll(".form-excluir");
 
-    toggle.innerText = cadastro
-        ? "Já tem uma conta? Faça login!"
-        : "Não tem uma conta? Cadastre-se!";
-        
-    mensagem.innerHTML = "";
-});
-
-formulario.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const email = document.getElementById("email").value.trim();
-    const senha = document.getElementById("senha").value.trim();
-
-    mensagem.innerHTML = "";
-
-    if (email === "admin" && senha === "admin") {
-        window.location.href = "menu.php";
-        return;
-    }
-
-    if (!email.includes("@") || !email.includes(".")) {
-        mensagem.innerHTML =
-            "<div class='texto-perigo'>Email inválido!</div>";
-        return;
-    }
-
-    if (senha.length < 4) {
-        mensagem.innerHTML =
-            "<div class='texto-perigo'>A senha deve ter pelo menos 4 caracteres!</div>";
-        return;
-    }
-
-    if (cadastro) {
-        if (localStorage.getItem(email)) {
-            mensagem.innerHTML =
-                "<div class='texto-aviso'>Esse email já está cadastrado!</div>";
-            return;
+for (let i = 0; i < formulariosExcluir.length; i++) {
+    formulariosExcluir[i].addEventListener("submit", function (evento) {
+        if (!confirm(this.dataset.mensagem)) {
+            evento.preventDefault();
         }
+    });
+}
 
-        localStorage.setItem(email, senha);
+const camposCep = document.querySelectorAll(".cep-input");
 
-        mensagem.innerHTML =
-            "<div class='texto-sucesso'>Cadastro realizado com sucesso!</div>";
+for (let i = 0; i < camposCep.length; i++) {
+    camposCep[i].addEventListener("input", function () {
+        let numeros = this.value.replace(/\D/g, "");
 
-        formulario.reset();
-        return;
-    }
-
-    const senhaSalva = localStorage.getItem(email);
-
-    if (senhaSalva === null) {
-        mensagem.innerHTML =
-            "<div class='texto-perigo'>Usuário não encontrado!</div>";
-    } else if (senhaSalva === senha) {
-        window.location.href = "menu.php";
-    } else {
-        mensagem.innerHTML =
-            "<div class='texto-perigo'>Email ou senha incorreta!</div>";
-    }
-
-    formulario.reset();
-});
+        if (numeros.length > 5) {
+            this.value = numeros.substring(0, 5) + "-" + numeros.substring(5, 8);
+        } else {
+            this.value = numeros;
+        }
+    });
+}

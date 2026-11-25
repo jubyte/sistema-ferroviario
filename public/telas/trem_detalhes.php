@@ -6,9 +6,9 @@ if (!isset($_SESSION["email"])) {
     exit;
 }
 
-require_once __DIR__ . '/../../infra/conexao.php';
+include "../../infra/conexao.php";
 
-$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+$id = (int) ($_GET['id'] ?? 0);
 
 if (!$id) {
     header('Location: trens.php');
@@ -46,19 +46,19 @@ if (!$trem) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <title>Detalhes do trem | MockingRail</title>
 </head>
-<body data-usuario-tipo="<?= htmlspecialchars($_SESSION["tipo"] ?? "", ENT_QUOTES, 'UTF-8') ?>">
+<body>
     <aside class="sidebar">
         <div class="logo-box">
             <h1 class="logo">R<span>Λ</span>IL</h1>
             <div class="logo-line"></div>
         </div>
 
-        <a href="usuario_detalhes.php?id=<?= htmlspecialchars((string) ($_SESSION["id"] ?? 0), ENT_QUOTES, 'UTF-8') ?>" class="usuario-box-link">
+        <a href="usuario_detalhes.php?id=<?= htmlspecialchars($_SESSION["id"] ?? 0) ?>" class="usuario-box-link">
             <div class="usuario-box">
                 <i class="bi bi-person-fill"></i>
                 <div class="usuario-info">
                     <span>Usuário</span>
-                    <p id="emailusuario"><?= htmlspecialchars($_SESSION["email"], ENT_QUOTES, 'UTF-8') ?></p>
+                    <p id="emailusuario"><?= htmlspecialchars($_SESSION["email"]) ?></p>
                 </div>
             </div>
         </a>
@@ -111,37 +111,37 @@ if (!$trem) {
             <div class="usuario-detalhes-grid">
                 <div class="usuario-detalhe-item">
                     <span>ID</span>
-                    <strong><?= htmlspecialchars((string) $trem['id'], ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($trem['id']) ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>Nome</span>
-                    <strong><?= htmlspecialchars((string) $trem['nome'], ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($trem['nome']) ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>Empresa</span>
-                    <strong><?= htmlspecialchars((string) ($trem['empresa'] ?? 'Não informado'), ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($trem['empresa'] ?? 'Não informado') ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>Tipo</span>
-                    <strong><?= htmlspecialchars((string) ($trem['tipo'] ?? 'Não informado'), ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($trem['tipo'] ?? 'Não informado') ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>Nº de vagões</span>
-                    <strong><?= htmlspecialchars((string) ($trem['numero_vagoes'] ?? 'Não informado'), ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($trem['numero_vagoes'] ?? 'Não informado') ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>Responsável</span>
-                    <strong><?= htmlspecialchars((string) ($trem['responsavel_nome'] ?? 'Não informado'), ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($trem['responsavel_nome'] ?? 'Não informado') ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>Status</span>
-                    <strong><?= htmlspecialchars((string) ($trem['status'] ?? 'Ativo'), ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($trem['status'] ?? 'Ativo') ?></strong>
                 </div>
 
             </div>

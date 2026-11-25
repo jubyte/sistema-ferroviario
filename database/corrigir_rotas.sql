@@ -1,0 +1,3 @@
+USE mockingrail;
+
+ALTER TABLE rotas MODIFY trem_id INT UNSIGNED DEFAULT NULL;

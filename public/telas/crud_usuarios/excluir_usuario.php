@@ -1,62 +1,19 @@
 <?php
-header('Content-Type: application/json; charset=utf-8');
 session_start();
-require_once __DIR__ . '/../../../infra/conexao.php';
+include "../../../infra/conexao.php";
+include "../../../infra/funcoes.php";
 
-function responder($status, $message, $codigo = 200)
-{
-    http_response_code($codigo);
+verificarAdmin("../usuarios.php");
 
-    echo json_encode([
-        'status' => $status,
-        'message' => $message
-    ], JSON_UNESCAPED_UNICODE);
+$id = (int) ($_POST["id"] ?? 0);
 
-    exit;
-}
+$sql = "DELETE FROM usuarios WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $id);
 
-function verificarPermissaoAdmin()
-{
-    if (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== 'Administrador') {
-        responder('error', 'Você não tem permissão para realizar tal ação', 403);
-    }
-}
-
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    responder('error', 'Método de requisição inválido.', 405);
-}
-
-verificarPermissaoAdmin();
-
-$id = trim($_POST['id'] ?? '');
-
-if ($id === '') {
-    responder('error', 'ID do usuário não informado.', 400);
-}
-
-if (!ctype_digit($id) || (int) $id < 1) {
-    responder('error', 'ID do usuário inválido.', 400);
-}
-
-$id = (int) $id;
-
-try {
-    $sql = "DELETE FROM usuarios WHERE id = ?";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('i', $id);
-    $stmt->execute();
-
-    if ($stmt->affected_rows > 0) {
-        $stmt->close();
-        responder('success', 'Usuário removido com sucesso.');
-    }
-
-    $stmt->close();
-    responder('error', 'Usuário não encontrado.', 404);
-
-} catch (mysqli_sql_exception $e) {
-    error_log($e->getMessage());
-    responder('error', 'Não foi possível excluir usuário.', 500);
+if ($stmt->execute()) {
+    voltar("../usuarios.php", "Usuário excluído com sucesso!");
+} else {
+    voltar("../usuarios.php", "Erro ao excluir usuário.");
 }
 ?>

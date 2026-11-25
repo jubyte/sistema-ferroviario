@@ -6,9 +6,9 @@ if (!isset($_SESSION["email"])) {
     exit;
 }
 
-require_once __DIR__ . '/../../infra/conexao.php';
+include "../../infra/conexao.php";
 
-$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+$id = (int) ($_GET['id'] ?? 0);
 
 if (!$id) {
     header('Location: sensores.php');
@@ -35,7 +35,7 @@ if (!$sensor) {
     exit;
 }
 
-$createdAt = date('d/m/Y H:i', strtotime($sensor['data_criacao']));
+$dataCadastro = date('d/m/Y H:i', strtotime($sensor['data_criacao']));
 ?>
 
 <!DOCTYPE html>
@@ -50,19 +50,19 @@ $createdAt = date('d/m/Y H:i', strtotime($sensor['data_criacao']));
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <title>Detalhes do sensor | MockingRail</title>
 </head>
-<body data-usuario-tipo="<?= htmlspecialchars($_SESSION["tipo"] ?? "", ENT_QUOTES, 'UTF-8') ?>">
+<body>
     <aside class="sidebar">
         <div class="logo-box">
             <h1 class="logo">R<span>Λ</span>IL</h1>
             <div class="logo-line"></div>
         </div>
 
-        <a href="usuario_detalhes.php?id=<?= htmlspecialchars((string) ($_SESSION["id"] ?? 0), ENT_QUOTES, 'UTF-8') ?>" class="usuario-box-link">
+        <a href="usuario_detalhes.php?id=<?= htmlspecialchars($_SESSION["id"] ?? 0) ?>" class="usuario-box-link">
             <div class="usuario-box">
                 <i class="bi bi-person-fill"></i>
                 <div class="usuario-info">
                     <span>Usuário</span>
-                    <p id="emailusuario"><?= htmlspecialchars($_SESSION["email"], ENT_QUOTES, 'UTF-8') ?></p>
+                    <p id="emailusuario"><?= htmlspecialchars($_SESSION["email"]) ?></p>
                 </div>
             </div>
         </a>
@@ -115,42 +115,42 @@ $createdAt = date('d/m/Y H:i', strtotime($sensor['data_criacao']));
             <div class="usuario-detalhes-grid">
                 <div class="usuario-detalhe-item">
                     <span>ID</span>
-                    <strong><?= htmlspecialchars((string) $sensor['id'], ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($sensor['id']) ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>Nome</span>
-                    <strong><?= htmlspecialchars((string) $sensor['nome'], ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($sensor['nome']) ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>Tipo</span>
-                    <strong><?= htmlspecialchars((string) ($sensor['tipo'] ?? 'Não informado'), ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($sensor['tipo'] ?? 'Não informado') ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>Localização</span>
-                    <strong><?= htmlspecialchars((string) ($sensor['localizacao'] ?? 'Não informado'), ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($sensor['localizacao'] ?? 'Não informado') ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>Trem associado</span>
-                    <strong><?= htmlspecialchars((string) ($sensor['trem_nome'] ?? 'Não associado'), ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($sensor['trem_nome'] ?? 'Não associado') ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>Rota responsável</span>
-                    <strong><?= htmlspecialchars((string) ($sensor['rota_nome'] ?? 'Não associada'), ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($sensor['rota_nome'] ?? 'Não associada') ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>Status</span>
-                    <strong><?= htmlspecialchars((string) ($sensor['status'] ?? 'Ativo'), ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($sensor['status'] ?? 'Ativo') ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>Data de criação</span>
-                    <strong><?= htmlspecialchars((string) $createdAt, ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($dataCadastro) ?></strong>
                 </div>
             </div>
 

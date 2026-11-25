@@ -5,6 +5,72 @@ if (!isset($_SESSION["email"])) {
     header("Location: login.php");
     exit;
 }
+
+include "../../infra/conexao.php";
+include "../../infra/funcoes.php";
+
+$busca = $_GET["busca"] ?? "";
+$textoBusca = "%" . $busca . "%";
+
+$sql = "SELECT sensores.id, sensores.nome, sensores.tipo, sensores.localizacao, sensores.status,
+               trens.nome AS trem_nome, rotas.nome AS rota_nome
+        FROM sensores
+        LEFT JOIN trens ON trens.id = sensores.trem_id
+        LEFT JOIN rotas ON rotas.id = sensores.rota_id
+        WHERE sensores.id LIKE ? OR sensores.nome LIKE ?
+        ORDER BY sensores.id DESC";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("ss", $textoBusca, $textoBusca);
+$stmt->execute();
+$sensores = $stmt->get_result();
+
+$listaTrens = $conn->query("SELECT id, nome FROM trens ORDER BY nome");
+$listaRotas = $conn->query("SELECT id, nome FROM rotas ORDER BY nome");
+
+$tipos = [
+    "Velocidade" => "Velocidade",
+    "Localizacao" => "Localização",
+    "Energia" => "Consumo de energia",
+    "Temperatura" => "Temperatura",
+    "Presenca" => "Presença",
+    "Falha" => "Detecção de falhas"
+];
+
+$editando = false;
+$acao = "crud_sensores/cadastrar_sensor.php";
+$titulo = "CADASTRAR SENSOR";
+$textoBotao = "+ ADICIONAR";
+$id = "";
+$nome = "";
+$tipo = "";
+$local = "";
+$trem = "";
+$rota = "";
+$status = "Ativo";
+
+if (isset($_GET["editar"])) {
+    verificarAdmin("sensores.php");
+
+    $idEditar = (int) $_GET["editar"];
+    $stmt = $conn->prepare("SELECT * FROM sensores WHERE id = ?");
+    $stmt->bind_param("i", $idEditar);
+    $stmt->execute();
+    $sensor = $stmt->get_result()->fetch_assoc();
+
+    if ($sensor) {
+        $editando = true;
+        $acao = "crud_sensores/editar_sensor.php";
+        $titulo = "EDITAR SENSOR";
+        $textoBotao = "SALVAR ALTERAÇÕES";
+        $id = $sensor["id"];
+        $nome = $sensor["nome"];
+        $tipo = $sensor["tipo"];
+        $local = $sensor["localizacao"];
+        $trem = $sensor["trem_id"];
+        $rota = $sensor["rota_id"];
+        $status = $sensor["status"];
+    }
+}
 ?>
 
 
@@ -23,7 +89,7 @@ if (!isset($_SESSION["email"])) {
     <title>Sensores | MockingRail</title>
 </head>
 
-<body data-usuario-tipo="<?= htmlspecialchars($_SESSION["tipo"] ?? "", ENT_QUOTES, 'UTF-8') ?>">
+<body>
 
     <aside class="sidebar">
 
@@ -35,13 +101,13 @@ if (!isset($_SESSION["email"])) {
             <div class="logo-line"></div>
         </div>
 
-        <a href="usuario_detalhes.php?id=<?= htmlspecialchars((string) ($_SESSION["id"] ?? 0), ENT_QUOTES, 'UTF-8') ?>" class="usuario-box-link">
+        <a href="usuario_detalhes.php?id=<?= htmlspecialchars($_SESSION["id"] ?? 0) ?>" class="usuario-box-link">
             <div class="usuario-box">
                 <i class="bi bi-person-fill"></i>
 
                 <div class="usuario-info">
                     <span>Usuário</span>
-                    <p id="emailusuario"><?= htmlspecialchars($_SESSION["email"], ENT_QUOTES, 'UTF-8') ?></p>
+                    <p id="emailusuario"><?= htmlspecialchars($_SESSION["email"]) ?></p>
                 </div>
             </div>
         </a>
@@ -87,89 +153,91 @@ if (!isset($_SESSION["email"])) {
             <h4>SISTEMA FERROVIÁRIO</h4>
         </header>
 
+        <?php mostrarMensagem(); ?>
+
         <div class="sensor_caixa">
 
             <h2 class="usuario__title">
-                <i class="bi bi-plus-circle"></i>
-                CADASTRAR SENSOR
+                <i class="bi bi-plus-circle"></i> <?= $titulo ?>
             </h2>
 
-            <div class="row g-4 align-items-end">
+            <form method="POST" action="<?= $acao ?>" class="form-salvar" data-carregando="SALVANDO...">
+                <input type="hidden" name="id" value="<?= $id ?>">
 
-                <div class="col">
-                    <label for="nome" class="label-custom">NOME</label>
-                    <input type="text" id="nome"
-                           class="form-control input-custom"
-                           maxlength="100" required>
+                <div class="row g-4 align-items-end">
+
+                    <div class="col">
+                        <label for="nome" class="label-custom">NOME</label>
+                        <input type="text" id="nome" name="nome" class="form-control input-custom" maxlength="100" value="<?= htmlspecialchars($nome) ?>" required>
+                    </div>
+
+                    <div class="col">
+                        <label for="tipo" class="label-custom">TIPO DE SENSOR</label>
+                        <select id="tipo" name="tipo" class="form-select input-custom select-custom" required>
+                            <option value="" disabled <?php if ($tipo == "") { echo "selected"; } ?>>SELECIONE</option>
+                            <?php foreach ($tipos as $valor => $texto) { ?>
+                                <option value="<?= $valor ?>" <?php if ($tipo == $valor) { echo "selected"; } ?>><?= $texto ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                    <div class="col">
+                        <label for="local" class="label-custom">LOCALIZAÇÃO</label>
+                        <input type="text" id="local" name="local" class="form-control input-custom" maxlength="100" value="<?= htmlspecialchars($local) ?>" required>
+                    </div>
+
+                    <div class="col">
+                        <label for="trem_id" class="label-custom">TREM ASSOCIADO</label>
+                        <select id="trem_id" name="trem_id" class="form-select input-custom select-custom">
+                            <option value="">Nenhum trem associado</option>
+                            <?php while ($item = $listaTrens->fetch_assoc()) { ?>
+                                <option value="<?= $item["id"] ?>" <?php if ($item["id"] == $trem) { echo "selected"; } ?>><?= htmlspecialchars($item["nome"]) ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                    <div class="col">
+                        <label for="rota_id" class="label-custom">ROTA RESPONSÁVEL</label>
+                        <select id="rota_id" name="rota_id" class="form-select input-custom select-custom" required>
+                            <option value="">Selecione a rota</option>
+                            <?php while ($item = $listaRotas->fetch_assoc()) { ?>
+                                <option value="<?= $item["id"] ?>" <?php if ($item["id"] == $rota) { echo "selected"; } ?>><?= htmlspecialchars($item["nome"]) ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                    <div class="col">
+                        <label for="status" class="label-custom">STATUS</label>
+                        <select id="status" name="status" class="form-select input-custom select-custom" required>
+                            <option value="Ativo" <?php if ($status == "Ativo") { echo "selected"; } ?>>Ativo</option>
+                            <option value="Inativo" <?php if ($status == "Inativo") { echo "selected"; } ?>>Inativo</option>
+                        </select>
+                    </div>
+
+                    <div class="col">
+                        <button type="submit" class="btn botao-custom w-100"><?= $textoBotao ?></button>
+
+                        <?php if ($editando) { ?>
+                            <a href="sensores.php" class="btn botao-cancelar w-100 mt-2">CANCELAR ALTERAÇÕES</a>
+                        <?php } ?>
+                    </div>
+
                 </div>
-
-                <div class="col">
-                    <label for="tipo" class="label-custom">TIPO DE SENSOR</label>
-                    <select id="tipo"
-                            class="form-select input-custom select-custom"
-                            required>
-                        <option value="" selected disabled>SELECIONE</option>
-                        <option value="Velocidade">Velocidade</option>
-                        <option value="Localizacao">Localização</option>
-                        <option value="Energia">Consumo de energia</option>
-                        <option value="Temperatura">Temperatura</option>
-                        <option value="Presenca">Presença</option>
-                        <option value="Falha">Detecção de falhas</option>
-                    </select>
-                </div>
-
-                <div class="col">
-                    <label for="local" class="label-custom">LOCALIZAÇÃO</label>
-                    <input type="text" id="local"
-                           class="form-control input-custom"
-                           maxlength="100" required>
-                </div>
-
-                <div class="col">
-                    <label for="trem_id" class="label-custom">TREM ASSOCIADO</label>
-                    <select id="trem_id"
-                            class="form-select input-custom select-custom">
-                        <option value="">Carregando trens...</option>
-                    </select>
-                </div>
-
-                <div class="col">
-                    <label for="rota_id" class="label-custom">ROTA RESPONSÁVEL</label>
-                    <select id="rota_id"
-                            class="form-select input-custom select-custom"
-                            required>
-                        <option value="">Carregando rotas...</option>
-                    </select>
-                </div>
-
-                <div class="col">
-                    <label for="status" class="label-custom">STATUS</label>
-                    <select id="status"
-                            class="form-select input-custom select-custom"
-                            required>
-                        <option value="Ativo" selected>Ativo</option>
-                        <option value="Inativo">Inativo</option>
-                    </select>
-                </div>
-
-                <div class="col">
-                        <button id="btnAdicionar" class="btn botao-custom w-100">+ ADICIONAR</button>
-                </div>
-
-            </div>
+            </form>
         </div>
 
-        <div class="sensor_busca">
+        <form method="GET" class="sensor_busca">
             <i class="bi bi-search"></i>
-            <input type="text" id="buscar"
-                   placeholder="Buscar por nome ou ID">
-        </div>
+            <input type="text" name="busca" placeholder="Buscar por nome ou ID" value="<?= htmlspecialchars($busca) ?>">
+        </form>
 
-        <div id="sensorVazio" class="sensor-vazio">
-            <i class="bi bi-broadcast"></i>
-            <h4>Nenhum sensor cadastrado ainda.</h4>
-            <p>Cadastre um novo sensor para começar.</p>
-        </div>
+        <?php if ($sensores->num_rows == 0) { ?>
+            <div class="sensor-vazio" style="display: block;">
+                <i class="bi bi-broadcast"></i>
+                <h4>Nenhum sensor cadastrado ainda.</h4>
+                <p>Cadastre um novo sensor para começar.</p>
+            </div>
+        <?php } ?>
 
         <div class="sensor_tabela">
             <table class="table table-bordered align-middle">
@@ -185,13 +253,37 @@ if (!isset($_SESSION["email"])) {
                         <th>AÇÕES</th>
                     </tr>
                 </thead>
-                <tbody id="tabelaSensores"></tbody>
+                <tbody>
+                    <?php while ($sensor = $sensores->fetch_assoc()) { ?>
+                        <tr>
+                            <td><?= $sensor["id"] ?></td>
+                            <td><a class="usuario-link" href="sensor_detalhes.php?id=<?= $sensor["id"] ?>"><?= htmlspecialchars($sensor["nome"]) ?></a></td>
+                            <td><?= htmlspecialchars($sensor["tipo"]) ?></td>
+                            <td><?= htmlspecialchars(resumoLocal($sensor["localizacao"])) ?></td>
+                            <td>
+                                <?php if ($sensor["trem_nome"] == null) { echo "Não associado"; } else { echo htmlspecialchars($sensor["trem_nome"]); } ?>
+                            </td>
+                            <td>
+                                <?php if ($sensor["rota_nome"] == null) { echo "Não associada"; } else { echo htmlspecialchars($sensor["rota_nome"]); } ?>
+                            </td>
+                            <td><?= htmlspecialchars($sensor["status"]) ?></td>
+                            <td>
+                                <a href="sensores.php?editar=<?= $sensor["id"] ?>" class="btn-acao"><i class="bi bi-pencil-square"></i></a>
+
+                                <form method="POST" action="crud_sensores/excluir_sensor.php" class="form-excluir" style="display: inline;" data-mensagem="Deseja excluir este sensor?">
+                                    <input type="hidden" name="id" value="<?= $sensor["id"] ?>">
+                                    <button type="submit" class="btn-acao"><i class="bi bi-trash3"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
             </table>
         </div>
 
     </main>
 
-    <script src="../../script/sensores.js"></script>
 
+    <script src="../../script/script.js"></script>
 </body>
 </html>

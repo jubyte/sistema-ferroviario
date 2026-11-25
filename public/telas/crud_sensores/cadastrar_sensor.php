@@ -1,169 +1,56 @@
-
 <?php
-header('Content-Type: application/json; charset=utf-8');
 session_start();
+include "../../../infra/conexao.php";
+include "../../../infra/funcoes.php";
 
-require_once __DIR__ . '/../../../infra/conexao.php';
+verificarAdmin("../sensores.php");
 
-function responder($status, $message, $codigo = 200)
-{
-    http_response_code($codigo);
+$voltarPara = "../sensores.php";
 
-    echo json_encode([
-        'status' => $status,
-        'message' => $message
-    ], JSON_UNESCAPED_UNICODE);
+$nome = trim($_POST["nome"] ?? "");
+$tipo = $_POST["tipo"] ?? "";
+$local = trim($_POST["local"] ?? "");
+$status = $_POST["status"] ?? "";
+$rota = (int) ($_POST["rota_id"] ?? 0);
+$trem = (int) ($_POST["trem_id"] ?? 0);
 
-    exit;
+if ($nome == "" || $tipo == "" || $local == "") {
+    voltar($voltarPara, "Preencha o nome, o tipo e a localização do sensor.");
 }
 
-function verificarPermissaoAdmin()
-{
-    if (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== 'Administrador') {
-        responder('error', 'Você não tem permissão para realizar tal ação', 403);
-    }
+$tipos = ["Velocidade", "Localizacao", "Energia", "Temperatura", "Presenca", "Falha"];
+
+if (!in_array($tipo, $tipos)) {
+    voltar($voltarPara, "Tipo de sensor inválido.");
 }
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    responder('error', 'Método de requisição inválido.', 405);
+if ($status != "Ativo" && $status != "Inativo") {
+    voltar($voltarPara, "Status inválido.");
 }
 
-verificarPermissaoAdmin();
-
-$nome = trim($_POST['nome'] ?? '');
-$tipo = trim($_POST['tipo'] ?? '');
-$local = trim($_POST['local'] ?? '');
-$status = trim($_POST['status'] ?? '');
-$tremIdRecebido = trim($_POST['trem_id'] ?? '');
-$rotaIdRecebido = trim($_POST['rota_id'] ?? '');
-
-if ($nome === '' || $tipo === '' || $local === '' || $status === '') {
-    responder('error', 'Preencha nome, tipo, localização e status.', 400);
+if ($rota <= 0) {
+    voltar($voltarPara, "Selecione a rota do sensor.");
 }
 
-if (
-    mb_strlen($nome) > 100 ||
-    mb_strlen($tipo) > 20 ||
-    mb_strlen($local) > 100 ||
-    mb_strlen($status) > 20
-) {
-    responder('error', 'Um ou mais campos excedem o tamanho permitido.', 400);
+if ($trem <= 0) {
+    $trem = null;
 }
 
-$tiposPermitidos = [
-    'Velocidade',
-    'Localizacao',
-    'Energia',
-    'Temperatura',
-    'Presenca',
-    'Falha'
-];
+$endereco = buscarCep($local);
 
-if (!in_array($tipo, $tiposPermitidos, true)) {
-    responder('error', 'Tipo de sensor inválido.', 400);
+if ($endereco != null) {
+    $local = montarEndereco($endereco);
 }
 
-if (!in_array($status, ['Ativo', 'Inativo'], true)) {
-    responder('error', 'Status inválido.', 400);
-}
+$local = mb_substr($local, 0, 100);
 
-$tremId = null;
+$sql = "INSERT INTO sensores (nome, tipo, localizacao, trem_id, rota_id, status) VALUES (?, ?, ?, ?, ?, ?)";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("sssiis", $nome, $tipo, $local, $trem, $rota, $status);
 
-if ($tremIdRecebido !== '') {
-    if (
-        !ctype_digit($tremIdRecebido) ||
-        (int)$tremIdRecebido < 1
-    ) {
-        responder('error', 'Selecione um trem válido.', 400);
-    }
-
-    $tremId = (int)$tremIdRecebido;
-}
-
-$rotaId = null;
-
-if ($rotaIdRecebido === '' || !ctype_digit($rotaIdRecebido) || (int)$rotaIdRecebido < 1) {
-    responder('error', 'Selecione uma rota válida.', 400);
-}
-
-$rotaId = (int)$rotaIdRecebido;
-
-try {
-    if ($tremId !== null) {
-        $sqlVerificar = "SELECT id FROM trens WHERE id = ?";
-        $stmtVerificar = $conn->prepare($sqlVerificar);
-
-        if (!$stmtVerificar) {
-            throw new RuntimeException('Falha ao verificar o trem.');
-        }
-
-        $stmtVerificar->bind_param('i', $tremId);
-        $stmtVerificar->execute();
-        $stmtVerificar->store_result();
-
-        $tremExiste = $stmtVerificar->num_rows > 0;
-        $stmtVerificar->close();
-
-        if (!$tremExiste) {
-            responder('error', 'O trem selecionado não existe.', 400);
-        }
-    }
-
-    $sqlVerificarRota = "SELECT id FROM rotas WHERE id = ?";
-    $stmtVerificarRota = $conn->prepare($sqlVerificarRota);
-
-    if (!$stmtVerificarRota) {
-        throw new RuntimeException('Falha ao verificar a rota.');
-    }
-
-    $stmtVerificarRota->bind_param('i', $rotaId);
-    $stmtVerificarRota->execute();
-    $stmtVerificarRota->store_result();
-
-    $rotaExiste = $stmtVerificarRota->num_rows > 0;
-    $stmtVerificarRota->close();
-
-    if (!$rotaExiste) {
-        responder('error', 'A rota selecionada não existe.', 400);
-    }
-
-    $sql = "INSERT INTO sensores
-            (nome, tipo, localizacao, trem_id, rota_id, status)
-            VALUES (?, ?, ?, ?, ?, ?)";
-
-    $stmt = $conn->prepare($sql);
-
-    if (!$stmt) {
-        throw new RuntimeException('Falha ao preparar o cadastro.');
-    }
-
-    $stmt->bind_param(
-        'sssiis',
-        $nome,
-        $tipo,
-        $local,
-        $tremId,
-        $rotaId,
-        $status
-    );
-
-    $stmt->execute();
-    $stmt->close();
-
-    responder('success', 'Sensor cadastrado com sucesso!', 201);
-
-} catch (Throwable $e) {
-    error_log($e->getMessage());
-
-    responder(
-        'error',
-        'Erro ao cadastrar sensor. Verifique os dados e o banco.',
-        500
-    );
-
-} finally {
-    if (isset($conn) && $conn instanceof mysqli) {
-        $conn->close();
-    }
+if ($stmt->execute()) {
+    voltar("../sensores.php", "Sensor cadastrado com sucesso!");
+} else {
+    voltar("../sensores.php", "Erro ao cadastrar sensor.");
 }
 ?>

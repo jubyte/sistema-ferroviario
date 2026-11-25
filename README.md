@@ -59,7 +59,8 @@ sistema-ferroviario/
 │   └── imgs/                   # Imagens utilizadas no sistema
 │
 ├── database/
-│   └── bd.sql                  # Script criação do banco de dados
+│   ├── bd.sql                  # Script criação do banco de dados
+│   └── corrigir_rotas.sql      # Correção para bancos antigos (trem opcional na rota)
 │
 ├── docs/
 │   ├── manual-do-usuario.md    # Manual do usuário
@@ -70,42 +71,31 @@ sistema-ferroviario/
 │   └── pesquisa-xampp.md       # Pesquisa sobre XAMPP
 │
 ├── infra/
-│   └── conexao.php             # Conexão com o banco de dados
+│   ├── conexao.php             # Conexão com o banco de dados
+│   └── funcoes.php             # Funções usadas pelas páginas (CEP, clima, mensagens)
 │
 ├── public/
 │   ├── inicio/
 │   │   ├── historia.php        # Páginas institucionais
-│   │   ├── objetivos.php      
+│   │   ├── solucao.php
 │   │   └── sustentabilidade.php
 │   │
 │   └── telas/
-│       ├── crud_sensores/
-│       │   ├── cadastro_sensor.php
-│       │   ├── editar_sensor.php
-│       │   ├── excluir_sensor.php
-│       │   └── listar_sensor.php
-│       │
-│       ├── crud_usuarios/
-│       │   ├── cadastrar.php
-│       │   ├── cadastro.php
-│       │   ├── editar_usuario.php
-│       │   ├── excluir_usuario.php
-│       │   └── listar_usuario.php
+│       ├── crud_rotas/         # Cadastrar, editar e excluir rotas
+│       ├── crud_sensores/      # Cadastrar, editar e excluir sensores
+│       ├── crud_trens/         # Cadastrar, editar e excluir trens
+│       ├── crud_usuarios/      # Cadastrar, editar e excluir usuários
 │       │
 │       ├── login.php           # Tela de login
 │       ├── menu.php            # Menu principal
 │       ├── rotas.php           # Tela de rotas
 │       ├── sensores.php        # Tela de sensores
 │       ├── trens.php           # Tela de trens
-│       └── usuarios.php        # Tela de usuários
+│       ├── usuarios.php        # Tela de usuários
+│       └── *_detalhes.php      # Telas de detalhes
 │
 ├── script/
-│   ├── previsao_clima.js               # Lógica de login e cadastro
-│   ├── rotas.js               # Lógica de login e cadastro
-│   ├── script.js               # Lógica de login e cadastro
-│   ├── sensores.js             # Lógica de sensores
-│   ├── trens.js               # Lógica de login e cadastro
-│   └── usuarios.js             # Lógica de usuários
+│   └── script.js               # Avisos, botões, confirmação de exclusão e máscara de CEP
 │
 ├── style/
 │   └── style.css               # Estilos do sistema
@@ -138,7 +128,7 @@ A conexão entre o sistema e o banco de dados é realizada pelo arquivo:
 infra/conexao.php
 ```
 
-A aplicação utiliza **PDO** para realizar a comunicação com o banco de dados.
+A aplicação utiliza **mysqli** para realizar a comunicação com o banco de dados.
 
 ### Como executar
 
@@ -178,6 +168,12 @@ database/bd.sql
 ```
 
 Esse arquivo contém as instruções necessárias para criação do banco de dados e das tabelas utilizadas pelo sistema.
+
+Se o banco já tinha sido criado antes, importe também o arquivo abaixo (uma vez só), que deixa o trem opcional nas rotas:
+
+```text
+database/corrigir_rotas.sql
+```
 
 ### 5. Acesse o sistema
 
