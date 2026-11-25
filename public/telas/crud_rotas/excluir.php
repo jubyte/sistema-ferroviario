@@ -1,60 +1,19 @@
 <?php
-header('Content-Type: application/json; charset=utf-8');
 session_start();
+include "../../../infra/conexao.php";
+include "../../../infra/funcoes.php";
 
-require_once __DIR__ . '/../../../infra/conexao.php';
+verificarAdmin("../rotas.php");
 
-function responder($status, $message, $codigo = 200)
-{
-    http_response_code($codigo);
+$id = (int) ($_POST["id"] ?? 0);
 
-    echo json_encode([
-        'status' => $status,
-        'message' => $message
-    ], JSON_UNESCAPED_UNICODE);
-
-    exit;
-}
-
-function verificarPermissaoAdmin()
-{
-    if (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== 'Administrador') {
-        responder('error', 'Você não tem permissão para realizar tal ação', 403);
-    }
-}
-
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    responder('error', 'Método de requisição inválido.', 405);
-}
-
-verificarPermissaoAdmin();
-
-$id = $_POST['id'] ?? '';
-
-if ($id === '') {
-    echo json_encode([
-        "status"  => "error",
-        "message" => "ID da rota não informado."
-    ], JSON_UNESCAPED_UNICODE);
-    exit;
-}
-
-$stmt = $conn->prepare("DELETE FROM rotas WHERE id = ?");
+$sql = "DELETE FROM rotas WHERE id = ?";
+$stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id);
 
 if ($stmt->execute()) {
-    echo json_encode([
-        "status"  => "success",
-        "message" => "Rota excluída com sucesso."
-    ], JSON_UNESCAPED_UNICODE);
+    voltar("../rotas.php", "Rota excluída com sucesso!");
 } else {
-    http_response_code(500);
-    echo json_encode([
-        "status"  => "error",
-        "message" => "Erro ao excluir rota.",
-        "detalhe" => $stmt->error
-    ], JSON_UNESCAPED_UNICODE);
+    voltar("../rotas.php", "Não foi possível excluir a rota. Verifique se ela tem sensores ligados a ela.");
 }
-
-$stmt->close();
-$conn->close();
+?>

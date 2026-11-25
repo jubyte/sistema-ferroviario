@@ -316,15 +316,12 @@ body {
     font-size: 52px;
 }
 }
-/* CAIXA PRINCIPAL */
 
-/* LINHA */
 
 .row {
     align-items: end;
 }
 
-/* INPUTS */
 
 .input-custom {
     height: 28px;
@@ -460,7 +457,6 @@ body {
     grid-column: 1 / -1;
 }
 
-/* SELECT */
 
 .select-custom {
     appearance: none;

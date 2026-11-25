@@ -17,7 +17,6 @@ INSERT INTO rotas(nome, localizacao_inicial, localizacao_final, trem_id,descrica
 ('Rota Joinville - Sao Francisco do Sul','Joinville', 'São Francisco do Sul',(SELECT id FROM trens WHERE nome = 'Carga 02' LIMIT 1),'Trajeto simulado para transporte de cargas entre Joinville e Sao Francisco do Sul.', 45.00, 60, 'Ativo'),
 ('Rota Distrito 12','Centro', 'Distrito Industrial',(SELECT id FROM trens WHERE nome = 'Distrito 12' LIMIT 1),'Trajeto simulado de monitoramento ferroviario na regiao de Joinville.',20.00, 35, 'Ativo');
 
--- conferência
 SELECT * FROM usuarios;
 SELECT * FROM trens;
 SELECT * FROM sensores;

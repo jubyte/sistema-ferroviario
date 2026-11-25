@@ -5,6 +5,62 @@ if (!isset($_SESSION["email"])) {
     header("Location: login.php");
     exit;
 }
+
+include "../../infra/conexao.php";
+include "../../infra/funcoes.php";
+
+$busca = $_GET["busca"] ?? "";
+$textoBusca = "%" . $busca . "%";
+
+$sql = "SELECT id, nome, email, telefone, status FROM usuarios
+        WHERE id LIKE ? OR nome LIKE ? OR email LIKE ? OR telefone LIKE ?
+        ORDER BY id";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("ssss", $textoBusca, $textoBusca, $textoBusca, $textoBusca);
+$stmt->execute();
+$usuarios = $stmt->get_result();
+
+$editando = false;
+$acao = "crud_usuarios/cadastrar_usuario.php";
+$titulo = "CADASTRAR USUÁRIO";
+$textoBotao = "+ ADICIONAR";
+$id = "";
+$nome = "";
+$email = "";
+$telefone = "";
+$tipo = "";
+$cep = "";
+$logradouro = "";
+$bairro = "";
+$cidade = "";
+$estado = "";
+
+if (isset($_GET["editar"])) {
+    verificarAdmin("usuarios.php");
+
+    $idEditar = (int) $_GET["editar"];
+    $stmt = $conn->prepare("SELECT * FROM usuarios WHERE id = ?");
+    $stmt->bind_param("i", $idEditar);
+    $stmt->execute();
+    $usuario = $stmt->get_result()->fetch_assoc();
+
+    if ($usuario) {
+        $editando = true;
+        $acao = "crud_usuarios/editar_usuario.php";
+        $titulo = "EDITAR USUÁRIO";
+        $textoBotao = "SALVAR ALTERAÇÕES";
+        $id = $usuario["id"];
+        $nome = $usuario["nome"];
+        $email = $usuario["email"];
+        $telefone = $usuario["telefone"];
+        $tipo = $usuario["tipo"];
+        $cep = $usuario["cep"] ?? "";
+        $logradouro = $usuario["logradouro"] ?? "";
+        $bairro = $usuario["bairro"] ?? "";
+        $cidade = $usuario["cidade"] ?? "";
+        $estado = $usuario["estado"] ?? "";
+    }
+}
 ?>
 
 
@@ -23,7 +79,7 @@ if (!isset($_SESSION["email"])) {
     <title>Usuários | MockingRail</title>
 </head>
 
-<body data-usuario-tipo="<?= htmlspecialchars($_SESSION["tipo"] ?? "", ENT_QUOTES, 'UTF-8') ?>">
+<body>
 
     <aside class="sidebar">
 
@@ -35,13 +91,13 @@ if (!isset($_SESSION["email"])) {
             <div class="logo-line"></div>
         </div>
 
-        <a href="usuario_detalhes.php?id=<?= htmlspecialchars((string) ($_SESSION["id"] ?? 0), ENT_QUOTES, 'UTF-8') ?>" class="usuario-box-link">
+        <a href="usuario_detalhes.php?id=<?= htmlspecialchars($_SESSION["id"] ?? 0) ?>" class="usuario-box-link">
             <div class="usuario-box">
                 <i class="bi bi-person-fill"></i>
 
                 <div class="usuario-info">
                     <span>Usuário</span>
-                    <p id="emailusuario"><?= htmlspecialchars($_SESSION["email"], ENT_QUOTES, 'UTF-8') ?></p>
+                    <p id="emailusuario"><?= htmlspecialchars($_SESSION["email"]) ?></p>
                 </div>
             </div>
         </a>
@@ -85,86 +141,96 @@ if (!isset($_SESSION["email"])) {
             <h4>SISTEMA FERROVIÁRIO</h4>
         </header>
 
+        <?php mostrarMensagem(); ?>
+
         <div class="sensor_caixa">
             <h2 class="usuario__title">
-                <i class="bi bi-plus-circle"></i>
-                CADASTRAR USUÁRIO
+                <i class="bi bi-plus-circle"></i> <?= $titulo ?>
             </h2>
 
-            <div class="row g-4 align-items-end">
-                <div class="col-12 col-lg-2">
-                    <label for="nome" class="label-custom">NOME</label>
-                    <input type="text" id="nome" class="form-control input-custom" maxlength="100" required>
-                </div>
+            <form method="POST" action="<?= $acao ?>" class="form-salvar" data-carregando="SALVANDO...">
+                <input type="hidden" name="id" value="<?= $id ?>">
 
-                <div class="col-12 col-lg-2">
-                    <label for="email" class="label-custom">E-MAIL</label>
-                    <input type="email" id="email" class="form-control input-custom" maxlength="100" required>
-                </div>
+                <div class="row g-4 align-items-end">
+                    <div class="col-12 col-lg-2">
+                        <label for="nome" class="label-custom">NOME</label>
+                        <input type="text" id="nome" name="nome" class="form-control input-custom" maxlength="100" value="<?= htmlspecialchars($nome) ?>" required>
+                    </div>
 
-                <div class="col-12 col-lg-2">
-                    <label for="telefone" class="label-custom">TELEFONE</label>
-                    <input type="tel" id="telefone" class="form-control input-custom" maxlength="20" required>
-                </div>
+                    <div class="col-12 col-lg-2">
+                        <label for="email" class="label-custom">E-MAIL</label>
+                        <input type="email" id="email" name="email" class="form-control input-custom" maxlength="100" value="<?= htmlspecialchars($email) ?>" required>
+                    </div>
 
-                <div class="col-12 col-lg-2">
-                    <label for="senha" class="label-custom">SENHA</label>
-                    <input type="password" id="senha" class="form-control input-custom" minlength="8" maxlength="72" autocomplete="new-password" required>
-                </div>
+                    <div class="col-12 col-lg-2">
+                        <label for="telefone" class="label-custom">TELEFONE</label>
+                        <input type="tel" id="telefone" name="telefone" class="form-control input-custom" maxlength="20" value="<?= htmlspecialchars($telefone) ?>" required>
+                    </div>
 
-                <div class="col-12 col-lg-2">
-                    <label for="tipo" class="label-custom">TIPO</label>
+                    <?php if (!$editando) { ?>
+                        <div class="col-12 col-lg-2">
+                            <label for="senha" class="label-custom">SENHA</label>
+                            <input type="password" id="senha" name="senha" class="form-control input-custom" minlength="8" maxlength="72" autocomplete="new-password" required>
+                        </div>
+                    <?php } ?>
 
-                    <select id="tipo" class="form-select input-custom select-custom" required>
-                        <option value="" selected disabled>SELECIONE</option>
-                        <option value="Administrador">Administrador</option>
-                        <option value="Usuário">Usuário</option>
-                    </select>
-                </div>
+                    <div class="col-12 col-lg-2">
+                        <label for="tipo" class="label-custom">TIPO</label>
+                        <select id="tipo" name="tipo" class="form-select input-custom select-custom" required>
+                            <option value="" disabled <?php if ($tipo == "") { echo "selected"; } ?>>SELECIONE</option>
+                            <option value="Administrador" <?php if ($tipo == "Administrador") { echo "selected"; } ?>>Administrador</option>
+                            <option value="Usuário" <?php if ($tipo == "Usuário") { echo "selected"; } ?>>Usuário</option>
+                        </select>
+                    </div>
 
-                <div class="col-12 col-lg-2">
-                    <button type="button" id="btnAdicionar" class="btn botao-custom w-100">
-                        + ADICIONAR
-                    </button>
-                </div>
+                    <div class="col-12 col-lg-2">
+                        <button type="submit" class="btn botao-custom w-100"><?= $textoBotao ?></button>
 
-                <div class="col-12 col-lg-2">
-                    <label for="cep" class="label-custom">CEP</label>
-                    <input type="text" id="cep" class="form-control input-custom" maxlength="9" placeholder="00000-000">
-                </div>
+                        <?php if ($editando) { ?>
+                            <a href="usuarios.php" class="btn botao-cancelar w-100 mt-2">CANCELAR ALTERAÇÕES</a>
+                        <?php } ?>
+                    </div>
 
-                <div class="col-12 col-lg-3">
-                    <label for="logradouro" class="label-custom">LOGRADOURO</label>
-                    <input type="text" id="logradouro" class="form-control input-custom" readonly>
-                </div>
+                    <div class="col-12 col-lg-2">
+                        <label for="cep" class="label-custom">CEP</label>
+                        <input type="text" id="cep" name="cep" class="form-control input-custom cep-input" maxlength="9" placeholder="00000-000" value="<?= htmlspecialchars($cep) ?>">
+                    </div>
 
-                <div class="col-12 col-lg-2">
-                    <label for="bairro" class="label-custom">BAIRRO</label>
-                    <input type="text" id="bairro" class="form-control input-custom" readonly>
-                </div>
+                    <div class="col-12 col-lg-3">
+                        <label for="logradouro" class="label-custom">LOGRADOURO</label>
+                        <input type="text" id="logradouro" class="form-control input-custom" value="<?= htmlspecialchars($logradouro) ?>" readonly>
+                    </div>
 
-                <div class="col-12 col-lg-3">
-                    <label for="cidade" class="label-custom">CIDADE</label>
-                    <input type="text" id="cidade" class="form-control input-custom" readonly>
-                </div>
+                    <div class="col-12 col-lg-2">
+                        <label for="bairro" class="label-custom">BAIRRO</label>
+                        <input type="text" id="bairro" class="form-control input-custom" value="<?= htmlspecialchars($bairro) ?>" readonly>
+                    </div>
 
-                <div class="col-12 col-lg-2">
-                    <label for="estado" class="label-custom">UF</label>
-                    <input type="text" id="estado" class="form-control input-custom" readonly>
+                    <div class="col-12 col-lg-3">
+                        <label for="cidade" class="label-custom">CIDADE</label>
+                        <input type="text" id="cidade" class="form-control input-custom" value="<?= htmlspecialchars($cidade) ?>" readonly>
+                    </div>
+
+                    <div class="col-12 col-lg-2">
+                        <label for="estado" class="label-custom">UF</label>
+                        <input type="text" id="estado" class="form-control input-custom" value="<?= htmlspecialchars($estado) ?>" readonly>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
 
-        <div class="sensor_busca">
+        <form method="GET" class="sensor_busca">
             <i class="bi bi-search"></i>
-            <input type="text" id="buscar" placeholder="Buscar por nome ou ID">
-        </div>
+            <input type="text" name="busca" placeholder="Buscar por nome ou ID" value="<?= htmlspecialchars($busca) ?>">
+        </form>
 
-        <div id="sensorVazio" class="sensor-vazio">
-            <i class="bi bi-broadcast"></i>
-            <h4>Nenhum usuário cadastrado ainda.</h4>
-            <p>Cadastre um novo usuário para começar.</p>
-        </div>
+        <?php if ($usuarios->num_rows == 0) { ?>
+            <div class="sensor-vazio" style="display: block;">
+                <i class="bi bi-broadcast"></i>
+                <h4>Nenhum usuário cadastrado ainda.</h4>
+                <p>Cadastre um novo usuário para começar.</p>
+            </div>
+        <?php } ?>
 
         <div class="sensor_tabela">
             <table class="table table-bordered align-middle">
@@ -177,11 +243,34 @@ if (!isset($_SESSION["email"])) {
                         <th>STATUS</th>
                     </tr>
                 </thead>
-                <tbody id="tabelaUsuarios"></tbody>
+                <tbody>
+                    <?php while ($usuario = $usuarios->fetch_assoc()) { ?>
+                        <tr>
+                            <td><?= $usuario["id"] ?></td>
+                            <td><a class="usuario-link" href="usuario_detalhes.php?id=<?= $usuario["id"] ?>"><?= htmlspecialchars($usuario["nome"]) ?></a></td>
+                            <td><?= htmlspecialchars($usuario["email"]) ?></td>
+                            <td><?= htmlspecialchars($usuario["telefone"]) ?></td>
+                            <td>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="status-ativo">● <?= htmlspecialchars($usuario["status"]) ?></span>
+
+                                    <div>
+                                        <a href="usuarios.php?editar=<?= $usuario["id"] ?>" class="btn-acao"><i class="bi bi-pencil-square icone-color"></i></a>
+
+                                        <form method="POST" action="crud_usuarios/excluir_usuario.php" class="form-excluir" style="display: inline;" data-mensagem="Deseja realmente remover este usuário?">
+                                            <input type="hidden" name="id" value="<?= $usuario["id"] ?>">
+                                            <button type="submit" class="btn-acao"><i class="bi bi-trash3 icone-color"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
             </table>
         </div>
     </main>
 
-    <script src="../../script/usuarios.js"></script>
+    <script src="../../script/script.js"></script>
 </body>
 </html>

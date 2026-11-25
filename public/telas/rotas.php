@@ -5,6 +5,50 @@ if (!isset($_SESSION["email"])) {
     header("Location: login.php");
     exit;
 }
+
+include "../../infra/conexao.php";
+include "../../infra/funcoes.php";
+
+$busca = $_GET["busca"] ?? "";
+$textoBusca = "%" . $busca . "%";
+
+$sql = "SELECT id, nome, localizacao_inicial, localizacao_final FROM rotas
+        WHERE id LIKE ? OR nome LIKE ? OR localizacao_inicial LIKE ? OR localizacao_final LIKE ?
+        ORDER BY id";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("ssss", $textoBusca, $textoBusca, $textoBusca, $textoBusca);
+$stmt->execute();
+$rotas = $stmt->get_result();
+
+$editando = false;
+$acao = "crud_rotas/adicionar.php";
+$titulo = "CADASTRAR ROTA";
+$textoBotao = "+ ADICIONAR";
+$id = "";
+$nome = "";
+$cepInicial = "";
+$cepFinal = "";
+
+if (isset($_GET["editar"])) {
+    verificarAdmin("rotas.php");
+
+    $idEditar = (int) $_GET["editar"];
+    $stmt = $conn->prepare("SELECT * FROM rotas WHERE id = ?");
+    $stmt->bind_param("i", $idEditar);
+    $stmt->execute();
+    $rota = $stmt->get_result()->fetch_assoc();
+
+    if ($rota) {
+        $editando = true;
+        $acao = "crud_rotas/editar.php";
+        $titulo = "EDITAR ROTA";
+        $textoBotao = "SALVAR ALTERAÇÕES";
+        $id = $rota["id"];
+        $nome = $rota["nome"];
+        $cepInicial = pegarCep($rota["localizacao_inicial"]);
+        $cepFinal = pegarCep($rota["localizacao_final"]);
+    }
+}
 ?>
 
 
@@ -23,7 +67,7 @@ if (!isset($_SESSION["email"])) {
     <title>Rotas | MockingRail</title>
 </head>
 
-<body data-usuario-tipo="<?= htmlspecialchars($_SESSION["tipo"] ?? "", ENT_QUOTES, 'UTF-8') ?>">
+<body>
 
     <aside class="sidebar">
 
@@ -35,13 +79,13 @@ if (!isset($_SESSION["email"])) {
             <div class="logo-line"></div>
         </div>
 
-        <a href="usuario_detalhes.php?id=<?= htmlspecialchars((string) ($_SESSION["id"] ?? 0), ENT_QUOTES, 'UTF-8') ?>" class="usuario-box-link">
+        <a href="usuario_detalhes.php?id=<?= htmlspecialchars($_SESSION["id"] ?? 0) ?>" class="usuario-box-link">
             <div class="usuario-box">
                 <i class="bi bi-person-fill"></i>
 
                 <div class="usuario-info">
                     <span>Usuário</span>
-                    <p id="emailusuario"><?= htmlspecialchars($_SESSION["email"], ENT_QUOTES, 'UTF-8') ?></p>
+                    <p id="emailusuario"><?= htmlspecialchars($_SESSION["email"]) ?></p>
                 </div>
             </div>
         </a>
@@ -89,120 +133,105 @@ if (!isset($_SESSION["email"])) {
             <h4>SISTEMA FERROVIÁRIO</h4>
         </header>
 
+        <?php mostrarMensagem(); ?>
 
-    
-    <div class="sensor_caixa">
+        <div class="sensor_caixa">
 
-        <h2 class="usuario__title">
-            <i class="bi bi-plus-circle"></i> CADASTRAR ROTA
-        </h2>
+            <h2 class="usuario__title">
+                <i class="bi bi-plus-circle"></i> <?= $titulo ?>
+            </h2>
 
-        <form id="formRota">
-            <div class="row g-4 align-items-space-between">
+            <form method="POST" action="<?= $acao ?>" class="form-salvar" data-carregando="SALVANDO...">
+                <input type="hidden" name="id" value="<?= $id ?>">
 
-                <div class="nome-rota">
-                    <label for="nome" class="label-custom">NOME</label>
-                    <input type="text" id="nome"
-                           class="form-control input-custom"
-                           maxlength="100" required>
-                </div>
+                <div class="row g-4 align-items-space-between">
 
-                <div class="endereco-rota">
-                    <div class="rota-card">
-                        <label for="cep-inicial" class="label-custom">CEP - Início</label>
-                        <div class="input-cep-group">
-                            <input type="text" id="cep-inicial" class="form-control input-custom cep-input" maxlength="9" placeholder="00000-000" required>
+                    <div class="nome-rota">
+                        <label for="nome" class="label-custom">NOME</label>
+                        <input type="text" id="nome" name="nome" class="form-control input-custom" maxlength="100" value="<?= htmlspecialchars($nome) ?>" required>
+                    </div>
+
+                    <div class="endereco-rota">
+                        <div class="rota-card">
+                            <label for="cep-inicial" class="label-custom">CEP - Início</label>
+                            <div class="input-cep-group">
+                                <input type="text" id="cep-inicial" name="cep_inicial" class="form-control input-custom cep-input" maxlength="9" placeholder="00000-000" value="<?= htmlspecialchars($cepInicial) ?>" required>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="endereco-rota fim">
-                    <div class="rota-card">
-                        <label for="cep-final" class="label-custom">CEP - Fim</label>
-                        <div class="input-cep-group">
-                            <input type="text" id="cep-final" class="form-control input-custom cep-input" maxlength="9" placeholder="00000-000" required>
+                    <div class="endereco-rota fim">
+                        <div class="rota-card">
+                            <label for="cep-final" class="label-custom">CEP - Fim</label>
+                            <div class="input-cep-group">
+                                <input type="text" id="cep-final" name="cep_final" class="form-control input-custom cep-input" maxlength="9" placeholder="00000-000" value="<?= htmlspecialchars($cepFinal) ?>" required>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="col-12 col-lg-2">
+                        <div class="acoes-rota">
+                            <button type="submit" class="btn botao-custom w-100"><?= $textoBotao ?></button>
+
+                            <?php if ($editando) { ?>
+                                <a href="rotas.php" class="btn botao-cancelar w-100 mt-2">CANCELAR ALTERAÇÕES</a>
+                            <?php } ?>
+                        </div>
+                    </div>
+
                 </div>
+            </form>
 
-                <div class="col-12 col-lg-2">
-                    <div class="acoes-rota">
-                        <button type="button" id="btnAdicionar" class="btn botao-custom w-100">
-                            + ADICIONAR
-                        </button>
-                    </div>
-                </div>
-
-                <input type="hidden" id="localizacao-inicial" value="">
-                <input type="hidden" id="localizacao-final" value="">
-
-            </div>
-        </form>
-
-        <div id="modalEndereco" class="modal-endereco" aria-hidden="true">
-            <div class="modal-endereco-content">
-                <div class="modal-endereco-header">
-                    <h3 id="modalEnderecoTitulo">Detalhes do endereço</h3>
-                    <button type="button" class="btn-fechar-modal" id="btnFecharModal" aria-label="Fechar">×</button>
-                </div>
-
-                <div class="modal-grid">
-                    <div class="modal-item">
-                        <span>CEP</span>
-                        <strong id="modalCep">-</strong>
-                    </div>
-                    <div class="modal-item modal-item-wide">
-                        <span>Logradouro</span>
-                        <strong id="modalLogradouro">-</strong>
-                    </div>
-                    <div class="modal-item">
-                        <span>Bairro</span>
-                        <strong id="modalBairro">-</strong>
-                    </div>
-                    <div class="modal-item">
-                        <span>Cidade</span>
-                        <strong id="modalCidade">-</strong>
-                    </div>
-                    <div class="modal-item">
-                        <span>Estado (UF)</span>
-                        <strong id="modalEstado">-</strong>
-                    </div>
-                </div>
-            </div>
         </div>
 
-    </div>
+        <form method="GET" class="sensor_busca">
+            <i class="bi bi-search"></i>
+            <input type="text" name="busca" placeholder="Buscar por nome ou ID" value="<?= htmlspecialchars($busca) ?>">
+        </form>
+
+        <?php if ($rotas->num_rows == 0) { ?>
+            <div class="sensor-vazio" style="display: block;">
+                <i class="bi bi-broadcast"></i>
+                <h4>Nenhuma rota cadastrada ainda.</h4>
+                <p>Cadastre uma nova rota para começar.</p>
+            </div>
+        <?php } ?>
+
+        <div class="sensor_tabela">
+            <table class="table table-bordered align-middle">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NOME</th>
+                        <th>INÍCIO</th>
+                        <th>FIM</th>
+                        <th>Editar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($rota = $rotas->fetch_assoc()) { ?>
+                        <tr>
+                            <td><?= $rota["id"] ?></td>
+                            <td><a class="usuario-link" href="rota_detalhes.php?id=<?= $rota["id"] ?>"><?= htmlspecialchars($rota["nome"]) ?></a></td>
+                            <td><?= htmlspecialchars(resumoLocal($rota["localizacao_inicial"])) ?></td>
+                            <td><?= htmlspecialchars(resumoLocal($rota["localizacao_final"])) ?></td>
+                            <td>
+                                <a href="rotas.php?editar=<?= $rota["id"] ?>" class="botao-rotas"><i class="bi bi-pencil-square"></i></a>
+
+                                <form method="POST" action="crud_rotas/excluir.php" class="form-excluir" style="display: inline;" data-mensagem="Tem certeza de que deseja excluir esta rota?">
+                                    <input type="hidden" name="id" value="<?= $rota["id"] ?>">
+                                    <button type="submit" class="botao-rotas"><i class="bi bi-trash3"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
 
 
-    <div class="sensor_busca">
-        <i class="bi bi-search"></i>
-        <input type="text" id="buscar" placeholder="Buscar por nome ou ID">
-    </div>
-
-     <div id="sensorVazio" class="sensor-vazio">
-        <i class="bi bi-broadcast"></i>
-        <h4> Nenhuma rota cadastrada ainda. </h4>
-        <p> Cadastre uma nova rota para começar. </p>
-    </div>
-
-    <div class="sensor_tabela">
-        <table class="table table-bordered align-middle">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>NOME</th>
-                    <th>INÍCIO</th>
-                    <th>FIM</th>
-                    <th>Editar</th>
-                </tr>
-            </thead>
-            <tbody id="tabelaRotas"></tbody>
-        </table>
-    </div>
-
-</main>
-
-<script src="../../script/rotas.js"></script>
-
+    <script src="../../script/script.js"></script>
 </body>
 </html>

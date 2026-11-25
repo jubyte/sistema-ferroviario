@@ -6,9 +6,9 @@ if (!isset($_SESSION["email"])) {
     exit;
 }
 
-require_once __DIR__ . '/../../infra/conexao.php';
+include "../../infra/conexao.php";
 
-$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+$id = (int) ($_GET['id'] ?? 0);
 
 if (!$id) {
     header('Location: usuarios.php');
@@ -27,7 +27,7 @@ if (!$usuario) {
     exit;
 }
 
-$createdAt = date('d/m/Y H:i', strtotime($usuario['data_criacao']));
+$dataCadastro = date('d/m/Y H:i', strtotime($usuario['data_criacao']));
 ?>
 
 <!DOCTYPE html>
@@ -42,19 +42,19 @@ $createdAt = date('d/m/Y H:i', strtotime($usuario['data_criacao']));
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <title>Detalhes do usuário | MockingRail</title>
 </head>
-<body data-usuario-tipo="<?= htmlspecialchars($_SESSION["tipo"] ?? "", ENT_QUOTES, 'UTF-8') ?>">
+<body>
     <aside class="sidebar">
         <div class="logo-box">
             <h1 class="logo">R<span>Λ</span>IL</h1>
             <div class="logo-line"></div>
         </div>
 
-        <a href="usuario_detalhes.php?id=<?= htmlspecialchars((string) ($_SESSION["id"] ?? 0), ENT_QUOTES, 'UTF-8') ?>" class="usuario-box-link">
+        <a href="usuario_detalhes.php?id=<?= htmlspecialchars($_SESSION["id"] ?? 0) ?>" class="usuario-box-link">
             <div class="usuario-box">
                 <i class="bi bi-person-fill"></i>
                 <div class="usuario-info">
                     <span>Usuário</span>
-                    <p id="emailusuario"><?= htmlspecialchars($_SESSION["email"], ENT_QUOTES, 'UTF-8') ?></p>
+                    <p id="emailusuario"><?= htmlspecialchars($_SESSION["email"]) ?></p>
                 </div>
             </div>
         </a>
@@ -108,62 +108,62 @@ $createdAt = date('d/m/Y H:i', strtotime($usuario['data_criacao']));
             <div class="usuario-detalhes-grid">
                 <div class="usuario-detalhe-item">
                     <span>ID</span>
-                    <strong><?= htmlspecialchars((string) $usuario['id'], ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($usuario['id']) ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>Nome</span>
-                    <strong><?= htmlspecialchars((string) $usuario['nome'], ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($usuario['nome']) ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>E-mail</span>
-                    <strong><?= htmlspecialchars((string) $usuario['email'], ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($usuario['email']) ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>Telefone</span>
-                    <strong><?= htmlspecialchars((string) $usuario['telefone'], ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($usuario['telefone']) ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>Tipo</span>
-                    <strong><?= htmlspecialchars((string) $usuario['tipo'], ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($usuario['tipo']) ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>Status</span>
-                    <strong><?= htmlspecialchars((string) $usuario['status'], ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($usuario['status']) ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>CEP</span>
-                    <strong><?= htmlspecialchars((string) ($usuario['cep'] ?? 'Não informado'), ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($usuario['cep'] ?? 'Não informado') ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>Logradouro</span>
-                    <strong><?= htmlspecialchars((string) ($usuario['logradouro'] ?? 'Não informado'), ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($usuario['logradouro'] ?? 'Não informado') ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>Bairro</span>
-                    <strong><?= htmlspecialchars((string) ($usuario['bairro'] ?? 'Não informado'), ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($usuario['bairro'] ?? 'Não informado') ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>Cidade</span>
-                    <strong><?= htmlspecialchars((string) ($usuario['cidade'] ?? 'Não informado'), ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($usuario['cidade'] ?? 'Não informado') ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>UF</span>
-                    <strong><?= htmlspecialchars((string) ($usuario['estado'] ?? 'Não informado'), ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($usuario['estado'] ?? 'Não informado') ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>Data de criação</span>
-                    <strong><?= htmlspecialchars((string) $createdAt, ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($dataCadastro) ?></strong>
                 </div>
             </div>
 

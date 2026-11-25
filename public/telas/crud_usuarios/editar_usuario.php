@@ -1,111 +1,62 @@
-
 <?php
-header('Content-Type: application/json; charset=utf-8');
 session_start();
+include "../../../infra/conexao.php";
+include "../../../infra/funcoes.php";
 
-require_once __DIR__ . '/../../../infra/conexao.php';
+verificarAdmin("../usuarios.php");
 
-function responder($status, $message, $codigo = 200)
-{
-    http_response_code($codigo);
+$id = (int) ($_POST["id"] ?? 0);
+$voltarPara = "../usuarios.php?editar=" . $id;
 
-    echo json_encode([
-        'status' => $status,
-        'message' => $message
-    ], JSON_UNESCAPED_UNICODE);
+$nome = trim($_POST["nome"] ?? "");
+$email = trim($_POST["email"] ?? "");
+$telefone = trim($_POST["telefone"] ?? "");
+$tipo = $_POST["tipo"] ?? "";
+$cep = trim($_POST["cep"] ?? "");
 
-    exit;
+if ($nome == "" || $email == "" || $telefone == "" || $tipo == "") {
+    voltar($voltarPara, "Preencha todos os campos.");
 }
 
-function verificarPermissaoAdmin()
-{
-    if (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== 'Administrador') {
-        responder('error', 'Você não tem permissão para realizar tal ação', 403);
-    }
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    voltar($voltarPara, "Digite um e-mail válido.");
 }
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    responder('error', 'Método de requisição inválido.', 405);
+if ($tipo != "Administrador" && $tipo != "Usuário") {
+    voltar($voltarPara, "Tipo de usuário inválido.");
 }
 
-verificarPermissaoAdmin();
+$logradouro = null;
+$bairro = null;
+$cidade = null;
+$estado = null;
 
-$id = trim($_POST['id'] ?? '');
-$nome = trim($_POST['nome'] ?? '');
-$email = trim($_POST['email'] ?? '');
-$telefone = trim($_POST['telefone'] ?? '');
-$cep = trim($_POST['cep'] ?? '');
-$logradouro = trim($_POST['logradouro'] ?? '');
-$bairro = trim($_POST['bairro'] ?? '');
-$cidade = trim($_POST['cidade'] ?? '');
-$estado = trim($_POST['estado'] ?? '');
+if ($cep == "") {
+    $cep = null;
+} else {
+    $endereco = buscarCep($cep);
 
-if ($id === '' || $nome === '' || $email === '' || $telefone === '') {
-    responder('error', 'Preencha todos os campos.', 400);
-}
-
-if ($cep !== '' && !preg_match('/^\d{5}-\d{3}$/', $cep)) {
-    responder('error', 'CEP inválido. Informe um CEP no formato 00000-000.', 400);
-}
-
-if (!ctype_digit($id) || (int) $id < 1) {
-    responder('error', 'Identificador de usuário inválido.', 400);
-}
-
-$id = (int) $id;
-
-if (!preg_match('/^[\p{L}\s]+$/u', $nome) || mb_strlen($nome) > 100) {
-    responder('error', 'Digite um nome válido, limite de 100 caracteres.', 400);
-}
-
-if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 100) {
-    responder('error', 'Digite um e-mail válido, limite de 100 caracteres.', 400);
-}
-
-if (!preg_match('/^[0-9()\s+\-]+$/', $telefone) || strlen($telefone) > 20) {
-    responder('error', 'Digite um telefone válido, limite de 20 caracteres.', 400);
-}
-
-try {
-    $sqlVerificar = "SELECT id FROM usuarios WHERE id = ?";
-
-    $stmtVerificar = $conn->prepare($sqlVerificar);
-    $stmtVerificar->bind_param('i', $id);
-    $stmtVerificar->execute();
-    $stmtVerificar->store_result();
-
-    $existe = $stmtVerificar->num_rows > 0;
-
-    $stmtVerificar->close();
-
-    if (!$existe) {
-        responder('error', 'Usuário não encontrado.', 404);
+    if ($endereco == null) {
+        voltar($voltarPara, "CEP não encontrado.");
     }
 
-    $cep = $cep !== '' ? $cep : null;
-    $logradouro = $logradouro !== '' ? $logradouro : null;
-    $bairro = $bairro !== '' ? $bairro : null;
-    $cidade = $cidade !== '' ? $cidade : null;
-    $estado = $estado !== '' ? $estado : null;
+    $cep = $endereco["cep"];
+    $logradouro = $endereco["logradouro"];
+    $bairro = $endereco["bairro"];
+    $cidade = $endereco["cidade"];
+    $estado = $endereco["estado"];
+}
 
-    $sql = "UPDATE usuarios
-            SET nome = ?, email = ?, telefone = ?, cep = ?, logradouro = ?, bairro = ?, cidade = ?, estado = ?
-            WHERE id = ?";
+$sql = "UPDATE usuarios SET nome = ?, email = ?, telefone = ?, tipo = ?, cep = ?, logradouro = ?, bairro = ?, cidade = ?, estado = ?
+        WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("sssssssssi", $nome, $email, $telefone, $tipo, $cep, $logradouro, $bairro, $cidade, $estado, $id);
 
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ssssssssi', $nome, $email, $telefone, $cep, $logradouro, $bairro, $cidade, $estado, $id);
-    $stmt->execute();
-    $stmt->close();
-
-    responder('success', 'Usuário atualizado com sucesso!');
-
-} catch (mysqli_sql_exception $e) {
-    error_log($e->getMessage());
-
-    if ((int) $e->getCode() === 1062) {
-        responder('error', 'Este e-mail já está cadastrado.', 409);
-    }
-
-    responder('error', 'Erro ao editar usuário.', 500);
+if ($stmt->execute()) {
+    voltar("../usuarios.php", "Usuário atualizado com sucesso!");
+} else if ($conn->errno == 1062) {
+    voltar($voltarPara, "Este e-mail já está cadastrado.");
+} else {
+    voltar($voltarPara, "Erro ao editar usuário.");
 }
 ?>

@@ -1,67 +1,42 @@
 <?php
-header('Content-Type: application/json; charset=utf-8');
 session_start();
+include "../../../infra/conexao.php";
+include "../../../infra/funcoes.php";
 
-require_once __DIR__ . '/../../../infra/conexao.php';
+verificarAdmin("../rotas.php");
 
-function responder($status, $message, $codigo = 200)
-{
-    http_response_code($codigo);
+$id = (int) ($_POST["id"] ?? 0);
+$nome = trim($_POST["nome"] ?? "");
+$cepInicial = trim($_POST["cep_inicial"] ?? "");
+$cepFinal = trim($_POST["cep_final"] ?? "");
 
-    echo json_encode([
-        'status' => $status,
-        'message' => $message
-    ], JSON_UNESCAPED_UNICODE);
+$voltarPara = "../rotas.php?editar=" . $id;
 
-    exit;
+if ($nome == "" || $cepInicial == "" || $cepFinal == "") {
+    voltar($voltarPara, "Preencha o nome e os CEPs de início e fim.");
 }
 
-function verificarPermissaoAdmin()
-{
-    if (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== 'Administrador') {
-        responder('error', 'Você não tem permissão para realizar tal ação', 403);
-    }
+$enderecoInicial = buscarCep($cepInicial);
+$enderecoFinal = buscarCep($cepFinal);
+
+if ($enderecoInicial == null) {
+    voltar($voltarPara, "CEP de início não encontrado.");
 }
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    responder('error', 'Método de requisição inválido.', 405);
+if ($enderecoFinal == null) {
+    voltar($voltarPara, "CEP de fim não encontrado.");
 }
 
-verificarPermissaoAdmin();
+$inicio = montarEndereco($enderecoInicial);
+$fim = montarEndereco($enderecoFinal);
 
-$id     = $_POST['id'] ?? '';
-$nome   = trim($_POST['nome'] ?? '');
-$inicio = trim($_POST['localizacao_inicial'] ?? '');
-$fim    = trim($_POST['localizacao_final'] ?? '');
-
-if ($id === '' || $nome === '' || $inicio === '' || $fim === '') {
-    echo json_encode([
-        "status"  => "error",
-        "message" => "Preencha todos os campos."
-    ], JSON_UNESCAPED_UNICODE);
-    exit;
-}
-
-$stmt = $conn->prepare(
-    "UPDATE rotas
-     SET nome = ?, localizacao_inicial = ?, localizacao_final = ?
-     WHERE id = ?"
-);
+$sql = "UPDATE rotas SET nome = ?, localizacao_inicial = ?, localizacao_final = ? WHERE id = ?";
+$stmt = $conn->prepare($sql);
 $stmt->bind_param("sssi", $nome, $inicio, $fim, $id);
 
 if ($stmt->execute()) {
-    echo json_encode([
-        "status"  => "success",
-        "message" => "Rota editada com sucesso."
-    ], JSON_UNESCAPED_UNICODE);
+    voltar("../rotas.php", "Rota editada com sucesso!");
 } else {
-    http_response_code(500);
-    echo json_encode([
-        "status"  => "error",
-        "message" => "Erro ao editar rota.",
-        "detalhe" => $stmt->error
-    ], JSON_UNESCAPED_UNICODE);
+    voltar($voltarPara, "Erro ao editar rota.");
 }
-
-$stmt->close();
-$conn->close();
+?>

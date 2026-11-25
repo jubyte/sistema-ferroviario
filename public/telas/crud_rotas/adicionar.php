@@ -1,79 +1,39 @@
 <?php
-header('Content-Type: application/json; charset=utf-8');
 session_start();
+include "../../../infra/conexao.php";
+include "../../../infra/funcoes.php";
 
-require_once __DIR__ . '/../../../infra/conexao.php';
+verificarAdmin("../rotas.php");
 
-function responder($status, $message, $codigo = 200)
-{
-    http_response_code($codigo);
+$nome = trim($_POST["nome"] ?? "");
+$cepInicial = trim($_POST["cep_inicial"] ?? "");
+$cepFinal = trim($_POST["cep_final"] ?? "");
 
-    echo json_encode([
-        'status' => $status,
-        'message' => $message
-    ], JSON_UNESCAPED_UNICODE);
-
-    exit;
+if ($nome == "" || $cepInicial == "" || $cepFinal == "") {
+    voltar("../rotas.php", "Preencha o nome e os CEPs de início e fim.");
 }
 
-function verificarPermissaoAdmin()
-{
-    if (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== 'Administrador') {
-        responder('error', 'Você não tem permissão para realizar tal ação', 403);
-    }
+$enderecoInicial = buscarCep($cepInicial);
+$enderecoFinal = buscarCep($cepFinal);
+
+if ($enderecoInicial == null) {
+    voltar("../rotas.php", "CEP de início não encontrado.");
 }
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    responder('error', 'Método de requisição inválido.', 405);
+if ($enderecoFinal == null) {
+    voltar("../rotas.php", "CEP de fim não encontrado.");
 }
 
-verificarPermissaoAdmin();
+$inicio = montarEndereco($enderecoInicial);
+$fim = montarEndereco($enderecoFinal);
 
-$nome   = trim($_POST['nome'] ?? '');
-$inicio = trim($_POST['localizacao_inicial'] ?? '');
-$fim    = trim($_POST['localizacao_final'] ?? '');
+$sql = "INSERT INTO rotas (nome, localizacao_inicial, localizacao_final) VALUES (?, ?, ?)";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("sss", $nome, $inicio, $fim);
 
-if ($nome === '' || $inicio === '' || $fim === '') {
-    echo json_encode([
-        "status"  => "error",
-        "message" => "Preencha todos os campos."
-    ], JSON_UNESCAPED_UNICODE);
-    exit;
+if ($stmt->execute()) {
+    voltar("../rotas.php", "Rota cadastrada com sucesso!");
+} else {
+    voltar("../rotas.php", "Erro ao cadastrar rota.");
 }
-
-try {
-    $sql = "INSERT INTO rotas (
-                nome,
-                localizacao_inicial,
-                localizacao_final,
-                descricao,
-                distancia,
-                tempo_estimado
-            ) VALUES (?, ?, ?, NULL, NULL, NULL)";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sss", $nome, $inicio, $fim);
-    $stmt->execute();
-
-    echo json_encode([
-        "status"  => "success",
-        "message" => "Rota cadastrada com sucesso."
-    ], JSON_UNESCAPED_UNICODE);
-
-    $stmt->close();
-
-} catch (Throwable $e) {
-    error_log("Erro ao cadastrar rota: " . $e->getMessage());
-
-    http_response_code(500);
-
-    echo json_encode([
-        "status"  => "error",
-        "message" => "Erro ao cadastrar rota."
-    ], JSON_UNESCAPED_UNICODE);
-
-} finally {
-    if (isset($conn) && $conn instanceof mysqli) {
-        $conn->close();
-    }
-}
+?>

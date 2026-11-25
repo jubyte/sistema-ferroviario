@@ -1,77 +1,72 @@
 <?php
 session_start();
-require_once __DIR__ . '/../../infra/conexao.php';
 
 if (!isset($_SESSION["email"])) {
     header("Location: login.php");
     exit;
 }
 
-$totalTrens = 0;
-$trensAtivos = 0;
-$totalSensores = 0;
-$sensoresOnline = 0;
-$sensoresInativos = 0;
-$integridade = 0;
-$alertasCriticos = 0;
-$usuariosAtivos = 0;
-$totalUsuarios = 0;
+include "../../infra/conexao.php";
+include "../../infra/funcoes.php";
 
-$sqlContagemTrens = "SELECT COUNT(*) AS total_trens,
-    SUM(CASE WHEN status = 'Ativo' THEN 1 ELSE 0 END) AS trens_ativos
-    FROM trens";
+function contar($conn, $sql)
+{
+    $resultado = $conn->query($sql);
 
-$resultado = $conn->query($sqlContagemTrens);
+    if ($resultado == false) {
+        return 0;
+    }
 
-if ($resultado && $resultado->num_rows > 0) {
-    $dadosTrens = $resultado->fetch_assoc();
-    $totalTrens = (int) ($dadosTrens['total_trens'] ?? 0);
-    $trensAtivos = (int) ($dadosTrens['trens_ativos'] ?? 0);
+    $linha = $resultado->fetch_assoc();
+    return $linha["total"];
 }
 
-$sqlContagemSensores = "SELECT COUNT(*) AS total_sensores,
-    SUM(CASE WHEN status = 'Ativo' THEN 1 ELSE 0 END) AS sensores_online,
-    SUM(CASE WHEN status = 'Inativo' THEN 1 ELSE 0 END) AS sensores_inativos
-    FROM sensores";
+$totalTrens = contar($conn, "SELECT COUNT(*) AS total FROM trens");
+$trensAtivos = contar($conn, "SELECT COUNT(*) AS total FROM trens WHERE status = 'Ativo'");
 
-$resultadoSensores = $conn->query($sqlContagemSensores);
-
-if ($resultadoSensores && $resultadoSensores->num_rows > 0) {
-    $dadosSensores = $resultadoSensores->fetch_assoc();
-    $totalSensores = (int) ($dadosSensores['total_sensores'] ?? 0);
-    $sensoresOnline = (int) ($dadosSensores['sensores_online'] ?? 0);
-    $sensoresInativos = (int) ($dadosSensores['sensores_inativos'] ?? 0);
-}
-
-if ($totalSensores > 0) {
-    $integridade = (int) round(($sensoresOnline / $totalSensores) * 100);
-}
-
+$totalSensores = contar($conn, "SELECT COUNT(*) AS total FROM sensores");
+$sensoresOnline = contar($conn, "SELECT COUNT(*) AS total FROM sensores WHERE status = 'Ativo'");
+$sensoresInativos = contar($conn, "SELECT COUNT(*) AS total FROM sensores WHERE status = 'Inativo'");
 $alertasCriticos = $sensoresInativos;
 
-$sqlContagemUsuarios = "SELECT COUNT(*) AS total_usuarios,
-    SUM(CASE WHEN status = 'Ativo' THEN 1 ELSE 0 END) AS usuarios_ativos
-    FROM usuarios";
-
-$resultadoUsuarios = $conn->query($sqlContagemUsuarios);
-
-if ($resultadoUsuarios && $resultadoUsuarios->num_rows > 0) {
-    $dadosUsuarios = $resultadoUsuarios->fetch_assoc();
-    $totalUsuarios = (int) ($dadosUsuarios['total_usuarios'] ?? 0);
-    $usuariosAtivos = (int) ($dadosUsuarios['usuarios_ativos'] ?? 0);
-}
+$totalUsuarios = contar($conn, "SELECT COUNT(*) AS total FROM usuarios");
+$usuariosAtivos = contar($conn, "SELECT COUNT(*) AS total FROM usuarios WHERE status = 'Ativo'");
 
 $trensAtivosLista = [];
-$sqlTrensAtivos = "SELECT nome, tipo, empresa FROM trens WHERE status = 'Ativo' ORDER BY nome ASC";
-$resultadoTrensAtivos = $conn->query($sqlTrensAtivos);
+$resultado = $conn->query("SELECT nome, tipo, empresa FROM trens WHERE status = 'Ativo' ORDER BY nome");
 
-if ($resultadoTrensAtivos) {
-    while ($linha = $resultadoTrensAtivos->fetch_assoc()) {
-        $trensAtivosLista[] = $linha;
+while ($trem = $resultado->fetch_assoc()) {
+    $trensAtivosLista[] = $trem;
+}
+
+$tabelas = ["usuarios", "rotas", "sensores", "trens"];
+$tabelasOk = 0;
+
+foreach ($tabelas as $tabela) {
+    if ($conn->query("SELECT 1 FROM " . $tabela . " LIMIT 1")) {
+        $tabelasOk = $tabelasOk + 1;
     }
 }
 
-$conn->close();
+$integridade = round($tabelasOk / 4 * 100);
+
+if ($integridade == 100) {
+    $corIntegridade = "texto-azul";
+    $statusIntegridade = "SISTEMA<br>ONLINE";
+} else if ($integridade >= 75) {
+    $corIntegridade = "texto-amarelo";
+    $statusIntegridade = "ATENÇÃO<br>NO SISTEMA";
+} else {
+    $corIntegridade = "texto-vermelho";
+    $statusIntegridade = "SISTEMA<br>CRÍTICO";
+}
+
+$cidade = trim($_GET["cidade"] ?? "");
+$previsao = null;
+
+if ($cidade != "") {
+    $previsao = buscarClima($cidade);
+}
 ?>
 
 
@@ -99,13 +94,13 @@ $conn->close();
 
         </div>
 
-        <a href="usuario_detalhes.php?id=<?= htmlspecialchars((string) ($_SESSION["id"] ?? 0), ENT_QUOTES, 'UTF-8') ?>" class="usuario-box-link">
+        <a href="usuario_detalhes.php?id=<?= htmlspecialchars($_SESSION["id"] ?? 0) ?>" class="usuario-box-link">
             <div class="usuario-box">
                 <i class="bi bi-person-fill"></i>
 
                 <div class="usuario-info">
                     <span>Usuário</span>
-                    <p id="emailusuario"><?= htmlspecialchars($_SESSION["email"], ENT_QUOTES, 'UTF-8') ?></p>
+                    <p id="emailusuario"><?= htmlspecialchars($_SESSION["email"]) ?></p>
                 </div>
             </div>
         </a>
@@ -157,8 +152,8 @@ $conn->close();
                 <div>
                     <h3>Sensores</h3>
                     <div class="informacoes-sensores">
-                        <span class="ativos"><?= htmlspecialchars((string) $sensoresOnline, ENT_QUOTES, 'UTF-8') ?> ativos</span>
-                        <span class="manutencao"><?= htmlspecialchars((string) $sensoresInativos, ENT_QUOTES, 'UTF-8') ?> em manutenção</span>
+                        <span class="ativos"><?= htmlspecialchars($sensoresOnline) ?> ativos</span>
+                        <span class="manutencao"><?= htmlspecialchars($sensoresInativos) ?> em manutenção</span>
                     </div>
                 </div>
             </div>
@@ -166,7 +161,7 @@ $conn->close();
                 <i class="bi bi-exclamation-triangle"></i>
                 <div>
                     <h3>Alertas</h3>
-                    <span><?= htmlspecialchars((string) $alertasCriticos, ENT_QUOTES, 'UTF-8') ?> ativos</span>
+                    <span><?= htmlspecialchars($alertasCriticos) ?> ativos</span>
                 </div>
             </div>
             <div class="cartao-sensores">
@@ -174,8 +169,8 @@ $conn->close();
                 <div>
                     <h3>Usuários</h3>
                     <div class="informacoes-sensores">
-                        <span class="ativos"><?= htmlspecialchars((string) $usuariosAtivos, ENT_QUOTES, 'UTF-8') ?> ativos</span>
-                        <span class="manutencao"><?= htmlspecialchars((string) ($totalUsuarios - $usuariosAtivos), ENT_QUOTES, 'UTF-8') ?> inativos</span>
+                        <span class="ativos"><?= htmlspecialchars($usuariosAtivos) ?> ativos</span>
+                        <span class="manutencao"><?= htmlspecialchars($totalUsuarios - $usuariosAtivos) ?> inativos</span>
                     </div>
                 </div>
             </div>
@@ -187,7 +182,7 @@ $conn->close();
                 </div>
                 <div class="info-card">
                     <h3>TRENS ATIVOS</h3>
-                    <strong><?= htmlspecialchars((string) $trensAtivos, ENT_QUOTES, 'UTF-8') ?> / <?= htmlspecialchars((string) $totalTrens, ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($trensAtivos) ?> / <?= htmlspecialchars($totalTrens) ?></strong>
                     <span>OPERAÇÃO NORMAL</span>
                 </div>
             </div>
@@ -197,18 +192,18 @@ $conn->close();
                 </div>
                 <div class="info-card">
                     <h3>SENSORES<br>ONLINE</h3>
-                    <strong><?= htmlspecialchars((string) $sensoresOnline, ENT_QUOTES, 'UTF-8') ?></strong>
-                    <span>DE <?= htmlspecialchars((string) $totalSensores, ENT_QUOTES, 'UTF-8') ?><br>CADASTRADOS</span>
+                    <strong><?= htmlspecialchars($sensoresOnline) ?></strong>
+                    <span>DE <?= htmlspecialchars($totalSensores) ?><br>CADASTRADOS</span>
                 </div>
             </div>
             <div class="card-painel">
-                <div id="iconeIntegridadeSistema" class="icone-card vermelho">
+                <div id="iconeIntegridadeSistema" class="icone-card <?= $corIntegridade ?>">
                     <i class="bi bi-activity"></i>
                 </div>
                 <div class="info-card">
                     <h3>INTEGRI-<br>DADE</h3>
-                    <strong id="integridadeSistema" class="texto-vermelho"><?= htmlspecialchars((string) $integridade, ENT_QUOTES, 'UTF-8') ?>%</strong>
-                    <span id="statusIntegridadeSistema">STATUS DO<br>SISTEMA</span>
+                    <strong id="integridadeSistema" class="<?= $corIntegridade ?>"><?= htmlspecialchars($integridade) ?>%</strong>
+                    <span id="statusIntegridadeSistema"><?= $statusIntegridade ?></span>
                 </div>
             </div>
             <div class="card-painel">
@@ -217,7 +212,7 @@ $conn->close();
                 </div>
                 <div class="info-card">
                     <h3>ALERTAS<br>CRÍTICOS</h3>
-                    <strong class="texto-vermelho"><?= htmlspecialchars((string) $alertasCriticos, ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong class="texto-vermelho"><?= htmlspecialchars($alertasCriticos) ?></strong>
                     <span>REQUER<br>ATENÇÃO</span>
                 </div>
             </div>
@@ -236,14 +231,26 @@ $conn->close();
                 <div class="clima-box">
 
                     <div id="resultadoTempo">
-                        <h3>Nenhuma cidade selecionada</h3>
-                        <p>Digite uma cidade para consultar a previsão.</p>
+                        <?php if ($cidade == "") { ?>
+                            <h3>Nenhuma cidade selecionada</h3>
+                            <p>Digite uma cidade para consultar a previsão.</p>
+                        <?php } else if ($previsao == null) { ?>
+                            <p>Cidade não encontrada.</p>
+                        <?php } else { ?>
+                            <h3><?= htmlspecialchars($previsao["cidade"]) ?></h3>
+                            <p><?= htmlspecialchars($previsao["regiao"]) ?></p>
+                            <p>Temperatura: <?= $previsao["temperatura"] ?> °C</p>
+                            <p>Sensação térmica: <?= $previsao["sensacao"] ?> °C</p>
+                            <p>Umidade: <?= $previsao["umidade"] ?>%</p>
+                            <p>Chuva: <?= $previsao["chuva"] ?> mm</p>
+                            <p>Vento: <?= $previsao["vento"] ?> km/h</p>
+                        <?php } ?>
                     </div>
 
-                    <div class="clima-busca">
-                        <input type="text" id="cidade" class="input-clima" placeholder="Digite uma cidade">
-                        <button id="btnBuscar" class="btn-clima">Buscar</button>
-                    </div>
+                    <form method="GET" class="clima-busca form-salvar" data-carregando="BUSCANDO...">
+                        <input type="text" name="cidade" class="input-clima" placeholder="Digite uma cidade" value="<?= htmlspecialchars($cidade) ?>">
+                        <button type="submit" class="btn-clima">Buscar</button>
+                    </form>
 
                 </div>
 
@@ -262,8 +269,8 @@ $conn->close();
                     <?php foreach ($trensAtivosLista as $tremAtivo): ?>
                         <div class="item-trem">
                             <div class="item-trem-conteudo">
-                                <strong><?= htmlspecialchars((string) $tremAtivo['nome'], ENT_QUOTES, 'UTF-8') ?></strong>
-                                <small><?= htmlspecialchars((string) $tremAtivo['tipo'], ENT_QUOTES, 'UTF-8') ?></small>
+                                <strong><?= htmlspecialchars($tremAtivo['nome']) ?></strong>
+                                <small><?= htmlspecialchars($tremAtivo['tipo']) ?></small>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -281,68 +288,7 @@ $conn->close();
 
 
     
-    <script src="../../script/previsao_clima.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const integridadeSistema = document.getElementById('integridadeSistema');
-            const statusIntegridadeSistema = document.getElementById('statusIntegridadeSistema');
-            const iconeIntegridadeSistema = document.getElementById('iconeIntegridadeSistema');
 
-            if (!integridadeSistema || !statusIntegridadeSistema || !iconeIntegridadeSistema) {
-                return;
-            }
-
-            const endpoints = [
-                'crud_usuarios/listar_usuario.php',
-                'crud_rotas/listar.php',
-                'crud_sensores/listar_sensor.php',
-                'crud_trens/listar_trem.php'
-            ];
-
-            let atendidos = 0;
-
-            for (const endpoint of endpoints) {
-                try {
-                    const resposta = await fetch(endpoint, {
-                        method: 'GET',
-                        cache: 'no-store'
-                    });
-
-                    if (!resposta.ok) {
-                        throw new Error(`HTTP ${resposta.status}`);
-                    }
-
-                    const dados = await resposta.json();
-
-                    if (!dados || dados.status !== 'success') {
-                        throw new Error('Resposta inválida');
-                    }
-
-                    atendidos += 1;
-                } catch (error) {
-                    console.warn('CRUD indisponível:', endpoint, error);
-                }
-            }
-
-            const percentual = Math.round((atendidos / endpoints.length) * 100);
-            integridadeSistema.textContent = `${percentual}%`;
-            integridadeSistema.classList.remove('texto-vermelho', 'texto-amarelo', 'texto-azul');
-            iconeIntegridadeSistema.classList.remove('vermelho', 'texto-vermelho', 'texto-amarelo', 'texto-azul');
-
-            if (percentual === 100) {
-                statusIntegridadeSistema.innerHTML = 'SISTEMA<br>ONLINE';
-                integridadeSistema.classList.add('texto-azul');
-                iconeIntegridadeSistema.classList.add('texto-azul');
-            } else if (percentual >= 75) {
-                statusIntegridadeSistema.innerHTML = 'ATENÇÃO<br>NO SISTEMA';
-                integridadeSistema.classList.add('texto-amarelo');
-                iconeIntegridadeSistema.classList.add('texto-amarelo');
-            } else {
-                statusIntegridadeSistema.innerHTML = 'SISTEMA<br>CRÍTICO';
-                integridadeSistema.classList.add('texto-vermelho');
-                iconeIntegridadeSistema.classList.add('texto-vermelho');
-            }
-        });
-    </script>
+    <script src="../../script/script.js"></script>
 </body>
 </html>

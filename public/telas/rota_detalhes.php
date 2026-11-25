@@ -6,37 +6,32 @@ if (!isset($_SESSION["email"])) {
     exit;
 }
 
-require_once __DIR__ . '/../../infra/conexao.php';
+include "../../infra/conexao.php";
+include "../../infra/funcoes.php";
 
-$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-
-if (!$id) {
-    header('Location: rotas.php');
-    exit;
-}
+$id = (int) ($_GET["id"] ?? 0);
 
 $stmt = $conn->prepare("SELECT id, nome, localizacao_inicial, localizacao_final FROM rotas WHERE id = ?");
-$stmt->bind_param('i', $id);
+$stmt->bind_param("i", $id);
 $stmt->execute();
-$resultado = $stmt->get_result();
-$rota = $resultado->fetch_assoc();
-$stmt->close();
+$rota = $stmt->get_result()->fetch_assoc();
 
 if (!$rota) {
-    header('Location: rotas.php');
+    header("Location: rotas.php");
     exit;
 }
 
-function extrairCepDetalhe(string $texto): string {
-    if (preg_match('/\d{5}-\d{3}/', $texto, $match)) {
-        return $match[0];
-    }
+$vazio = ["cep" => "", "logradouro" => "", "bairro" => "", "cidade" => "", "estado" => ""];
 
-    return '';
+$enderecoInicial = buscarCep(pegarCep($rota["localizacao_inicial"]));
+if ($enderecoInicial == null) {
+    $enderecoInicial = $vazio;
 }
 
-$cepInicial = extrairCepDetalhe((string) ($rota['localizacao_inicial'] ?? ''));
-$cepFinal = extrairCepDetalhe((string) ($rota['localizacao_final'] ?? ''));
+$enderecoFinal = buscarCep(pegarCep($rota["localizacao_final"]));
+if ($enderecoFinal == null) {
+    $enderecoFinal = $vazio;
+}
 ?>
 
 <!DOCTYPE html>
@@ -51,19 +46,19 @@ $cepFinal = extrairCepDetalhe((string) ($rota['localizacao_final'] ?? ''));
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Detalhes da rota | MockingRail</title>
 </head>
-<body data-usuario-tipo="<?= htmlspecialchars($_SESSION["tipo"] ?? "", ENT_QUOTES, 'UTF-8') ?>">
+<body>
     <aside class="sidebar">
         <div class="logo-box">
             <h1 class="logo">R<span>Λ</span>IL</h1>
             <div class="logo-line"></div>
         </div>
 
-        <a href="usuario_detalhes.php?id=<?= htmlspecialchars((string) ($_SESSION["id"] ?? 0), ENT_QUOTES, 'UTF-8') ?>" class="usuario-box-link">
+        <a href="usuario_detalhes.php?id=<?= htmlspecialchars($_SESSION["id"] ?? 0) ?>" class="usuario-box-link">
             <div class="usuario-box">
                 <i class="bi bi-person-fill"></i>
                 <div class="usuario-info">
                     <span>Usuário</span>
-                    <p id="emailusuario"><?= htmlspecialchars($_SESSION["email"], ENT_QUOTES, 'UTF-8') ?></p>
+                    <p id="emailusuario"><?= htmlspecialchars($_SESSION["email"]) ?></p>
                 </div>
             </div>
         </a>
@@ -116,22 +111,22 @@ $cepFinal = extrairCepDetalhe((string) ($rota['localizacao_final'] ?? ''));
             <div class="usuario-detalhes-grid">
                 <div class="usuario-detalhe-item">
                     <span>ID</span>
-                    <strong><?= htmlspecialchars((string) $rota['id'], ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($rota['id']) ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>Nome</span>
-                    <strong><?= htmlspecialchars((string) $rota['nome'], ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($rota['nome']) ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>Origem</span>
-                    <strong><?= htmlspecialchars((string) ($rota['localizacao_inicial'] ?? 'Não informado'), ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($rota['localizacao_inicial'] ?? 'Não informado') ?></strong>
                 </div>
 
                 <div class="usuario-detalhe-item">
                     <span>Destino</span>
-                    <strong><?= htmlspecialchars((string) ($rota['localizacao_final'] ?? 'Não informado'), ENT_QUOTES, 'UTF-8') ?></strong>
+                    <strong><?= htmlspecialchars($rota['localizacao_final'] ?? 'Não informado') ?></strong>
                 </div>
             </div>
 
@@ -141,24 +136,24 @@ $cepFinal = extrairCepDetalhe((string) ($rota['localizacao_final'] ?? ''));
                         <h3>Endereço inicial</h3>
                         <div class="mb-3">
                             <label class="label-custom">CEP</label>
-                            <input type="text" id="cep-inicial-detalhe" class="form-control input-custom" readonly value="<?= htmlspecialchars($cepInicial, ENT_QUOTES, 'UTF-8') ?>">
+                            <input type="text" id="cep-inicial-detalhe" class="form-control input-custom" readonly value="<?= htmlspecialchars($enderecoInicial['cep']) ?>">
                         </div>
                         <div class="mb-3">
                             <label class="label-custom">Logradouro</label>
-                            <input type="text" id="logradouro-inicial-detalhe" class="form-control input-custom" readonly>
+                            <input type="text" id="logradouro-inicial-detalhe" class="form-control input-custom" readonly value="<?= htmlspecialchars($enderecoInicial['logradouro']) ?>">
                         </div>
                         <div class="mb-3">
                             <label class="label-custom">Bairro</label>
-                            <input type="text" id="bairro-inicial-detalhe" class="form-control input-custom" readonly>
+                            <input type="text" id="bairro-inicial-detalhe" class="form-control input-custom" readonly value="<?= htmlspecialchars($enderecoInicial['bairro']) ?>">
                         </div>
                         <div class="row g-3">
                             <div class="col-8">
                                 <label class="label-custom">Cidade</label>
-                                <input type="text" id="cidade-inicial-detalhe" class="form-control input-custom" readonly>
+                                <input type="text" id="cidade-inicial-detalhe" class="form-control input-custom" readonly value="<?= htmlspecialchars($enderecoInicial['cidade']) ?>">
                             </div>
                             <div class="col-4">
                                 <label class="label-custom">UF</label>
-                                <input type="text" id="estado-inicial-detalhe" class="form-control input-custom" readonly>
+                                <input type="text" id="estado-inicial-detalhe" class="form-control input-custom" readonly value="<?= htmlspecialchars($enderecoInicial['estado']) ?>">
                             </div>
                         </div>
                     </div>
@@ -169,24 +164,24 @@ $cepFinal = extrairCepDetalhe((string) ($rota['localizacao_final'] ?? ''));
                         <h3>Endereço final</h3>
                         <div class="mb-3">
                             <label class="label-custom">CEP</label>
-                            <input type="text" id="cep-final-detalhe" class="form-control input-custom" readonly value="<?= htmlspecialchars($cepFinal, ENT_QUOTES, 'UTF-8') ?>">
+                            <input type="text" id="cep-final-detalhe" class="form-control input-custom" readonly value="<?= htmlspecialchars($enderecoFinal['cep']) ?>">
                         </div>
                         <div class="mb-3">
                             <label class="label-custom">Logradouro</label>
-                            <input type="text" id="logradouro-final-detalhe" class="form-control input-custom" readonly>
+                            <input type="text" id="logradouro-final-detalhe" class="form-control input-custom" readonly value="<?= htmlspecialchars($enderecoFinal['logradouro']) ?>">
                         </div>
                         <div class="mb-3">
                             <label class="label-custom">Bairro</label>
-                            <input type="text" id="bairro-final-detalhe" class="form-control input-custom" readonly>
+                            <input type="text" id="bairro-final-detalhe" class="form-control input-custom" readonly value="<?= htmlspecialchars($enderecoFinal['bairro']) ?>">
                         </div>
                         <div class="row g-3">
                             <div class="col-8">
                                 <label class="label-custom">Cidade</label>
-                                <input type="text" id="cidade-final-detalhe" class="form-control input-custom" readonly>
+                                <input type="text" id="cidade-final-detalhe" class="form-control input-custom" readonly value="<?= htmlspecialchars($enderecoFinal['cidade']) ?>">
                             </div>
                             <div class="col-4">
                                 <label class="label-custom">UF</label>
-                                <input type="text" id="estado-final-detalhe" class="form-control input-custom" readonly>
+                                <input type="text" id="estado-final-detalhe" class="form-control input-custom" readonly value="<?= htmlspecialchars($enderecoFinal['estado']) ?>">
                             </div>
                         </div>
                     </div>
@@ -198,41 +193,5 @@ $cepFinal = extrairCepDetalhe((string) ($rota['localizacao_final'] ?? ''));
             </div>
         </div>
     </main>
-
-    <script>
-        async function consultarEnderecoPorCep(cep, campoPrefixo) {
-            if (!cep || !/^\d{5}-\d{3}$/.test(cep)) {
-                return;
-            }
-
-            try {
-                const resposta = await fetch(`https://viacep.com.br/ws/${cep.replace(/\D/g, '')}/json/`);
-                const dados = await resposta.json();
-
-                if (dados.erro) {
-                    return;
-                }
-
-                const prefix = campoPrefixo;
-                document.getElementById(`logradouro-${prefix}-detalhe`).value = dados.logradouro || '';
-                document.getElementById(`bairro-${prefix}-detalhe`).value = dados.bairro || '';
-                document.getElementById(`cidade-${prefix}-detalhe`).value = dados.localidade || '';
-                document.getElementById(`estado-${prefix}-detalhe`).value = dados.uf || '';
-            } catch (erro) {
-                console.error('Erro ao consultar CEP do detalhe da rota:', erro);
-            }
-        }
-
-        const cepInicial = document.getElementById('cep-inicial-detalhe')?.value;
-        const cepFinal = document.getElementById('cep-final-detalhe')?.value;
-
-        if (cepInicial) {
-            consultarEnderecoPorCep(cepInicial, 'inicial');
-        }
-
-        if (cepFinal) {
-            consultarEnderecoPorCep(cepFinal, 'final');
-        }
-    </script>
 </body>
 </html>
