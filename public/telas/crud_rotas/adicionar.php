@@ -28,9 +28,12 @@ if ($enderecoFinal == null) {
 $inicio = montarEndereco($enderecoInicial);
 $fim = montarEndereco($enderecoFinal);
 
+<<<<<<< HEAD
 $inicio = mb_substr($inicio, 0, 150);
 $fim = mb_substr($fim, 0, 150);
 
+=======
+>>>>>>> f74603d39f029d898bd94dc783e6b7fdb5c2e255
 $sql = "INSERT INTO rotas (nome, localizacao_inicial, localizacao_final, trem_id) VALUES (?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("sssi", $nome, $inicio, $fim, $tremId);

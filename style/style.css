@@ -1864,11 +1864,11 @@ body.pagina-institucional {
 }
 
 .endereco-rota{
-    width: 20%;
+    width: auto;
 }
 
 .nome-rota{
-    width: 40%;
+    width: auto;
 }
 
 .acoes-rota {

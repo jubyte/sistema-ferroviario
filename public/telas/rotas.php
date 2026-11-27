@@ -13,7 +13,11 @@ $busca = $_GET["busca"] ?? "";
 $textoBusca = "%" . $busca . "%";
 
 $sql = "SELECT rotas.id, rotas.nome, rotas.localizacao_inicial, rotas.localizacao_final, trens.nome AS trem_nome FROM rotas
+<<<<<<< HEAD
         LEFT JOIN trens ON rotas.trem_id = trens.id
+=======
+        INNER JOIN trens ON rotas.trem_id = trens.id
+>>>>>>> f74603d39f029d898bd94dc783e6b7fdb5c2e255
         WHERE rotas.id LIKE ? OR rotas.nome LIKE ? OR rotas.localizacao_inicial LIKE ? OR rotas.localizacao_final LIKE ?  OR trens.nome LIKE ?
         ORDER BY rotas.id";
 
@@ -235,7 +239,11 @@ if (isset($_GET["editar"])) {
                             <td><a class="usuario-link" href="rota_detalhes.php?id=<?= $rota["id"] ?>"><?= htmlspecialchars($rota["nome"]) ?></a></td>
                             <td><?= htmlspecialchars(resumoLocal($rota["localizacao_inicial"])) ?></td>
                             <td><?= htmlspecialchars(resumoLocal($rota["localizacao_final"])) ?></td>
+<<<<<<< HEAD
                             <td><?php if ($rota["trem_nome"] == null) { echo "Não informado"; } else { echo htmlspecialchars($rota["trem_nome"]); } ?></td>
+=======
+                            <td><?= htmlspecialchars($rota["trem_nome"]) ?></td>
+>>>>>>> f74603d39f029d898bd94dc783e6b7fdb5c2e255
                             <td>
                                 <a href="rotas.php?editar=<?= $rota["id"] ?>" class="botao-rotas"><i class="bi bi-pencil-square"></i></a>
 
