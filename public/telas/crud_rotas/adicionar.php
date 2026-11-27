@@ -8,9 +8,10 @@ verificarAdmin("../rotas.php");
 $nome = trim($_POST["nome"] ?? "");
 $cepInicial = trim($_POST["cep_inicial"] ?? "");
 $cepFinal = trim($_POST["cep_final"] ?? "");
+$tremId = (int) ($_POST["trem_id"] ?? 0);
 
-if ($nome == "" || $cepInicial == "" || $cepFinal == "") {
-    voltar("../rotas.php", "Preencha o nome e os CEPs de início e fim.");
+if ($nome == "" || $cepInicial == "" || $cepFinal == "" || $tremId <= 0)  {
+    voltar("../rotas.php", "Preencha todos os campos obrigatórios.");
 }
 
 $enderecoInicial = buscarCep($cepInicial);
@@ -27,13 +28,16 @@ if ($enderecoFinal == null) {
 $inicio = montarEndereco($enderecoInicial);
 $fim = montarEndereco($enderecoFinal);
 
-$sql = "INSERT INTO rotas (nome, localizacao_inicial, localizacao_final) VALUES (?, ?, ?)";
+$inicio = mb_substr($inicio, 0, 150);
+$fim = mb_substr($fim, 0, 150);
+
+$sql = "INSERT INTO rotas (nome, localizacao_inicial, localizacao_final, trem_id) VALUES (?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("sss", $nome, $inicio, $fim);
+$stmt->bind_param("sssi", $nome, $inicio, $fim, $tremId);
 
 if ($stmt->execute()) {
     voltar("../rotas.php", "Rota cadastrada com sucesso!");
 } else {
-    voltar("../rotas.php", "Erro ao cadastrar rota.");
+    voltar("../rotas.php", "Erro ao cadastrar rota: " . $stmt->error);
 }
 ?>

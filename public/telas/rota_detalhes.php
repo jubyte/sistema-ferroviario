@@ -11,7 +11,11 @@ include "../../infra/funcoes.php";
 
 $id = (int) ($_GET["id"] ?? 0);
 
-$stmt = $conn->prepare("SELECT id, nome, localizacao_inicial, localizacao_final FROM rotas WHERE id = ?");
+$stmt = $conn->prepare("SELECT r.id, r.nome, r.localizacao_inicial, r.localizacao_final, r.trem_id,
+                               t.nome AS trem_nome, t.empresa AS trem_empresa, t.tipo AS trem_tipo
+                        FROM rotas r
+                        LEFT JOIN trens t ON t.id = r.trem_id
+                        WHERE r.id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 $rota = $stmt->get_result()->fetch_assoc();
@@ -20,6 +24,11 @@ if (!$rota) {
     header("Location: rotas.php");
     exit;
 }
+
+$stmtSensores = $conn->prepare("SELECT id, nome, tipo, status FROM sensores WHERE rota_id = ? ORDER BY nome");
+$stmtSensores->bind_param("i", $id);
+$stmtSensores->execute();
+$sensores = $stmtSensores->get_result();
 
 $vazio = ["cep" => "", "logradouro" => "", "bairro" => "", "cidade" => "", "estado" => ""];
 
@@ -128,6 +137,25 @@ if ($enderecoFinal == null) {
                     <span>Destino</span>
                     <strong><?= htmlspecialchars($rota['localizacao_final'] ?? 'Não informado') ?></strong>
                 </div>
+
+                <div class="usuario-detalhe-item">
+                    <span>Trem vinculado</span>
+                    <strong>
+                        <?php if ($rota['trem_nome'] == null) { echo "Não informado"; } else { ?>
+                            <a class="usuario-link" href="trem_detalhes.php?id=<?= $rota['trem_id'] ?>"><?= htmlspecialchars($rota['trem_nome']) ?></a>
+                        <?php } ?>
+                    </strong>
+                </div>
+
+                <div class="usuario-detalhe-item">
+                    <span>Empresa do trem</span>
+                    <strong><?= htmlspecialchars($rota['trem_empresa'] ?? 'Não informado') ?></strong>
+                </div>
+
+                <div class="usuario-detalhe-item">
+                    <span>Tipo do trem</span>
+                    <strong><?= htmlspecialchars($rota['trem_tipo'] ?? 'Não informado') ?></strong>
+                </div>
             </div>
 
             <div class="row g-4 mt-2">
@@ -187,6 +215,38 @@ if ($enderecoFinal == null) {
                     </div>
                 </div>
             </div>
+
+            <h2 class="usuario__title mt-4">
+                <i class="bi bi-cpu-fill"></i>
+                SENSORES DESTA ROTA
+            </h2>
+
+            <?php if ($sensores->num_rows == 0) { ?>
+                <p>Nenhum sensor vinculado a esta rota.</p>
+            <?php } else { ?>
+                <div class="sensor_tabela">
+                    <table class="table table-bordered align-middle">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>NOME</th>
+                                <th>TIPO</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($sensor = $sensores->fetch_assoc()) { ?>
+                                <tr>
+                                    <td><?= $sensor['id'] ?></td>
+                                    <td><a class="usuario-link" href="sensor_detalhes.php?id=<?= $sensor['id'] ?>"><?= htmlspecialchars($sensor['nome']) ?></a></td>
+                                    <td><?= htmlspecialchars($sensor['tipo']) ?></td>
+                                    <td><?= htmlspecialchars($sensor['status']) ?></td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php } ?>
 
             <div class="mt-4">
                 <a href="rotas.php" class="btn botao-custom">VOLTAR PARA ROTAS</a>

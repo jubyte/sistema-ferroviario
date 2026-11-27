@@ -14,6 +14,6 @@ $stmt->bind_param("i", $id);
 if ($stmt->execute()) {
     voltar("../rotas.php", "Rota excluída com sucesso!");
 } else {
-    voltar("../rotas.php", "Não foi possível excluir a rota. Verifique se ela tem sensores ligados a ela.");
+    voltar("../rotas.php", "Não foi possível excluir a rota.");
 }
 ?>
