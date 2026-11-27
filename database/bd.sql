@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS rotas (
     nome VARCHAR(100) NOT NULL,
     localizacao_inicial VARCHAR(150) NOT NULL,
     localizacao_final VARCHAR(150) NOT NULL,
-    trem_id INT UNSIGNED DEFAULT NULL,
+    trem_id INT UNSIGNED NOT NULL,
     descricao TEXT,
     distancia DECIMAL(10,2),
     tempo_estimado INT,

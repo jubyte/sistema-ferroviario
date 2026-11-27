@@ -12,14 +12,17 @@ include "../../infra/funcoes.php";
 $busca = $_GET["busca"] ?? "";
 $textoBusca = "%" . $busca . "%";
 
-$sql = "SELECT id, nome, localizacao_inicial, localizacao_final FROM rotas
-        WHERE id LIKE ? OR nome LIKE ? OR localizacao_inicial LIKE ? OR localizacao_final LIKE ?
-        ORDER BY id";
+$sql = "SELECT rotas.id, rotas.nome, rotas.localizacao_inicial, rotas.localizacao_final, trens.nome AS trem_nome FROM rotas
+        INNER JOIN trens ON rotas.trem_id = trens.id
+        WHERE rotas.id LIKE ? OR rotas.nome LIKE ? OR rotas.localizacao_inicial LIKE ? OR rotas.localizacao_final LIKE ?  OR trens.nome LIKE ?
+        ORDER BY rotas.id";
+
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ssss", $textoBusca, $textoBusca, $textoBusca, $textoBusca);
+$stmt->bind_param("sssss", $textoBusca, $textoBusca, $textoBusca, $textoBusca, $textoBusca);
+
 $stmt->execute();
 $rotas = $stmt->get_result();
-
+$trens = $conn->query("SELECT id, nome FROM trens ORDER BY nome");
 $editando = false;
 $acao = "crud_rotas/adicionar.php";
 $titulo = "CADASTRAR ROTA";
@@ -28,6 +31,7 @@ $id = "";
 $nome = "";
 $cepInicial = "";
 $cepFinal = "";
+$tremId = "";
 
 if (isset($_GET["editar"])) {
     verificarAdmin("rotas.php");
@@ -47,6 +51,7 @@ if (isset($_GET["editar"])) {
         $nome = $rota["nome"];
         $cepInicial = pegarCep($rota["localizacao_inicial"]);
         $cepFinal = pegarCep($rota["localizacao_final"]);
+        $tremId = $rota["trem_id"];
     }
 }
 ?>
@@ -146,12 +151,12 @@ if (isset($_GET["editar"])) {
 
                 <div class="row g-4 align-items-space-between">
 
-                    <div class="nome-rota">
+                    <div class="col-12 col-lg-4 nome-rota">
                         <label for="nome" class="label-custom">NOME</label>
                         <input type="text" id="nome" name="nome" class="form-control input-custom" maxlength="100" value="<?= htmlspecialchars($nome) ?>" required>
                     </div>
 
-                    <div class="endereco-rota">
+                    <div class="col-12 col-lg-2 endereco-rota">
                         <div class="rota-card">
                             <label for="cep-inicial" class="label-custom">CEP - Início</label>
                             <div class="input-cep-group">
@@ -160,7 +165,7 @@ if (isset($_GET["editar"])) {
                         </div>
                     </div>
 
-                    <div class="endereco-rota fim">
+                    <div class="col-12 col-lg-2 endereco-rota fim">
                         <div class="rota-card">
                             <label for="cep-final" class="label-custom">CEP - Fim</label>
                             <div class="input-cep-group">
@@ -170,6 +175,20 @@ if (isset($_GET["editar"])) {
                     </div>
 
                     <div class="col-12 col-lg-2">
+                        <label for="trem_id" class="label-custom">TREM VINCULADO</label>
+                        <select name="trem_id" id="trem_id"
+                            class="form-control input-custom" required>
+                            <option value="">Selecione um trem</option>
+                            <?php while ($trem = $trens->fetch_assoc()) { ?>
+                                <option value="<?= $trem["id"] ?>"
+                                    <?= ($tremId == $trem["id"]) ? "selected" : "" ?>>
+                                    <?= htmlspecialchars($trem["nome"]) ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-lg-3">
                         <div class="acoes-rota">
                             <button type="submit" class="btn botao-custom w-100"><?= $textoBotao ?></button>
 
@@ -205,6 +224,7 @@ if (isset($_GET["editar"])) {
                         <th>NOME</th>
                         <th>INÍCIO</th>
                         <th>FIM</th>
+                        <th>TREM VINCULADO</th>
                         <th>Editar</th>
                     </tr>
                 </thead>
@@ -215,6 +235,7 @@ if (isset($_GET["editar"])) {
                             <td><a class="usuario-link" href="rota_detalhes.php?id=<?= $rota["id"] ?>"><?= htmlspecialchars($rota["nome"]) ?></a></td>
                             <td><?= htmlspecialchars(resumoLocal($rota["localizacao_inicial"])) ?></td>
                             <td><?= htmlspecialchars(resumoLocal($rota["localizacao_final"])) ?></td>
+                            <td><?= htmlspecialchars($rota["trem_nome"]) ?></td>
                             <td>
                                 <a href="rotas.php?editar=<?= $rota["id"] ?>" class="botao-rotas"><i class="bi bi-pencil-square"></i></a>
 
