@@ -9,11 +9,12 @@ $id = (int) ($_POST["id"] ?? 0);
 $nome = trim($_POST["nome"] ?? "");
 $cepInicial = trim($_POST["cep_inicial"] ?? "");
 $cepFinal = trim($_POST["cep_final"] ?? "");
+$tremId = (int) ($_POST["trem_id"] ?? 0);
 
 $voltarPara = "../rotas.php?editar=" . $id;
 
-if ($nome == "" || $cepInicial == "" || $cepFinal == "") {
-    voltar($voltarPara, "Preencha o nome e os CEPs de início e fim.");
+if ($nome == "" || $cepInicial == "" || $cepFinal == "" || $tremId <= 0) {
+    voltar($voltarPara, "Preencha todos os campos obrigatórios.");
 }
 
 $enderecoInicial = buscarCep($cepInicial);
@@ -30,9 +31,9 @@ if ($enderecoFinal == null) {
 $inicio = montarEndereco($enderecoInicial);
 $fim = montarEndereco($enderecoFinal);
 
-$sql = "UPDATE rotas SET nome = ?, localizacao_inicial = ?, localizacao_final = ? WHERE id = ?";
+$sql = "UPDATE rotas SET nome = ?, localizacao_inicial = ?, localizacao_final = ?, trem_id = ? WHERE id = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("sssi", $nome, $inicio, $fim, $id);
+$stmt->bind_param("sssii", $nome, $inicio, $fim, $tremId, $id);
 
 if ($stmt->execute()) {
     voltar("../rotas.php", "Rota editada com sucesso!");
